@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Management - Google Sheets | OOES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f9d58 0%, #0d8043 100%);
+            min-height: 100vh;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f9d58 0%, #0d8043 100%);
+        }
+        .data-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .data-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-color: #0f9d58;
+        }
+        .spreadsheet-preview {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        .spreadsheet-preview:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.02);
+        }
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .data-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        .data-row:hover {
+            background: #f9fafb;
+        }
+        .formula-bar {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold flex items-center">
+                        <i class="fab fa-google mr-3"></i>
+                        Data Management - Google Sheets
+                    </h1>
+                    <p class="text-green-100 mt-1">Spreadsheet & Data Analysis</p>
+                </div>
+                <a href="tools.html" class="bg-white text-green-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Tools
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-8">
+        <div class="bg-white rounded-lg shadow-md p-8">
+            
+            <!-- Data Overview -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-database mr-3 text-green-600"></i>
+                    Data Overview
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-green-600">24</div>
+                        <div class="text-gray-600">Total Sheets</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-blue-600">15.2K</div>
+                        <div class="text-gray-600">Data Rows</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-purple-600">89</div>
+                        <div class="text-gray-600">Formulas</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-yellow-600">12</div>
+                        <div class="text-gray-600">Charts</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-2xl font-bold text-gray-800">
+                        <i class="fas fa-bolt mr-3 text-green-600"></i>
+                        Quick Actions
+                    </h3>
+                    <button class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
+                        <i class="fas fa-plus mr-2"></i>Create Sheet
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <button class="data-card text-center">
+                        <i class="fas fa-file-excel text-3xl text-green-600 mb-3"></i>
+                        <h4 class="font-semibold">New Sheet</h4>
+                        <p class="text-gray-600 text-sm">Create spreadsheet</p>
+                    </button>
+                    <button class="data-card text-center">
+                        <i class="fas fa-upload text-3xl text-green-600 mb-3"></i>
+                        <h4 class="font-semibold">Import Data</h4>
+                        <p class="text-gray-600 text-sm">Upload CSV/Excel</p>
+                    </button>
+                    <button class="data-card text-center">
+                        <i class="fas fa-chart-bar text-3xl text-green-600 mb-3"></i>
+                        <h4 class="font-semibold">Create Chart</h4>
+                        <p class="text-gray-600 text-sm">Visualize data</p>
+                    </button>
+                    <button class="data-card text-center">
+                        <i class="fas fa-calculator text-3xl text-green-600 mb-3"></i>
+                        <h4 class="font-semibold">Add Formula</h4>
+                        <p class="text-gray-600 text-sm">Calculate values</p>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Recent Spreadsheets -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-clock mr-3 text-green-600"></i>
+                    Recent Spreadsheets
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="spreadsheet-preview">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="font-semibold">Q4 Financial Report</h4>
+                            <i class="fas fa-star text-yellow-500"></i>
+                        </div>
+                        <div class="formula-bar text-xs mb-3">
+                            =SUM(B2:B12)*1.15
+                        </div>
+                        <div class="grid grid-cols-4 gap-1 text-xs">
+                            <div class="font-semibold p-1 bg-gray-100">Month</div>
+                            <div class="font-semibold p-1 bg-gray-100">Revenue</div>
+                            <div class="font-semibold p-1 bg-gray-100">Expenses</div>
+                            <div class="font-semibold p-1 bg-gray-100">Profit</div>
+                            <div class="p-1">Oct</div>
+                            <div class="p-1">45,000</div>
+                            <div class="p-1">32,000</div>
+                            <div class="p-1 text-green-600">13,000</div>
+                            <div class="p-1">Nov</div>
+                            <div class="p-1">52,000</div>
+                            <div class="p-1">38,000</div>
+                            <div class="p-1 text-green-600">14,000</div>
+                        </div>
+                        <div class="text-sm text-gray-600 mt-2">Modified 2 hours ago • 1,245 rows</div>
+                    </div>
+                    
+                    <div class="spreadsheet-preview">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="font-semibold">Customer Database</h4>
+                            <i class="fas fa-users text-blue-500"></i>
+                        </div>
+                        <div class="formula-bar text-xs mb-3">
+                            =COUNTA(A2:A500)
+                        </div>
+                        <div class="grid grid-cols-3 gap-1 text-xs">
+                            <div class="font-semibold p-1 bg-gray-100">Name</div>
+                            <div class="font-semibold p-1 bg-gray-100">Email</div>
+                            <div class="font-semibold p-1 bg-gray-100">Status</div>
+                            <div class="p-1">John Smith</div>
+                            <div class="p-1">john@email.com</div>
+                            <div class="p-1 text-green-600">Active</div>
+                            <div class="p-1">Sarah Johnson</div>
+                            <div class="p-1">sarah@email.com</div>
+                            <div class="p-1 text-green-600">Active</div>
+                        </div>
+                        <div class="text-sm text-gray-600 mt-2">Modified yesterday • 487 rows</div>
+                    </div>
+                    
+                    <div class="spreadsheet-preview">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="font-semibold">Project Timeline</h4>
+                            <i class="fas fa-calendar text-purple-500"></i>
+                        </div>
+                        <div class="formula-bar text-xs mb-3">
+                            =TODAY()-A2
+                        </div>
+                        <div class="grid grid-cols-3 gap-1 text-xs">
+                            <div class="font-semibold p-1 bg-gray-100">Task</div>
+                            <div class="font-semibold p-1 bg-gray-100">Due Date</div>
+                            <div class="font-semibold p-1 bg-gray-100">Days Left</div>
+                            <div class="p-1">Website Launch</div>
+                            <div class="p-1">2024-12-15</div>
+                            <div class="p-1 text-red-600">5</div>
+                            <div class="p-1">App Development</div>
+                            <div class="p-1">2024-12-20</div>
+                            <div class="p-1 text-yellow-600">10</div>
+                        </div>
+                        <div class="text-sm text-gray-600 mt-2">Modified 3 days ago • 89 rows</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Data Analysis -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-chart-line mr-3 text-green-600"></i>
+                    Data Analysis
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="chart-container">
+                        <h4 class="font-semibold text-gray-800 mb-4">Monthly Revenue Trend</h4>
+                        <div class="h-40 bg-gradient-to-r from-green-100 to-green-200 rounded-lg flex items-end justify-around p-4">
+                            <div class="w-8 bg-green-500 rounded-t" style="height: 60%"></div>
+                            <div class="w-8 bg-green-500 rounded-t" style="height: 80%"></div>
+                            <div class="w-8 bg-green-500 rounded-t" style="height: 70%"></div>
+                            <div class="w-8 bg-green-500 rounded-t" style="height: 90%"></div>
+                            <div class="w-8 bg-green-500 rounded-t" style="height: 85%"></div>
+                            <div class="w-8 bg-green-500 rounded-t" style="height: 95%"></div>
+                        </div>
+                        <div class="flex justify-around text-xs text-gray-600 mt-2">
+                            <span>Jul</span>
+                            <span>Aug</span>
+                            <span>Sep</span>
+                            <span>Oct</span>
+                            <span>Nov</span>
+                            <span>Dec</span>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h4 class="font-semibold text-gray-800 mb-4">Task Distribution</h4>
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Completed</span>
+                                    <span class="text-green-600">68%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-green-500 h-3 rounded-full" style="width: 68%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>In Progress</span>
+                                    <span class="text-yellow-600">24%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-yellow-500 h-3 rounded-full" style="width: 24%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span>Pending</span>
+                                    <span class="text-red-600">8%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-red-500 h-3 rounded-full" style="width: 8%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formulas & Functions -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-calculator mr-3 text-green-600"></i>
+                    Common Formulas
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="data-card">
+                        <h4 class="font-semibold mb-2">Financial Calculations</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="font-mono bg-gray-100 p-2 rounded">=SUM(A1:A12)</div>
+                            <div class="font-mono bg-gray-100 p-2 rounded">=AVERAGE(B2:B10)</div>
+                            <div class="font-mono bg-gray-100 p-2 rounded">=IF(C2>1000,"High","Low")</div>
+                            <div class="font-mono bg-gray-100 p-2 rounded">=VLOOKUP(E2,A2:D20,3,FALSE)</div>
+                        </div>
+                    </div>
+                    <div class="data-card">
+                        <h4 class="font-semibold mb-2">Data Analysis</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="font-mono bg-gray-100 p-2 rounded">=COUNTIF(A:A,"Completed")</div>
+                            <div class="font-mono bg-gray-100 p-2 rounded">=SUMIF(B:B,">1000")</div>
+                            <div class="font-mono bg-gray-100 p-2 rounded">=CONCATENATE(A2," ",B2)</div>
+                            <div class="font-mono bg-gray-100 p-2 rounded">=TODAY()-30</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-8 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <a href="index.html" class="bg-white text-green-600 px-6 py-3 rounded-lg hover:bg-gray-100 transition inline-block">
+                <i class="fas fa-home mr-2"></i>Back to Dashboard
+            </a>
+        </div>
+    </footer>
+</body>
+</html>

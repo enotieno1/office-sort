@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail - Email System | OOES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ea4335 0%, #c5221f 100%);
+            min-height: 100vh;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #ea4335 0%, #c5221f 100%);
+        }
+        .email-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .email-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-color: #ea4335;
+        }
+        .email-unread {
+            border-left: 4px solid #ea4335;
+            background: #fef2f2;
+        }
+        .compose-btn {
+            background: linear-gradient(135deg, #ea4335 0%, #c5221f 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        .compose-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(234, 67, 53, 0.3);
+        }
+        .folder-item {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        .folder-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold flex items-center">
+                        <i class="fab fa-google mr-3"></i>
+                        Gmail - Email System
+                    </h1>
+                    <p class="text-red-100 mt-1">Email Communication & Automation</p>
+                </div>
+                <a href="tools.html" class="bg-white text-red-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Tools
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-8">
+        <div class="bg-white rounded-lg shadow-md p-8">
+            
+            <!-- Email Stats -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-envelope mr-3 text-red-600"></i>
+                    Email Overview
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-red-600">1,247</div>
+                        <div class="text-gray-600">Total Emails</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-blue-600">23</div>
+                        <div class="text-gray-600">Unread</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-green-600">89%</div>
+                        <div class="text-gray-600">Delivered</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-purple-600">156</div>
+                        <div class="text-gray-600">Sent Today</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-2xl font-bold text-gray-800">
+                        <i class="fas fa-bolt mr-3 text-red-600"></i>
+                        Quick Actions
+                    </h3>
+                    <button class="compose-btn">
+                        <i class="fas fa-pen mr-2"></i>Compose
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <button class="email-card text-center">
+                        <i class="fas fa-inbox text-3xl text-red-600 mb-3"></i>
+                        <h4 class="font-semibold">Inbox</h4>
+                        <p class="text-gray-600 text-sm">23 unread</p>
+                    </button>
+                    <button class="email-card text-center">
+                        <i class="fas fa-paper-plane text-3xl text-red-600 mb-3"></i>
+                        <h4 class="font-semibold">Sent</h4>
+                        <p class="text-gray-600 text-sm">1,024 sent</p>
+                    </button>
+                    <button class="email-card text-center">
+                        <i class="fas fa-star text-3xl text-red-600 mb-3"></i>
+                        <h4 class="font-semibold">Starred</h4>
+                        <p class="text-gray-600 text-sm">45 starred</p>
+                    </button>
+                    <button class="email-card text-center">
+                        <i class="fas fa-trash text-3xl text-red-600 mb-3"></i>
+                        <h4 class="font-semibold">Trash</h4>
+                        <p class="text-gray-600 text-sm">67 items</p>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Recent Emails -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-clock mr-3 text-red-600"></i>
+                    Recent Emails
+                </h3>
+                <div class="space-y-2">
+                    <div class="email-card email-unread">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start">
+                                <img src="https://picsum.photos/seed/user1/40/40.jpg" alt="Sender" class="w-10 h-10 rounded-full mr-3">
+                                <div>
+                                    <div class="font-semibold">John Smith</div>
+                                    <div class="text-sm text-gray-600">john@company.com</div>
+                                    <div class="font-medium mt-1">Q4 Financial Report - Action Required</div>
+                                    <div class="text-sm text-gray-600 mt-1">Please review the attached Q4 financial report and provide your approval by end of day...</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm text-gray-600">10:30 AM</div>
+                                <div class="text-xs text-red-600 font-semibold">NEW</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="email-card">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start">
+                                <img src="https://picsum.photos/seed/user2/40/40.jpg" alt="Sender" class="w-10 h-10 rounded-full mr-3">
+                                <div>
+                                    <div class="font-semibold">Sarah Johnson</div>
+                                    <div class="text-sm text-gray-600">sarah@company.com</div>
+                                    <div class="font-medium mt-1">Meeting Rescheduled to Tomorrow</div>
+                                    <div class="text-sm text-gray-600 mt-1">Hi team, due to a conflict, tomorrow's meeting has been rescheduled to 3 PM...</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm text-gray-600">9:15 AM</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="email-card">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-start">
+                                <img src="https://picsum.photos/seed/user3/40/40.jpg" alt="Sender" class="w-10 h-10 rounded-full mr-3">
+                                <div>
+                                    <div class="font-semibold">Michael Chen</div>
+                                    <div class="text-sm text-gray-600">michael@company.com</div>
+                                    <div class="font-medium mt-1">Project Update - Phase 2 Complete</div>
+                                    <div class="text-sm text-gray-600 mt-1">Great news! Phase 2 of the project is now complete. All deliverables have been...</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm text-gray-600">Yesterday</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Folders & Labels -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-folder mr-3 text-red-600"></i>
+                    Folders & Labels
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="folder-item">
+                        <i class="fas fa-briefcase text-2xl text-red-600 mb-2"></i>
+                        <h4 class="font-semibold">Work</h4>
+                        <p class="text-gray-600 text-sm">523 emails • 12 unread</p>
+                    </div>
+                    <div class="folder-item">
+                        <i class="fas fa-users text-2xl text-red-600 mb-2"></i>
+                        <h4 class="font-semibold">Clients</h4>
+                        <p class="text-gray-600 text-sm">234 emails • 8 unread</p>
+                    </div>
+                    <div class="folder-item">
+                        <i class="fas fa-cog text-2xl text-red-600 mb-2"></i>
+                        <h4 class="font-semibold">System</h4>
+                        <p class="text-gray-600 text-sm">89 emails • 3 unread</p>
+                    </div>
+                    <div class="folder-item">
+                        <i class="fas fa-tag text-2xl text-red-600 mb-2"></i>
+                        <h4 class="font-semibold">Important</h4>
+                        <p class="text-gray-600 text-sm">45 emails • 0 unread</p>
+                    </div>
+                    <div class="folder-item">
+                        <i class="fas fa-file-alt text-2xl text-red-600 mb-2"></i>
+                        <h4 class="font-semibold">Drafts</h4>
+                        <p class="text-gray-600 text-sm">7 emails</p>
+                    </div>
+                    <div class="folder-item">
+                        <i class="fas fa-plus text-2xl text-gray-400 mb-2"></i>
+                        <h4 class="font-semibold text-gray-400">Create Label</h4>
+                        <p class="text-gray-400 text-sm">Add new organization</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Automation Rules -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-robot mr-3 text-red-600"></i>
+                    Email Automation
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold text-gray-700 mb-3">Active Rules</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-center justify-between">
+                                <span class="text-gray-700">Invoices → Auto-file</span>
+                                <span class="text-green-600">Active</span>
+                            </li>
+                            <li class="flex items-center justify-between">
+                                <span class="text-gray-700">Newsletter → Promotions</span>
+                                <span class="text-green-600">Active</span>
+                            </li>
+                            <li class="flex items-center justify-between">
+                                <span class="text-gray-700">Urgent → Star & Notify</span>
+                                <span class="text-green-600">Active</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-700 mb-3">Templates</h4>
+                        <div class="space-y-2">
+                            <div class="border rounded-lg p-3">
+                                <div class="font-medium">Meeting Confirmation</div>
+                                <div class="text-sm text-gray-600">Thank you for scheduling...</div>
+                            </div>
+                            <div class="border rounded-lg p-3">
+                                <div class="font-medium">Follow-up Email</div>
+                                <div class="text-sm text-gray-600">Just following up on...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-8 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <a href="index.html" class="bg-white text-red-600 px-6 py-3 rounded-lg hover:bg-gray-100 transition inline-block">
+                <i class="fas fa-home mr-2"></i>Back to Dashboard
+            </a>
+        </div>
+    </footer>
+</body>
+</html>
