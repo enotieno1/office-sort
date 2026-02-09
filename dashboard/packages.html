@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Packages - OOES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .package-card {
+            transition: all 0.3s ease;
+        }
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold flex items-center">
+                        <i class="fas fa-box mr-3"></i>
+                        Service Packages
+                    </h1>
+                    <p class="text-indigo-100 mt-1">Comprehensive Office Efficiency Solutions</p>
+                </div>
+                <a href="index.html" class="bg-white text-indigo-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition">
+                    <i class="fas fa-home mr-2"></i>Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-8">
+        <div class="bg-white rounded-lg shadow-md p-8">
+            
+            <!-- Package Overview -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">Choose Your Perfect Package</h2>
+                <p class="text-gray-600 mb-6">We offer three comprehensive packages designed to meet the needs of offices of all sizes. Each package includes our proven 5-system framework with varying levels of service and support.</p>
+            </div>
+
+            <!-- Starter Package -->
+            <div class="package-card border-2 border-gray-200 rounded-lg p-6 mb-8">
+                <div class="text-center mb-6">
+                    <div class="inline-block p-3 bg-blue-100 rounded-full mb-4">
+                        <i class="fas fa-rocket text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Starter Package</h3>
+                    <p class="text-4xl font-bold text-blue-600 mb-2">KSh 15,000<span class="text-lg text-gray-500">/month</span></p>
+                    <p class="text-gray-600">Perfect for small offices (1-5 employees)</p>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-semibold text-gray-800 mb-3">What's Included:</h4>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Document organization setup</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Email cleanup & filtering</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Basic data entry support</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>10 hours/month service</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Monthly reporting</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Basic compliance tracking</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Email support</li>
+                    </ul>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-semibold text-gray-800 mb-3">Ideal For:</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Small businesses with basic admin needs</li>
+                        <li>Startups establishing processes</li>
+                        <li>Professional practices (lawyers, consultants)</li>
+                        <li>Small NGOs and community organizations</li>
+                    </ul>
+                </div>
+                
+                <div class="text-center">
+                    <button class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition">
+                        <i class="fas fa-shopping-cart mr-2"></i>Choose Starter Package
+                    </button>
+                </div>
+            </div>
+
+            <!-- Business Package -->
+            <div class="package-card border-4 border-indigo-500 rounded-lg p-8 mb-8 relative transform scale-105 shadow-xl">
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <span class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
+                        <i class="fas fa-star mr-2"></i>RECOMMENDED FOR YOU<i class="fas fa-star ml-2"></i>
+                    </span>
+                </div>
+                
+                <div class="text-center mb-6">
+                    <div class="inline-block p-4 bg-gradient-to-r from-indigo-100 to-purple-100 rounded-full mb-4">
+                        <i class="fas fa-building text-4xl text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold text-gray-800 mb-2">Business Package</h3>
+                    <p class="text-5xl font-bold text-indigo-600 mb-2">KSh 40,000<span class="text-lg text-gray-500">/month</span></p>
+                    <p class="text-gray-600 text-lg">Perfect for growing businesses (5-20 employees)</p>
+                    <div class="mt-4 inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full font-semibold">
+                        <i class="fas fa-check-circle mr-2"></i>Best Value
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-semibold text-gray-800 mb-3 text-lg">Everything in Starter, plus:</h4>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3 text-lg"></i>
+                            <span class="font-medium">Advanced document management</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3 text-lg"></i>
+                            <span class="font-medium">Full email automation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3 text-lg"></i>
+                            <span class="font-medium">Admin & data automation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3 text-lg"></i>
+                            <span class="font-medium">Finance & billing support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3 text-lg"></i>
+                            <span class="font-medium">Customer follow-up systems</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3 text-lg"></i>
+                            <span class="font-medium">HR support & payroll assistance</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3 text-lg"></i>
+                            <span class="font-medium">30 hours/month service</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3 text-lg"></i>
+                            <span class="font-medium">Weekly reporting & consultation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3 text-lg"></i>
+                            <span class="font-medium">Priority email & phone support</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-semibold text-gray-800 mb-3">Ideal For:</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Medium-sized businesses</li>
+                        <li>Educational institutions</li>
+                        <li>Healthcare practices</li>
+                        <li>Manufacturing companies</li>
+                    </ul>
+                </div>
+                
+                <div class="text-center">
+                    <button onclick="selectBusinessPackage()" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-12 py-4 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition transform hover:scale-105 text-lg font-bold shadow-lg">
+                        <i class="fas fa-shopping-cart mr-2"></i>
+                        <span class="animate-pulse">Choose Business Package - Get Started Today!</span>
+                    </button>
+                    <p class="text-sm text-gray-500 mt-3">
+                        <i class="fas fa-clock mr-1"></i>Setup within 48 hours • 
+                        <i class="fas fa-shield-alt mr-1"></i>30-day guarantee • 
+                        <i class="fas fa-phone mr-1"></i>Free consultation
+                    </p>
+                </div>
+            </div>
+
+            <!-- Premium Package -->
+            <div class="package-card border-2 border-purple-500 rounded-lg p-6 mb-8">
+                <div class="text-center mb-6">
+                    <div class="inline-block p-3 bg-purple-100 rounded-full mb-4">
+                        <i class="fas fa-crown text-3xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Premium Package</h3>
+                    <p class="text-4xl font-bold text-purple-600 mb-2">KSh 80,000+<span class="text-lg text-gray-500">/month</span></p>
+                    <p class="text-gray-600">Full outsourcing for large organizations (20+ employees)</p>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-semibold text-gray-800 mb-3">Everything in Business, plus:</h4>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Complete office outsourcing</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Dedicated office manager</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Advanced compliance management</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Custom reporting & analytics</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Strategic consulting</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Process optimization</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Unlimited service hours</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>24/7 priority support</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>On-site assistance available</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Custom integrations</li>
+                    </ul>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-semibold text-gray-800 mb-3">Ideal For:</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>Large corporations</li>
+                        <li>Government agencies</li>
+                        <li>International organizations</li>
+                        <li>Enterprises requiring comprehensive support</li>
+                    </ul>
+                </div>
+                
+                <div class="text-center">
+                    <button class="bg-purple-600 text-white px-8 py-3 rounded-lg hover:bg-purple-700 transition">
+                        <i class="fas fa-shopping-cart mr-2"></i>Choose Premium Package
+                    </button>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="mb-8">
+                <h3 class="text-xl font-bold mb-4 text-gray-800">Package Comparison</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="border p-3 text-left">Feature</th>
+                                <th class="border p-3 text-center">Starter</th>
+                                <th class="border p-3 text-center">Business</th>
+                                <th class="border p-3 text-center">Premium</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border p-3">Monthly Service Hours</td>
+                                <td class="border p-3 text-center">10 hours</td>
+                                <td class="border p-3 text-center">30 hours</td>
+                                <td class="border p-3 text-center">Unlimited</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border p-3">Document Management</td>
+                                <td class="border p-3 text-center">Basic</td>
+                                <td class="border p-3 text-center">Advanced</td>
+                                <td class="border p-3 text-center">Complete</td>
+                            </tr>
+                            <tr>
+                                <td class="border p-3">Email Automation</td>
+                                <td class="border p-3 text-center">Basic</td>
+                                <td class="border p-3 text-center">Full</td>
+                                <td class="border p-3 text-center">Complete</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border p-3">Finance Support</td>
+                                <td class="border p-3 text-center">-</td>
+                                <td class="border p-3 text-center">Included</td>
+                                <td class="border p-3 text-center">Complete</td>
+                            </tr>
+                            <tr>
+                                <td class="border p-3">Dedicated Manager</td>
+                                <td class="border p-3 text-center">-</td>
+                                <td class="border p-3 text-center">-</td>
+                                <td class="border p-3 text-center">Included</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border p-3">Support Level</td>
+                                <td class="border p-3 text-center">Email</td>
+                                <td class="border p-3 text-center">Priority</td>
+                                <td class="border p-3 text-center">24/7</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-8 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <a href="index.html" class="bg-white text-indigo-600 px-6 py-3 rounded-lg hover:bg-gray-100 transition inline-block">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+            </a>
+        </div>
+    </footer>
+<script>
+        function selectBusinessPackage() {
+            // Create a beautiful selection modal
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-auto shadow-2xl">
+                    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-6 rounded-t-lg">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-2xl font-bold">
+                                <i class="fas fa-check-circle mr-3"></i>
+                                Business Package Selected!
+                            </h3>
+                            <button onclick="closeModal(this)" class="text-white hover:text-gray-200">
+                                <i class="fas fa-times text-2xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-center mb-6">
+                            <div class="inline-block p-4 bg-green-100 rounded-full mb-4">
+                                <i class="fas fa-check text-4xl text-green-600"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800 mb-2">Excellent Choice!</h4>
+                            <p class="text-gray-600">You've selected the perfect package for your growing business.</p>
+                        </div>
+                        
+                        <div class="bg-indigo-50 p-4 rounded-lg mb-6">
+                            <h5 class="font-semibold text-indigo-800 mb-3">Next Steps:</h5>
+                            <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                                <li>Fill out your business information below</li>
+                                <li>Schedule your free consultation call</li>
+                                <li>Complete setup within 48 hours</li>
+                                <li>Start enjoying 50% time savings!</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                            <h5 class="font-semibold text-gray-800 mb-3">Business Information:</h5>
+                            <form class="space-y-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Company Name *</label>
+                                        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Your Company Ltd">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Contact Person *</label>
+                                        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="John Doe">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                                        <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="john@company.com">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
+                                        <input type="tel" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="+254 XXX XXX XXX">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Number of Employees</label>
+                                    <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                        <option>5-10 employees</option>
+                                        <option>11-15 employees</option>
+                                        <option>16-20 employees</option>
+                                        <option>More than 20</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Current Challenges (Optional)</label>
+                                    <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" rows="3" placeholder="Tell us about your current office challenges..."></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="bg-green-50 p-4 rounded-lg mb-6">
+                            <h5 class="font-semibold text-green-800 mb-2">What's Included:</h5>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-700">
+                                <div><i class="fas fa-check text-green-500 mr-2"></i>30 hours/month service</div>
+                                <div><i class="fas fa-check text-green-500 mr-2"></i>Priority support</div>
+                                <div><i class="fas fa-check text-green-500 mr-2"></i>Weekly reporting</div>
+                                <div><i class="fas fa-check text-green-500 mr-2"></i>Full automation setup</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <button onclick="completePurchase()" class="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-lg hover:from-indigo-700 hover:to-purple-700 transition font-semibold">
+                                <i class="fas fa-rocket mr-2"></i>Complete Purchase
+                            </button>
+                            <button onclick="scheduleConsultation()" class="flex-1 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-semibold">
+                                <i class="fas fa-calendar mr-2"></i>Schedule Consultation
+                            </button>
+                        </div>
+                        
+                        <p class="text-center text-sm text-gray-500 mt-4">
+                            <i class="fas fa-lock mr-1"></i>Secure payment • 30-day money-back guarantee • No setup fees
+                        </p>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function completePurchase() {
+            alert('🎉 Purchase completed! Welcome to OOES Business Package. Our team will contact you within 2 hours to begin setup.');
+            closeModal(document.querySelector('.fa-times'));
+        }
+        
+        function scheduleConsultation() {
+            alert('📅 Consultation scheduling opened! Our team will call you within 24 hours to discuss your needs.');
+            closeModal(document.querySelector('.fa-times'));
+        }
+        
+        function closeModal(button) {
+            const modal = button.closest('.fixed');
+            if (modal) {
+                modal.remove();
+            }
+        }
+        
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.querySelector('.fixed.inset-0');
+                if (modal) {
+                    modal.remove();
+                }
+            }
+        });
+        
+        // Close modal on background click
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('bg-opacity-50')) {
+                e.target.remove();
+            }
+        });
+    </script>
