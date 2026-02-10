@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales & Marketing Department - OOES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); }
+        .sales-card { transition: all 0.3s ease; cursor: pointer; }
+        .sales-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+        .modal.active { display: flex; align-items: center; justify-content: center; }
+        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .status-active { background-color: #10b981; color: white; }
+        .status-pending { background-color: #f59e0b; color: white; }
+        .status-completed { background-color: #10b981; color: white; }
+        .progress-bar { transition: width 0.3s ease; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-chart-line text-3xl mr-4"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold">Sales & Marketing Department</h1>
+                        <p class="text-indigo-100">Lead Generation & Customer Management</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-right">
+                        <p class="text-sm text-gray-300">New Leads</p>
+                        <p class="text-lg font-bold text-white">45</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-300">Conversion Rate</p>
+                        <p class="text-lg font-bold text-green-400">23%</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-300">Active Campaigns</p>
+                        <p class="text-lg font-bold text-white">6</p>
+                    </div>
+                    <button onclick="goBack()" class="bg-white text-indigo-600 px-4 py-2 rounded hover:bg-gray-100 transition font-semibold">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- Sales Overview -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-chart-line mr-3 text-indigo-600"></i>
+                    Sales Performance
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="sales-card bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-lg border border-indigo-200" onclick="showLeadManagement()">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-user-plus text-3xl text-indigo-600"></i>
+                            <span class="text-lg font-bold text-green-600">+18%</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-indigo-800 mb-2">Lead Management</h4>
+                        <p class="text-3xl font-bold text-indigo-600">45</p>
+                        <p class="text-sm text-gray-600 mt-2">New leads this month</p>
+                        <div class="mt-3">
+                            <div class="w-full bg-indigo-200 rounded-full h-2">
+                                <div class="bg-indigo-600 h-2 rounded-full" style="width: 78%"></div>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-1">78% Qualified</p>
+                        </div>
+                    </div>
+                    
+                    <div class="sales-card bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border border-green-200" onclick="showConversionDashboard()">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-percentage text-3xl text-green-600"></i>
+                            <span class="text-lg font-bold text-green-600">+12%</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-green-800 mb-2">Conversion Rate</h4>
+                        <p class="text-3xl font-bold text-green-600">23%</p>
+                        <p class="text-sm text-gray-600 mt-2">Lead to customer conversion</p>
+                        <div class="mt-3">
+                            <div class="w-full bg-green-200 rounded-full h-2">
+                                <div class="bg-green-600 h-2 rounded-full" style="width: 82%"></div>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-1">82% Above Target</p>
+                        </div>
+                    </div>
+                    
+                    <div class="sales-card bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg border border-purple-200" onclick="showCampaignManagement()">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-bullhorn text-3xl text-purple-600"></i>
+                            <span class="text-lg font-bold text-green-600">+8%</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-purple-800 mb-2">Campaign Performance</h4>
+                        <p class="text-3xl font-bold text-purple-600">6</p>
+                        <p class="text-sm text-gray-600 mt-2">Active campaigns</p>
+                        <div class="mt-3">
+                            <div class="w-full bg-purple-200 rounded-full h-2">
+                                <div class="bg-purple-600 h-2 rounded-full" style="width: 72%"></div>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-1">72% Success Rate</p>
+                        </div>
+                    </div>
+                    
+                    <div class="sales-card bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-lg border border-yellow-200" onclick="showRevenueDashboard()">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-money-bill-wave text-3xl text-yellow-600"></i>
+                            <span class="text-lg font-bold text-green-600">+15%</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-yellow-800 mb-2">Revenue Tracking</h4>
+                        <p class="text-3xl font-bold text-yellow-600">KSh 1.2M</p>
+                        <p class="text-sm text-gray-600 mt-2">Monthly revenue generated</p>
+                        <div class="mt-3">
+                            <div class="w-full bg-yellow-200 rounded-full h-2">
+                                <div class="bg-yellow-600 h-2 rounded-full" style="width: 88%"></div>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-1">88% of Target</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-bolt mr-3 text-indigo-600"></i>
+                    Sales & Marketing Actions
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <button onclick="createCampaign()" class="bg-indigo-600 text-white px-6 py-4 rounded-lg hover:bg-indigo-700 transition font-semibold">
+                        <i class="fas fa-bullhorn mr-2"></i>Create Campaign
+                    </button>
+                    <button onclick="addLead()" class="bg-green-600 text-white px-6 py-4 rounded-lg hover:bg-green-700 transition font-semibold">
+                        <i class="fas fa-user-plus mr-2"></i>Add Lead
+                    </button>
+                    <button onclick="generateReport()" class="bg-purple-600 text-white px-6 py-4 rounded-lg hover:bg-purple-700 transition font-semibold">
+                        <i class="fas fa-chart-bar mr-2"></i>Generate Report
+                    </button>
+                    <button onclick="scheduleFollowup()" class="bg-yellow-600 text-white px-6 py-4 rounded-lg hover:bg-yellow-700 transition font-semibold">
+                        <i class="fas fa-phone mr-2"></i>Schedule Follow-up
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Active Campaigns -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">
+                        <i class="fas fa-bullhorn mr-3 text-indigo-600"></i>
+                        Active Campaigns
+                    </h2>
+                    <button onclick="viewAllCampaigns()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition font-semibold">
+                        <i class="fas fa-list mr-2"></i>View All
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-bold text-gray-800">Q1 Product Launch</h4>
+                            <span class="status-badge status-active">Active</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">Launch new product line for Q1 2026</p>
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-xs text-gray-500">Reach:</span>
+                                <span class="text-xs font-bold text-indigo-600">15,000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-xs text-gray-500">Engagement:</span>
+                                <span class="text-xs font-bold text-green-600">8.2%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-xs text-gray-500">Conversions:</span>
+                                <span class="text-xs font-bold text-yellow-600">245</span>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-bold text-gray-800">Email Newsletter</h4>
+                            <span class="status-badge status-active">Active</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">Monthly newsletter to 5,000 subscribers</p>
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-xs text-gray-500">Open Rate:</span>
+                                <span class="text-xs font-bold text-blue-600">32%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-xs text-gray-500">Click Rate:</span>
+                                <span class="text-xs font-bold text-green-600">4.8%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-xs text-gray-500">Unsubscribes:</span>
+                                <span class="text-xs font-bold text-red-600">12</span>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 78%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-bold text-gray-800">Social Media Push</h4>
+                            <span class="status-badge status-pending">Planning</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-3">Social media campaign across all platforms</p>
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-xs text-gray-500">Platforms:</span>
+                                <span class="text-xs font-bold text-purple-600">5</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-xs text-gray-500">Start Date:</span>
+                                <span class="text-xs font-bold text-yellow-600">Feb 15</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-xs text-gray-500">Budget:</span>
+                                <span class="text-xs font-bold text-green-600">KSh 50K</span>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-yellow-500 h-2 rounded-full" style="width: 15%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lead Pipeline -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">
+                        <i class="fas fa-filter mr-3 text-indigo-600"></i>
+                        Lead Pipeline
+                    </h2>
+                    <button onclick="managePipeline()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition font-semibold">
+                        <i class="fas fa-cog mr-2"></i>Manage Pipeline
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="text-center">
+                        <h4 class="font-bold text-gray-800 mb-2">New Leads</h4>
+                        <p class="text-3xl font-bold text-indigo-600">45</p>
+                        <p class="text-sm text-gray-600">Initial contact</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <h4 class="font-bold text-gray-800 mb-2">Qualified</h4>
+                        <p class="text-3xl font-bold text-blue-600">28</p>
+                        <p class="text-sm text-gray-600">Interested prospects</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <h4 class="font-bold text-gray-800 mb-2">Proposal</h4>
+                        <p class="text-3xl font-bold text-yellow-600">15</p>
+                        <p class="text-sm text-gray-600">Proposals sent</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <h4 class="font-bold text-gray-800 mb-2">Closed Deals</h4>
+                        <p class="text-3xl font-bold text-green-600">8</p>
+                        <p class="text-sm text-gray-600">Won this month</p>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <div class="w-full bg-gray-200 rounded-full h-4">
+                        <div class="flex h-4">
+                            <div class="bg-indigo-500 h-4" style="width: 35%"></div>
+                            <div class="bg-blue-500 h-4" style="width: 25%"></div>
+                            <div class="bg-yellow-500 h-4" style="width: 20%"></div>
+                            <div class="bg-green-500 h-4" style="width: 20%"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between text-xs text-gray-600 mt-2">
+                        <span>New Leads (35%)</span>
+                        <span>Qualified (22%)</span>
+                        <span>Proposal (18%)</span>
+                        <span>Closed (18%)</span>
+                        <span>Lost (7%)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Campaign Creation Modal -->
+    <div id="campaignModal" class="modal">
+        <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden m-4">
+            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-6">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-bold">Create Marketing Campaign</h3>
+                    <button onclick="closeCampaignModal()" class="text-white hover:text-gray-200">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-8">
+                <form id="campaignForm" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Campaign Name</label>
+                            <input type="text" id="campaignName" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Enter campaign name">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Campaign Type</label>
+                            <select id="campaignType" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                                <option value="email">Email Marketing</option>
+                                <option value="social">Social Media</option>
+                                <option value="sms">SMS Campaign</option>
+                                <option value="content">Content Marketing</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
+                            <input type="date" id="campaignStart" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">End Date</label>
+                            <input type="date" id="campaignEnd" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Target Audience</label>
+                        <input type="text" id="targetAudience" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Describe target audience">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Budget (KSh)</label>
+                        <input type="number" id="campaignBudget" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Campaign budget">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Campaign Description</label>
+                        <textarea id="campaignDescription" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Campaign details and objectives"></textarea>
+                    </div>
+                    
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="closeCampaignModal()" class="bg-gray-500 text-white px-6 py-3 rounded hover:bg-gray-600 transition font-semibold">
+                            Cancel
+                        </button>
+                        <button type="button" onclick="saveCampaign()" class="bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700 transition font-semibold">
+                            <i class="fas fa-rocket mr-2"></i>Launch Campaign
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function initializeSalesDepartment() {
+            updateSalesMetrics();
+        }
+
+        function updateSalesMetrics() {
+            // Update dashboard metrics (would normally update DOM elements)
+            console.log('Sales Metrics Updated');
+        }
+
+        function showLeadManagement() {
+            showNotification('Opening Lead Management...', 'info');
+            setTimeout(() => {
+                showNotification('Lead management loaded!', 'success');
+            }, 1500);
+        }
+
+        function showConversionDashboard() {
+            showNotification('Opening Conversion Dashboard...', 'info');
+            setTimeout(() => {
+                showNotification('Conversion dashboard loaded!', 'success');
+            }, 1400);
+        }
+
+        function showCampaignManagement() {
+            showNotification('Opening Campaign Manager...', 'info');
+            setTimeout(() => {
+                showNotification('Campaign manager loaded!', 'success');
+            }, 1600);
+        }
+
+        function showRevenueDashboard() {
+            showNotification('Opening Revenue Dashboard...', 'info');
+            setTimeout(() => {
+                showNotification('Revenue dashboard loaded!', 'success');
+            }, 1300);
+        }
+
+        function createCampaign() {
+            document.getElementById('campaignModal').classList.add('active');
+            // Set default values
+            document.getElementById('campaignStart').value = new Date().toISOString().split('T')[0];
+            document.getElementById('campaignEnd').value = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+        }
+
+        function closeCampaignModal() {
+            document.getElementById('campaignModal').classList.remove('active');
+            document.getElementById('campaignForm').reset();
+        }
+
+        function saveCampaign() {
+            const campaignData = {
+                name: document.getElementById('campaignName').value,
+                type: document.getElementById('campaignType').value,
+                startDate: document.getElementById('campaignStart').value,
+                endDate: document.getElementById('campaignEnd').value,
+                targetAudience: document.getElementById('targetAudience').value,
+                budget: document.getElementById('campaignBudget').value,
+                description: document.getElementById('campaignDescription').value
+            };
+            
+            closeCampaignModal();
+            showNotification('Campaign created and launched successfully!', 'success');
+        }
+
+        function addLead() {
+            showNotification('Opening lead addition form...', 'info');
+            setTimeout(() => {
+                showNotification('Lead form ready!', 'success');
+            }, 1200);
+        }
+
+        function generateReport() {
+            showNotification('Generating sales report...', 'info');
+            setTimeout(() => {
+                showNotification('Sales report generated!', 'success');
+            }, 2000);
+        }
+
+        function scheduleFollowup() {
+            showNotification('Opening follow-up scheduler...', 'info');
+            setTimeout(() => {
+                showNotification('Follow-up scheduler opened!', 'success');
+            }, 1400);
+        }
+
+        function viewAllCampaigns() {
+            showNotification('Loading all campaigns...', 'info');
+        }
+
+        function managePipeline() {
+            showNotification('Opening pipeline manager...', 'info');
+            setTimeout(() => {
+                showNotification('Pipeline manager loaded!', 'success');
+            }, 1500);
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-6 py-4 rounded-lg shadow-lg z-50 ${
+                type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+            } text-white`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-3"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initializeSalesDepartment);
+    </script>
+</body>
+</html>

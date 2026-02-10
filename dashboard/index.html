@@ -228,6 +228,112 @@
             }
         }
         
+        /* Button Animation Classes */
+        .scale-95 {
+            transform: scale(0.95);
+        }
+        
+        .opacity-75 {
+            opacity: 0.75;
+        }
+        
+        .transition-all {
+            transition: all 0.2s ease;
+        }
+
+        /* Professional Dashboard Styles */
+        .service-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .service-card:hover::before {
+            left: 100%;
+        }
+        
+        .action-btn {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .action-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .storage-card {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .storage-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+        }
+        
+        .nav-item {
+            transition: all 0.2s ease;
+            position: relative;
+            margin-bottom: 2px;
+        }
+        
+        .nav-item:hover {
+            background: linear-gradient(90deg, #f3f4f6 0%, #e5e7eb 100%);
+            transform: translateX(4px);
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: #4f46e5;
+            transform: scaleY(0);
+            transition: transform 0.2s ease;
+        }
+        
+        .nav-item:hover::before {
+            transform: scaleY(1);
+        }
+
         /* Tablet Optimizations */
         @media (min-width: 768px) and (max-width: 1024px) {
             .grid-cols-1.md\:grid-cols-2 {
@@ -339,9 +445,176 @@
             <!-- Main Content Area -->
             <div class="lg:col-span-3">
                 
+                <!-- Executive Dashboard Overview -->
+                <section id="executive-overview" class="mb-8">
+                    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl shadow-lg p-8 text-white">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-bold">
+                                <i class="fas fa-tachometer-alt mr-3"></i>
+                                Executive Dashboard
+                            </h2>
+                            <div class="flex items-center space-x-4">
+                                <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">
+                                    <i class="fas fa-circle text-green-400 mr-2"></i>System Online
+                                </span>
+                                <span class="text-sm opacity-90">Last Updated: Just Now</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold mb-2">247</div>
+                                <div class="text-sm opacity-90">Active Users</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold mb-2">1,823</div>
+                                <div class="text-sm opacity-90">Emails Sent</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold mb-2">98.5%</div>
+                                <div class="text-sm opacity-90">System Uptime</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold mb-2">45</div>
+                                <div class="text-sm opacity-90">Active Projects</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Core Services Section -->
+                <section id="core-services" class="mb-8">
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-bold text-gray-800">
+                                <i class="fas fa-cogs mr-3 text-blue-600"></i>
+                                Core Services
+                            </h2>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+                                5 Systems Active
+                            </span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="service-card bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('document-management')">
+                                <div class="flex items-center justify-between mb-4">
+                                    <i class="fas fa-folder text-3xl text-blue-600"></i>
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">Active</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-800 mb-2">Document Management</h3>
+                                <p class="text-sm text-gray-600 mb-3">Smart digital filing with cloud storage and version control</p>
+                                <div class="flex items-center justify-between text-xs text-gray-500">
+                                    <span><i class="fas fa-database mr-1"></i>15GB Storage</span>
+                                    <span><i class="fas fa-file mr-1"></i>247 Files</span>
+                                </div>
+                            </div>
+                            
+                            <div class="service-card bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border border-green-200 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('email-management')">
+                                <div class="flex items-center justify-between mb-4">
+                                    <i class="fas fa-envelope text-3xl text-green-600"></i>
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">Active</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-800 mb-2">Email Management</h3>
+                                <p class="text-sm text-gray-600 mb-3">Professional email system with templates and automation</p>
+                                <div class="flex items-center justify-between text-xs text-gray-500">
+                                    <span><i class="fas fa-paper-plane mr-1"></i>1,823 Sent</span>
+                                    <span><i class="fas fa-file-alt mr-1"></i>12 Drafts</span>
+                                </div>
+                            </div>
+                            
+                            <div class="service-card bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border border-purple-200 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('team-collaboration')">
+                                <div class="flex items-center justify-between mb-4">
+                                    <i class="fas fa-users text-3xl text-purple-600"></i>
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">Active</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-800 mb-2">Team Collaboration</h3>
+                                <p class="text-sm text-gray-600 mb-3">Real-time collaboration tools and shared workspaces</p>
+                                <div class="flex items-center justify-between text-xs text-gray-500">
+                                    <span><i class="fas fa-users mr-1"></i>8 Teams</span>
+                                    <span><i class="fas fa-project-diagram mr-1"></i>24 Projects</span>
+                                </div>
+                            </div>
+                            
+                            <div class="service-card bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl border border-orange-200 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('financial-management')">
+                                <div class="flex items-center justify-between mb-4">
+                                    <i class="fas fa-chart-line text-3xl text-orange-600"></i>
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">Active</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-800 mb-2">Financial Management</h3>
+                                <p class="text-sm text-gray-600 mb-3">Automated financial processes with reporting</p>
+                                <div class="flex items-center justify-between text-xs text-gray-500">
+                                    <span><i class="fas fa-dollar-sign mr-1"></i>KSh 2.5M</span>
+                                    <span><i class="fas fa-check-circle mr-1"></i>98% Accuracy</span>
+                                </div>
+                            </div>
+                            
+                            <div class="service-card bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl border border-red-200 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('task-management')">
+                                <div class="flex items-center justify-between mb-4">
+                                    <i class="fas fa-tasks text-3xl text-red-600"></i>
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">Active</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-800 mb-2">Task Management</h3>
+                                <p class="text-sm text-gray-600 mb-3">Advanced project management with deadline tracking</p>
+                                <div class="flex items-center justify-between text-xs text-gray-500">
+                                    <span><i class="fas fa-clipboard-list mr-1"></i>156 Tasks</span>
+                                    <span><i class="fas fa-clock mr-1"></i>3 Deadlines</span>
+                                </div>
+                            </div>
+                            
+                            <div class="service-card bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-xl border border-indigo-200 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('compliance')">
+                                <div class="flex items-center justify-between mb-4">
+                                    <i class="fas fa-shield-alt text-3xl text-indigo-600"></i>
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">Active</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-800 mb-2">Compliance & Security</h3>
+                                <p class="text-sm text-gray-600 mb-3">Compliance tracking and security management</p>
+                                <div class="flex items-center justify-between text-xs text-gray-500">
+                                    <span><i class="fas fa-lock mr-1"></i>Encrypted</span>
+                                    <span><i class="fas fa-certificate mr-1"></i>Compliant</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quick Actions Panel -->
+                <section id="quick-actions" class="mb-8">
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                            <i class="fas fa-bolt mr-3 text-yellow-500"></i>
+                            Quick Actions
+                        </h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <button onclick="window.open('email-system.html', '_blank')" class="action-btn bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-xl transition-all">
+                                <i class="fas fa-envelope text-2xl mb-2"></i>
+                                <div class="font-semibold">Email System</div>
+                                <div class="text-xs opacity-90">Compose & Send</div>
+                            </button>
+                            
+                            <button onclick="window.open('calendar-system.html', '_blank')" class="action-btn bg-green-500 hover:bg-green-600 text-white p-4 rounded-xl transition-all">
+                                <i class="fas fa-calendar text-2xl mb-2"></i>
+                                <div class="font-semibold">Calendar</div>
+                                <div class="text-xs opacity-90">Schedule Events</div>
+                            </button>
+                            
+                            <button onclick="window.open('hr-system.html', '_blank')" class="action-btn bg-purple-500 hover:bg-purple-600 text-white p-4 rounded-xl transition-all">
+                                <i class="fas fa-users-cog text-2xl mb-2"></i>
+                                <div class="font-semibold">HR System</div>
+                                <div class="text-xs opacity-90">Manage Staff</div>
+                            </button>
+                            
+                            <button onclick="window.open('financial-management.html', '_blank')" class="action-btn bg-orange-500 hover:bg-orange-600 text-white p-4 rounded-xl transition-all">
+                                <i class="fas fa-chart-line text-2xl mb-2"></i>
+                                <div class="font-semibold">Financials</div>
+                                <div class="text-xs opacity-90">Reports & Bills</div>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- Cloud Storage Section -->
-                <section id="cloud-storage" class="mb-12">
-                    <div class="bg-white rounded-lg shadow-md p-8">
+                <section id="cloud-storage" class="mb-8">
+                    <div class="bg-white rounded-xl shadow-lg p-8">
                         <h2 class="text-2xl font-bold mb-6 text-gray-800">
                             <i class="fas fa-cloud mr-3 text-blue-600"></i>
                             Cloud Storage Solutions
@@ -349,33 +622,33 @@
                         <p class="text-gray-600 mb-6">Professional cloud storage solutions with user authentication, data synchronization, and advanced collaboration features. Secure, reliable, and accessible from any device.</p>
                         
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200">
+                            <div class="storage-card bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200 hover:shadow-lg transition-all">
                                 <div class="text-center">
                                     <i class="fas fa-shield-alt text-4xl text-blue-600 mb-4"></i>
                                 </div>
                                 <h3 class="text-xl font-bold text-blue-800 mb-2">Cloud Storage Pro</h3>
-                                <p class="text-blue-700">20GB Free Storage</p>
+                                <p class="text-blue-700 font-semibold mb-2">20GB Free Storage</p>
                                 <p class="text-sm text-gray-600">Advanced cloud storage with user authentication</p>
                             </div>
-                            <div class="card-hover clickable bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-lg" onclick="showTargetMarket()">
-                                <h3 class="font-semibold text-lg mb-3 text-emerald-800">
-                                    <i class="fas fa-users mr-2"></i>Target Market
-                                </h3>
-                                <ul class="text-gray-700 space-y-1">
+                            <div class="storage-card bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border border-green-200 hover:shadow-lg transition-all">
+                                <div class="text-center">
+                                    <i class="fas fa-users text-4xl text-green-600 mb-4"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-green-800 mb-2">Target Market</h3>
+                                <p class="text-green-700 font-semibold mb-2">SMEs & Enterprises</p>
+                                <ul class="text-sm text-gray-600 space-y-1">
                                     <li>• SMEs (1-50 employees)</li>
                                     <li>• NGOs and Schools</li>
                                     <li>• Professional Services</li>
-                                    <li>• Growing Businesses</li>
                                 </ul>
-                                <p class="text-sm text-emerald-600 mt-2 font-semibold">View packages →</p>
                             </div>
-                            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-lg border border-yellow-200">
+                            <div class="storage-card bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl border border-yellow-200 hover:shadow-lg transition-all">
                                 <div class="text-center">
                                     <i class="fas fa-lock text-4xl text-yellow-600 mb-4"></i>
                                 </div>
-                                <h3 class="text-xl font-bold text-yellow-800 mb-2">Cloud Storage Enterprise</h3>
-                                <p class="text-yellow-700">50GB Free Storage</p>
-                                <p class="text-sm text-gray-600">Advanced cloud storage with user authentication and enterprise features</p>
+                                <h3 class="text-xl font-bold text-yellow-800 mb-2">Enterprise</h3>
+                                <p class="text-yellow-700 font-semibold mb-2">50GB Free Storage</p>
+                                <p class="text-sm text-gray-600">Advanced cloud storage with enterprise features</p>
                             </div>
                         </div>
                     </div>
@@ -575,15 +848,20 @@
                     </div>
                 </section>
 
-                <!-- Service Packages -->
-                <section id="packages" class="mb-12">
+                <!-- Office Activities Showcase -->
+                <section id="activities" class="mb-12">
                     <div class="bg-white rounded-lg shadow-md p-8">
-                        <h2 class="text-2xl font-bold mb-6 text-gray-800">
-                            <i class="fas fa-box mr-3 text-indigo-600"></i>
-                            Service Packages
-                        </h2>
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-gray-800">
+                                <i class="fas fa-th-large mr-3 text-blue-600"></i>
+                                Interactive Office Departments
+                            </h2>
+                            <button onclick="openDepartmentDashboard()" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition font-semibold">
+                                <i class="fas fa-th mr-2"></i>View All Departments
+                            </button>
+                        </div>
                         
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             <!-- Starter Package -->
                             <div class="package-card border-2 border-gray-200 rounded-lg p-6" onclick="selectPackage('starter')">
                                 <div class="text-center mb-4">
@@ -862,7 +1140,7 @@
                                 </div>
                                 <h3 class="font-bold text-lg text-blue-800 mb-2">Inbox Management</h3>
                                 <p class="text-blue-700 text-sm mb-4">Smart filtering, priority sorting, and automated responses</p>
-                                <button onclick="openEmailSystem()" class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition font-semibold">
+                                <button onclick="checkInbox()" class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-all font-semibold">
                                     <i class="fas fa-envelope-open-text mr-2"></i>Check Inbox
                                 </button>
                             </div>
@@ -874,7 +1152,7 @@
                                 </div>
                                 <h3 class="font-bold text-lg text-green-800 mb-2">Email Templates</h3>
                                 <p class="text-green-700 text-sm mb-4">Professional templates for every business situation</p>
-                                <button onclick="openEmailSystem()" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition font-semibold">
+                                <button onclick="openEmailTemplates()" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-all font-semibold">
                                     <i class="fas fa-file-alt mr-2"></i>Use Templates
                                 </button>
                             </div>
@@ -886,7 +1164,7 @@
                                 </div>
                                 <h3 class="font-bold text-lg text-purple-800 mb-2">Sent Items</h3>
                                 <p class="text-purple-700 text-sm mb-4">Track sent emails, delivery status, and responses</p>
-                                <button onclick="openEmailSystem()" class="w-full bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition font-semibold">
+                                <button onclick="viewEmailAnalytics()" class="w-full bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-all font-semibold">
                                     <i class="fas fa-chart-line mr-2"></i>View Analytics
                                 </button>
                             </div>
@@ -2131,6 +2409,16 @@
                     'Tax compliance',
                     'Budget management'
                 ],
+                'financial-management': [
+                    'Invoice templates & generation',
+                    'Automated payment reminders',
+                    'Payroll automation',
+                    'Accounting software integration',
+                    'Financial reporting & analytics',
+                    'Payment gateway integration',
+                    'Tax compliance management',
+                    'Cash flow optimization'
+                ],
                 'task-management': [
                     'Kanban boards',
                     'Gantt charts',
@@ -2211,19 +2499,26 @@
             return processes[activityType] || [];
         }
 
-        function getActivityLink(activityType) {
-            const links = {
-                'document-management': 'document-management.html',
-                'email-management': 'email-system.html',
-                'team-collaboration': '#team-collaboration',
-                'financial-management': '#financial-management',
-                'task-management': '#task-management'
-            };
-            return links[activityType] || '#';
-        }
+function getActivityLink(activityType) {
+    const links = {
+        'document-management': 'document-management.html',
+        'email-management': 'email-system.html',
+        'team-collaboration': '#team-collaboration',
+        'financial-management': 'financial-management.html',
+        'task-management': '#task-management'
+    };
+    return links[activityType] || '#';
+}
 
+function openITCompliance() {
+    window.open('it-compliance.html', '_blank', 'width=1600,height=1000');
+}
         function openITCompliance() {
             window.open('it-compliance.html', '_blank', 'width=1600,height=1000');
+        }
+
+        function openDepartmentDashboard() {
+            window.open('department-dashboard.html', '_blank', 'width=1600,height=1000');
         }
 
         function openDataEntryAutomation() {
@@ -2423,6 +2718,283 @@
             if (modal) {
                 modal.remove();
             }
+        }
+
+        // Professional Email System Reactive Functions
+        function checkInbox() {
+            // Add visual feedback to button
+            event.target.classList.add('opacity-75', 'scale-95');
+            showNotification('Opening email inbox...', 'info');
+            
+            // Simulate loading and then show inbox modal
+            setTimeout(() => {
+                showEmailInboxModal();
+                event.target.classList.remove('opacity-75', 'scale-95');
+            }, 1000);
+        }
+
+        function showEmailInboxModal() {
+            const modal = createModal('Email Inbox', `
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-semibold text-gray-800">Inbox (247 messages)</h4>
+                        <div class="flex gap-2">
+                            <button onclick="refreshInbox()" class="bg-blue-100 text-blue-600 px-3 py-1 rounded text-sm hover:bg-blue-200 transition">
+                                <i class="fas fa-sync-alt mr-1"></i>Refresh
+                            </button>
+                            <button onclick="composeEmail()" class="bg-green-100 text-green-600 px-3 py-1 rounded text-sm hover:bg-green-200 transition">
+                                <i class="fas fa-pen mr-1"></i>Compose
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-3 rounded cursor-pointer hover:bg-blue-100 transition" onclick="openEmail(1)">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="font-semibold text-gray-800">John Kimani - Client Inquiry</p>
+                                    <p class="text-sm text-gray-600">Interested in your Business Package for our company...</p>
+                                </div>
+                                <span class="text-xs text-gray-500">5 min ago</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white border-l-4 border-gray-300 p-3 rounded cursor-pointer hover:bg-gray-50 transition" onclick="openEmail(2)">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="font-semibold text-gray-800">Sarah Chen - Meeting Request</p>
+                                    <p class="text-sm text-gray-600">Can we schedule a consultation for next week?</p>
+                                </div>
+                                <span class="text-xs text-gray-500">1 hour ago</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white border-l-4 border-gray-300 p-3 rounded cursor-pointer hover:bg-gray-50 transition" onclick="openEmail(3)">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="font-semibold text-gray-800">Michael Davis - Support Ticket</p>
+                                    <p class="text-sm text-gray-600">Need help with document management setup...</p>
+                                </div>
+                                <span class="text-xs text-gray-500">2 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-center mt-4">
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                            Load More Messages
+                        </button>
+                    </div>
+                </div>
+            `);
+            
+            document.body.appendChild(modal);
+        }
+
+        function openEmailTemplates() {
+            // Add visual feedback to button
+            event.target.classList.add('opacity-75', 'scale-95');
+            showNotification('Loading email templates...', 'info');
+            
+            setTimeout(() => {
+                showEmailTemplatesModal();
+                event.target.classList.remove('opacity-75', 'scale-95');
+            }, 800);
+        }
+
+        function showEmailTemplatesModal() {
+            const modal = createModal('Email Templates', `
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-semibold text-gray-800">Professional Templates (4 available)</h4>
+                        <button onclick="createNewTemplate()" class="bg-green-100 text-green-600 px-3 py-1 rounded text-sm hover:bg-green-200 transition">
+                            <i class="fas fa-plus mr-1"></i>New Template
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="border border-gray-200 rounded-lg p-4 cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition" onclick="useTemplate('welcome')">
+                            <h5 class="font-semibold text-gray-800 mb-2">Welcome Email</h5>
+                            <p class="text-sm text-gray-600 mb-3">Professional welcome message for new clients</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">Client Onboarding</span>
+                                <button class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4 cursor-pointer hover:border-green-500 hover:bg-green-50 transition" onclick="useTemplate('followup')">
+                            <h5 class="font-semibold text-gray-800 mb-2">Follow-up Email</h5>
+                            <p class="text-sm text-gray-600 mb-3">Automated follow-up for client inquiries</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded">Sales</span>
+                                <button class="text-green-600 hover:text-green-800">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4 cursor-pointer hover:border-purple-500 hover:bg-purple-50 transition" onclick="useTemplate('meeting')">
+                            <h5 class="font-semibold text-gray-800 mb-2">Meeting Confirmation</h5>
+                            <p class="text-sm text-gray-600 mb-3">Professional meeting scheduling template</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded">Scheduling</span>
+                                <button class="text-purple-600 hover:text-purple-800">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4 cursor-pointer hover:border-orange-500 hover:bg-orange-50 transition" onclick="useTemplate('invoice')">
+                            <h5 class="font-semibold text-gray-800 mb-2">Invoice Reminder</h5>
+                            <p class="text-sm text-gray-600 mb-3">Friendly payment reminder template</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded">Billing</span>
+                                <button class="text-orange-600 hover:text-orange-800">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `);
+            
+            document.body.appendChild(modal);
+        }
+
+        function viewEmailAnalytics() {
+            // Add visual feedback to button
+            event.target.classList.add('opacity-75', 'scale-95');
+            showNotification('Loading email analytics...', 'info');
+            
+            setTimeout(() => {
+                showEmailAnalyticsModal();
+                event.target.classList.remove('opacity-75', 'scale-95');
+            }, 1200);
+        }
+
+        function showEmailAnalyticsModal() {
+            const modal = createModal('Email Analytics', `
+                <div class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <h5 class="font-semibold text-blue-800">Total Sent</h5>
+                                <i class="fas fa-paper-plane text-blue-600"></i>
+                            </div>
+                            <p class="text-2xl font-bold text-blue-600">1,847</p>
+                            <p class="text-sm text-blue-600">+12% from last month</p>
+                        </div>
+                        
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <h5 class="font-semibold text-green-800">Open Rate</h5>
+                                <i class="fas fa-envelope-open text-green-600"></i>
+                            </div>
+                            <p class="text-2xl font-bold text-green-600">68.4%</p>
+                            <p class="text-sm text-green-600">+5% from last month</p>
+                        </div>
+                        
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <h5 class="font-semibold text-purple-800">Response Rate</h5>
+                                <i class="fas fa-reply text-purple-600"></i>
+                            </div>
+                            <p class="text-2xl font-bold text-purple-600">24.7%</p>
+                            <p class="text-sm text-purple-600">+8% from last month</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h5 class="font-semibold text-gray-800 mb-3">Recent Activity</h5>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Today's emails sent</span>
+                                <span class="font-semibold">47</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">This week</span>
+                                <span class="font-semibold">234</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">This month</span>
+                                <span class="font-semibold">1,847</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-center">
+                        <button onclick="exportEmailReport()" class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700 transition">
+                            <i class="fas fa-download mr-2"></i>Export Full Report
+                        </button>
+                    </div>
+                </div>
+            `);
+            
+            document.body.appendChild(modal);
+        }
+
+        // Helper functions for email system
+        function refreshInbox() {
+            showNotification('Refreshing inbox...', 'info');
+            setTimeout(() => {
+                showNotification('Inbox refreshed! 3 new messages', 'success');
+            }, 1500);
+        }
+
+        function composeEmail() {
+            showNotification('Opening email composer...', 'info');
+            setTimeout(() => {
+                showNotification('Email composer ready', 'success');
+            }, 800);
+        }
+
+        function openEmail(emailId) {
+            showNotification(`Opening email #${emailId}...`, 'info');
+            setTimeout(() => {
+                showNotification('Email opened successfully', 'success');
+            }, 500);
+        }
+
+        function createNewTemplate() {
+            showNotification('Opening template editor...', 'info');
+            setTimeout(() => {
+                showNotification('Template editor ready', 'success');
+            }, 800);
+        }
+
+        function useTemplate(templateType) {
+            showNotification(`Using ${templateType} template...`, 'info');
+            setTimeout(() => {
+                showNotification('Template loaded successfully', 'success');
+            }, 500);
+        }
+
+        function exportEmailReport() {
+            showNotification('Generating email report...', 'info');
+            setTimeout(() => {
+                showNotification('Email report downloaded successfully', 'success');
+            }, 2000);
+        }
+
+        // Notification function
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-6 py-4 rounded-lg shadow-lg z-50 ${
+                type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+            } text-white`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-3"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
         }
 
         // Close modal on escape key

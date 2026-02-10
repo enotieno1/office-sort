@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communication Department - OOES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%); }
+        .comm-card { transition: all 0.3s ease; cursor: pointer; }
+        .comm-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+        .modal.active { display: flex; align-items: center; justify-content: center; }
+        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .status-active { background-color: #10b981; color: white; }
+        .status-pending { background-color: #f59e0b; color: white; }
+        .status-completed { background-color: #10b981; color: white; }
+        .progress-bar { transition: width 0.3s ease; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-envelope text-3xl mr-4"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold">Communication Department</h1>
+                        <p class="text-purple-100">Email, Messaging & Client Communication</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-right">
+                        <p class="text-sm text-gray-300">Emails Today</p>
+                        <p class="text-lg font-bold text-white">156</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-300">Response Rate</p>
+                        <p class="text-lg font-bold text-green-400">92%</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-300">Active Campaigns</p>
+                        <p class="text-lg font-bold text-white">8</p>
+                    </div>
+                    <button onclick="goBack()" class="bg-white text-purple-600 px-4 py-2 rounded hover:bg-gray-100 transition font-semibold">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- Communication Metrics -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-chart-line mr-3 text-purple-600"></i>
+                    Communication Metrics
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="comm-card bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg border border-purple-200" onclick="showEmailDashboard()">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-envelope text-3xl text-purple-600"></i>
+                            <span class="text-lg font-bold text-green-600">+15%</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-purple-800 mb-2">Email Management</h4>
+                        <p class="text-3xl font-bold text-purple-600">156</p>
+                        <p class="text-sm text-gray-600 mt-2">Emails processed today</p>
+                        <div class="mt-3">
+                            <div class="w-full bg-purple-200 rounded-full h-2">
+                                <div class="bg-purple-600 h-2 rounded-full" style="width: 92%"></div>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-1">92% Response Rate</p>
+                        </div>
+                    </div>
+                    
+                    <div class="comm-card bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200" onclick="showMessagingDashboard()">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-comments text-3xl text-blue-600"></i>
+                            <span class="text-lg font-bold text-green-600">+8%</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-blue-800 mb-2">Team Messaging</h4>
+                        <p class="text-3xl font-bold text-blue-600">89</p>
+                        <p class="text-sm text-gray-600 mt-2">Active conversations</p>
+                        <div class="mt-3">
+                            <div class="w-full bg-blue-200 rounded-full h-2">
+                                <div class="bg-blue-600 h-2 rounded-full" style="width: 87%"></div>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-1">87% Engagement</p>
+                        </div>
+                    </div>
+                    
+                    <div class="comm-card bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border border-green-200" onclick="showCampaignDashboard()">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-bullhorn text-3xl text-green-600"></i>
+                            <span class="text-lg font-bold text-green-600">+12%</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-green-800 mb-2">Marketing Campaigns</h4>
+                        <p class="text-3xl font-bold text-green-600">8</p>
+                        <p class="text-sm text-gray-600 mt-2">Active campaigns</p>
+                        <div class="mt-3">
+                            <div class="w-full bg-green-200 rounded-full h-2">
+                                <div class="bg-green-600 h-2 rounded-full" style="width: 78%"></div>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-1">78% Success Rate</p>
+                        </div>
+                    </div>
+                    
+                    <div class="comm-card bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-lg border border-yellow-200" onclick="showClientDashboard()">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-users text-3xl text-yellow-600"></i>
+                            <span class="text-lg font-bold text-green-600">+5%</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-yellow-800 mb-2">Client Management</h4>
+                        <p class="text-3xl font-bold text-yellow-600">247</p>
+                        <p class="text-sm text-gray-600 mt-2">Active clients</p>
+                        <div class="mt-3">
+                            <div class="w-full bg-yellow-200 rounded-full h-2">
+                                <div class="bg-yellow-600 h-2 rounded-full" style="width: 95%"></div>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-1">95% Satisfaction</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-bolt mr-3 text-purple-600"></i>
+                    Communication Actions
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <button onclick="composeEmail()" class="bg-purple-600 text-white px-6 py-4 rounded-lg hover:bg-purple-700 transition font-semibold">
+                        <i class="fas fa-pen mr-2"></i>Compose Email
+                    </button>
+                    <button onclick="createCampaign()" class="bg-blue-600 text-white px-6 py-4 rounded-lg hover:bg-blue-700 transition font-semibold">
+                        <i class="fas fa-bullhorn mr-2"></i>Create Campaign
+                    </button>
+                    <button onclick="scheduleNewsletter()" class="bg-green-600 text-white px-6 py-4 rounded-lg hover:bg-green-700 transition font-semibold">
+                        <i class="fas fa-newspaper mr-2"></i>Schedule Newsletter
+                    </button>
+                    <button onclick="manageContacts()" class="bg-yellow-600 text-white px-6 py-4 rounded-lg hover:bg-yellow-700 transition font-semibold">
+                        <i class="fas fa-address-book mr-2"></i>Manage Contacts
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Communications -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">
+                        <i class="fas fa-history mr-3 text-purple-600"></i>
+                        Recent Communications
+                    </h2>
+                    <button onclick="viewAllCommunications()" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition font-semibold">
+                        <i class="fas fa-list mr-2"></i>View All
+                    </button>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="px-4 py-3 text-left">Type</th>
+                                <th class="px-4 py-3 text-left">Recipient</th>
+                                <th class="px-4 py-3 text-left">Subject</th>
+                                <th class="px-4 py-3 text-left">Status</th>
+                                <th class="px-4 py-3 text-left">Date</th>
+                                <th class="px-4 py-3 text-left">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="communicationTable">
+                            <!-- Communications will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Communication Templates -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">
+                        <i class="fas fa-file-alt mr-3 text-purple-600"></i>
+                        Communication Templates
+                    </h2>
+                    <button onclick="createTemplate()" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition font-semibold">
+                        <i class="fas fa-plus mr-2"></i>Create Template
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition cursor-pointer" onclick="useTemplate('welcome')">
+                        <h4 class="font-bold text-gray-800 mb-2">Welcome Email</h4>
+                        <p class="text-sm text-gray-600 mb-3">Standard welcome message for new clients</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-500">Used 45 times</span>
+                            <button class="text-purple-600 hover:text-purple-700">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition cursor-pointer" onclick="useTemplate('followup')">
+                        <h4 class="font-bold text-gray-800 mb-2">Follow-up Email</h4>
+                        <p class="text-sm text-gray-600 mb-3">Professional follow-up for ongoing projects</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-500">Used 32 times</span>
+                            <button class="text-purple-600 hover:text-purple-700">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition cursor-pointer" onclick="useTemplate('newsletter')">
+                        <h4 class="font-bold text-gray-800 mb-2">Newsletter Template</h4>
+                        <p class="text-sm text-gray-600 mb-3">Monthly company newsletter format</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-500">Used 18 times</span>
+                            <button class="text-purple-600 hover:text-purple-700">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Email Compose Modal -->
+    <div id="emailModal" class="modal">
+        <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden m-4">
+            <div class="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-6">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-bold">Compose Email</h3>
+                    <button onclick="closeEmailModal()" class="text-white hover:text-gray-200">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-8">
+                <form id="emailForm" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">To</label>
+                            <input type="email" id="emailTo" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="recipient@example.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                            <input type="text" id="emailSubject" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Email subject">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                        <textarea id="emailMessage" rows="8" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Type your message here..."></textarea>
+                    </div>
+                    
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="closeEmailModal()" class="bg-gray-500 text-white px-6 py-3 rounded hover:bg-gray-600 transition font-semibold">
+                            Cancel
+                        </button>
+                        <button type="button" onclick="sendEmail()" class="bg-purple-600 text-white px-6 py-3 rounded hover:bg-purple-700 transition font-semibold">
+                            <i class="fas fa-paper-plane mr-2"></i>Send Email
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample communication data
+        const communications = [
+            { type: 'Email', recipient: 'John Doe', subject: 'Project Update', status: 'sent', date: '2026-02-10 14:30' },
+            { type: 'Campaign', recipient: 'All Clients', subject: 'February Newsletter', status: 'active', date: '2026-02-10 10:00' },
+            { type: 'Message', recipient: 'Sarah Smith', subject: 'Meeting Confirmation', status: 'delivered', date: '2026-02-10 09:15' },
+            { type: 'Email', recipient: 'Tech Corp', subject: 'Invoice #123', status: 'draft', date: '2026-02-10 08:45' },
+            { type: 'Newsletter', recipient: 'Subscribers', subject: 'Monthly Update', status: 'scheduled', date: '2026-02-11 16:00' }
+        ];
+
+        function initializeCommunicationDepartment() {
+            renderCommunicationTable();
+            updateCommunicationMetrics();
+        }
+
+        function renderCommunicationTable() {
+            const tableBody = document.getElementById('communicationTable');
+            tableBody.innerHTML = communications.map(comm => `
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="px-4 py-3">
+                        <span class="inline-flex items-center">
+                            <i class="fas ${getCommunicationIcon(comm.type)} mr-2 text-${getCommunicationColor(comm.type)}-600"></i>
+                            ${comm.type}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3">${comm.recipient}</td>
+                    <td class="px-4 py-3">${comm.subject}</td>
+                    <td class="px-4 py-3">
+                        <span class="status-badge status-${comm.status}">${comm.status.toUpperCase()}</span>
+                    </td>
+                    <td class="px-4 py-3">${comm.date}</td>
+                    <td class="px-4 py-3">
+                        <button onclick="viewCommunication('${comm.subject}')" class="bg-purple-500 text-white px-3 py-1 rounded hover:bg-purple-600 transition text-sm">
+                            <i class="fas fa-eye mr-1"></i>View
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function getCommunicationIcon(type) {
+            const icons = {
+                'Email': 'fa-envelope',
+                'Campaign': 'fa-bullhorn',
+                'Message': 'fa-comments',
+                'Newsletter': 'fa-newspaper'
+            };
+            return icons[type] || 'fa-envelope';
+        }
+
+        function getCommunicationColor(type) {
+            const colors = {
+                'Email': 'purple',
+                'Campaign': 'green',
+                'Message': 'blue',
+                'Newsletter': 'yellow'
+            };
+            return colors[type] || 'purple';
+        }
+
+        function updateCommunicationMetrics() {
+            // Update dashboard metrics (would normally update DOM elements)
+            console.log('Communication Metrics Updated');
+        }
+
+        function showEmailDashboard() {
+            showNotification('Opening Email Dashboard...', 'info');
+            setTimeout(() => {
+                showNotification('Email dashboard loaded successfully!', 'success');
+            }, 1500);
+        }
+
+        function showMessagingDashboard() {
+            showNotification('Opening Team Messaging...', 'info');
+            setTimeout(() => {
+                showNotification('Team messaging loaded!', 'success');
+            }, 1200);
+        }
+
+        function showCampaignDashboard() {
+            showNotification('Opening Campaign Manager...', 'info');
+            setTimeout(() => {
+                showNotification('Campaign manager loaded!', 'success');
+            }, 1400);
+        }
+
+        function showClientDashboard() {
+            showNotification('Opening Client Management...', 'info');
+            setTimeout(() => {
+                showNotification('Client management loaded!', 'success');
+            }, 1300);
+        }
+
+        function composeEmail() {
+            document.getElementById('emailModal').classList.add('active');
+        }
+
+        function closeEmailModal() {
+            document.getElementById('emailModal').classList.remove('active');
+            document.getElementById('emailForm').reset();
+        }
+
+        function sendEmail() {
+            const emailData = {
+                to: document.getElementById('emailTo').value,
+                subject: document.getElementById('emailSubject').value,
+                message: document.getElementById('emailMessage').value
+            };
+            
+            // Add to communications list
+            communications.unshift({
+                type: 'Email',
+                recipient: emailData.to,
+                subject: emailData.subject,
+                status: 'sent',
+                date: new Date().toLocaleString()
+            });
+            
+            renderCommunicationTable();
+            closeEmailModal();
+            showNotification('Email sent successfully!', 'success');
+        }
+
+        function createCampaign() {
+            showNotification('Opening Campaign Creator...', 'info');
+            setTimeout(() => {
+                showNotification('Campaign creator opened!', 'success');
+            }, 1500);
+        }
+
+        function scheduleNewsletter() {
+            showNotification('Opening Newsletter Scheduler...', 'info');
+            setTimeout(() => {
+                showNotification('Newsletter scheduler opened!', 'success');
+            }, 1400);
+        }
+
+        function manageContacts() {
+            showNotification('Opening Contact Manager...', 'info');
+            setTimeout(() => {
+                showNotification('Contact manager loaded!', 'success');
+            }, 1300);
+        }
+
+        function viewAllCommunications() {
+            showNotification('Loading all communications...', 'info');
+        }
+
+        function viewCommunication(subject) {
+            showNotification(`Viewing: ${subject}`, 'info');
+        }
+
+        function createTemplate() {
+            showNotification('Opening Template Creator...', 'info');
+            setTimeout(() => {
+                showNotification('Template creator opened!', 'success');
+            }, 1200);
+        }
+
+        function useTemplate(templateType) {
+            showNotification(`Using ${templateType} template...`, 'info');
+            setTimeout(() => {
+                showNotification('Template applied successfully!', 'success');
+            }, 1000);
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-6 py-4 rounded-lg shadow-lg z-50 ${
+                type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+            } text-white`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-3"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initializeCommunicationDepartment);
+    </script>
+</body>
+</html>
