@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Features - Office Efficiency Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #000000;
+            --secondary-bg: #111111;
+            --tertiary-bg: #1a1a1a;
+            --accent-red: #dc2626;
+            --accent-red-hover: #b91c1c;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #6b7280;
+            --border-color: #374151;
+            --success-green: #10b981;
+            --warning-yellow: #f59e0b;
+            --info-blue: #3b82f6;
+        }
+
+        body {
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .ai-gradient {
+            background: linear-gradient(135deg, var(--accent-red), #8b0000);
+        }
+
+        .glass-effect {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+        }
+
+        .ai-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .ai-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-red);
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2);
+        }
+
+        .ai-badge {
+            background: var(--accent-red);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .ai-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .ai-glow {
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-red), #8b0000);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .metric-card {
+            background: var(--tertiary-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-red);
+        }
+
+        .status-active {
+            color: var(--success-green);
+        }
+
+        .status-processing {
+            color: var(--warning-yellow);
+        }
+
+        .status-inactive {
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="bg-black border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-brain text-3xl text-red-500"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold text-white">AI Features</h1>
+                        <p class="text-sm text-gray-400">Smart Efficiency Tools</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="ai-badge ai-pulse">AI Active</span>
+                    <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition">
+                        <i class="fas fa-cog mr-2"></i>Configure
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- AI Overview Stats -->
+        <section class="mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="metric-card p-6 rounded-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <i class="fas fa-clock text-2xl text-red-500"></i>
+                        <span class="text-3xl font-bold text-white">70%</span>
+                    </div>
+                    <h3 class="text-white font-semibold mb-1">Time Saved</h3>
+                    <p class="text-gray-400 text-sm">Reduction in admin work</p>
+                </div>
+                
+                <div class="metric-card p-6 rounded-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <i class="fas fa-tasks text-2xl text-blue-500"></i>
+                        <span class="text-3xl font-bold text-white">2,847</span>
+                    </div>
+                    <h3 class="text-white font-semibold mb-1">Tasks Automated</h3>
+                    <p class="text-gray-400 text-sm">This month</p>
+                </div>
+                
+                <div class="metric-card p-6 rounded-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <i class="fas fa-file-alt text-2xl text-green-500"></i>
+                        <span class="text-3xl font-bold text-white">15.2K</span>
+                    </div>
+                    <h3 class="text-white font-semibold mb-1">Documents Processed</h3>
+                    <p class="text-gray-400 text-sm">AI-powered analysis</p>
+                </div>
+                
+                <div class="metric-card p-6 rounded-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <i class="fas fa-chart-line text-2xl text-yellow-500"></i>
+                        <span class="text-3xl font-bold text-white">94%</span>
+                    </div>
+                    <h3 class="text-white font-semibold mb-1">Accuracy Rate</h3>
+                    <p class="text-gray-400 text-sm">AI processing accuracy</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Features Grid -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold text-white mb-6">
+                <i class="fas fa-microchip mr-3 text-red-500"></i>
+                Active AI Features
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Document Processing AI -->
+                <div class="ai-card p-6 rounded-xl cursor-pointer" onclick="openAIFeature('document-processing')">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-invoice"></i>
+                        </div>
+                        <span class="status-active">
+                            <i class="fas fa-circle text-xs mr-2"></i>Active
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Document Processing AI</h3>
+                    <p class="text-gray-400 mb-4">Smart OCR, classification, and data extraction from documents</p>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-400">Documents Today</span>
+                            <span class="text-white font-semibold">347</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-400">Accuracy</span>
+                            <span class="text-green-400 font-semibold">98.5%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 98.5%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workflow Automation -->
+                <div class="ai-card p-6 rounded-xl cursor-pointer" onclick="openAIFeature('workflow-automation')">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <span class="status-active">
+                            <i class="fas fa-circle text-xs mr-2"></i>Active
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Workflow Automation</h3>
+                    <p class="text-gray-400 mb-4">Intelligent task routing and process optimization</p>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-400">Workflows Active</span>
+                            <span class="text-white font-semibold">28</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-400">Time Saved</span>
+                            <span class="text-green-400 font-semibold">12.5 hrs</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Virtual Assistant -->
+                <div class="ai-card p-6 rounded-xl cursor-pointer" onclick="openAIFeature('virtual-assistant')">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <span class="status-processing">
+                            <i class="fas fa-circle text-xs mr-2"></i>Learning
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Virtual Assistant</h3>
+                    <p class="text-gray-400 mb-4">AI-powered administrative and communication assistant</p>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-400">Interactions Today</span>
+                            <span class="text-white font-semibold">1,247</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-400">Satisfaction</span>
+                            <span class="text-green-400 font-semibold">96%</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-yellow-500 h-2 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Intelligence -->
+                <div class="ai-card p-6 rounded-xl cursor-pointer" onclick="openAIFeature('financial-intelligence')">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <span class="status-active">
+                            <i class="fas fa-circle text-xs mr-2"></i>Active
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Financial Intelligence</h3>
+                    <p class="text-gray-400 mb-4">Predictive analytics and expense optimization</p>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-400">Transactions Analyzed</span>
+                            <span class="text-white font-semibold">8,942</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-400">Cost Savings</span>
+                            <span class="text-green-400 font-semibold">$24.7K</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 92%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HR Analytics -->
+                <div class="ai-card p-6 rounded-xl cursor-pointer" onclick="openAIFeature('hr-analytics')">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-users-cog"></i>
+                        </div>
+                        <span class="status-active">
+                            <i class="fas fa-circle text-xs mr-2"></i>Active
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">HR Analytics</h3>
+                    <p class="text-gray-400 mb-4">Employee performance and engagement insights</p>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-400">Employees Analyzed</span>
+                            <span class="text-white font-semibold">156</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-400">Engagement Score</span>
+                            <span class="text-green-400 font-semibold">8.7/10</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-purple-500 h-2 rounded-full" style="width: 87%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compliance Monitor -->
+                <div class="ai-card p-6 rounded-xl cursor-pointer" onclick="openAIFeature('compliance-monitor')">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <span class="status-active">
+                            <i class="fas fa-circle text-xs mr-2"></i>Active
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Compliance Monitor</h3>
+                    <p class="text-gray-400 mb-4">Automated regulatory compliance tracking</p>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-400">Compliance Score</span>
+                            <span class="text-white font-semibold">99.2%</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-400">Issues Resolved</span>
+                            <span class="text-green-400 font-semibold">47</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 99.2%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Insights -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold text-white mb-6">
+                <i class="fas fa-lightbulb mr-3 text-yellow-500"></i>
+                AI Insights & Recommendations
+            </h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-white mb-4">Efficiency Opportunities</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-arrow-up text-green-500 mt-1"></i>
+                            <div>
+                                <p class="text-white font-medium">Invoice processing can be 40% faster</p>
+                                <p class="text-gray-400 text-sm">AI suggests implementing template-based extraction</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-arrow-up text-green-500 mt-1"></i>
+                            <div>
+                                <p class="text-white font-medium">Email response time improved by 60%</p>
+                                <p class="text-gray-400 text-sm">Smart templates and auto-categorization available</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-exclamation-triangle text-yellow-500 mt-1"></i>
+                            <div>
+                                <p class="text-white font-medium">3 workflows need optimization</p>
+                                <p class="text-gray-400 text-sm">Bottlenecks detected in approval processes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-effect p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-white mb-4">Predictive Analytics</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-400">Next Month Workload</span>
+                                <span class="text-white font-semibold">+15%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 65%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-400">Cost Savings Potential</span>
+                                <span class="text-white font-semibold">$45,000</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full" style="width: 78%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-400">Risk Level</span>
+                                <span class="text-white font-semibold">Low</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="bg-yellow-500 h-2 rounded-full" style="width: 25%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Configuration -->
+        <section>
+            <h2 class="text-2xl font-bold text-white mb-6">
+                <i class="fas fa-sliders-h mr-3 text-red-500"></i>
+                AI Configuration
+            </h2>
+            
+            <div class="glass-effect p-6 rounded-xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div>
+                        <label class="block text-gray-400 text-sm mb-2">Automation Level</label>
+                        <select class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white">
+                            <option>Conservative</option>
+                            <option selected>Moderate</option>
+                            <option>Aggressive</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm mb-2">Learning Mode</label>
+                        <select class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white">
+                            <option>Passive</option>
+                            <option selected>Active</option>
+                            <option>Adaptive</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm mb-2">Data Privacy</label>
+                        <select class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white">
+                            <option>Standard</option>
+                            <option selected>Enhanced</option>
+                            <option>Maximum</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-400 text-sm mb-2">Update Frequency</label>
+                        <select class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white">
+                            <option>Daily</option>
+                            <option selected>Real-time</option>
+                            <option>Weekly</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mt-6 flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition">
+                            <i class="fas fa-save mr-2"></i>Save Settings
+                        </button>
+                        <button class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition">
+                            <i class="fas fa-undo mr-2"></i>Reset to Default
+                        </button>
+                    </div>
+                    <div class="text-sm text-gray-400">
+                        Last AI training: 2 hours ago | Next scheduled: 6 hours
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function openAIFeature(feature) {
+            // Placeholder for AI feature detail modal
+            console.log('Opening AI feature:', feature);
+            alert(`AI Feature: ${feature}\n\nDetailed configuration and analytics would open here.`);
+        }
+
+        // Simulate real-time updates
+        setInterval(() => {
+            const activeIndicators = document.querySelectorAll('.status-active i');
+            activeIndicators.forEach(indicator => {
+                indicator.classList.toggle('ai-pulse');
+            });
+        }, 3000);
+    </script>
+</body>
+</html>
