@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Email System - OOES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .email-item { transition: all 0.3s ease; cursor: pointer; }
+        .email-item:hover { transform: translateX(5px); background-color: #f3f4f6; }
+        .compose-area { min-height: 400px; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+        .modal.active { display: flex; align-items: center; justify-content: center; }
+        .toolbar-btn { transition: all 0.2s ease; }
+        .toolbar-btn:hover { background-color: #e5e7eb; transform: scale(1.05); }
+        .toolbar-btn.active { background-color: #3b82f6; color: white; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-envelope text-3xl mr-4"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold">Professional Email System</h1>
+                        <p class="text-indigo-100">OOES Business Communications</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-right">
+                        <p class="text-sm text-gray-300">Business Email</p>
+                        <p class="text-lg font-bold">contact@ooes.co.ke</p>
+                        <p class="text-sm text-gray-300">+254 714 261 425</p>
+                    </div>
+                    <button onclick="goBack()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i>Back
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Email Compose -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold text-gray-800">
+                            <i class="fas fa-pen mr-2"></i>Compose Email
+                        </h2>
+                        <div class="flex space-x-2">
+                            <button onclick="saveDraft()" class="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600 transition">
+                                <i class="fas fa-save mr-1"></i>Save Draft
+                            </button>
+                            <button onclick="sendEmail()" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition">
+                                <i class="fas fa-paper-plane mr-1"></i>Send
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Email Form -->
+                    <form id="emailForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">To:</label>
+                            <input type="email" id="toEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="recipient@example.com">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Subject:</label>
+                            <input type="text" id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Email subject">
+                        </div>
+                        
+                        <!-- Email Toolbar -->
+                        <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                            <div class="flex flex-wrap gap-2">
+                                <button type="button" onclick="formatText('bold')" class="toolbar-btn p-2 rounded hover:bg-gray-200">
+                                    <i class="fas fa-bold"></i>
+                                </button>
+                                <button type="button" onclick="formatText('italic')" class="toolbar-btn p-2 rounded hover:bg-gray-200">
+                                    <i class="fas fa-italic"></i>
+                                </button>
+                                <button type="button" onclick="formatText('underline')" class="toolbar-btn p-2 rounded hover:bg-gray-200">
+                                    <i class="fas fa-underline"></i>
+                                </button>
+                                <div class="border-l border-gray-300 mx-2"></div>
+                                <button type="button" onclick="addLink()" class="toolbar-btn p-2 rounded hover:bg-gray-200">
+                                    <i class="fas fa-link"></i>
+                                </button>
+                                <button type="button" onclick="addImage()" class="toolbar-btn p-2 rounded hover:bg-gray-200">
+                                    <i class="fas fa-image"></i>
+                                </button>
+                                <button type="button" onclick="addAttachment()" class="toolbar-btn p-2 rounded hover:bg-gray-200">
+                                    <i class="fas fa-paperclip"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Message:</label>
+                            <div id="emailBody" contenteditable="true" class="compose-area w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Type your message here..."></div>
+                        </div>
+                        
+                        <!-- Attachments -->
+                        <div id="attachments" class="hidden">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Attachments:</label>
+                            <div id="attachmentList" class="space-y-2"></div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Email Templates -->
+                <div class="bg-white rounded-lg shadow-md p-6 mt-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">
+                        <i class="fas fa-file-alt mr-2"></i>Quick Templates
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <button onclick="useTemplate('welcome')" class="text-left p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition">
+                            <i class="fas fa-handshake text-blue-500 mr-2"></i>
+                            <span class="text-sm">Welcome Message</span>
+                        </button>
+                        <button onclick="useTemplate('followup')" class="text-left p-3 bg-green-50 rounded-lg hover:bg-green-100 transition">
+                            <i class="fas fa-phone text-green-500 mr-2"></i>
+                            <span class="text-sm">Follow-up</span>
+                        </button>
+                        <button onclick="useTemplate('invoice')" class="text-left p-3 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition">
+                            <i class="fas fa-file-invoice text-yellow-500 mr-2"></i>
+                            <span class="text-sm">Invoice Notice</span>
+                        </button>
+                        <button onclick="useTemplate('meeting')" class="text-left p-3 bg-purple-50 rounded-lg hover:bg-purple-100 transition">
+                            <i class="fas fa-calendar text-purple-500 mr-2"></i>
+                            <span class="text-sm">Meeting Request</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Email Stats -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">
+                        <i class="fas fa-chart-bar mr-2"></i>Email Statistics
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Inbox</span>
+                            <span class="font-bold text-blue-600">247</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Sent</span>
+                            <span class="font-bold text-green-600">1,823</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Drafts</span>
+                            <span class="font-bold text-yellow-600">12</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Archive</span>
+                            <span class="font-bold text-purple-600">3,456</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Emails -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">
+                        <i class="fas fa-clock mr-2"></i>Recent Emails
+                    </h3>
+                    <div class="space-y-2">
+                        <div class="email-item p-3 bg-gray-50 rounded-lg" onclick="openEmail('1')">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <p class="font-semibold text-sm">John Mwangi</p>
+                                    <p class="text-xs text-gray-600">Project Proposal Discussion</p>
+                                    <p class="text-xs text-gray-500">2 hours ago</p>
+                                </div>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">New</span>
+                            </div>
+                        </div>
+                        <div class="email-item p-3 bg-gray-50 rounded-lg" onclick="openEmail('2')">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <p class="font-semibold text-sm">Sarah Kamau</p>
+                                    <p class="text-xs text-gray-600">Meeting Confirmation</p>
+                                    <p class="text-xs text-gray-500">5 hours ago</p>
+                                </div>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Replied</span>
+                            </div>
+                        </div>
+                        <div class="email-item p-3 bg-gray-50 rounded-lg" onclick="openEmail('3')">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <p class="font-semibold text-sm">David Ochieng</p>
+                                    <p class="text-xs text-gray-600">Invoice Payment</p>
+                                    <p class="text-xs text-gray-500">1 day ago</p>
+                                </div>
+                                <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">Read</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">
+                        <i class="fas fa-bolt mr-2"></i>Quick Actions
+                    </h3>
+                    <div class="space-y-2">
+                        <button onclick="checkEmail()" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                            <i class="fas fa-sync mr-2"></i>Check New Email
+                        </button>
+                        <button onclick="composeNew()" class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
+                            <i class="fas fa-plus mr-2"></i>Compose New
+                        </button>
+                        <button onclick="viewCalendar()" class="w-full bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition">
+                            <i class="fas fa-calendar mr-2"></i>View Calendar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Email Preview Modal -->
+    <div id="emailModal" class="modal">
+        <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden m-4">
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
+                <div class="flex justify-between items-center">
+                    <h3 id="emailModalTitle" class="text-xl font-bold">Email Preview</h3>
+                    <button onclick="closeEmailModal()" class="text-white hover:text-gray-200">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <div id="emailModalContent" class="mb-6">
+                    <!-- Email content will be loaded here -->
+                </div>
+                <div class="flex justify-between">
+                    <div class="space-x-2">
+                        <button onclick="replyEmail()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                            <i class="fas fa-reply mr-2"></i>Reply
+                        </button>
+                        <button onclick="forwardEmail()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
+                            <i class="fas fa-share mr-2"></i>Forward
+                        </button>
+                        <button onclick="deleteEmail()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">
+                            <i class="fas fa-trash mr-2"></i>Delete
+                        </button>
+                    </div>
+                    <button onclick="closeEmailModal()" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Email Templates
+        const emailTemplates = {
+            welcome: {
+                subject: "Welcome to OOES - Your Office Efficiency Journey Begins!",
+                body: `Dear [Client Name],
+
+Welcome to OOES (Office Operations Efficiency Solution)!
+
+Thank you for choosing us to transform your office operations. We're excited to help you save up to 50% of your admin time so you can focus on growing your business.
+
+What happens next:
+• Account setup within 24 hours
+• Personalized onboarding session
+• Custom workflow configuration
+• Team training and support
+
+Your dedicated account manager will contact you shortly to schedule your onboarding session.
+
+Best regards,
+The OOES Team
++254 714 261 425
+contact@ooes.co.ke`
+            },
+            followup: {
+                subject: "Following up on our discussion",
+                body: `Dear [Client Name],
+
+I hope this email finds you well. Following up on our recent conversation regarding [specific topic].
+
+I wanted to:
+• Reiterate our key discussion points
+• Confirm next steps
+• Answer any additional questions
+
+As discussed, OOES can help you [specific benefit]. Our clients typically see [specific result] within [timeframe].
+
+Would you be available for a brief call this week to finalize the details?
+
+Best regards,
+[Your Name]
+OOES Consultant
++254 714 261 425`
+            },
+            invoice: {
+                subject: "Invoice [Invoice Number] - OOES Services",
+                body: `Dear [Client Name],
+
+Please find attached invoice [Invoice Number] for OOES services provided from [start date] to [end date].
+
+Invoice Details:
+• Service Period: [dates]
+• Total Amount: KSh [amount]
+• Due Date: [due date]
+• Payment Methods: Bank transfer, M-Pesa, PayPal
+
+For any questions about this invoice, please don't hesitate to contact us.
+
+Thank you for your business!
+OOES Finance Team
++254 714 261 425`
+            },
+            meeting: {
+                subject: "Meeting Request - OOES Consultation",
+                body: `Dear [Client Name],
+
+I'd like to schedule a meeting to discuss [meeting purpose].
+
+Proposed meeting details:
+• Date: [suggested date]
+• Time: [suggested time]
+• Duration: 30 minutes
+• Location: Zoom/In-person/Phone
+
+Agenda:
+1. Current challenges discussion
+2. OOES solution overview
+3. Implementation timeline
+4. Q&A session
+
+Please let me know if this time works or suggest an alternative.
+
+Looking forward to our discussion!
+
+Best regards,
+[Your Name]
+OOES Consultant
++254 714 261 425`
+            }
+        };
+
+        // Email Functions
+        function useTemplate(templateName) {
+            const template = emailTemplates[templateName];
+            if (template) {
+                document.getElementById('subject').value = template.subject;
+                document.getElementById('emailBody').innerHTML = template.body.replace(/\n/g, '<br>');
+            }
+        }
+
+        function formatText(command) {
+            document.execCommand(command, false, null);
+            document.getElementById('emailBody').focus();
+        }
+
+        function addLink() {
+            const url = prompt('Enter URL:');
+            if (url) {
+                document.execCommand('createLink', false, url);
+                document.getElementById('emailBody').focus();
+            }
+        }
+
+        function addImage() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.execCommand('insertImage', false, e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            input.click();
+        }
+
+        function addAttachment() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.multiple = true;
+            input.onchange = function(e) {
+                handleAttachments(e.target.files);
+            };
+            input.click();
+        }
+
+        function handleAttachments(files) {
+            const attachmentsDiv = document.getElementById('attachments');
+            const attachmentList = document.getElementById('attachmentList');
+            
+            if (files.length > 0) {
+                attachmentsDiv.classList.remove('hidden');
+                attachmentList.innerHTML = '';
+                
+                Array.from(files).forEach(file => {
+                    const attachmentItem = document.createElement('div');
+                    attachmentItem.className = 'flex items-center justify-between p-2 bg-gray-50 rounded';
+                    attachmentItem.innerHTML = `
+                        <div class="flex items-center">
+                            <i class="fas fa-paperclip text-gray-500 mr-2"></i>
+                            <span class="text-sm">${file.name}</span>
+                            <span class="text-xs text-gray-500 ml-2">(${formatFileSize(file.size)})</span>
+                        </div>
+                        <button onclick="this.parentElement.remove()" class="text-red-500 hover:text-red-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    attachmentList.appendChild(attachmentItem);
+                });
+            }
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function sendEmail() {
+            const to = document.getElementById('toEmail').value;
+            const subject = document.getElementById('subject').value;
+            const body = document.getElementById('emailBody').innerHTML;
+            
+            if (!to || !subject || !body) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Simulate sending email
+            alert('Email sent successfully!');
+            
+            // Clear form
+            document.getElementById('emailForm').reset();
+            document.getElementById('emailBody').innerHTML = '';
+            document.getElementById('attachments').classList.add('hidden');
+        }
+
+        function saveDraft() {
+            const draft = {
+                to: document.getElementById('toEmail').value,
+                subject: document.getElementById('subject').value,
+                body: document.getElementById('emailBody').innerHTML,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('emailDraft', JSON.stringify(draft));
+            alert('Draft saved successfully!');
+        }
+
+        function checkEmail() {
+            alert('Checking for new emails... (3 new messages found)');
+        }
+
+        function composeNew() {
+            document.getElementById('emailForm').reset();
+            document.getElementById('emailBody').innerHTML = '';
+            document.getElementById('emailBody').focus();
+        }
+
+        function viewCalendar() {
+            alert('Opening calendar integration...');
+        }
+
+        function openEmail(emailId) {
+            const modal = document.getElementById('emailModal');
+            const modalTitle = document.getElementById('emailModalTitle');
+            const modalContent = document.getElementById('emailModalContent');
+            
+            // Simulate email content
+            modalTitle.textContent = 'Email Preview';
+            modalContent.innerHTML = `
+                <div class="space-y-4">
+                    <div class="border-b pb-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="font-semibold">From: contact@ooes.co.ke</p>
+                                <p class="text-sm text-gray-600">To: client@example.com</p>
+                                <p class="text-sm text-gray-600">Subject: Sample Email Subject</p>
+                            </div>
+                            <p class="text-sm text-gray-500">Today at 2:30 PM</p>
+                        </div>
+                    </div>
+                    <div class="prose max-w-none">
+                        <p>This is a sample email content. In a real implementation, this would display the actual email content with proper formatting, images, and attachments.</p>
+                        <p>OOES provides comprehensive office management solutions to help businesses save time and increase productivity.</p>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        function closeEmailModal() {
+            document.getElementById('emailModal').classList.remove('active');
+        }
+
+        function replyEmail() {
+            closeEmailModal();
+            document.getElementById('toEmail').value = 'client@example.com';
+            document.getElementById('subject').value = 'Re: Sample Email Subject';
+            document.getElementById('emailBody').focus();
+        }
+
+        function forwardEmail() {
+            closeEmailModal();
+            document.getElementById('subject').value = 'Fwd: Sample Email Subject';
+            document.getElementById('emailBody').innerHTML = '<br><br>---------- Forwarded message ----------<br>Sample email content here';
+            document.getElementById('emailBody').focus();
+        }
+
+        function deleteEmail() {
+            if (confirm('Are you sure you want to delete this email?')) {
+                closeEmailModal();
+                alert('Email deleted successfully!');
+            }
+        }
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved draft if exists
+            const savedDraft = localStorage.getItem('emailDraft');
+            if (savedDraft) {
+                const draft = JSON.parse(savedDraft);
+                document.getElementById('toEmail').value = draft.to || '';
+                document.getElementById('subject').value = draft.subject || '';
+                document.getElementById('emailBody').innerHTML = draft.body || '';
+            }
+        });
+    </script>
+</body>
+</html>

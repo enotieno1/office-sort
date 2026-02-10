@@ -98,6 +98,54 @@
             background-color: #e5e7eb;
             border-radius: 8px;
         }
+        .tech-stack-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .tech-stack-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .tech-stack-card.active {
+            border: 2px solid #4f46e5;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+        }
+        .integration-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .integration-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            position: relative;
+        }
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .status-connected { background-color: #10b981; }
+        .status-disconnected { background-color: #ef4444; }
+        .status-pending { background-color: #f59e0b; }
         .stage-item {
             cursor: pointer;
             transition: all 0.2s ease;
@@ -259,6 +307,18 @@
                             <a href="#scaling" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
                                 <i class="fas fa-rocket mr-2"></i>Scaling Plan
                             </a>
+                            <a href="#office-activities" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                                <i class="fas fa-briefcase mr-2"></i>Office Activities
+                            </a>
+                            <a href="#email" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                                <i class="fas fa-envelope mr-2"></i>Email System
+                            </a>
+                            <a href="#security" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                                <i class="fas fa-shield-alt mr-2"></i>Security Center
+                            </a>
+                            <a href="#document-management" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                                <i class="fas fa-folder-open mr-2"></i>Document Management
+                            </a>
                             <a href="#tools" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
                                 <i class="fas fa-tools mr-2"></i>Tools & Tech
                             </a>
@@ -279,7 +339,7 @@
                         </h2>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                            <div class="card-hover clickable bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg" onclick="scrollToSection('systems')">
+                            <div class="card-hover clickable bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg" onclick="showValueProposition()">
                                 <h3 class="font-semibold text-lg mb-3 text-indigo-800">
                                     <i class="fas fa-bullseye mr-2"></i>Value Proposition
                                 </h3>
@@ -287,7 +347,7 @@
                                 <p class="text-sm text-indigo-600 mt-2 font-semibold">Click to learn more →</p>
                             </div>
                             
-                            <div class="card-hover clickable bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-lg" onclick="scrollToSection('packages')">
+                            <div class="card-hover clickable bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-lg" onclick="showTargetMarket()">
                                 <h3 class="font-semibold text-lg mb-3 text-emerald-800">
                                     <i class="fas fa-users mr-2"></i>Target Market
                                 </h3>
@@ -306,15 +366,42 @@
                                 <i class="fas fa-exclamation-triangle mr-2"></i>Core Problems We Solve
                             </h3>
                             <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
-                            <div class="flex items-center clickable" onclick="openFile('../templates/folder-structure.md')"><i class="fas fa-check text-green-500 mr-2"></i>Poor document organization</div>
-                            <div class="flex items-center clickable" onclick="openFile('../templates/document-templates.md')"><i class="fas fa-check text-green-500 mr-2"></i>Manual data entry</div>
-                            <div class="flex items-center clickable" onclick="openFile('../automation/email-automation.md')"><i class="fas fa-check text-green-500 mr-2"></i>Email overload</div>
-                            <div class="flex items-center clickable" onclick="openFile('../templates/document-templates.md')"><i class="fas fa-check text-green-500 mr-2"></i>HR & payroll admin</div>
-                            <div class="flex items-center clickable" onclick="openFile('../templates/document-templates.md')"><i class="fas fa-check text-green-500 mr-2"></i>Billing delays</div>
-                            <div class="flex items-center clickable" onclick="openFile('../sales/sales-materials.md')"><i class="fas fa-check text-green-500 mr-2"></i>Customer follow-ups</div>
-                            <div class="flex items-center clickable" onclick="openFile('../compliance/compliance-checklist.md')"><i class="fas fa-check text-green-500 mr-2"></i>Compliance deadlines</div>
-                            <div class="flex items-center clickable" onclick="openFile('../tools/technology-stack.md')"><i class="fas fa-check text-green-500 mr-2"></i>IT inefficiencies</div>
-                            <div class="flex items-center clickable" onclick="openFile('../workflows/client-service-workflow.md')"><i class="fas fa-check text-green-500 mr-2"></i>Task tracking issues</div>
+                            <div class="flex items-center clickable p-2 bg-white rounded hover:bg-yellow-100 transition" onclick="showProblemSolution('document-organization')">
+                                <i class="fas fa-arrow-right text-yellow-600 mr-2"></i>
+                                <span class="text-gray-700">Poor document organization</span>
+                            </div>
+                            <div class="flex items-center clickable p-2 bg-white rounded hover:bg-yellow-100 transition" onclick="showProblemSolution('data-entry')">
+                                <i class="fas fa-arrow-right text-yellow-600 mr-2"></i>
+                                <span class="text-gray-700">Manual data entry</span>
+                            </div>
+                            <div class="flex items-center clickable p-2 bg-white rounded hover:bg-yellow-100 transition" onclick="showProblemSolution('email-overload')">
+                                <i class="fas fa-arrow-right text-yellow-600 mr-2"></i>
+                                <span class="text-gray-700">Email overload</span>
+                            </div>
+                            <div class="flex items-center clickable p-2 bg-white rounded hover:bg-yellow-100 transition" onclick="showProblemSolution('hr-payroll')">
+                                <i class="fas fa-arrow-right text-yellow-600 mr-2"></i>
+                                <span class="text-gray-700">HR & payroll admin</span>
+                            </div>
+                            <div class="flex items-center clickable p-2 bg-white rounded hover:bg-yellow-100 transition" onclick="showProblemSolution('billing-delays')">
+                                <i class="fas fa-arrow-right text-yellow-600 mr-2"></i>
+                                <span class="text-gray-700">Billing delays</span>
+                            </div>
+                            <div class="flex items-center clickable p-2 bg-white rounded hover:bg-yellow-100 transition" onclick="showProblemSolution('customer-followup')">
+                                <i class="fas fa-arrow-right text-yellow-600 mr-2"></i>
+                                <span class="text-gray-700">Customer follow-ups</span>
+                            </div>
+                            <div class="flex items-center clickable p-2 bg-white rounded hover:bg-yellow-100 transition" onclick="showProblemSolution('compliance-deadlines')">
+                                <i class="fas fa-arrow-right text-yellow-600 mr-2"></i>
+                                <span class="text-gray-700">Compliance deadlines</span>
+                            </div>
+                            <div class="flex items-center clickable p-2 bg-white rounded hover:bg-yellow-100 transition" onclick="showProblemSolution('it-inefficiencies')">
+                                <i class="fas fa-arrow-right text-yellow-600 mr-2"></i>
+                                <span class="text-gray-700">IT inefficiencies</span>
+                            </div>
+                            <div class="flex items-center clickable p-2 bg-white rounded hover:bg-yellow-100 transition" onclick="showProblemSolution('task-tracking')">
+                                <i class="fas fa-arrow-right text-yellow-600 mr-2"></i>
+                                <span class="text-gray-700">Task tracking issues</span>
+                            </div>
                         </div>
                         </div>
                     </div>
@@ -694,59 +781,492 @@
                     </div>
                 </section>
 
+                <!-- Email System Section -->
+                <section id="email" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-md p-8">
+                        <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                            <i class="fas fa-envelope mr-3 text-blue-600"></i>
+                            Professional Email System
+                        </h2>
+                        
+                        <div class="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="text-blue-800 font-semibold mb-2">
+                                <i class="fas fa-at mr-2"></i>
+                                Business Communications Hub
+                            </p>
+                            <p class="text-blue-700 text-sm">Professional email system with templates, auto-responses, and client management. Contact: <strong>+254 714 261 425</strong> | <strong>contact@ooes.co.ke</strong></p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <i class="fas fa-inbox text-3xl text-blue-600"></i>
+                                    <span class="bg-blue-600 text-white px-2 py-1 rounded text-xs font-semibold">247</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-blue-800 mb-2">Inbox Management</h3>
+                                <p class="text-blue-700 text-sm mb-4">Smart filtering, priority sorting, and automated responses</p>
+                                <button onclick="openEmailSystem()" class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition font-semibold">
+                                    <i class="fas fa-envelope-open-text mr-2"></i>Check Inbox
+                                </button>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border border-green-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <i class="fas fa-pen text-3xl text-green-600"></i>
+                                    <span class="bg-green-600 text-white px-2 py-1 rounded text-xs font-semibold">4</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-green-800 mb-2">Email Templates</h3>
+                                <p class="text-green-700 text-sm mb-4">Professional templates for every business situation</p>
+                                <button onclick="openEmailSystem()" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition font-semibold">
+                                    <i class="fas fa-file-alt mr-2"></i>Use Templates
+                                </button>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg border border-purple-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <i class="fas fa-paper-plane text-3xl text-purple-600"></i>
+                                    <span class="bg-purple-600 text-white px-2 py-1 rounded text-xs font-semibold">1.8K</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-purple-800 mb-2">Sent Items</h3>
+                                <p class="text-purple-700 text-sm mb-4">Track sent emails, delivery status, and responses</p>
+                                <button onclick="openEmailSystem()" class="w-full bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition font-semibold">
+                                    <i class="fas fa-chart-line mr-2"></i>View Analytics
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-center">
+                            <button onclick="openEmailSystem()" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition font-semibold text-lg">
+                                <i class="fas fa-envelope mr-2"></i>Launch Email System
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Office Activities Section -->
+                <section id="office-activities" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-md p-8">
+                        <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                            <i class="fas fa-briefcase mr-3 text-blue-600"></i>
+                            Office Activities Showcase
+                        </h2>
+                        
+                        <div class="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="text-blue-800 font-semibold mb-2">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                Professional Office Management Solutions
+                            </p>
+                            <p class="text-blue-700 text-sm">See how OOES handles everyday office activities with our comprehensive management solutions. Click any activity to explore detailed features and implementation process.</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="activity-card bg-white rounded-xl shadow-lg overflow-hidden" onclick="openOfficeActivity('document-management')">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div>
+                                        <h3 class="text-lg font-bold text-gray-800">Document Management</h3>
+                                        <span class="text-sm text-gray-500">15GB Storage</span>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Active</span>
+                                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">247 Files</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <i class="fas fa-folder text-3xl text-blue-600 mr-3"></i>
+                                    <i class="fas fa-clock text-sm text-gray-500 mr-2"></i>
+                                    <span class="text-sm text-gray-600">Last sync: 2 min ago</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Smart digital filing system with cloud storage, search, and version control.</p>
+                            <button onclick="openOfficeActivity('document-management')" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition font-semibold">
+                                <i class="fas fa-arrow-right mr-2"></i>Explore System
+                            </button>
+                            </div>
+                            
+                            <div class="activity-card bg-white rounded-xl shadow-lg overflow-hidden" onclick="openOfficeActivity('email-management')">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div>
+                                        <h3 class="text-lg font-bold text-gray-800">Email Management</h3>
+                                        <span class="text-sm text-gray-500">1,823 Sent</span>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">Active</span>
+                                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">12 Drafts</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <i class="fas fa-envelope text-3xl text-red-600 mr-3"></i>
+                                    <i class="fas fa-clock text-sm text-gray-500 mr-2"></i>
+                                    <span class="text-sm text-gray-600">Last check: 5 min ago</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Professional email system with templates, auto-responses, and client management.</p>
+                            <button onclick="openOfficeActivity('email-management')" class="w-full bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition font-semibold">
+                                <i class="fas fa-arrow-right mr-2"></i>Explore System
+                            </button>
+                            </div>
+                            
+                            <div class="activity-card bg-white rounded-xl shadow-lg overflow-hidden" onclick="openOfficeActivity('team-collaboration')">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div>
+                                        <h3 class="text-lg font-bold text-gray-800">Team Collaboration</h3>
+                                        <span class="text-sm text-gray-500">8 Teams</span>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Active</span>
+                                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">24 Projects</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <i class="fas fa-users text-3xl text-green-600 mr-3"></i>
+                                    <i class="fas fa-clock text-sm text-gray-500 mr-2"></i>
+                                    <span class="text-sm text-gray-600">Last activity: 1 hour ago</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Real-time collaboration tools with shared workspaces and video conferencing.</p>
+                            <button onclick="openOfficeActivity('team-collaboration')" class="w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition font-semibold">
+                                <i class="fas fa-arrow-right mr-2"></i>Explore Tools
+                            </button>
+                            </div>
+                            
+                            <div class="activity-card bg-white rounded-xl shadow-lg overflow-hidden" onclick="openOfficeActivity('financial-management')">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div>
+                                        <h3 class="text-lg font-bold text-gray-800">Financial Management</h3>
+                                        <span class="text-sm text-gray-500">KSh 2.5M</span>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">Active</span>
+                                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">98% Accuracy</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <i class="fas fa-chart-line text-3xl text-yellow-600 mr-3"></i>
+                                    <i class="fas fa-clock text-sm text-gray-500 mr-2"></i>
+                                    <span class="text-sm text-gray-600">Last report: Today</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Automated financial processes with invoicing, payroll, and reporting.</p>
+                            <button onclick="openOfficeActivity('financial-management')" class="w-full bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 transition font-semibold">
+                                <i class="fas fa-arrow-right mr-2"></i>Explore System
+                            </button>
+                            </div>
+                            
+                            <div class="activity-card bg-white rounded-xl shadow-lg overflow-hidden" onclick="openOfficeActivity('task-management')">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div>
+                                        <h3 class="text-lg font-bold text-gray-800">Task Management</h3>
+                                        <span class="text-sm text-gray-500">156 Tasks</span>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">Active</span>
+                                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">On Time</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <i class="fas fa-tasks text-3xl text-purple-600 mr-3"></i>
+                                    <i class="fas fa-clock text-sm text-gray-500 mr-2"></i>
+                                    <span class="text-sm text-gray-600">3 Deadlines Today</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Advanced project management with Kanban boards and deadline tracking.</p>
+                            <button onclick="openOfficeActivity('task-management')" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition font-semibold">
+                                <i class="fas fa-arrow-right mr-2"></i>Explore System
+                            </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 text-center">
+                            <button onclick="openOfficeActivities()" class="bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition font-semibold text-lg">
+                                <i class="fas fa-th-large mr-2"></i>View All Activities
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Security Center Section -->
+                <section id="security" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-md p-8">
+                        <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                            <i class="fas fa-shield-alt mr-3 text-red-600"></i>
+                            Military-Grade Security Center
+                        </h2>
+                        
+                        <div class="mb-6 p-4 bg-red-50 rounded-lg border border-red-200">
+                            <p class="text-red-800 font-semibold mb-2">
+                                <i class="fas fa-lock mr-2"></i>
+                                Advanced Threat Protection
+                            </p>
+                            <p class="text-red-700 text-sm">Enterprise-level security with AES-256 encryption, real-time threat monitoring, and military-grade data protection protocols.</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg border border-red-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <i class="fas fa-shield-virus text-3xl text-red-600"></i>
+                                    <span class="bg-green-600 text-white px-2 py-1 rounded text-xs font-semibold">ACTIVE</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-red-800 mb-2">Threat Detection</h3>
+                                <p class="text-red-700 text-sm mb-4">AI-powered malware and intrusion detection</p>
+                                <button onclick="openSecurityCenter()" class="w-full bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition font-semibold">
+                                    <i class="fas fa-radar mr-2"></i>View Threats
+                                </button>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <i class="fas fa-key text-3xl text-blue-600"></i>
+                                    <span class="bg-green-600 text-white px-2 py-1 rounded text-xs font-semibold">AES-256</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-blue-800 mb-2">Encryption</h3>
+                                <p class="text-blue-700 text-sm mb-4">Military-grade end-to-end encryption</p>
+                                <button onclick="openSecurityCenter()" class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition font-semibold">
+                                    <i class="fas fa-lock mr-2"></i>Manage Keys
+                                </button>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border border-green-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <i class="fas fa-user-shield text-3xl text-green-600"></i>
+                                    <span class="bg-green-600 text-white px-2 py-1 rounded text-xs font-semibold">MFA</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-green-800 mb-2">Access Control</h3>
+                                <p class="text-green-700 text-sm mb-4">Multi-factor authentication & biometrics</p>
+                                <button onclick="openSecurityCenter()" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition font-semibold">
+                                    <i class="fas fa-fingerprint mr-2"></i>Authentication
+                                </button>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg border border-purple-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <i class="fas fa-network-wired text-3xl text-purple-600"></i>
+                                    <span class="bg-green-600 text-white px-2 py-1 rounded text-xs font-semibold">98.5%</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-purple-800 mb-2">Security Score</h3>
+                                <p class="text-purple-700 text-sm mb-4">Overall system security rating</p>
+                                <button onclick="openSecurityCenter()" class="w-full bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition font-semibold">
+                                    <i class="fas fa-chart-line mr-2"></i>View Report
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-center">
+                            <button onclick="openSecurityCenter()" class="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 transition font-semibold text-lg">
+                                <i class="fas fa-shield-alt mr-2"></i>Launch Security Command Center
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Document Management Section -->
+                <section id="document-management" class="mb-12">
+                    <div class="bg-white rounded-lg shadow-md p-8">
+                        <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                            <i class="fas fa-folder-open mr-3 text-indigo-600"></i>
+                            Digital Document Management
+                        </h2>
+                        
+                        <div class="mb-6 p-4 bg-green-50 rounded-lg">
+                            <p class="text-green-800 font-semibold mb-2">
+                                <i class="fas fa-cloud mr-2"></i>
+                                Secure Cloud Storage
+                            </p>
+                            <p class="text-green-700 text-sm">Store, organize, and manage all your business documents in our secure digital filing system. Access your files from anywhere, anytime.</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg border border-blue-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <i class="fas fa-folder text-3xl text-blue-600"></i>
+                                    <span class="bg-blue-600 text-white px-2 py-1 rounded text-xs font-semibold">15 GB</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-blue-800 mb-2">File Storage</h3>
+                                <p class="text-blue-700 text-sm mb-4">Secure cloud storage with automatic backup and version control</p>
+                                <button onclick="openDocumentManager()" class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition font-semibold">
+                                    <i class="fas fa-folder-open mr-2"></i>Open File Manager
+                                </button>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-lg border border-green-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <i class="fas fa-upload text-3xl text-green-600"></i>
+                                    <span class="bg-green-600 text-white px-2 py-1 rounded text-xs font-semibold">247</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-green-800 mb-2">Document Upload</h3>
+                                <p class="text-green-700 text-sm mb-4">Drag & drop files, scan documents, or create digital files</p>
+                                <button onclick="openDocumentManager()" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition font-semibold">
+                                    <i class="fas fa-cloud-upload-alt mr-2"></i>Upload Documents
+                                </button>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-purple-50 to-pink-100 p-6 rounded-lg border border-purple-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <i class="fas fa-share-alt text-3xl text-purple-600"></i>
+                                    <span class="bg-purple-600 text-white px-2 py-1 rounded text-xs font-semibold">12</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-purple-800 mb-2">Sharing & Collaboration</h3>
+                                <p class="text-purple-700 text-sm mb-4">Share folders with team members and collaborate in real-time</p>
+                                <button onclick="openDocumentManager()" class="w-full bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition font-semibold">
+                                    <i class="fas fa-users mr-2"></i>Share Files
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-center">
+                            <button onclick="openDocumentManager()" class="bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition font-semibold text-lg">
+                                <i class="fas fa-rocket mr-2"></i>Launch Document Management System
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- Tools & Technology -->
                 <section id="tools" class="mb-12">
                     <div class="bg-white rounded-lg shadow-md p-8">
                         <h2 class="text-2xl font-bold mb-6 text-gray-800">
                             <i class="fas fa-tools mr-3 text-indigo-600"></i>
-                            Technology Stack
+                            Technology Stack - Click to Launch
                         </h2>
                         
+                        <div class="mb-6 p-4 bg-indigo-50 rounded-lg">
+                            <p class="text-indigo-800 font-semibold mb-2">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                Interactive Technology Stack
+                            </p>
+                            <p class="text-indigo-700 text-sm">Click on any tool below to open and operate it directly from your dashboard. Each integration provides real functionality for your business operations.</p>
+                        </div>
+                        
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div class="text-center p-4 bg-blue-50 rounded-lg tool-icon" onclick="showToolDetails('google-drive')">
-                                <i class="fas fa-folder text-3xl text-blue-600 mb-2"></i>
+                            <div class="tech-stack-card bg-white border-2 border-gray-200 rounded-lg p-4" onclick="launchIntegration('google-drive')">
+                                <div class="flex items-center justify-between mb-2">
+                                    <i class="fas fa-folder text-3xl text-blue-600"></i>
+                                    <span class="status-indicator status-disconnected" id="status-google-drive"></span>
+                                </div>
                                 <p class="font-semibold text-sm">Google Drive</p>
                                 <p class="text-xs text-gray-600">File Storage</p>
+                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch →</p>
+                                <div class="mt-2 pt-2 border-t border-gray-200">
+                                    <button onclick="event.stopPropagation(); openDocumentManager()" class="w-full bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs hover:bg-blue-200 transition">
+                                        <i class="fas fa-folder-open mr-1"></i>OOES Files
+                                    </button>
+                                </div>
                             </div>
-                            <div class="text-center p-4 bg-red-50 rounded-lg tool-icon" onclick="showToolDetails('gmail')">
-                                <i class="fas fa-envelope text-3xl text-red-600 mb-2"></i>
+                            <div class="tech-stack-card bg-white border-2 border-gray-200 rounded-lg p-4" onclick="launchIntegration('gmail')">
+                                <div class="flex items-center justify-between mb-2">
+                                    <i class="fas fa-envelope text-3xl text-red-600"></i>
+                                    <span class="status-indicator status-disconnected" id="status-gmail"></span>
+                                </div>
                                 <p class="font-semibold text-sm">Gmail</p>
                                 <p class="text-xs text-gray-600">Email System</p>
+                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch →</p>
                             </div>
-                            <div class="text-center p-4 bg-green-50 rounded-lg tool-icon" onclick="showToolDetails('google-sheets')">
-                                <i class="fas fa-table text-3xl text-green-600 mb-2"></i>
+                            <div class="tech-stack-card bg-white border-2 border-gray-200 rounded-lg p-4" onclick="launchIntegration('google-sheets')">
+                                <div class="flex items-center justify-between mb-2">
+                                    <i class="fas fa-table text-3xl text-green-600"></i>
+                                    <span class="status-indicator status-disconnected" id="status-google-sheets"></span>
+                                </div>
                                 <p class="font-semibold text-sm">Google Sheets</p>
                                 <p class="text-xs text-gray-600">Data Management</p>
+                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch →</p>
                             </div>
-                            <div class="text-center p-4 bg-purple-50 rounded-lg tool-icon" onclick="showToolDetails('trello')">
-                                <i class="fas fa-tasks text-3xl text-purple-600 mb-2"></i>
+                            <div class="tech-stack-card bg-white border-2 border-gray-200 rounded-lg p-4" onclick="launchIntegration('trello')">
+                                <div class="flex items-center justify-between mb-2">
+                                    <i class="fas fa-tasks text-3xl text-purple-600"></i>
+                                    <span class="status-indicator status-disconnected" id="status-trello"></span>
+                                </div>
                                 <p class="font-semibold text-sm">Trello</p>
                                 <p class="text-xs text-gray-600">Task Management</p>
+                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch →</p>
                             </div>
-                            <div class="text-center p-4 bg-orange-50 rounded-lg tool-icon" onclick="showToolDetails('quickbooks')">
-                                <i class="fas fa-calculator text-3xl text-orange-600 mb-2"></i>
+                            <div class="tech-stack-card bg-white border-2 border-gray-200 rounded-lg p-4" onclick="launchIntegration('quickbooks')">
+                                <div class="flex items-center justify-between mb-2">
+                                    <i class="fas fa-calculator text-3xl text-orange-600"></i>
+                                    <span class="status-indicator status-disconnected" id="status-quickbooks"></span>
+                                </div>
                                 <p class="font-semibold text-sm">QuickBooks</p>
                                 <p class="text-xs text-gray-600">Accounting</p>
+                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch →</p>
                             </div>
-                            <div class="text-center p-4 bg-yellow-50 rounded-lg tool-icon" onclick="showToolDetails('whatsapp')">
-                                <i class="fab fa-whatsapp text-3xl text-green-600 mb-2"></i>
+                            <div class="tech-stack-card bg-white border-2 border-gray-200 rounded-lg p-4" onclick="launchIntegration('whatsapp')">
+                                <div class="flex items-center justify-between mb-2">
+                                    <i class="fab fa-whatsapp text-3xl text-green-600"></i>
+                                    <span class="status-indicator status-disconnected" id="status-whatsapp"></span>
+                                </div>
                                 <p class="font-semibold text-sm">WhatsApp Business</p>
                                 <p class="text-xs text-gray-600">Communication</p>
+                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch →</p>
                             </div>
-                            <div class="text-center p-4 bg-indigo-50 rounded-lg tool-icon" onclick="showToolDetails('zapier')">
-                                <i class="fas fa-plug text-3xl text-indigo-600 mb-2"></i>
+                            <div class="tech-stack-card bg-white border-2 border-gray-200 rounded-lg p-4" onclick="launchIntegration('zapier')">
+                                <div class="flex items-center justify-between mb-2">
+                                    <i class="fas fa-plug text-3xl text-indigo-600"></i>
+                                    <span class="status-indicator status-disconnected" id="status-zapier"></span>
+                                </div>
                                 <p class="font-semibold text-sm">Zapier</p>
                                 <p class="text-xs text-gray-600">Automation</p>
+                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch →</p>
                             </div>
-                            <div class="text-center p-4 bg-pink-50 rounded-lg tool-icon" onclick="showToolDetails('hubspot')">
-                                <i class="fas fa-users text-3xl text-pink-600 mb-2"></i>
+                            <div class="tech-stack-card bg-white border-2 border-gray-200 rounded-lg p-4" onclick="launchIntegration('hubspot')">
+                                <div class="flex items-center justify-between mb-2">
+                                    <i class="fas fa-users text-3xl text-pink-600"></i>
+                                    <span class="status-indicator status-disconnected" id="status-hubspot"></span>
+                                </div>
                                 <p class="font-semibold text-sm">HubSpot</p>
                                 <p class="text-xs text-gray-600">CRM</p>
+                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch →</p>
                             </div>
                         </div>
                     </div>
                 </section>
 
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Solutions Modal -->
+    <div id="solutionsModal" class="integration-modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="solutionsModalTitle" class="text-2xl font-bold text-gray-800"></h3>
+                <button onclick="closeSolutionsModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div id="solutionsModalContent" class="mb-6">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+            <div class="flex gap-4">
+                <button id="solutionActionBtn" onclick="takeAction()" class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition font-semibold">
+                    <i class="fas fa-rocket mr-2"></i>Take Action
+                </button>
+                <button onclick="closeSolutionsModal()" class="bg-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-400 transition font-semibold">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Integration Modal -->
+    <div id="integrationModal" class="integration-modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="modalTitle" class="text-2xl font-bold text-gray-800"></h3>
+                <button onclick="closeIntegrationModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div id="modalContent" class="mb-6">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+            <div class="flex gap-4">
+                <button id="connectBtn" onclick="connectService()" class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition font-semibold">
+                    <i class="fas fa-plug mr-2"></i>Connect Service
+                </button>
+                <button id="launchBtn" onclick="launchService()" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-semibold" style="display:none;">
+                    <i class="fas fa-rocket mr-2"></i>Launch Application
+                </button>
+                <button onclick="closeIntegrationModal()" class="bg-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-400 transition font-semibold">
+                    Cancel
+                </button>
             </div>
         </div>
     </div>
@@ -998,6 +1518,729 @@
 
         function showStageDetails(stageNumber) {
             window.location.href = 'scaling.html';
+        }
+
+        // Integration Management
+        let currentService = null;
+        const integrations = {
+            'google-drive': {
+                name: 'Google Drive',
+                description: 'Cloud file storage and collaboration platform',
+                features: ['15GB free storage', 'Real-time collaboration', 'File sharing', 'Offline access'],
+                url: 'https://drive.google.com',
+                connected: false
+            },
+            'gmail': {
+                name: 'Gmail',
+                description: 'Professional email system with advanced features',
+                features: ['15GB storage', 'Smart compose', 'Spam protection', 'Email scheduling'],
+                url: 'https://gmail.com',
+                connected: false
+            },
+            'google-sheets': {
+                name: 'Google Sheets',
+                description: 'Online spreadsheet application for data management',
+                features: ['Real-time collaboration', 'Formulas & functions', 'Charts & graphs', 'Data import/export'],
+                url: 'https://sheets.google.com',
+                connected: false
+            },
+            'trello': {
+                name: 'Trello',
+                description: 'Visual project management and task tracking',
+                features: ['Kanban boards', 'Task assignments', 'Due dates', 'Team collaboration'],
+                url: 'https://trello.com',
+                connected: false
+            },
+            'quickbooks': {
+                name: 'QuickBooks',
+                description: 'Accounting and financial management software',
+                features: ['Invoicing', 'Expense tracking', 'Financial reports', 'Tax preparation'],
+                url: 'https://quickbooks.intuit.com',
+                connected: false
+            },
+            'whatsapp': {
+                name: 'WhatsApp Business',
+                description: 'Business communication and customer engagement',
+                features: ['Business profile', 'Automated messages', 'Customer support', 'Broadcast lists'],
+                url: 'https://business.whatsapp.com',
+                connected: false
+            },
+            'zapier': {
+                name: 'Zapier',
+                description: 'Automation platform to connect your apps',
+                features: ['App integration', 'Workflow automation', 'Data synchronization', 'Custom triggers'],
+                url: 'https://zapier.com',
+                connected: false
+            },
+            'hubspot': {
+                name: 'HubSpot',
+                description: 'Customer Relationship Management (CRM) platform',
+                features: ['Contact management', 'Sales pipeline', 'Marketing automation', 'Analytics'],
+                url: 'https://hubspot.com',
+                connected: false
+            }
+        };
+
+        // Interactive Business Overview Functions
+        const problemSolutions = {
+            'document-organization': {
+                title: 'Poor Document Organization',
+                problem: 'Lost files, paper clutter, slow retrieval, version control issues',
+                solution: 'Digital document management with cloud storage, smart naming conventions, and instant search',
+                benefits: ['50% faster file retrieval', 'Automatic backup', 'Version control', 'Remote access'],
+                action: 'Open Document Manager',
+                actionFunction: 'openDocumentManager'
+            },
+            'data-entry': {
+                title: 'Manual Data Entry',
+                problem: 'Repetitive typing, human errors, time-consuming data input',
+                solution: 'Automated data capture, form auto-fill, OCR technology, and integration workflows',
+                benefits: ['80% reduction in data entry time', '99% accuracy improvement', 'Automated validation', 'Real-time sync'],
+                action: 'Setup Automation',
+                actionFunction: 'openAutomationTools'
+            },
+            'email-overload': {
+                title: 'Email Overload',
+                problem: 'Hundreds of daily emails, missed important messages, inefficient responses',
+                solution: 'Smart email filtering, automated responses, template system, and priority management',
+                benefits: ['60% less email processing time', 'Never miss important emails', 'Professional templates', 'Mobile access'],
+                action: 'Configure Email System',
+                actionFunction: 'launchIntegration'
+            },
+            'hr-payroll': {
+                title: 'HR & Payroll Admin',
+                problem: 'Complex calculations, compliance requirements, time-consuming processes',
+                solution: 'Automated payroll system, HR management dashboard, compliance tracking',
+                benefits: ['Automated calculations', 'Tax compliance', 'Employee self-service', 'Reporting'],
+                action: 'Setup HR System',
+                actionFunction: 'openDocumentManager'
+            },
+            'billing-delays': {
+                title: 'Billing Delays',
+                problem: 'Late invoices, cash flow issues, manual tracking',
+                solution: 'Automated invoicing, payment reminders, financial dashboard',
+                benefits: ['Faster payments', 'Automated reminders', 'Real-time tracking', 'Financial insights'],
+                action: 'Launch Billing System',
+                actionFunction: 'openDocumentManager'
+            },
+            'customer-followup': {
+                title: 'Customer Follow-ups',
+                problem: 'Missed follow-ups, inconsistent communication, lost opportunities',
+                solution: 'CRM system, automated follow-ups, communication tracking',
+                benefits: ['Never miss a follow-up', 'Automated scheduling', 'Communication history', 'Sales insights'],
+                action: 'Setup CRM',
+                actionFunction: 'launchIntegration'
+            },
+            'compliance-deadlines': {
+                title: 'Compliance Deadlines',
+                problem: 'Missed deadlines, regulatory requirements, documentation issues',
+                solution: 'Compliance calendar, automated reminders, document management',
+                benefits: ['Never miss deadlines', 'Automated compliance', 'Document storage', 'Audit ready'],
+                action: 'View Compliance Tools',
+                actionFunction: 'openSecurityCenter'
+            },
+            'it-inefficiencies': {
+                title: 'IT Inefficiencies',
+                problem: 'System downtime, security issues, poor integration',
+                solution: 'Managed IT services, proactive monitoring, security solutions',
+                benefits: ['99.9% uptime', 'Proactive support', 'Security protection', 'Cost optimization'],
+                action: 'Access IT Solutions',
+                actionFunction: 'openSecurityCenter'
+            },
+            'task-tracking': {
+                title: 'Task Tracking Issues',
+                problem: 'Lost tasks, missed deadlines, poor accountability',
+                solution: 'Project management system, task automation, team collaboration',
+                benefits: ['Clear accountability', 'Automated reminders', 'Team collaboration', 'Progress tracking'],
+                action: 'Launch Task Manager',
+                actionFunction: 'launchIntegration'
+            }
+        };
+
+        function showProblemSolution(problemId) {
+            const solution = problemSolutions[problemId];
+            if (!solution) return;
+            
+            const modal = document.getElementById('solutionsModal');
+            const modalTitle = document.getElementById('solutionsModalTitle');
+            const modalContent = document.getElementById('solutionsModalContent');
+            const actionBtn = document.getElementById('solutionActionBtn');
+            
+            modalTitle.innerHTML = `<i class="fas fa-lightbulb mr-3 text-yellow-500"></i>${solution.title}`;
+            
+            modalContent.innerHTML = `
+                <div class="space-y-6">
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded">
+                        <h4 class="font-bold text-red-800 mb-2">Problem</h4>
+                        <p class="text-red-700">${solution.problem}</p>
+                    </div>
+                    
+                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                        <h4 class="font-bold text-green-800 mb-2">Our Solution</h4>
+                        <p class="text-green-700">${solution.solution}</p>
+                    </div>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                        <h4 class="font-bold text-blue-800 mb-2">Key Benefits</h4>
+                        <ul class="space-y-2">
+                            ${solution.benefits.map(benefit => `
+                                <li class="flex items-center text-blue-700">
+                                    <i class="fas fa-check-circle text-blue-500 mr-2"></i>
+                                    ${benefit}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded">
+                        <h4 class="font-bold text-yellow-800 mb-2">Implementation Time</h4>
+                        <p class="text-yellow-700">Setup in under 24 hours • Full training included • Ongoing support</p>
+                    </div>
+                </div>
+            `;
+            
+            actionBtn.textContent = solution.action;
+            actionBtn.onclick = () => {
+                if (solution.actionFunction === 'openDocumentManager') {
+                    openDocumentManager();
+                } else if (solution.actionFunction === 'openSecurityCenter') {
+                    openSecurityCenter();
+                } else if (solution.actionFunction === 'launchIntegration') {
+                    launchIntegration('gmail');
+                } else if (solution.actionFunction === 'openAutomationTools') {
+                    openDocumentManager();
+                }
+                closeSolutionsModal();
+            };
+            
+            modal.classList.add('active');
+        }
+
+        function showValueProposition() {
+            const modal = document.getElementById('solutionsModal');
+            const modalTitle = document.getElementById('solutionsModalTitle');
+            const modalContent = document.getElementById('solutionsModalContent');
+            const actionBtn = document.getElementById('solutionActionBtn');
+            
+            modalTitle.innerHTML = '<i class="fas fa-bullseye mr-3 text-blue-500"></i>Value Proposition';
+            
+            modalContent.innerHTML = `
+                <div class="space-y-6">
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded">
+                        <h4 class="font-bold text-blue-800 mb-3 text-xl">50% Time Savings Guarantee</h4>
+                        <p class="text-blue-700 text-lg mb-4">"We save offices up to 50% of admin time so they can focus on growth."</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded">
+                                <h5 class="font-semibold text-blue-800 mb-2">Before OOES</h5>
+                                <ul class="space-y-1 text-sm text-gray-600">
+                                    <li>• 20+ hours/week on admin tasks</li>
+                                    <li>• Manual processes everywhere</li>
+                                    <li>• Constant firefighting</li>
+                                    <li>• Missed deadlines</li>
+                                </ul>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded">
+                                <h5 class="font-semibold text-green-800 mb-2">After OOES</h5>
+                                <ul class="space-y-1 text-sm text-green-700">
+                                    <li>• 10+ hours/week saved</li>
+                                    <li>• Automated workflows</li>
+                                    <li>• Proactive management</li>
+                                    <li>• On-time delivery</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                        <h4 class="font-bold text-green-800 mb-3">ROI Calculator</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                            <div>
+                                <p class="text-2xl font-bold text-green-600">KSh 50K</p>
+                                <p class="text-sm text-gray-600">Monthly admin cost</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-blue-600">KSh 25K</p>
+                                <p class="text-sm text-gray-600">Monthly savings</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-purple-600">300%</p>
+                                <p class="text-sm text-gray-600">Annual ROI</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded">
+                        <h4 class="font-bold text-purple-800 mb-3">Growth Impact</h4>
+                        <p class="text-purple-700">Reinvest saved time into revenue-generating activities. Our clients typically see 40% business growth within 6 months of implementation.</p>
+                    </div>
+                </div>
+            `;
+            
+            actionBtn.textContent = 'Start Saving Time';
+            actionBtn.onclick = () => {
+                scrollToSection('packages');
+                closeSolutionsModal();
+            };
+            
+            modal.classList.add('active');
+        }
+
+        function showTargetMarket() {
+            const modal = document.getElementById('solutionsModal');
+            const modalTitle = document.getElementById('solutionsModalTitle');
+            const modalContent = document.getElementById('solutionsModalContent');
+            const actionBtn = document.getElementById('solutionActionBtn');
+            
+            modalTitle.innerHTML = '<i class="fas fa-users mr-3 text-green-500"></i>Target Market';
+            
+            modalContent.innerHTML = `
+                <div class="space-y-6">
+                    <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded">
+                        <h4 class="font-bold text-green-800 mb-3">Perfect For Growing Businesses</h4>
+                        <p class="text-green-700">We specialize in helping businesses that are ready to scale but are held back by administrative overhead.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-4 rounded">
+                            <h5 class="font-semibold text-blue-800 mb-3">Ideal Company Size</h5>
+                            <ul class="space-y-2">
+                                <li class="flex items-center text-blue-700">
+                                    <i class="fas fa-building text-blue-500 mr-2"></i>
+                                    SMEs (1-50 employees)
+                                </li>
+                                <li class="flex items-center text-blue-700">
+                                    <i class="fas fa-chart-line text-blue-500 mr-2"></i>
+                                    Growing rapidly
+                                </li>
+                                <li class="flex items-center text-blue-700">
+                                    <i class="fas fa-clock text-blue-500 mr-2"></i>
+                                    1-5 years in business
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-purple-50 p-4 rounded">
+                            <h5 class="font-semibold text-purple-800 mb-3">Target Industries</h5>
+                            <ul class="space-y-2">
+                                <li class="flex items-center text-purple-700">
+                                    <i class="fas fa-graduation-cap text-purple-500 mr-2"></i>
+                                    NGOs & Schools
+                                </li>
+                                <li class="flex items-center text-purple-700">
+                                    <i class="fas fa-briefcase text-purple-500 mr-2"></i>
+                                    Professional Services
+                                </li>
+                                <li class="flex items-center text-purple-700">
+                                    <i class="fas fa-store text-purple-500 mr-2"></i>
+                                    Retail & E-commerce
+                                </li>
+                                <li class="flex items-center text-purple-700">
+                                    <i class="fas fa-heartbeat text-purple-500 mr-2"></i>
+                                    Healthcare
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded">
+                        <h4 class="font-bold text-yellow-800 mb-3">Success Stories</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                            <div>
+                                <p class="text-2xl font-bold text-yellow-600">87%</p>
+                                <p class="text-sm text-gray-600">Client retention</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-green-600">4.8/5</p>
+                                <p class="text-sm text-gray-600">Client satisfaction</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-blue-600">200+</p>
+                                <p class="text-sm text-gray-600">Businesses served</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            actionBtn.textContent = 'View Service Packages';
+            actionBtn.onclick = () => {
+                scrollToSection('packages');
+                closeSolutionsModal();
+            };
+            
+            modal.classList.add('active');
+        }
+
+        function closeSolutionsModal() {
+            document.getElementById('solutionsModal').classList.remove('active');
+        }
+
+        function takeAction() {
+            // This will be handled by the specific modal content
+            console.log('Taking action...');
+        }
+
+        function openEmailSystem() {
+            window.open('email-system.html', '_blank', 'width=1400,height=900');
+        }
+
+        function openOfficeActivities() {
+            window.open('office-activities.html', '_blank', 'width=1600,height=1000');
+        }
+
+        function openOfficeActivity(activityType) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden m-4">
+                    <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-xl font-bold">${getActivityTitle(activityType)}</h3>
+                            <button onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" class="text-white hover:text-gray-200">
+                                <i class="fas fa-times text-2xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-4">Description</h4>
+                                <p class="text-gray-600 mb-6">${getActivityDescription(activityType)}</p>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-4">Key Features</h4>
+                                <ul class="space-y-3">
+                                    ${getActivityFeatures(activityType).map(feature => `
+                                        <li class="flex items-center text-gray-700">
+                                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                            ${feature}
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-4">Benefits</h4>
+                                <ul class="space-y-3">
+                                    ${getActivityBenefits(activityType).map(benefit => `
+                                        <li class="flex items-center text-gray-700">
+                                            <i class="fas fa-star text-yellow-500 mr-3"></i>
+                                            ${benefit}
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-4">Implementation Process</h4>
+                                <div class="space-y-4">
+                                    ${getActivityProcess(activityType).map((step, index) => `
+                                        <div class="flex items-start">
+                                            <div class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold mr-4">${index + 1}</div>
+                                            <div>
+                                                <div class="font-semibold text-gray-800">${step.title}</div>
+                                                <p class="text-gray-600 text-sm">${step.description}</p>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-end space-x-4 mt-8">
+                            <button onclick="window.open('${getActivityLink(activityType)}', '_blank')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
+                                <i class="fas fa-rocket mr-2"></i>Launch ${getActivityTitle(activityType)}
+                            </button>
+                            <button onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" class="bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition font-semibold">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function getActivityTitle(activityType) {
+            const titles = {
+                'document-management': 'Document Management System',
+                'email-management': 'Email Management System',
+                'team-collaboration': 'Team Collaboration Platform',
+                'financial-management': 'Financial Management System',
+                'task-management': 'Task Management System'
+            };
+            return titles[activityType] || 'Office Activity';
+        }
+
+        function getActivityDescription(activityType) {
+            const descriptions = {
+                'document-management': 'Smart digital filing system with cloud storage, intelligent search, and automated organization. Transform your paper-based office into a digital workspace.',
+                'email-management': 'Professional email system with smart filtering, automated responses, and client management. Streamline your communication workflow.',
+                'team-collaboration': 'Real-time collaboration platform with shared workspaces, video conferencing, and team chat. Connect your distributed team seamlessly.',
+                'financial-management': 'Comprehensive financial management with automated invoicing, payroll processing, and real-time reporting. Gain complete financial visibility.',
+                'task-management': 'Advanced project and task management with Kanban boards, Gantt charts, and automated deadline tracking. Never miss another deadline.'
+            };
+            return descriptions[activityType] || 'Professional office management solution.';
+        }
+
+        function getActivityFeatures(activityType) {
+            const features = {
+                'document-management': [
+                    '15GB secure cloud storage',
+                    'Smart search & filtering',
+                    'Version control system',
+                    'Automated backup',
+                    'Mobile access',
+                    'Collaborative editing'
+                ],
+                'email-management': [
+                    'Smart email filtering',
+                    'Professional templates',
+                    'Auto-responses',
+                    'Client management',
+                    'Analytics tracking',
+                    'Mobile access'
+                ],
+                'team-collaboration': [
+                    'Shared workspaces',
+                    'Task management',
+                    'Video conferencing',
+                    'Team chat',
+                    'File sharing',
+                    'Screen sharing'
+                ],
+                'financial-management': [
+                    'Automated invoicing',
+                    'Payroll processing',
+                    'Expense tracking',
+                    'Financial reporting',
+                    'Tax compliance',
+                    'Budget management'
+                ],
+                'task-management': [
+                    'Kanban boards',
+                    'Gantt charts',
+                    'Automated reminders',
+                    'Progress tracking',
+                    'Team assignments',
+                    'Deadline management'
+                ]
+            };
+            return features[activityType] || [];
+        }
+
+        function getActivityBenefits(activityType) {
+            const benefits = {
+                'document-management': [
+                    '50% faster file retrieval',
+                    'Eliminate paper clutter',
+                    'Automatic organization',
+                    'Remote access from anywhere'
+                ],
+                'email-management': [
+                    '60% less email processing time',
+                    'Never miss important emails',
+                    'Professional communication',
+                    'Automated follow-ups'
+                ],
+                'team-collaboration': [
+                    'Improved team productivity',
+                    'Real-time communication',
+                    'Centralized information',
+                    'Flexible workflows'
+                ],
+                'financial-management': [
+                    'Faster payments',
+                    'Compliance ready',
+                    'Real-time insights',
+                    'Cost optimization'
+                ],
+                'task-management': [
+                    'Never miss deadlines',
+                    'Clear accountability',
+                    'Better project visibility',
+                    'Automated notifications'
+                ]
+            };
+            return benefits[activityType] || [];
+        }
+
+        function getActivityProcess(activityType) {
+            const processes = {
+                'document-management': [
+                    { title: 'Assessment', description: 'Analyze current document workflows and identify pain points' },
+                    { title: 'Digital Setup', description: 'Migrate documents to cloud and implement smart organization' },
+                    { title: 'Team Training', description: 'Train team on digital document management best practices' },
+                    { title: 'Optimization', description: 'Fine-tune workflows and implement automation' }
+                ],
+                'email-management': [
+                    { title: 'Setup', description: 'Configure email system and import existing contacts' },
+                    { title: 'Template Creation', description: 'Create professional email templates for common scenarios' },
+                    { title: 'Automation', description: 'Set up auto-responses and email filtering rules' }
+                ],
+                'team-collaboration': [
+                    { title: 'Team Setup', description: 'Create team workspaces and invite team members' },
+                    { title: 'Workspace Creation', description: 'Set up shared workspaces for different projects' },
+                    { title: 'Integration', description: 'Integrate with existing tools and workflows' }
+                ],
+                'financial-management': [
+                    { title: 'Setup', description: 'Configure financial system and import existing data' },
+                    { title: 'Integration', description: 'Connect with bank accounts and payment processors' },
+                    { title: 'Automation', description: 'Set up automated invoicing and reporting' }
+                ],
+                'task-management': [
+                    { title: 'Project Setup', description: 'Create project structures and assign team members' },
+                    { title: 'Team Onboarding', description: 'Train team on task management tools' },
+                    { title: 'Workflow Design', description: 'Design efficient task workflows and automation' }
+                ]
+            };
+            return processes[activityType] || [];
+        }
+
+        function getActivityLink(activityType) {
+            const links = {
+                'document-management': 'document-management.html',
+                'email-management': 'email-system.html',
+                'team-collaboration': '#team-collaboration',
+                'financial-management': '#financial-management',
+                'task-management': '#task-management'
+            };
+            return links[activityType] || '#';
+        }
+
+        function openSecurityCenter() {
+            window.open('security-center.html', '_blank', 'width=1600,height=1000');
+        }
+
+        function openDocumentManager() {
+            window.open('document-management.html', '_blank', 'width=1400,height=900');
+        }
+
+        function launchIntegration(serviceId) {
+            currentService = serviceId;
+            const service = integrations[serviceId];
+            
+            // Handle error if service not found
+            if (!service) {
+                console.error('Service not found:', serviceId);
+                alert('Service not available. Please try again.');
+                return;
+            }
+            
+            try {
+                document.getElementById('modalTitle').innerHTML = `<i class="fas fa-plug mr-3"></i>${service.name}`;
+                
+                const content = `
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">Service Description</h4>
+                            <p class="text-blue-700">${service.description}</p>
+                        </div>
+                        
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-2">Key Features</h4>
+                            <ul class="space-y-1">
+                                ${service.features.map(feature => `<li class="flex items-center text-green-700"><i class="fas fa-check mr-2"></i>${feature}</li>`).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-yellow-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-yellow-800 mb-2">Connection Status</h4>
+                            <div class="flex items-center">
+                                <span class="status-indicator ${service.connected ? 'status-connected' : 'status-disconnected'}"></span>
+                                <span class="text-yellow-700">${service.connected ? 'Connected' : 'Not Connected'}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                document.getElementById('modalContent').innerHTML = content;
+                
+                // Show/hide buttons based on connection status
+                const connectBtn = document.getElementById('connectBtn');
+                const launchBtn = document.getElementById('launchBtn');
+                
+                if (service.connected) {
+                    connectBtn.style.display = 'none';
+                    launchBtn.style.display = 'block';
+                } else {
+                    connectBtn.style.display = 'block';
+                    launchBtn.style.display = 'none';
+                }
+                
+                document.getElementById('integrationModal').classList.add('active');
+            } catch (error) {
+                console.error('Error launching integration:', error);
+                alert('An error occurred while launching the service. Please try again.');
+            }
+        }
+
+        function closeIntegrationModal() {
+            document.getElementById('integrationModal').classList.remove('active');
+            currentService = null;
+        }
+
+        function connectService() {
+            if (!currentService) return;
+            
+            const service = integrations[currentService];
+            const statusElement = document.getElementById(`status-${currentService}`);
+            
+            // Simulate connection process
+            statusElement.className = 'status-indicator status-pending';
+            
+            setTimeout(() => {
+                service.connected = true;
+                statusElement.className = 'status-indicator status-connected';
+                
+                // Update modal
+                const content = document.getElementById('modalContent');
+                const statusDiv = content.querySelector('.bg-yellow-50');
+                statusDiv.innerHTML = `
+                    <h4 class="font-semibold text-green-800 mb-2">Connection Status</h4>
+                    <div class="flex items-center">
+                        <span class="status-indicator status-connected"></span>
+                        <span class="text-green-700 font-semibold">Successfully Connected!</span>
+                    </div>
+                    <p class="text-green-600 text-sm mt-2">You can now launch ${service.name} directly from your dashboard.</p>
+                `;
+                
+                // Update buttons
+                document.getElementById('connectBtn').style.display = 'none';
+                document.getElementById('launchBtn').style.display = 'block';
+                
+                // Update card appearance
+                const card = document.querySelector(`[onclick="launchIntegration('${currentService}')"]`);
+                if (card) {
+                    card.classList.add('active');
+                }
+            }, 2000);
+        }
+
+        function launchService() {
+            if (!currentService) return;
+            
+            const service = integrations[currentService];
+            
+            // Open the service in a new window
+            window.open(service.url, '_blank', 'width=1200,height=800');
+            
+            // Show success message
+            const content = document.getElementById('modalContent');
+            const launchMessage = document.createElement('div');
+            launchMessage.className = 'bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4';
+            launchMessage.innerHTML = `
+                <i class="fas fa-check-circle mr-2"></i>
+                <strong>Success!</strong> ${service.name} has been launched in a new window.
+            `;
+            content.insertBefore(launchMessage, content.firstChild);
+            
+            // Remove message after 3 seconds
+            setTimeout(() => {
+                if (launchMessage.parentNode) {
+                    launchMessage.parentNode.removeChild(launchMessage);
+                }
+            }, 3000);
         }
 
         function showToolDetails(toolName) {
