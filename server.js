@@ -186,6 +186,30 @@ const server = http.createServer((req, res) => {
     pathname = '/dashboard/index.html';
   }
   
+  // Handle dashboard files
+  if (pathname.startsWith('/dashboard/') || pathname.endsWith('.html')) {
+    const filePath = path.join(__dirname, pathname);
+    const ext = path.parse(filePath).ext;
+    const mimeType = mimeTypes[ext] || 'application/octet-stream';
+    
+    fs.readFile(filePath, (err, data) => {
+      if (err) {
+        if (err.code === 'ENOENT') {
+          res.writeHead(404, { 'Content-Type': 'text/html' });
+          res.end('<h1>404 Not Found</h1>');
+        } else {
+          res.writeHead(500, { 'Content-Type': 'text/html' });
+          res.end('<h1>500 Server Error</h1>');
+        }
+        return;
+      }
+      
+      res.writeHead(200, { 'Content-Type': mimeType });
+      res.end(data);
+    });
+    return;
+  }
+  
   const filePath = path.join(__dirname, pathname);
   const ext = path.parse(filePath).ext;
   const mimeType = mimeTypes[ext] || 'application/octet-stream';

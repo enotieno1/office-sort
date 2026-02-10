@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Compliance & Management - OOES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #1e3a8a 0%, #67e8b 100%); }
+        .compliance-card { transition: all 0.3s ease; cursor: pointer; }
+        .compliance-card:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(0,0,0,0.1); }
+        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .status-compliant { background-color: #10b981; color: white; }
+        .status-warning { background-color: #f59e0b; color: white; }
+        .status-non-compliant { background-color: #ef4444; color: white; }
+        .status-critical { background-color: #dc2626; color: white; }
+        .progress-bar { height: 8px; background: #4f46e5; border-radius: 4px; transition: width 0.3s ease; }
+        .tool-button { transition: all 0.2s ease; border: 1px solid #e5e7eb; background: white; padding: 8px 16px; border-radius: 4px; }
+        .tool-button:hover { background-color: #4f46e5; transform: scale(1.05); }
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table th { background: #374151; color: white; padding: 12px; text-align: left; font-weight: 600; }
+        .data-table td { padding: 12px; border: 1px solid #e5e7eb; }
+        .data-table tr:hover { background-color: #f9fafb; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+        .modal.active { display: flex; align-items: center; justify-content: center; }
+        .modal-content { background: white; border-radius: 12px; max-w-4xl w-full max-h-[90vh] overflow-hidden m-4; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-shield-alt text-3xl mr-4"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold">IT Compliance & Management</h1>
+                        <p class="text-green-100">Enterprise IT Infrastructure</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-right">
+                        <p class="text-sm text-gray-300">System Status</p>
+                        <p class="text-lg font-bold text-green-400">Secure</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-300">Compliance Score</p>
+                        <p class="text-lg font-bold text-green-400">98.5%</p>
+                    </div>
+                    <button onclick="goBack()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- IT Overview -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-shield-alt mr-3 text-blue-600"></i>
+                    IT Compliance Overview
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- System Status -->
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border border-green-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-check-circle text-3xl text-green-600"></i>
+                            <span class="status-badge status-compliant">Compliant</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-green-800 mb-2">System Security</h3>
+                        <p class="text-green-700">All security protocols active</p>
+                    </div>
+                    </div>
+                    
+                    <!-- Network Status -->
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-network-wired text-3xl text-blue-600"></i>
+                            <span class="status-badge status-compliant">Secure</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-blue-800 mb-2">Network Security</h3>
+                        <p class="text-blue-700">Firewall and IDS active</p>
+                    </div>
+                    </div>
+                    
+                    <!-- Data Protection -->
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg border border-purple-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-lock text-3xl text-purple-600"></i>
+                            <span class="status-badge status-compliant">Encrypted</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-purple-800 mb-2">Data Protection</h3>
+                        <p class="text-purple-700">AES-256 encryption active</p>
+                    </div>
+                    </div>
+                </div>
+                    
+                    <!-- Access Control -->
+                    <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-lg border border-orange-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-user-shield text-3xl text-orange-600"></i>
+                            <span class="status-badge status-compliant">Controlled</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-orange-800 mb-2">Access Control</h3>
+                        <p class="text-orange-700">MFA and RBAC active</p>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Asset Management -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-laptop text-blue-600"></i>
+                    Asset Management
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Hardware Assets -->
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-desktop text-3xl text-blue-600"></i>
+                            <span class="status-badge status-compliant">45 Devices</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-blue-800 mb-2">Hardware Assets</h3>
+                        <p class="text-blue-700">Desktops, laptops, servers</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Software Assets -->
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg border border-purple-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-cube text-3xl text-purple-600"></i>
+                            <span class="status-badge status-compliant">Licensed</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-purple-800 mb-2">Software Assets</h3>
+                        <p class="text-purple-700">Office suite, development tools</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Digital Assets -->
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border border-green-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-cloud text-3xl text-green-600"></i>
+                            <span class="status-badge status-compliant">Cloud Storage</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-green-800 mb-2">Digital Assets</h3>
+                        <p class="text-green-700">Documents, media, licenses</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- IT Tools -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-tools text-blue-600"></i>
+                    IT Management Tools
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Network Tools -->
+                    <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg border-red-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-network-wired text-3xl text-red-600"></i>
+                            <span class="status-badge status-compliant">Active</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-red-800 mb-2">Network Tools</h3>
+                        <p class="text-red-700">Monitoring, analysis, optimization</p>
+                        </div>
+                        <div class="flex justify-end space-x-2">
+                            <button onclick="runNetworkScan()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
+                                <i class="fas fa-radar mr-2"></i>Scan Network
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Security Tools -->
+                    <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-lg border-yellow-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-shield-alt text-3xl text-yellow-600"></i>
+                            <span class="status-badge status-compliant">Protected</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-yellow-800 mb-2">Security Tools</h3>
+                        <p class="text-yellow-700">Vulnerability scanning, patch management</p>
+                        </div>
+                        <div class="flex justify-end space-x-2">
+                            <button onclick="runSecurityScan()" class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition">
+                                <i class="fas fa-shield-alt mr-2"></i>Security Scan
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- System Tools -->
+                    <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-lg border-indigo-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-cogs text-3xl text-indigo-600"></i>
+                            <span class="status-badge status-compliant">Optimized</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-indigo-800 mb-2">System Tools</h3>
+                        <p class="text-indigo-700">Performance monitoring, cleanup</p>
+                        </div>
+                        <div class="flex justify-end space-x-2">
+                            <button onclick="runSystemOptimization()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">
+                                <i class="fas fa-tachometer-alt mr-2"></i>Optimize System
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Ticket System -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-life-ring text-blue-600"></i>
+                    IT Support System
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Ticket Stats -->
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border-green-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-ticket-alt text-3xl text-green-600"></i>
+                            <span class="status-badge status-compliant">24 Tickets</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-green-800 mb-2">Open Tickets</h3>
+                        <p class="text-green-700">5 pending, 19 resolved</p>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Avg Resolution: <span class="text-green-600 font-bold">2.5 hours</span>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="flex justify-center space-x-4">
+                        <button onclick="createTicket()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+                            <i class="fas fa-plus mr-2"></i>Create Ticket
+                        </button>
+                        <button onclick="viewTickets()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                            <i class="fas fa-list mr-2"></i>View All Tickets
+                        </button>
+                        <button onclick="exportTickets()" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">
+                            <i class="fas fa-download mr-2"></i>Export Tickets
+                        </button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Remote Access -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-desktop text-blue-600"></i>
+                    Remote Management
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Remote Access Tools -->
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border-blue-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-laptop text-3xl text-blue-600"></i>
+                            <span class="status-badge status-compliant">8 Devices</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-blue-800 mb-2">Remote Devices</h3>
+                        <p class="text-blue-700">Laptops, servers, mobile devices</p>
+                        </div>
+                        <div class="flex justify-end space-x-2">
+                            <button onclick="startRemoteSession()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                                <i class="fas fa-desktop mr-2"></i>Remote Session
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- System Monitoring -->
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg border-purple-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-eye text-3xl text-purple-600"></i>
+                            <span class="status-badge status-compliant">Monitoring</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-purple-800 mb-2">Remote Sessions</h3>
+                        <p class="text-purple-700">3 active sessions</p>
+                        </div>
+                        <div class="flex justify-end space-x-2">
+                            <button onclick="viewRemoteSessions()" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">
+                                <i class="fas fa-eye mr-2"></i>View Sessions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </section>
+
+                    <!-- IT Access Portal -->
+                    <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-lg border border-indigo-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-key text-3xl text-indigo-600"></i>
+                            <span class="status-badge status-active">Secure</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-indigo-800 mb-2">IT Access Portal</h3>
+                        <p class="text-indigo-700">Secure remote access to all IT systems and management tools</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <button onclick="openRemoteDesktop()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">
+                                <i class="fas fa-desktop mr-2"></i>Remote Desktop
+                            </button>
+                            <button onclick="openServerManagement()" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">
+                                <i class="fas fa-server mr-2"></i>Server Management
+                            </button>
+                            <button onclick="openNetworkTools()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                                <i class="fas fa-network-wired mr-2"></i>Network Tools
+                            </button>
+                            <button onclick="openSecurityConsole()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
+                                <i class="fas fa-shield-alt mr-2"></i>Security Console
+                            </button>
+                        </div>
+                    </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="flex justify-center space-x-4">
+                        <button onclick="runFullSystemScan()" class="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition font-semibold">
+                            <i class="fas fa-radar mr-2"></i>Full System Scan
+                        </button>
+                        <button onclick="generateSystemReport()" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition font-semibold">
+                            <i class="fas fa-file-alt mr-2"></i>Generate Report
+                        </button>
+                        <button onclick="openITDashboard()" class="bg-purple-600 text-white px-6 py-3 rounded hover:bg-purple-700 transition font-semibold">
+                            <i class="fas fa-tachometer-alt mr-2"></i>Performance Dashboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Remote Access -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-desktop text-blue-600"></i>
+                    Remote Access & Management
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Active Sessions -->
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-laptop text-3xl text-blue-600"></i>
+                            <span class="status-badge status-active">3 Active</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-blue-800 mb-2">Active Remote Sessions</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                <div class="flex items-center">
+                                    <img src="https://picsum.photos/seed/user1/40/40.jpg" alt="User" class="w-10 h-10 rounded-full mr-3">
+                                    <div>
+                                        <p class="font-semibold">John Mwangi</p>
+                                        <p class="text-sm text-gray-600">Desktop - Main Office</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-sm text-gray-500">Connected: 2 hours ago</span>
+                                    <button onclick="endSession(1)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition text-sm">
+                                        End Session
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                <div class="flex items-center">
+                                    <img src="https://picsum.photos/seed/user2/40/40.jpg" alt="User" class="w-10 h-10 rounded-full mr-3">
+                                    <div>
+                                        <p class="font-semibold">Sarah Kamau</p>
+                                        <p class="text-sm text-gray-600">Laptop - Sales Team</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-sm text-gray-500">Connected: 1 hour ago</span>
+                                    <button onclick="endSession(2)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition text-sm">
+                                        End Session
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                <div class="flex items-center">
+                                    <img src="https://picsum.photos/seed/user3/40/40.jpg" alt="User" class="w-10 h-10 rounded-full mr-3">
+                                    <div>
+                                        <p class="font-semibold">David Ochieng</p>
+                                        <p class="text-sm text-gray-600">Server - IT Department</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-sm text-gray-500">Connected: 30 min ago</span>
+                                    <button onclick="endSession(3)" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition text-sm">
+                                        End Session
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Access Control -->
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg border border-purple-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-user-shield text-3xl text-purple-600"></i>
+                            <span class="status-badge status-active">Controlled</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-purple-800 mb-2">Access Control</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Multi-Factor Auth:</span>
+                                <span class="status-badge status-active">Enabled</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Session Timeout:</span>
+                                <span class="text-purple-600 font-bold">8 hours</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">IP Restrictions:</span>
+                                <span class="status-badge status-active">Active</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Device Limits:</span>
+                                <span class="text-purple-600 font-bold">3 per user</span>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <button onclick="configureAccess()" class="w-full bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">
+                                <i class="fas fa-cogs mr-2"></i>Configure Access Settings
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- IT Dashboard -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-chart-line text-blue-600"></i>
+                    IT Performance Dashboard
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- System Health -->
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border border-green-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-heartbeat text-3xl text-green-600"></i>
+                            <span class="status-badge status-active">Healthy</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-green-800 mb-2">System Health</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">CPU Usage:</span>
+                                <div class="flex items-center">
+                                    <div class="w-32 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 35%"></div>
+                                    </div>
+                                    <span class="text-green-600 font-bold">35%</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Memory Usage:</span>
+                                <div class="flex items-center">
+                                    <div class="w-32 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-yellow-500 h-2 rounded-full" style="width: 65%"></div>
+                                    </div>
+                                    <span class="text-yellow-600 font-bold">65%</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Disk Usage:</span>
+                                <div class="flex items-center">
+                                    <div class="w-32 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 45%"></div>
+                                    </div>
+                                    <span class="text-blue-600 font-bold">45%</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Network Status:</span>
+                                <span class="status-badge status-active">Optimal</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Performance Metrics -->
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-tachometer-alt text-3xl text-blue-600"></i>
+                            <span class="status-badge status-active">Optimized</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-blue-800 mb-2">Performance Metrics</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Response Time:</span>
+                                <span class="text-green-600 font-bold">1.2s</span>
+                            </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Uptime:</span>
+                                <span class="text-green-600 font-bold">99.9%</span>
+                            </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Throughput:</span>
+                                <span class="text-blue-600 font-bold">2.3 Gbps</span>
+                            </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Error Rate:</span>
+                                <span class="text-yellow-600 font-bold">0.1%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Security Status -->
+                    <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg border border-red-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-shield-alt text-3xl text-red-600"></i>
+                            <span class="status-badge status-active">Protected</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-red-800 mb-2">Security Status</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Firewall:</span>
+                                <span class="status-badge status-active">Active</span>
+                            </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Antivirus:</span>
+                                <span class="status-badge status-active">Updated</span>
+                            </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Intrusion Detection:</span>
+                                <span class="status-badge status-active">Monitoring</span>
+                            </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Last Scan:</span>
+                                <span class="text-green-600">2 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-bolt text-blue-600"></i>
+                    Quick IT Actions
+                </h2>
+                
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="startNewSession()" class="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition font-semibold">
+                        <i class="fas fa-plus mr-2"></i>Start New Session
+                    </button>
+                    <button onclick="viewAllSessions()" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition font-semibold">
+                        <i class="fas fa-list mr-2"></i>View All Sessions
+                    </button>
+                    <button onclick="runSecurityAudit()" class="bg-red-600 text-white px-6 py-3 rounded hover:bg-red-700 transition font-semibold">
+                        <i class="fas fa-shield-alt mr-2"></i>Security Audit
+                    </button>
+                    <button onclick="openITDashboard()" class="bg-purple-600 text-white px-6 py-3 rounded hover:bg-purple-700 transition font-semibold">
+                        <i class="fas fa-chart-line mr-2"></i>Performance Dashboard
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Backup & Recovery -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-database text-blue-600"></i>
+                    Backup & Recovery
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Backup Status -->
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border-green-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-save text-3xl text-green-600"></i>
+                            <span class="status-badge status-compliant">Automated</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-green-800 mb-2">Daily Backups</h3>
+                        <p class="text-green-700">Last: 2 days ago</p>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Total: 250GB</span>
+                        </div>
+                        <div class="flex justify-end space-x-2">
+                            <button onclick="runBackup()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+                                <i class="fas fa-download mr-2"></i>Run Backup
+                            </button>
+                        </div>
+                    </div>
+                    </div>
+                    
+                    <!-- Recovery Tools -->
+                    <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-lg border-red-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-undo text-3xl text-red-600"></i>
+                            <span class="status-badge status-compliant">Ready</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-red-800 mb-2">Recovery Tools</h3>
+                        <p class="text-red-700">System Restore Available</p>
+                        </div>
+                        <div class="flex justify-end space-x-2">
+                            <button onclick="runSystemRestore()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
+                                <i class="fas fa-history mr-2"></i>System Restore
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- IT Dashboard Modal -->
+    <div id="itModal" class="modal">
+        <div class="bg-white rounded-lg max-w-6xl w-full max-h-[90vh] overflow-hidden m-4">
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
+                <div class="flex justify-between items-center">
+                    <h3 id="modalTitle" class="text-xl font-bold">IT Configuration</h3>
+                    <button onclick="closeITModal()" class="text-white hover:text-gray-200">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-8">
+                <div class="space-y-6">
+                    <!-- System Configuration -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Security Level:</label>
+                        <select id="securityLevel" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                            <option value="basic">Basic</option>
+                            <option value="standard">Standard</option>
+                            <option value="enhanced">Enhanced</option>
+                            <option value="enterprise">Enterprise</option>
+                        </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Network Configuration -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Firewall Type:</label>
+                        <select id="firewallType" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                            <option value="basic">Basic Firewall</option>
+                            <option value="next-gen">Next-Gen Firewall</option>
+                            <option value="enterprise">Enterprise Firewall</option>
+                        </select>
+                        </select>
+                    </div>
+                    
+                    <!-- Access Control -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Access Method:</label>
+                        <select id="accessMethod" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                            <option value="password">Password Only</option>
+                            <option value="mfa">MFA + Password</option>
+                            <option value="sso">SSO + SSO</option>
+                            <option value="biometric">Biometric</option>
+                            <option value="certificate">Certificate</option>
+                        </select>
+                        </select>
+                    </div>
+                    
+                    <!-- Backup Configuration -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Backup Schedule:</label>
+                        <select id="backupSchedule" class="w-full px-4 py-2 border-gray-300 rounded-lg">
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </select>
+                    </div>
+                    
+                    <!-- Save Button -->
+                    <div class="mt-6">
+                        <button onclick="saveITConfiguration()" class="w-full bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700 transition font-semibold">
+                            <i class="fas fa-save mr-2"></i>Save Configuration
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // IT Compliance & Management System
+        let itConfig = {
+            securityLevel: 'standard',
+            firewallType: 'basic',
+            accessMethod: 'password',
+            backupSchedule: 'daily',
+            lastBackup: null,
+            networkDevices: [],
+            softwareAssets: [],
+            hardwareAssets: []
+        };
+
+        function initializeITSystem() {
+            updateITStats();
+            renderITDashboard();
+        }
+
+        function updateITStats() {
+            const compliantCount = document.querySelectorAll('.status-badge.status-compliant').length;
+            const warningCount = document.querySelectorAll('.status-badge.status-warning').length;
+            const nonCompliantCount = document.querySelectorAll('.status-badge.status-non-compliant').length;
+            
+            document.querySelector('.text-lg.text-green-400').textContent = compliantCount + '%';
+            document.querySelector('.text-lg.text-blue-600').textContent = warningCount + '%';
+            document.querySelector('.text-lg.text-red-600').textContent = nonCompliantCount + '%';
+        }
+
+        function renderITDashboard() {
+            const securityLevel = document.getElementById('securityLevel');
+            const firewallType = document.getElementById('firewallType');
+            const accessMethod = document.getElementById('accessMethod');
+            const backupSchedule = document.getElementById('backupSchedule');
+            
+            // Update status badges
+            document.querySelectorAll('.status-badge').forEach(badge => {
+                badge.classList.remove('status-compliant', 'status-warning', 'status-non-compliant', 'status-critical');
+                badge.classList.add('status-' + itConfig.securityLevel);
+            });
+        }
+
+        function closeITModal() {
+            document.getElementById('itModal').classList.remove('active');
+        }
+
+        function saveITConfiguration() {
+            itConfig.securityLevel = document.getElementById('securityLevel').value;
+            itConfig.firewallType = document.getElementById('firewallType').value;
+            itConfig.accessMethod = document.getElementById('accessMethod').value;
+            itConfig.backupSchedule = document.getElementById('backupSchedule').value;
+            
+            // Save configuration
+            localStorage.setItem('itConfig', JSON.stringify(itConfig));
+            alert('IT configuration saved successfully!');
+            closeITModal();
+        }
+
+        function runNetworkScan() {
+            alert('Initiating network security scan...');
+            // Simulate network scanning
+            setTimeout(() => {
+                alert('Network scan completed. Found 0 threats, 8 vulnerabilities patched.');
+            }, 3000);
+        }
+
+        function runSecurityScan() {
+            alert('Initiating security vulnerability scan...');
+            // Simulate security scanning
+            setTimeout(() => {
+                alert('Security scan completed. Found 2 vulnerabilities, 5 patched.');
+            }, 2000);
+        }
+
+        function runSystemOptimization() {
+            alert('Running system optimization...');
+            // Simulate system optimization
+            setTimeout(() => {
+                alert('System optimization completed. Performance improved by 35%');
+            }, 5000);
+        }
+
+        function startRemoteSession() {
+            alert('Starting remote session...');
+            // Simulate remote desktop connection
+            setTimeout(() => {
+                alert('Remote session started. Connected to user desktop.');
+            }, 2000);
+        }
+
+        function viewRemoteSessions() {
+            alert('Opening remote session viewer...');
+            // Show remote session logs
+        }
+
+        function runBackup() {
+            alert('Starting automated backup...');
+            // Simulate backup process
+            setTimeout(() => {
+                alert('Backup completed. All systems backed up successfully.');
+            }, 3000);
+        }
+
+        function runSystemRestore() {
+            alert('Starting system restore...');
+            // Simulate system restore
+            setTimeout(() => {
+                alert('System restore completed. All systems restored successfully.');
+            }, 3000);
+        }
+
+        function createTicket() {
+            const title = prompt('Enter ticket title:');
+            const description = prompt('Enter ticket description:');
+            
+            if (title && description) {
+                // In real implementation, this would create a ticket in the system
+                console.log('Ticket created:', { title, description });
+                alert('Ticket created successfully!');
+            }
+        }
+
+        function viewTickets() {
+            alert('Opening ticket viewer...');
+            // Show all tickets
+        }
+
+        function exportTickets() {
+            alert('Exporting tickets...');
+            // Simulate ticket export
+            setTimeout(() => {
+                alert('Tickets exported successfully!');
+            }, 2000);
+        }
+
+        function openRemoteDesktop() {
+            alert('Initiating remote desktop connection...');
+            // Simulate remote desktop connection
+            setTimeout(() => {
+                alert('Remote desktop connected successfully! Access granted to user desktop.');
+            }, 2000);
+        }
+
+        function openServerManagement() {
+            alert('Opening server management console...');
+            // Simulate server management access
+        }
+
+        function openNetworkTools() {
+            alert('Opening network tools...');
+            // Simulate network tools access
+        }
+
+        function openSecurityConsole() {
+            alert('Opening security console...');
+            // Simulate security console access
+        }
+
+        function startNewSession() {
+            const sessionType = prompt('Select session type (desktop/laptop/server):');
+            if (sessionType) {
+                alert(`Starting new ${sessionType} session...`);
+                // Simulate session creation
+            }
+        }
+
+        function viewAllSessions() {
+            alert('Opening session viewer...');
+            // Show all active sessions
+        }
+
+        function endSession(sessionId) {
+            if (confirm('Are you sure you want to end this session?')) {
+                alert(`Session ${sessionId} ended successfully!`);
+                // Remove session from active list
+            }
+        }
+
+        function configureAccess() {
+            alert('Opening access configuration...');
+            // Open access settings modal
+        }
+
+        function runFullSystemScan() {
+            alert('Initiating full system security scan...');
+            // Simulate comprehensive system scan
+            setTimeout(() => {
+                alert('System scan completed! Found 0 threats, 3 vulnerabilities patched.');
+            }, 5000);
+        }
+
+        function generateSystemReport() {
+            alert('Generating comprehensive system report...');
+            // Generate detailed system report
+        }
+
+        function openITDashboard() {
+            window.open('it-compliance.html', '_blank', 'width=1600,height=1000');
+        }
+
+        function runSecurityAudit() {
+            alert('Initiating security audit...');
+            // Simulate security audit
+            setTimeout(() => {
+                alert('Security audit completed! All systems compliant.');
+            }, 3000);
+        }
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initializeITSystem);
+    </script>
+</body>
+</html>

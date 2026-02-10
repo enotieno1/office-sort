@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Management System - OOES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .hr-card { transition: all 0.3s ease; cursor: pointer; }
+        .hr-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+        .modal.active { display: flex; align-items: center; justify-content: center; }
+        .tab-button { transition: all 0.2s ease; }
+        .tab-button:hover { background-color: #059669; }
+        .tab-button.active { background-color: #10b981; color: white; }
+        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .status-active { background-color: #10b981; color: white; }
+        .status-pending { background-color: #f59e0b; color: white; }
+        .status-completed { background-color: #10b981; color: white; }
+        .progress-bar { transition: width 0.3s ease; }
+        .employee-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-users text-3xl mr-4"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold">HR Management System</h1>
+                        <p class="text-green-100">Complete Employee & Payroll Solution</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-right">
+                        <p class="text-sm text-gray-300">System Status</p>
+                        <p class="text-lg font-bold text-green-400">Active</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-300">Employees</p>
+                        <p class="text-lg font-bold text-white">24</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-300">Payroll</p>
+                        <p class="text-lg font-bold text-white">KSh 2.5M</p>
+                    </div>
+                    <button onclick="goBack()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- HR Overview -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-users-cog mr-3 text-green-600"></i>
+                    HR Overview
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Employee Count -->
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border border-green-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-users text-3xl text-green-600"></i>
+                            <span class="status-badge status-active">24</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-green-800">Total Employees</h3>
+                        <p class="text-green-700">Active workforce across all departments</p>
+                    </div>
+                    
+                    <!-- Department Distribution -->
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-building text-3xl text-blue-600"></i>
+                            <span class="status-badge status-active">6</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-blue-800">Departments</h3>
+                        <p class="text-blue-700">Organized by function and location</p>
+                    </div>
+                    
+                    <!-- Payroll Summary -->
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg border border-purple-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-money-bill-wave text-3xl text-purple-600"></i>
+                            <span class="status-badge status-active">KSh 2.5M</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-purple-800">Monthly Payroll</h3>
+                        <p class="text-purple-700">Total monthly compensation</p>
+                    </div>
+                    
+                    <!-- Attendance Rate -->
+                    <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-lg border border-yellow-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <i class="fas fa-chart-line text-3xl text-yellow-600"></i>
+                            <span class="status-badge status-active">95%</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-yellow-800">Attendance Rate</h3>
+                        <p class="text-yellow-700">Average employee attendance</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Employee Management -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-user-tie mr-3 text-blue-600"></i>
+                    Employee Management
+                </h2>
+                
+                <div class="mb-6">
+                    <!-- Quick Actions -->
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="addEmployee()" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-semibold">
+                            <i class="fas fa-user-plus mr-2"></i>Add Employee
+                        </button>
+                        <button onclick="runPayroll()" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition font-semibold">
+                            <i class="fas fa-calculator mr-2"></i>Run Payroll
+                        </button>
+                        <button onclick="viewAttendance()" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
+                            <i class="fas fa-calendar-check mr-2"></i>View Attendance
+                        </button>
+                        <button onclick="generateReports()" class="bg-yellow-600 text-white px-6 py-3 rounded-lg hover:bg-yellow-700 transition font-semibold">
+                            <i class="fas fa-file-alt mr-2"></i>Generate Reports
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Employee List -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">Employee Directory</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="px-4 py-2 text-left">Name</th>
+                                    <th class="px-4 py-2 text-left">Department</th>
+                                    <th class="px-4 py-2 text-left">Position</th>
+                                    <th class="px-4 py-2 text-left">Status</th>
+                                    <th class="px-4 py-2 text-left">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="employeeTableBody">
+                                <!-- Employees will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payroll Processing -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-money-bill-wave mr-3 text-green-600"></i>
+                    Payroll Processing
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Payroll Status -->
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border border-green-200">
+                        <h3 class="text-lg font-bold text-green-800 mb-4">Current Payroll Status</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Last Processed:</span>
+                                <span class="text-green-600 font-bold">15 Jan 2024</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Next Payroll:</span>
+                                <span class="text-blue-600 font-bold">31 Jan 2024</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Status:</span>
+                                <span class="status-badge status-active">Processing</span>
+                            </div>
+                        </div>
+                        <button onclick="processPayroll()" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition font-semibold">
+                            <i class="fas fa-cogs mr-2"></i>Process Payroll Now
+                        </button>
+                    </div>
+                    
+                    <!-- Payroll Calculator -->
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200">
+                        <h3 class="text-lg font-bold text-blue-800 mb-4">Payroll Calculator</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Basic Salary:</label>
+                                <input type="number" id="basicSalary" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Enter basic salary">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Allowances:</label>
+                                <input type="number" id="allowances" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Enter allowances">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Overtime Rate:</label>
+                                <input type="number" id="overtimeRate" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Enter overtime rate">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Tax Rate:</label>
+                                <input type="number" id="taxRate" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Enter tax rate (%)" step="0.1">
+                            </div>
+                        </div>
+                        <button onclick="calculatePayroll()" class="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition font-semibold">
+                            <i class="fas fa-calculator mr-2"></i>Calculate Net Pay
+                        </button>
+                        <div id="payrollResult" class="mt-4 p-4 bg-gray-50 rounded-lg">
+                            <!-- Calculation results will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Attendance Tracking -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-calendar-check mr-3 text-blue-600"></i>
+                    Attendance Tracking
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Attendance Overview -->
+                    <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-lg border border-yellow-200">
+                        <h3 class="text-lg font-bold text-yellow-800 mb-4">Today's Attendance</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                            <div class="bg-white p-4 rounded-lg">
+                                <p class="text-2xl font-bold text-green-600">95%</p>
+                                <p class="text-sm text-gray-600">Overall Attendance</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg">
+                                <p class="text-2xl font-bold text-blue-600">22</p>
+                                <p class="text-sm text-gray-600">On Time</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg">
+                                <p class="text-2xl font-bold text-yellow-600">2</p>
+                                <p class="text-sm text-gray-600">Late</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg">
+                                <p class="text-2xl font-bold text-red-600">0</p>
+                                <p class="text-sm text-gray-600">Absent</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Attendance Actions -->
+                    <div class="flex justify-center mt-6">
+                        <button onclick="markAttendance()" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-semibold">
+                            <i class="fas fa-user-check mr-2"></i>Mark Attendance
+                        </button>
+                        <button onclick="requestLeave()" class="bg-yellow-600 text-white px-6 py-3 rounded hover:bg-yellow-700 transition font-semibold">
+                            <i class="fas fa-calendar-times mr-2"></i>Request Leave
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HR Reports -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-file-alt mr-3 text-purple-600"></i>
+                    HR Reports & Analytics
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <button onclick="generateEmployeeReport()" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition font-semibold">
+                        <i class="fas fa-users mr-2"></i>Employee Report
+                    </button>
+                    <button onclick="generatePayrollReport()" class="bg-purple-600 text-white px-6 py-3 rounded hover:bg-purple-700 transition font-semibold">
+                        <i class="fas fa-money-bill mr-2"></i>Payroll Report
+                    </button>
+                    <button onclick="generateAttendanceReport()" class="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition font-semibold">
+                        <i class="fas fa-calendar-check mr-2"></i>Attendance Report
+                    </button>
+                    <button onclick="generateComplianceReport()" class="bg-yellow-600 text-white px-6 py-3 rounded hover:bg-yellow-700 transition font-semibold">
+                        <i class="fas fa-shield-alt mr-2"></i>Compliance Report
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Employee Modal -->
+    <div id="employeeModal" class="modal">
+        <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden m-4">
+            <div class="bg-gradient-to-r from-green-600 to-blue-600 text-white p-6">
+                <div class="flex justify-between items-center">
+                    <h3 id="modalTitle" class="text-xl font-bold">Add Employee</h3>
+                    <button onclick="closeEmployeeModal()" class="text-white hover:text-gray-200">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-8">
+                <form id="employeeForm" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">First Name:</label>
+                            <input type="text" id="firstName" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Enter first name">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Last Name:</label>
+                            <input type="text" id="lastName" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Enter last name">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Email:</label>
+                        <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Enter email">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Phone:</label>
+                        <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Enter phone">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Department:</label>
+                        <select id="department" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                            <option value="">Select Department</option>
+                            <option value="Management">Management</option>
+                            <option value="Sales">Sales</option>
+                            <option value="IT">IT</option>
+                            <option value="HR">Human Resources</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Operations">Operations</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Position:</label>
+                        <input type="text" id="position" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Enter position">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Start Date:</label>
+                        <input type="date" id="startDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Salary:</label>
+                        <input type="number" id="salary" class="w-full px-4 py-2 border border-gray-300 rounded-lg" placeholder="Enter salary">
+                    </div>
+                    <div class="flex justify-end space-x-4 mt-6">
+                        <button onclick="closeEmployeeModal()" class="bg-gray-500 text-white px-6 py-3 rounded hover:bg-gray-600 transition font-semibold">
+                            Cancel
+                        </button>
+                        <button onclick="saveEmployee()" class="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition font-semibold">
+                            Save Employee
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // HR Management System
+        let employees = [
+            {
+                id: 1,
+                firstName: 'John',
+                lastName: 'Mwangi',
+                email: 'john.mwangi@ooes.co.ke',
+                phone: '+254 714 261 425',
+                department: 'Management',
+                position: 'Operations Manager',
+                startDate: '2024-01-15',
+                salary: 150000,
+                status: 'active',
+                avatar: 'https://picsum.photos/seed/male/1920/600/24.jpg'
+            },
+            {
+                id: 2,
+                firstName: 'Sarah',
+                lastName: 'Kamau',
+                email: 'sarah.kamau@ooes.co.ke',
+                phone: '+254 712 345 678',
+                department: 'Sales',
+                position: 'Sales Executive',
+                startDate: '2023-06-01',
+                salary: 120000,
+                status: 'active',
+                avatar: 'https://picsum.photos/seed/female/1920/600/24.jpg'
+            },
+            {
+                id: 3,
+                firstName: 'David',
+                lastName: 'Ochieng',
+                email: 'david.ochieng@ooes.co.ke',
+                phone: '+254 700 123 456',
+                department: 'IT',
+                position: 'IT Support',
+                startDate: '2024-03-10',
+                salary: 180000,
+                status: 'active',
+                avatar: 'https://picsum.photos/seed/male/1920/600/24.jpg'
+            },
+            {
+                id: 4,
+                firstName: 'Grace',
+                lastName: 'Wanjiru',
+                email: 'grace.wanjiru@ooes.co.ke',
+                phone: '+254 711 234 567',
+                department: 'HR',
+                position: 'HR Manager',
+                startDate: '2023-09-01',
+                salary: 130000,
+                status: 'active',
+                avatar: 'https://picsum.photos/seed/female/1920/600/24.jpg'
+            }
+        ];
+
+        function initializeHRSystem() {
+            renderEmployeeTable();
+            updateHRStats();
+        }
+
+        function renderEmployeeTable() {
+            const tableBody = document.getElementById('employeeTableBody');
+            tableBody.innerHTML = employees.map(emp => `
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="px-4 py-3">
+                        <div class="flex items-center">
+                            <img src="${emp.avatar}" alt="${emp.firstName}" class="employee-avatar mr-3">
+                            <div>
+                                <div class="font-semibold">${emp.firstName} ${emp.lastName}</div>
+                                <div class="text-sm text-gray-600">${emp.email}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-4 py-3">${emp.department}</td>
+                    <td class="px-4 py-3">${emp.position}</td>
+                    <td class="px-4 py-3">
+                        <span class="status-badge ${emp.status === 'active' ? 'status-active' : 'status-pending'}">
+                            ${emp.status === 'active' ? 'Active' : 'Pending'}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3">
+                        <button onclick="viewEmployee(${emp.id})" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button onclick="editEmployee(${emp.id})" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updateHRStats() {
+            // Update HR statistics
+            const activeCount = employees.filter(emp => emp.status === 'active').length;
+            const totalPayroll = employees.reduce((sum, emp) => sum + emp.salary, 0);
+            const avgSalary = totalPayroll / employees.length;
+            
+            // Update display elements
+            document.querySelector('.text-lg.text-white').textContent = employees.length;
+            document.querySelector('.text-lg.text-white').textContent = activeCount;
+            document.querySelector('.text-lg.text-white').textContent = 'KSh ' + (totalPayroll / 1000000).toFixed(1) + 'M';
+        }
+
+        function addEmployee() {
+            document.getElementById('modalTitle').textContent = 'Add Employee';
+            document.getElementById('employeeForm').reset();
+            document.getElementById('employeeModal').classList.add('active');
+        }
+
+        function closeEmployeeModal() {
+            document.getElementById('employeeModal').classList.remove('active');
+        }
+
+        function saveEmployee() {
+            const formData = {
+                id: employees.length + 1,
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                department: document.getElementById('department').value,
+                position: document.getElementById('position').value,
+                startDate: document.getElementById('startDate').value,
+                salary: parseFloat(document.getElementById('salary').value),
+                status: 'active',
+                avatar: `https://picsum.photos/seed/${Math.random() > 0.5 ? 'female' : 'male'}/1920/600/24.jpg`
+            };
+            
+            employees.push(formData);
+            renderEmployeeTable();
+            updateHRStats();
+            closeEmployeeModal();
+            alert('Employee saved successfully!');
+        }
+
+        function viewEmployee(id) {
+            const employee = employees.find(emp => emp.id === id);
+            if (employee) {
+                alert(`Employee: ${employee.firstName} ${employee.lastName}\nDepartment: ${employee.department}\nPosition: ${employee.position}\nSalary: KSh ${employee.salary.toLocaleString()}`);
+            }
+        }
+
+        function editEmployee(id) {
+            const employee = employees.find(emp => emp.id === id);
+            if (employee) {
+                document.getElementById('firstName').value = employee.firstName;
+                document.getElementById('lastName').value = employee.lastName;
+                document.getElementById('email').value = employee.email;
+                document.getElementById('phone').value = employee.phone;
+                document.getElementById('department').value = employee.department;
+                document.getElementById('position').value = employee.position;
+                document.getElementById('startDate').value = employee.startDate;
+                document.getElementById('salary').value = employee.salary;
+                document.getElementById('modalTitle').textContent = 'Edit Employee';
+                document.getElementById('employeeModal').classList.add('active');
+            }
+        }
+
+        function runPayroll() {
+            alert('Processing payroll for all employees...');
+            // Simulate payroll processing
+            setTimeout(() => {
+                alert('Payroll processed successfully! Salaries have been distributed to all employees.');
+            }, 2000);
+        }
+
+        function processPayroll() {
+            alert('Initiating payroll processing...');
+            // Update payroll status
+            setTimeout(() => {
+                alert('Payroll processing completed. All employees have been paid.');
+            }, 3000);
+        }
+
+        function viewAttendance() {
+            alert('Opening attendance tracking system...');
+            // Navigate to attendance section
+            document.querySelector('[data-section="attendance"]').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function markAttendance() {
+            alert('Marking all employees as present for today...');
+            // Update attendance status
+            employees.forEach(emp => {
+                if (emp.status === 'active') {
+                    // Mark as present
+                }
+            });
+            renderEmployeeTable();
+            updateHRStats();
+        }
+
+        function requestLeave() {
+            alert('Leave request system would open here...');
+        }
+
+        function calculatePayroll() {
+            const basicSalary = parseFloat(document.getElementById('basicSalary').value) || 0;
+            const allowances = parseFloat(document.getElementById('allowances').value) || 0;
+            const overtimeRate = parseFloat(document.getElementById('overtimeRate').value) || 0;
+            const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
+            
+            const grossSalary = basicSalary + allowances;
+            const overtimePay = overtimeRate * 40 * 4; // Assuming 40 hours/week, 4 weeks
+            const tax = grossSalary * (taxRate / 100);
+            const netSalary = grossSalary + overtimePay - tax;
+            
+            const result = document.getElementById('payrollResult');
+            result.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Gross Salary:</span>
+                        <span class="font-bold text-green-600">KSh ${grossSalary.toLocaleString()}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Overtime:</span>
+                        <span class="font-bold text-blue-600">KSh ${overtimePay.toLocaleString()}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Tax:</span>
+                        <span class="font-bold text-red-600">KSh ${tax.toLocaleString()}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Net Salary:</span>
+                        <span class="font-bold text-purple-600">KSh ${netSalary.toLocaleString()}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateEmployeeReport() {
+            alert('Generating employee report...');
+            // Generate comprehensive employee report
+            const reportData = employees.map(emp => ({
+                name: `${emp.firstName} ${emp.lastName}`,
+                department: emp.department,
+                position: emp.position,
+                salary: emp.salary,
+                status: emp.status,
+                email: emp.email,
+                phone: emp.phone
+            }));
+            
+            // In real implementation, this would generate and download a PDF report
+            console.log('Employee Report Data:', reportData);
+        }
+
+        function generatePayrollReport() {
+            alert('Generating payroll report...');
+            // Generate comprehensive payroll report
+            const payrollData = {
+                totalEmployees: employees.length,
+                totalPayroll: employees.reduce((sum, emp) => sum + emp.salary, 0),
+                averageSalary: employees.reduce((sum, emp) => sum + emp.salary, 0) / employees.length,
+                processingDate: new Date().toISOString()
+            };
+            
+            console.log('Payroll Report Data:', payrollData);
+        }
+
+        function generateAttendanceReport() {
+            alert('Generating attendance report...');
+            // Generate attendance report
+            const attendanceData = {
+                totalEmployees: employees.length,
+                presentToday: employees.filter(emp => emp.status === 'active').length,
+                attendanceRate: 95,
+                date: new Date().toISOString()
+            };
+            
+            console.log('Attendance Report Data:', attendanceData);
+        }
+
+        function generateComplianceReport() {
+            alert('Generating compliance report...');
+            // Generate compliance report
+            const complianceData = {
+                totalEmployees: employees.length,
+                activeEmployees: employees.filter(emp => emp.status === 'active').length,
+                departments: [...new Set(employees.map(emp => emp.department))],
+                complianceScore: 98.5,
+                reportDate: new Date().toISOString()
+            };
+            
+            console.log('Compliance Report Data:', complianceData);
+        }
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initializeHRSystem);
+    </script>
+</body>
+</html>
