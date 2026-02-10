@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOES - Sign In / Sign Up | Office Operations Efficiency Solution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom animations and styles */
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .auth-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .auth-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s;
+            z-index: 1;
+        }
+        
+        .auth-card:hover::before {
+            left: 100%;
+        }
+        
+        .input-group {
+            position: relative;
+        }
+        
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            transform: translateY(-25px) scale(0.85);
+            color: #667eea;
+        }
+        
+        .floating-label {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            color: #6b7280;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .social-btn {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.6s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .feature-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .feature-icon:hover {
+            transform: scale(1.2) rotate(5deg);
+            color: #667eea;
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg flex items-center justify-center p-4">
+    <!-- Background Elements -->
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+        <div class="absolute top-40 left-40 w-80 h-80 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="relative z-10 w-full max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            
+            <!-- Left Side - Features & Benefits -->
+            <div class="text-white fade-in">
+                <div class="mb-8">
+                    <h1 class="text-4xl lg:text-5xl font-bold mb-4">
+                        <i class="fas fa-cogs mr-3"></i>
+                        OOES
+                    </h1>
+                    <h2 class="text-2xl lg:text-3xl font-semibold mb-4">
+                        Office Operations Efficiency Solution
+                    </h2>
+                    <p class="text-lg opacity-90 mb-8">
+                        Transform your office operations with our comprehensive management platform. Save up to 50% of admin time while increasing productivity.
+                    </p>
+                </div>
+
+                <!-- Key Features -->
+                <div class="space-y-6 mb-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-shield-alt text-xl feature-icon"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Military-Grade Security</h3>
+                            <p class="opacity-90">Enterprise-level security with AES-256 encryption and real-time threat monitoring</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-rocket text-xl feature-icon"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Quick Setup</h3>
+                            <p class="opacity-90">Get started in minutes with our intuitive onboarding process</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-users text-xl feature-icon"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Team Collaboration</h3>
+                            <p class="opacity-90">Real-time collaboration tools and shared workspaces for your team</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-chart-line text-xl feature-icon"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Advanced Analytics</h3>
+                            <p class="opacity-90">Comprehensive reporting and insights to optimize your operations</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial -->
+                <div class="glass-effect rounded-xl p-6 text-white">
+                    <div class="flex items-center mb-4">
+                        <img src="https://picsum.photos/seed/user1/50/50.jpg" alt="User" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold">Sarah Johnson</h4>
+                            <p class="text-sm opacity-90">Office Manager, TechCorp</p>
+                        </div>
+                    </div>
+                    <p class="italic">"OOES transformed our office operations. We've saved countless hours and our team is more productive than ever!"</p>
+                </div>
+            </div>
+
+            <!-- Right Side - Auth Forms -->
+            <div class="slide-in">
+                <!-- Sign In Form -->
+                <div id="signInForm" class="auth-card glass-effect rounded-2xl p-8 shadow-2xl">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h2>
+                        <p class="text-gray-600">Sign in to your OOES account</p>
+                    </div>
+
+                    <!-- Social Sign In -->
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <button onclick="socialSignIn('google')" class="social-btn bg-white border border-gray-300 rounded-lg py-3 px-4 flex items-center justify-center hover:bg-gray-50">
+                            <i class="fab fa-google text-red-500 mr-2"></i>
+                            <span class="text-gray-700">Google</span>
+                        </button>
+                        <button onclick="socialSignIn('microsoft')" class="social-btn bg-white border border-gray-300 rounded-lg py-3 px-4 flex items-center justify-center hover:bg-gray-50">
+                            <i class="fab fa-microsoft text-blue-500 mr-2"></i>
+                            <span class="text-gray-700">Microsoft</span>
+                        </button>
+                    </div>
+
+                    <div class="relative mb-6">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">Or continue with email</span>
+                        </div>
+                    </div>
+
+                    <form onsubmit="handleSignIn(event)">
+                        <div class="space-y-6">
+                            <div class="input-group">
+                                <input type="email" id="signInEmail" placeholder=" " required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none">
+                                <label for="signInEmail" class="floating-label">Email Address</label>
+                            </div>
+
+                            <div class="input-group">
+                                <input type="password" id="signInPassword" placeholder=" " required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none">
+                                <label for="signInPassword" class="floating-label">Password</label>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="mr-2 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                    <span class="text-gray-700">Remember me</span>
+                                </label>
+                                <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm">Forgot password?</a>
+                            </div>
+
+                            <button type="submit" class="btn-primary w-full text-white py-3 px-4 rounded-lg font-semibold">
+                                Sign In
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="mt-6 text-center">
+                        <p class="text-gray-600">
+                            Don't have an account? 
+                            <button onclick="toggleForm()" class="text-indigo-600 hover:text-indigo-800 font-semibold">Sign Up</button>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Sign Up Form -->
+                <div id="signUpForm" class="auth-card glass-effect rounded-2xl p-8 shadow-2xl hidden">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-2">Create Account</h2>
+                        <p class="text-gray-600">Join OOES and transform your office operations</p>
+                    </div>
+
+                    <!-- Social Sign Up -->
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <button onclick="socialSignUp('google')" class="social-btn bg-white border border-gray-300 rounded-lg py-3 px-4 flex items-center justify-center hover:bg-gray-50">
+                            <i class="fab fa-google text-red-500 mr-2"></i>
+                            <span class="text-gray-700">Google</span>
+                        </button>
+                        <button onclick="socialSignUp('microsoft')" class="social-btn bg-white border border-gray-300 rounded-lg py-3 px-4 flex items-center justify-center hover:bg-gray-50">
+                            <i class="fab fa-microsoft text-blue-500 mr-2"></i>
+                            <span class="text-gray-700">Microsoft</span>
+                        </button>
+                    </div>
+
+                    <div class="relative mb-6">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">Or continue with email</span>
+                        </div>
+                    </div>
+
+                    <form onsubmit="handleSignUp(event)">
+                        <div class="space-y-6">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="input-group">
+                                    <input type="text" id="signUpFirstName" placeholder=" " required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none">
+                                    <label for="signUpFirstName" class="floating-label">First Name</label>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" id="signUpLastName" placeholder=" " required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none">
+                                    <label for="signUpLastName" class="floating-label">Last Name</label>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <input type="email" id="signUpEmail" placeholder=" " required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none">
+                                <label for="signUpEmail" class="floating-label">Email Address</label>
+                            </div>
+
+                            <div class="input-group">
+                                <input type="tel" id="signUpPhone" placeholder=" " class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none">
+                                <label for="signUpPhone" class="floating-label">Phone Number (Optional)</label>
+                            </div>
+
+                            <div class="input-group">
+                                <input type="password" id="signUpPassword" placeholder=" " required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none">
+                                <label for="signUpPassword" class="floating-label">Password</label>
+                            </div>
+
+                            <div class="input-group">
+                                <input type="password" id="signUpConfirmPassword" placeholder=" " required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none">
+                                <label for="signUpConfirmPassword" class="floating-label">Confirm Password</label>
+                            </div>
+
+                            <div class="flex items-start">
+                                <input type="checkbox" id="agreeTerms" required class="mt-1 mr-2 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                <label for="agreeTerms" class="text-gray-700 text-sm">
+                                    I agree to the <a href="#" class="text-indigo-600 hover:text-indigo-800">Terms of Service</a> and <a href="#" class="text-indigo-600 hover:text-indigo-800">Privacy Policy</a>
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn-primary w-full text-white py-3 px-4 rounded-lg font-semibold">
+                                Create Account
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="mt-6 text-center">
+                        <p class="text-gray-600">
+                            Already have an account? 
+                            <button onclick="toggleForm()" class="text-indigo-600 hover:text-indigo-800 font-semibold">Sign In</button>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quick Account Benefits -->
+                <div class="mt-8 glass-effect rounded-xl p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                        <i class="fas fa-gift mr-2 text-indigo-600"></i>
+                        Why Choose OOES?
+                    </h3>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Free 14-day trial</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">No credit card required</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">Cancel anytime</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span class="text-gray-700">24/7 support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notification" class="fixed top-4 right-4 z-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-4 flex items-center space-x-3 min-w-[300px]">
+            <div id="notificationIcon"></div>
+            <div>
+                <p id="notificationTitle" class="font-semibold text-gray-800"></p>
+                <p id="notificationMessage" class="text-sm text-gray-600"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form Toggle
+        function toggleForm() {
+            const signInForm = document.getElementById('signInForm');
+            const signUpForm = document.getElementById('signUpForm');
+            
+            if (signInForm.classList.contains('hidden')) {
+                signInForm.classList.remove('hidden');
+                signUpForm.classList.add('hidden');
+            } else {
+                signInForm.classList.add('hidden');
+                signUpForm.classList.remove('hidden');
+            }
+        }
+
+        // Notification System
+        function showNotification(title, message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const notificationIcon = document.getElementById('notificationIcon');
+            const notificationTitle = document.getElementById('notificationTitle');
+            const notificationMessage = document.getElementById('notificationMessage');
+            
+            // Set icon based on type
+            const icons = {
+                success: '<i class="fas fa-check-circle text-green-500 text-xl"></i>',
+                error: '<i class="fas fa-exclamation-circle text-red-500 text-xl"></i>',
+                info: '<i class="fas fa-info-circle text-blue-500 text-xl"></i>'
+            };
+            
+            notificationIcon.innerHTML = icons[type];
+            notificationTitle.textContent = title;
+            notificationMessage.textContent = message;
+            
+            notification.classList.remove('hidden');
+            notification.classList.add('fade-in');
+            
+            setTimeout(() => {
+                notification.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Handle Sign In
+        function handleSignIn(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('signInEmail').value;
+            const password = document.getElementById('signInPassword').value;
+            
+            // Simulate authentication
+            showNotification('Signing In...', 'Please wait while we authenticate your account', 'info');
+            
+            setTimeout(() => {
+                // Store user session
+                localStorage.setItem('ooesUser', JSON.stringify({
+                    email: email,
+                    name: email.split('@')[0],
+                    loginTime: new Date().toISOString()
+                }));
+                
+                showNotification('Welcome Back!', 'Successfully signed in to your account', 'success');
+                
+                // Redirect to dashboard
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            }, 2000);
+        }
+
+        // Handle Sign Up
+        function handleSignUp(event) {
+            event.preventDefault();
+            
+            const firstName = document.getElementById('signUpFirstName').value;
+            const lastName = document.getElementById('signUpLastName').value;
+            const email = document.getElementById('signUpEmail').value;
+            const password = document.getElementById('signUpPassword').value;
+            const confirmPassword = document.getElementById('signUpConfirmPassword').value;
+            
+            // Validate passwords
+            if (password !== confirmPassword) {
+                showNotification('Password Mismatch', 'Passwords do not match. Please try again.', 'error');
+                return;
+            }
+            
+            // Validate password strength
+            if (password.length < 8) {
+                showNotification('Weak Password', 'Password must be at least 8 characters long.', 'error');
+                return;
+            }
+            
+            showNotification('Creating Account...', 'Please wait while we create your account', 'info');
+            
+            setTimeout(() => {
+                // Store user session
+                localStorage.setItem('ooesUser', JSON.stringify({
+                    email: email,
+                    name: `${firstName} ${lastName}`,
+                    loginTime: new Date().toISOString(),
+                    isNewUser: true
+                }));
+                
+                showNotification('Account Created!', 'Your account has been created successfully', 'success');
+                
+                // Redirect to dashboard
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            }, 2000);
+        }
+
+        // Social Sign In
+        function socialSignIn(provider) {
+            showNotification('Social Sign In', `Connecting to ${provider}...`, 'info');
+            
+            setTimeout(() => {
+                // Simulate social authentication
+                localStorage.setItem('ooesUser', JSON.stringify({
+                    email: `user@${provider}.com`,
+                    name: `${provider} User`,
+                    loginTime: new Date().toISOString(),
+                    provider: provider
+                }));
+                
+                showNotification('Welcome!', `Successfully signed in with ${provider}`, 'success');
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            }, 1500);
+        }
+
+        // Social Sign Up
+        function socialSignUp(provider) {
+            showNotification('Social Sign Up', `Creating account with ${provider}...`, 'info');
+            
+            setTimeout(() => {
+                // Simulate social account creation
+                localStorage.setItem('ooesUser', JSON.stringify({
+                    email: `user@${provider}.com`,
+                    name: `${provider} User`,
+                    loginTime: new Date().toISOString(),
+                    provider: provider,
+                    isNewUser: true
+                }));
+                
+                showNotification('Account Created!', `Your ${provider} account has been created`, 'success');
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            }, 1500);
+        }
+
+        // Check if user is already logged in
+        function checkAuthStatus() {
+            const user = localStorage.getItem('ooesUser');
+            if (user) {
+                // User is already logged in, redirect to dashboard
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+            
+            // Add floating label animations
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.parentElement.classList.remove('focused');
+                    }
+                });
+            });
+        });
+
+        // Add blob animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes blob {
+                0% { transform: translate(0px, 0px) scale(1); }
+                33% { transform: translate(30px, -50px) scale(1.1); }
+                66% { transform: translate(-20px, 20px) scale(0.9); }
+                100% { transform: translate(0px, 0px) scale(1); }
+            }
+            .animate-blob {
+                animation: blob 7s infinite;
+            }
+            .animation-delay-2000 {
+                animation-delay: 2s;
+            }
+            .animation-delay-4000 {
+                animation-delay: 4s;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

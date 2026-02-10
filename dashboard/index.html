@@ -439,9 +439,41 @@
                     </h1>
                     <p class="text-indigo-100 mt-1">Office Operations Efficiency Solution</p>
                 </div>
-                <div class="text-right">
-                    <p class="text-sm text-indigo-100">Save up to 50% of admin time</p>
-                    <p class="text-lg font-semibold">Professional Office Efficiency Services</p>
+                <div class="text-right flex items-center space-x-4">
+                    <div class="text-right">
+                        <p class="text-sm text-indigo-100">Save up to 50% of admin time</p>
+                        <p class="text-lg font-semibold">Professional Office Efficiency Services</p>
+                    </div>
+                    <!-- User Profile -->
+                    <div class="relative">
+                        <button onclick="toggleUserMenu()" class="flex items-center space-x-2 bg-white bg-opacity-20 px-4 py-2 rounded-lg hover:bg-opacity-30 transition">
+                            <img src="https://picsum.photos/seed/user/32/32.jpg" alt="User" class="w-8 h-8 rounded-full">
+                            <span id="userName" class="text-white font-medium">User</span>
+                            <i class="fas fa-chevron-down text-white text-sm"></i>
+                        </button>
+                        
+                        <!-- User Dropdown Menu -->
+                        <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 hidden z-50">
+                            <div class="px-4 py-2 border-b">
+                                <p id="userEmail" class="text-sm font-medium text-gray-900">user@example.com</p>
+                                <p class="text-xs text-gray-500">Premium Account</p>
+                            </div>
+                            <a href="#profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-user mr-2"></i>Profile Settings
+                            </a>
+                            <a href="#billing" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-credit-card mr-2"></i>Billing
+                            </a>
+                            <a href="#help" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-question-circle mr-2"></i>Help & Support
+                            </a>
+                            <div class="border-t mt-2">
+                                <button onclick="logout()" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                                    <i class="fas fa-sign-out-alt mr-2"></i>Sign Out
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -3305,6 +3337,64 @@ function openITCompliance() {
             if (e.target.classList.contains('bg-opacity-50')) {
                 e.target.remove();
             }
+        });
+
+        // Authentication Functions
+        function checkAuthStatus() {
+            const user = localStorage.getItem('ooesUser');
+            if (!user) {
+                // User is not logged in, redirect to auth page
+                window.location.href = 'auth.html';
+                return false;
+            }
+            
+            // User is logged in, update UI
+            const userData = JSON.parse(user);
+            updateUserInfo(userData);
+            return true;
+        }
+
+        function updateUserInfo(userData) {
+            const userName = document.getElementById('userName');
+            const userEmail = document.getElementById('userEmail');
+            
+            if (userName) userName.textContent = userData.name || userData.email.split('@')[0];
+            if (userEmail) userEmail.textContent = userData.email;
+        }
+
+        function toggleUserMenu() {
+            const userMenu = document.getElementById('userMenu');
+            if (userMenu) {
+                userMenu.classList.toggle('hidden');
+            }
+        }
+
+        function logout() {
+            showNotification('Signing out...', 'info');
+            
+            setTimeout(() => {
+                localStorage.removeItem('ooesUser');
+                showNotification('Signed out successfully', 'success');
+                
+                setTimeout(() => {
+                    window.location.href = 'auth.html';
+                }, 1000);
+            }, 1000);
+        }
+
+        // Close user menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const userMenu = document.getElementById('userMenu');
+            const userButton = e.target.closest('button[onclick="toggleUserMenu()"]');
+            
+            if (!userButton && userMenu && !userMenu.contains(e.target)) {
+                userMenu.classList.add('hidden');
+            }
+        });
+
+        // Initialize authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
         });
     </script>
 </body>
