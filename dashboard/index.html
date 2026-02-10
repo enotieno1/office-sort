@@ -334,6 +334,66 @@
             transform: scaleY(1);
         }
 
+        /* Framework Cards Styles */
+        .framework-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .framework-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .framework-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.8s;
+            z-index: 1;
+        }
+        
+        .framework-card:hover::before {
+            left: 100%;
+        }
+        
+        .framework-card .group-hover\:scale-110:hover {
+            transform: scale(1.1);
+        }
+
+        /* Implementation Week Cards */
+        .implementation-week {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .implementation-week:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .implementation-week::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 1s;
+            z-index: 1;
+        }
+        
+        .implementation-week:hover::before {
+            left: 100%;
+        }
+
         /* Tablet Optimizations */
         @media (min-width: 768px) and (max-width: 1024px) {
             .grid-cols-1.md\:grid-cols-2 {
@@ -733,115 +793,330 @@
 
                 <!-- 5 Systems Framework -->
                 <section id="systems" class="mb-12">
-                    <div class="bg-white rounded-lg shadow-md p-8">
-                        <h2 class="text-2xl font-bold mb-6 text-gray-800">
-                            <i class="fas fa-cubes mr-3 text-indigo-600"></i>
-                            The 5 Systems Framework
-                        </h2>
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <div class="flex items-center justify-between mb-8">
+                            <h2 class="text-3xl font-bold text-gray-800">
+                                <i class="fas fa-cubes mr-4 text-indigo-600"></i>
+                                The 5 Systems Framework
+                            </h2>
+                            <div class="flex items-center space-x-4">
+                                <span class="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold">
+                                    <i class="fas fa-check-circle mr-2"></i>All Systems Active
+                                </span>
+                                <span class="text-gray-500 text-sm">
+                                    <i class="fas fa-clock mr-2"></i>Last Updated: Today
+                                </span>
+                            </div>
+                        </div>
                         
-                        <div class="space-y-4">
+                        <div class="mb-8 p-6 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-200">
+                            <div class="flex items-center">
+                                <i class="fas fa-info-circle text-2xl text-indigo-600 mr-4"></i>
+                                <div>
+                                    <h3 class="text-lg font-bold text-indigo-800 mb-2">Complete Office Transformation</h3>
+                                    <p class="text-indigo-700">Our 5-system framework transforms your office from manual chaos to automated efficiency. Each system addresses specific pain points with proven solutions.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
                             <!-- System 1 -->
-                            <div class="system-card border-l-4 border-blue-500 bg-blue-50 p-6 rounded-lg" onclick="showSystemDetails(1)">
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0">
-                                        <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                            <div class="framework-card bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl border-2 border-blue-200 hover:shadow-2xl transition-all duration-300 cursor-pointer group" onclick="showSystemDetails(1)">
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center">
+                                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">
                                             1
                                         </div>
-                                    </div>
-                                    <div class="ml-4 flex-1">
-                                        <h3 class="font-bold text-lg text-blue-800">Document Management System</h3>
-                                        <p class="text-gray-700 mb-2">Lost files, paper clutter, slow retrieval → Digital organization, cloud storage, standard naming</p>
-                                        <div class="flex flex-wrap gap-2">
-                                            <span class="px-2 py-1 bg-blue-200 text-blue-800 text-xs rounded clickable">Google Drive</span>
-                                            <span class="px-2 py-1 bg-blue-200 text-blue-800 text-xs rounded clickable">Scanning</span>
-                                            <span class="px-2 py-1 bg-blue-200 text-blue-800 text-xs rounded clickable">PDF Tools</span>
+                                        <div class="ml-4">
+                                            <h3 class="text-xl font-bold text-blue-800">Document Management</h3>
+                                            <div class="flex items-center mt-1">
+                                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">
+                                                    <i class="fas fa-check mr-1"></i>Active
+                                                </span>
+                                            </div>
                                         </div>
-                                        <p class="text-sm text-blue-600 mt-2 font-semibold">Click for details →</p>
+                                    </div>
+                                    <div class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                        Core System
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div class="flex items-start">
+                                        <i class="fas fa-exchange-alt text-blue-600 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-1">Problem Solved</h4>
+                                            <p class="text-gray-600 text-sm">Lost files, paper clutter, slow document retrieval</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <i class="fas fa-lightbulb text-blue-600 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-1">Solution Provided</h4>
+                                            <p class="text-gray-600 text-sm">Digital organization, cloud storage, intelligent search</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap gap-2 mt-4">
+                                        <span class="bg-blue-100 text-blue-800 px-3 py-2 rounded-lg text-xs font-semibold border border-blue-300">
+                                            <i class="fas fa-google-drive mr-1"></i>Google Drive
+                                        </span>
+                                        <span class="bg-blue-100 text-blue-800 px-3 py-2 rounded-lg text-xs font-semibold border border-blue-300">
+                                            <i class="fas fa-search mr-1"></i>Smart Search
+                                        </span>
+                                        <span class="bg-blue-100 text-blue-800 px-3 py-2 rounded-lg text-xs font-semibold border border-blue-300">
+                                            <i class="fas fa-file-pdf mr-1"></i>PDF Tools
+                                        </span>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- System 2 -->
-                            <div class="system-card border-l-4 border-green-500 bg-green-50 p-6 rounded-lg" onclick="showSystemDetails(2)">
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0">
-                                        <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">
+                            <div class="framework-card bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-2xl border-2 border-green-200 hover:shadow-2xl transition-all duration-300 cursor-pointer group" onclick="showSystemDetails(2)">
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center">
+                                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">
                                             2
                                         </div>
-                                    </div>
-                                    <div class="ml-4 flex-1">
-                                        <h3 class="font-bold text-lg text-green-800">Communication & Email System</h3>
-                                        <p class="text-gray-700 mb-2">Inbox overload, slow responses → Auto-filters, response templates, WhatsApp automation</p>
-                                        <div class="flex flex-wrap gap-2">
-                                            <span class="px-2 py-1 bg-green-200 text-green-800 text-xs rounded clickable">Gmail Filters</span>
-                                            <span class="px-2 py-1 bg-green-200 text-green-800 text-xs rounded clickable">WhatsApp Business</span>
-                                            <span class="px-2 py-1 bg-green-200 text-green-800 text-xs rounded clickable">CRM</span>
+                                        <div class="ml-4">
+                                            <h3 class="text-xl font-bold text-green-800">Communication & Email</h3>
+                                            <div class="flex items-center mt-1">
+                                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">
+                                                    <i class="fas fa-check mr-1"></i>Active
+                                                </span>
+                                            </div>
                                         </div>
-                                        <p class="text-sm text-green-600 mt-2 font-semibold">Click for details →</p>
+                                    </div>
+                                    <div class="bg-green-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                        Core System
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div class="flex items-start">
+                                        <i class="fas fa-exchange-alt text-green-600 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-1">Problem Solved</h4>
+                                            <p class="text-gray-600 text-sm">Inbox overload, slow response times, communication gaps</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <i class="fas fa-lightbulb text-green-600 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-1">Solution Provided</h4>
+                                            <p class="text-gray-600 text-sm">Smart filters, response templates, WhatsApp automation</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap gap-2 mt-4">
+                                        <span class="bg-green-100 text-green-800 px-3 py-2 rounded-lg text-xs font-semibold border border-green-300">
+                                            <i class="fas fa-filter mr-1"></i>Gmail Filters
+                                        </span>
+                                        <span class="bg-green-100 text-green-800 px-3 py-2 rounded-lg text-xs font-semibold border border-green-300">
+                                            <i class="fab fa-whatsapp mr-1"></i>WhatsApp Business
+                                        </span>
+                                        <span class="bg-green-100 text-green-800 px-3 py-2 rounded-lg text-xs font-semibold border border-green-300">
+                                            <i class="fas fa-users mr-1"></i>CRM Integration
+                                        </span>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- System 3 -->
-                            <div class="system-card border-l-4 border-purple-500 bg-purple-50 p-6 rounded-lg" onclick="showSystemDetails(3)">
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0">
-                                        <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                            <div class="framework-card bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-2xl border-2 border-purple-200 hover:shadow-2xl transition-all duration-300 cursor-pointer group" onclick="showSystemDetails(3)">
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center">
+                                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">
                                             3
                                         </div>
-                                    </div>
-                                    <div class="ml-4 flex-1">
-                                        <h3 class="font-bold text-lg text-purple-800">Admin & Data Automation</h3>
-                                        <p class="text-gray-700 mb-2">Manual typing, spreadsheet errors → Google Sheets databases, automated forms, task tracking</p>
-                                        <div class="flex flex-wrap gap-2">
-                                            <span class="px-2 py-1 bg-purple-200 text-purple-800 text-xs rounded clickable">Google Forms</span>
-                                            <span class="px-2 py-1 bg-purple-200 text-purple-800 text-xs rounded clickable">Sheets</span>
-                                            <span class="px-2 py-1 bg-purple-200 text-purple-800 text-xs rounded clickable">Trello</span>
+                                        <div class="ml-4">
+                                            <h3 class="text-xl font-bold text-purple-800">Admin & Data Automation</h3>
+                                            <div class="flex items-center mt-1">
+                                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">
+                                                    <i class="fas fa-check mr-1"></i>Active
+                                                </span>
+                                            </div>
                                         </div>
-                                        <p class="text-sm text-purple-600 mt-2 font-semibold">Click for details →</p>
+                                    </div>
+                                    <div class="bg-purple-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                        Core System
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div class="flex items-start">
+                                        <i class="fas fa-exchange-alt text-purple-600 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-1">Problem Solved</h4>
+                                            <p class="text-gray-600 text-sm">Manual data entry, spreadsheet errors, repetitive tasks</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <i class="fas fa-lightbulb text-purple-600 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-1">Solution Provided</h4>
+                                            <p class="text-gray-600 text-sm">Automated forms, intelligent databases, task automation</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap gap-2 mt-4">
+                                        <span class="bg-purple-100 text-purple-800 px-3 py-2 rounded-lg text-xs font-semibold border border-purple-300">
+                                            <i class="fab fa-google mr-1"></i>Google Forms
+                                        </span>
+                                        <span class="bg-purple-100 text-purple-800 px-3 py-2 rounded-lg text-xs font-semibold border border-purple-300">
+                                            <i class="fas fa-table mr-1"></i>Smart Sheets
+                                        </span>
+                                        <span class="bg-purple-100 text-purple-800 px-3 py-2 rounded-lg text-xs font-semibold border border-purple-300">
+                                            <i class="fab fa-trello mr-1"></i>Trello Integration
+                                        </span>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- System 4 -->
-                            <div class="system-card border-l-4 border-orange-500 bg-orange-50 p-6 rounded-lg" onclick="showSystemDetails(4)">
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0">
-                                        <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold">
+                            <div class="framework-card bg-gradient-to-br from-orange-50 to-orange-100 p-8 rounded-2xl border-2 border-orange-200 hover:shadow-2xl transition-all duration-300 cursor-pointer group" onclick="showSystemDetails(4)">
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center">
+                                        <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">
                                             4
                                         </div>
-                                    </div>
-                                    <div class="ml-4 flex-1">
-                                        <h3 class="font-bold text-lg text-orange-800">Finance, Billing & Payroll</h3>
-                                        <p class="text-gray-700 mb-2">Manual invoices, payment delays → Invoice templates, accounting software, payment reminders</p>
-                                        <div class="flex flex-wrap gap-2">
-                                            <span class="px-2 py-1 bg-orange-200 text-orange-800 text-xs rounded clickable">QuickBooks</span>
-                                            <span class="px-2 py-1 bg-orange-200 text-orange-800 text-xs rounded clickable">Zoho</span>
-                                            <span class="px-2 py-1 bg-orange-200 text-orange-800 text-xs rounded clickable">M-Pesa</span>
+                                        <div class="ml-4">
+                                            <h3 class="text-xl font-bold text-orange-800">Finance & Payroll</h3>
+                                            <div class="flex items-center mt-1">
+                                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">
+                                                    <i class="fas fa-check mr-1"></i>Active
+                                                </span>
+                                            </div>
                                         </div>
-                                        <p class="text-sm text-orange-600 mt-2 font-semibold">Click for details →</p>
+                                    </div>
+                                    <div class="bg-orange-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                        Core System
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div class="flex items-start">
+                                        <i class="fas fa-exchange-alt text-orange-600 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-1">Problem Solved</h4>
+                                            <p class="text-gray-600 text-sm">Manual invoicing, payment delays, payroll errors</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <i class="fas fa-lightbulb text-orange-600 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-1">Solution Provided</h4>
+                                            <p class="text-gray-600 text-sm">Automated billing, payment reminders, payroll processing</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap gap-2 mt-4">
+                                        <span class="bg-orange-100 text-orange-800 px-3 py-2 rounded-lg text-xs font-semibold border border-orange-300">
+                                            <i class="fas fa-file-invoice-dollar mr-1"></i>QuickBooks
+                                        </span>
+                                        <span class="bg-orange-100 text-orange-800 px-3 py-2 rounded-lg text-xs font-semibold border border-orange-300">
+                                            <i class="fas fa-mobile-alt mr-1"></i>M-Pesa Integration
+                                        </span>
+                                        <span class="bg-orange-100 text-orange-800 px-3 py-2 rounded-lg text-xs font-semibold border border-orange-300">
+                                            <i class="fas fa-chart-line mr-1"></i>Real-time Reports
+                                        </span>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- System 5 -->
-                            <div class="system-card border-l-4 border-red-500 bg-red-50 p-6 rounded-lg" onclick="showSystemDetails(5)">
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0">
-                                        <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-white font-bold">
+                            <div class="framework-card bg-gradient-to-br from-red-50 to-red-100 p-8 rounded-2xl border-2 border-red-200 hover:shadow-2xl transition-all duration-300 cursor-pointer group" onclick="showSystemDetails(5)">
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center">
+                                        <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">
                                             5
                                         </div>
-                                    </div>
-                                    <div class="ml-4 flex-1">
-                                        <h3 class="font-bold text-lg text-red-800">Compliance & Deadline Tracking</h3>
-                                        <p class="text-gray-700 mb-2">Missed legal deadlines → Compliance checklist, calendar alerts, monthly reports</p>
-                                        <div class="flex flex-wrap gap-2">
-                                            <span class="px-2 py-1 bg-red-200 text-red-800 text-xs rounded clickable">Google Calendar</span>
-                                            <span class="px-2 py-1 bg-red-200 text-red-800 text-xs rounded clickable">Checklists</span>
-                                            <span class="px-2 py-1 bg-red-200 text-red-800 text-xs rounded clickable">Reminders</span>
+                                        <div class="ml-4">
+                                            <h3 class="text-xl font-bold text-red-800">Compliance & Security</h3>
+                                            <div class="flex items-center mt-1">
+                                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">
+                                                    <i class="fas fa-check mr-1"></i>Active
+                                                </span>
+                                            </div>
                                         </div>
-                                        <p class="text-sm text-red-600 mt-2 font-semibold">Click for details →</p>
                                     </div>
+                                    <div class="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                                        Core System
+                                    </div>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div class="flex items-start">
+                                        <i class="fas fa-exchange-alt text-red-600 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-1">Problem Solved</h4>
+                                            <p class="text-gray-600 text-sm">Missed deadlines, compliance risks, security vulnerabilities</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <i class="fas fa-lightbulb text-red-600 mt-1 mr-3"></i>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-800 mb-1">Solution Provided</h4>
+                                            <p class="text-gray-600 text-sm">Smart compliance tracking, deadline alerts, security monitoring</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex flex-wrap gap-2 mt-4">
+                                        <span class="bg-red-100 text-red-800 px-3 py-2 rounded-lg text-xs font-semibold border border-red-300">
+                                            <i class="fab fa-google mr-1"></i>Calendar Alerts
+                                        </span>
+                                        <span class="bg-red-100 text-red-800 px-3 py-2 rounded-lg text-xs font-semibold border border-red-300">
+                                            <i class="fas fa-clipboard-check mr-1"></i>Compliance Checklists
+                                        </span>
+                                        <span class="bg-red-100 text-red-800 px-3 py-2 rounded-lg text-xs font-semibold border border-red-300">
+                                            <i class="fas fa-bell mr-1"></i>Smart Reminders
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Implementation Timeline -->
+                        <div class="mt-8 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-bold text-gray-800">
+                                    <i class="fas fa-clock mr-2 text-indigo-600"></i>
+                                    Implementation Timeline
+                                </h3>
+                                <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-semibold">
+                                    6-Week Process
+                                </span>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                                <div class="text-center">
+                                    <div class="w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold mb-2">W1</div>
+                                    <p class="text-sm font-semibold text-gray-800">Assessment</p>
+                                    <p class="text-xs text-gray-600">Current state analysis</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold mb-2">W2</div>
+                                    <p class="text-sm font-semibold text-gray-800">Setup</p>
+                                    <p class="text-xs text-gray-600">System configuration</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-12 h-12 bg-indigo-400 rounded-full flex items-center justify-center text-white font-bold mb-2">W3</div>
+                                    <p class="text-sm font-semibold text-gray-800">Integration</p>
+                                    <p class="text-xs text-gray-600">Team training</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-12 h-12 bg-indigo-300 rounded-full flex items-center justify-center text-white font-bold mb-2">W4</div>
+                                    <p class="text-sm font-semibold text-gray-800">Testing</p>
+                                    <p class="text-xs text-gray-600">Quality assurance</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold mb-2">W5</div>
+                                    <p class="text-sm font-semibold text-gray-800">Launch</p>
+                                    <p class="text-xs text-gray-600">Go-live & support</p>
                                 </div>
                             </div>
                         </div>
