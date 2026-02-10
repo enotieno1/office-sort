@@ -7,8 +7,33 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            /* Dark Corporate Theme Variables */
+            --color-bg-primary: #000000;
+            --color-bg-secondary: #1A1A1A;
+            --color-bg-tertiary: #2D2D2D;
+            --color-bg-card: #1A1A1A;
+            --color-bg-hover: #374151;
+            --color-text-primary: #FFFFFF;
+            --color-text-secondary: #F9FAFB;
+            --color-text-tertiary: #D1D5DB;
+            --color-text-muted: #9CA3AF;
+            --color-text-disabled: #6B7280;
+            --color-accent-primary: #DC2626;
+            --color-accent-secondary: #EF4444;
+            --color-accent-tertiary: #FCA5A5;
+            --color-accent-success: #10B981;
+            --color-accent-warning: #F59E0B;
+            --color-border-primary: #374151;
+            --color-border-secondary: #4B5563;
+            --color-border-light: #6B7280;
+            --color-shadow-primary: rgba(0, 0, 0, 0.3);
+            --color-shadow-secondary: rgba(0, 0, 0, 0.4);
+            --color-shadow-accent: rgba(220, 38, 38, 0.3);
+        }
+
         .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #000000 0%, #1A1A1A 100%);
         }
         .card-hover {
             transition: all 0.3s ease;
@@ -421,15 +446,14 @@
         .security-card:hover::before {
             left: 100%;
         }
-        }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-black text-white">
     <!-- Navigation Overlay -->
     <div class="nav-overlay" id="nav-overlay" onclick="closeMobileMenu()"></div>
 
     <!-- Header -->
-    <header class="gradient-bg text-white shadow-lg">
+    <header class="bg-black border-b border-gray-800 shadow-lg">
         <div class="container mx-auto px-6 py-6">
             <div class="flex items-center justify-between">
                 <div>
@@ -437,40 +461,33 @@
                         <i class="fas fa-cogs mr-3"></i>
                         OOES
                     </h1>
-                    <p class="text-indigo-100 mt-1">Office Operations Efficiency Solution</p>
+                    <p class="text-gray-400 mt-1">Office Operations Efficiency Solution</p>
                 </div>
                 <div class="text-right flex items-center space-x-4">
                     <div class="text-right">
-                        <p class="text-sm text-indigo-100">Save up to 50% of admin time</p>
-                        <p class="text-lg font-semibold">Enterprise Efficiency Solutions</p>
+                        <p class="text-sm text-gray-400">Save up to 50% of admin time</p>
+                        <p class="text-lg font-semibold text-white">Enterprise Efficiency Solutions</p>
                     </div>
                     <!-- User Profile -->
                     <div class="relative">
-                        <button onclick="toggleUserMenu()" class="flex items-center space-x-2 bg-white bg-opacity-20 px-4 py-2 rounded-lg hover:bg-opacity-30 transition">
+                        <button onclick="toggleUserMenu()" class="flex items-center space-x-2 bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700 transition border border-gray-700">
                             <img src="https://picsum.photos/seed/user/32/32.jpg" alt="User" class="w-8 h-8 rounded-full">
                             <span id="userName" class="text-white font-medium">User</span>
                             <i class="fas fa-chevron-down text-white text-sm"></i>
                         </button>
                         
                         <!-- User Dropdown Menu -->
-                        <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 hidden z-50">
-                            <div class="px-4 py-2 border-b">
-                                <p id="userEmail" class="text-sm font-medium text-gray-900">user@example.com</p>
-                                <p class="text-xs text-gray-500">Premium Account</p>
+                        <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg py-2 hidden z-50 border border-gray-700">
+                            <div class="px-4 py-2 border-b border-gray-700">
+                                <p id="userEmail" class="text-sm font-medium text-white">user@example.com</p>
+                                <p class="text-xs text-gray-400">Premium Account</p>
                             </div>
-                            <a href="#profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                <i class="fas fa-user mr-2"></i>Profile Settings
-                            </a>
-                            <a href="#billing" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                <i class="fas fa-credit-card mr-2"></i>Billing
-                            </a>
-                            <a href="#help" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                <i class="fas fa-question-circle mr-2"></i>Help & Support
-                            </a>
-                            <div class="border-t mt-2">
-                                <button onclick="logout()" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
-                                    <i class="fas fa-sign-out-alt mr-2"></i>Sign Out
-                                </button>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Profile</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Settings</a>
+                            <div class="border-t border-gray-700">
+                                <a href="#" onclick="logout()" class="block px-4 py-2 text-sm text-red-500 hover:bg-gray-700">
+                                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -485,10 +502,10 @@
             
             <!-- Sidebar Navigation -->
             <div class="lg:col-span-1">
-                <div class="bg-white rounded-lg shadow-md p-6 lg:sticky lg:top-8">
+                <div class="bg-gray-900 rounded-lg shadow-md p-6 lg:sticky lg:top-8 border border-gray-800">
                     <!-- Mobile Menu Toggle -->
                     <div class="lg:hidden mb-4">
-                        <button onclick="toggleMobileMenu()" class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center justify-between">
+                        <button onclick="toggleMobileMenu()" class="w-full bg-red-600 text-white px-4 py-2 rounded-lg flex items-center justify-between">
                             <span class="font-semibold">Menu</span>
                             <i class="fas fa-bars" id="menu-icon"></i>
                         </button>
@@ -496,55 +513,55 @@
                     
                     <!-- Navigation Menu -->
                     <nav id="nav-menu" class="nav-menu space-y-2">
-                        <div class="p-4 border-b">
-                            <h3 class="text-lg font-semibold text-gray-800">
+                        <div class="p-4 border-b border-gray-700">
+                            <h3 class="text-lg font-semibold text-white">
                                 <i class="fas fa-compass mr-2"></i>Navigation
                             </h3>
-                            <button onclick="closeMobileMenu()" class="mt-2 text-gray-500 hover:text-gray-700">
+                            <button onclick="closeMobileMenu()" class="mt-2 text-gray-400 hover:text-white">
                                 <i class="fas fa-times"></i> Close
                             </button>
                         </div>
                         <div class="px-4 pb-4">
-                            <a href="#overview" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                            <a href="#overview" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
                                 <i class="fas fa-home mr-2"></i>Overview
                             </a>
-                            <a href="#systems" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                            <a href="#systems" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
                                 <i class="fas fa-cubes mr-2"></i>5 Systems Framework
                             </a>
-                            <a href="#packages" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                            <a href="#packages" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
                                 <i class="fas fa-box mr-2"></i>Service Packages
                             </a>
-                            <a href="#implementation" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                            <a href="#implementation" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
                                 <i class="fas fa-tasks mr-2"></i>Implementation Plan
                             </a>
-                            <a href="#financial" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                            <a href="#financial" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
                                 <i class="fas fa-chart-line mr-2"></i>Financial Model
                             </a>
-                            <a href="#scaling" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                            <a href="#scaling" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
                                 <i class="fas fa-rocket mr-2"></i>Scaling Plan
                             </a>
-                            <a href="#it-compliance" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                            <a href="#it-compliance" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
                                 <i class="fas fa-shield-alt mr-2"></i>IT Compliance
                             </a>
-                            <a href="#data-entry-automation" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                            <a href="#data-entry-automation" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
                                 <i class="fas fa-keyboard mr-2"></i>Data Entry & Automation
                             </a>
-                            <a href="#hr-system" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                            <a href="#hr-system" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
                                 <i class="fas fa-users-cog mr-2"></i>HR System
                             </a>
-                            <a href="#office-activities" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                            <a href="#office-activities" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
                                 <i class="fas fa-briefcase mr-2"></i>Office Activities
                             </a>
-                            <a href="#email" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                            <a href="#email" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
                                 <i class="fas fa-envelope mr-2"></i>Email System
                             </a>
-                            <a href="#security" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                            <a href="#security" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
                                 <i class="fas fa-shield-alt mr-2"></i>Security Center
                             </a>
-                            <a href="#document-management" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                            <a href="#document-management" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
                                 <i class="fas fa-folder-open mr-2"></i>Document Management
                             </a>
-                            <a href="#tools" class="nav-item block px-3 py-2 rounded text-gray-700 hover:text-indigo-600" onclick="closeMobileMenu()">
+                            <a href="#tools" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
                                 <i class="fas fa-tools mr-2"></i>Tools & Tech
                             </a>
                         </div>
@@ -557,15 +574,15 @@
                 
                 <!-- Executive Dashboard Overview -->
                 <section id="executive-overview" class="mb-8">
-                    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl shadow-lg p-8 text-white">
+                    <div class="bg-gradient-to-r from-black to-gray-900 rounded-xl shadow-lg p-8 text-white border border-gray-800">
                         <div class="flex items-center justify-between mb-6">
                             <h2 class="text-2xl font-bold">
                                 <i class="fas fa-tachometer-alt mr-3"></i>
                                 Executive Dashboard
                             </h2>
                             <div class="flex items-center space-x-4">
-                                <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">
-                                    <i class="fas fa-circle text-green-400 mr-2"></i>System Online
+                                <span class="bg-gray-800 px-3 py-1 rounded-full text-sm border border-gray-700">
+                                    <i class="fas fa-circle text-green-500 mr-2"></i>System Online
                                 </span>
                                 <span class="text-sm opacity-90">Last Updated: Just Now</span>
                             </div>
@@ -593,93 +610,93 @@
 
                 <!-- Core Services Section -->
                 <section id="core-services" class="mb-8">
-                    <div class="bg-white rounded-xl shadow-lg p-8">
+                    <div class="bg-gray-900 rounded-xl shadow-lg p-8 border border-gray-800">
                         <div class="flex items-center justify-between mb-6">
-                            <h2 class="text-2xl font-bold text-gray-800">
-                                <i class="fas fa-cogs mr-3 text-blue-600"></i>
+                            <h2 class="text-2xl font-bold text-white">
+                                <i class="fas fa-cogs mr-3 text-red-500"></i>
                                 Core Services
                             </h2>
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+                            <span class="bg-gray-800 text-red-500 px-3 py-1 rounded-full text-sm font-semibold border border-gray-700">
                                 5 Systems Active
                             </span>
                         </div>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <div class="service-card bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('document-management')">
+                            <div class="service-card bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('document-management')">
                                 <div class="flex items-center justify-between mb-4">
-                                    <i class="fas fa-folder text-3xl text-blue-600"></i>
-                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">Active</span>
+                                    <i class="fas fa-folder text-3xl text-blue-500"></i>
+                                    <span class="bg-green-900 text-green-400 px-2 py-1 rounded text-xs font-semibold border border-green-800">Active</span>
                                 </div>
-                                <h3 class="text-lg font-bold text-gray-800 mb-2">Document Management</h3>
-                                <p class="text-sm text-gray-600 mb-3">Smart digital filing with cloud storage and version control</p>
+                                <h3 class="text-lg font-bold text-white mb-2">Document Management</h3>
+                                <p class="text-sm text-gray-400 mb-3">Smart digital filing with cloud storage and version control</p>
                                 <div class="flex items-center justify-between text-xs text-gray-500">
                                     <span><i class="fas fa-database mr-1"></i>15GB Storage</span>
                                     <span><i class="fas fa-file mr-1"></i>247 Files</span>
                                 </div>
                             </div>
                             
-                            <div class="service-card bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border border-green-200 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('email-management')">
+                            <div class="service-card bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('email-management')">
                                 <div class="flex items-center justify-between mb-4">
-                                    <i class="fas fa-envelope text-3xl text-green-600"></i>
-                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">Active</span>
+                                    <i class="fas fa-envelope text-3xl text-green-500"></i>
+                                    <span class="bg-green-900 text-green-400 px-2 py-1 rounded text-xs font-semibold border border-green-800">Active</span>
                                 </div>
-                                <h3 class="text-lg font-bold text-gray-800 mb-2">Email Management</h3>
-                                <p class="text-sm text-gray-600 mb-3">Professional email system with templates and automation</p>
+                                <h3 class="text-lg font-bold text-white mb-2">Email Management</h3>
+                                <p class="text-sm text-gray-400 mb-3">Professional email system with templates and automation</p>
                                 <div class="flex items-center justify-between text-xs text-gray-500">
                                     <span><i class="fas fa-paper-plane mr-1"></i>1,823 Sent</span>
                                     <span><i class="fas fa-file-alt mr-1"></i>12 Drafts</span>
                                 </div>
                             </div>
                             
-                            <div class="service-card bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border border-purple-200 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('team-collaboration')">
+                            <div class="service-card bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('team-collaboration')">
                                 <div class="flex items-center justify-between mb-4">
-                                    <i class="fas fa-users text-3xl text-purple-600"></i>
-                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">Active</span>
+                                    <i class="fas fa-users text-3xl text-purple-500"></i>
+                                    <span class="bg-green-900 text-green-400 px-2 py-1 rounded text-xs font-semibold border border-green-800">Active</span>
                                 </div>
-                                <h3 class="text-lg font-bold text-gray-800 mb-2">Team Collaboration</h3>
-                                <p class="text-sm text-gray-600 mb-3">Real-time collaboration tools and shared workspaces</p>
+                                <h3 class="text-lg font-bold text-white mb-2">Team Collaboration</h3>
+                                <p class="text-sm text-gray-400 mb-3">Real-time collaboration tools and shared workspaces</p>
                                 <div class="flex items-center justify-between text-xs text-gray-500">
                                     <span><i class="fas fa-users mr-1"></i>8 Teams</span>
                                     <span><i class="fas fa-project-diagram mr-1"></i>24 Projects</span>
                                 </div>
                             </div>
                             
-                            <div class="service-card bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl border border-orange-200 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('financial-management')">
+                            <div class="service-card bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('financial-management')">
                                 <div class="flex items-center justify-between mb-4">
-                                    <i class="fas fa-chart-line text-3xl text-orange-600"></i>
-                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">Active</span>
+                                    <i class="fas fa-chart-line text-3xl text-orange-500"></i>
+                                    <span class="bg-green-900 text-green-400 px-2 py-1 rounded text-xs font-semibold border border-green-800">Active</span>
                                 </div>
-                                <h3 class="text-lg font-bold text-gray-800 mb-2">Financial Management</h3>
-                                <p class="text-sm text-gray-600 mb-3">Automated financial processes with reporting</p>
+                                <h3 class="text-lg font-bold text-white mb-2">Financial Management</h3>
+                                <p class="text-sm text-gray-400 mb-3">Automated financial processes with reporting</p>
                                 <div class="flex items-center justify-between text-xs text-gray-500">
                                     <span><i class="fas fa-dollar-sign mr-1"></i>KSh 2.5M</span>
                                     <span><i class="fas fa-check-circle mr-1"></i>98% Accuracy</span>
                                 </div>
                             </div>
                             
-                            <div class="service-card bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl border border-red-200 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('task-management')">
+                            <div class="service-card bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('task-management')">
                                 <div class="flex items-center justify-between mb-4">
-                                    <i class="fas fa-tasks text-3xl text-red-600"></i>
-                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">Active</span>
+                                    <i class="fas fa-tasks text-3xl text-red-500"></i>
+                                    <span class="bg-green-900 text-green-400 px-2 py-1 rounded text-xs font-semibold border border-green-800">Active</span>
                                 </div>
-                                <h3 class="text-lg font-bold text-gray-800 mb-2">Task Management</h3>
-                                <p class="text-sm text-gray-600 mb-3">Advanced project management with deadline tracking</p>
+                                <h3 class="text-lg font-bold text-white mb-2">Task Management</h3>
+                                <p class="text-sm text-gray-400 mb-3">Advanced project management with deadline tracking</p>
                                 <div class="flex items-center justify-between text-xs text-gray-500">
                                     <span><i class="fas fa-clipboard-list mr-1"></i>156 Tasks</span>
                                     <span><i class="fas fa-clock mr-1"></i>3 Deadlines</span>
                                 </div>
                             </div>
                             
-                            <div class="service-card bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-xl border border-indigo-200 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('compliance')">
+                            <div class="service-card bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:shadow-lg transition-all cursor-pointer" onclick="openOfficeActivity('compliance')">
                                 <div class="flex items-center justify-between mb-4">
-                                    <i class="fas fa-shield-alt text-3xl text-indigo-600"></i>
-                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">Active</span>
+                                    <i class="fas fa-shield-alt text-3xl text-indigo-500"></i>
+                                    <span class="bg-green-900 text-green-400 px-2 py-1 rounded text-xs font-semibold border border-green-800">Active</span>
                                 </div>
-                                <h3 class="text-lg font-bold text-gray-800 mb-2">Compliance & Security</h3>
-                                <p class="text-sm text-gray-600 mb-3">Compliance tracking and security management</p>
+                                <h3 class="text-lg font-bold text-white mb-2">Compliance & Security</h3>
+                                <p class="text-sm text-gray-400 mb-3">Automated compliance monitoring and security protocols</p>
                                 <div class="flex items-center justify-between text-xs text-gray-500">
-                                    <span><i class="fas fa-lock mr-1"></i>Encrypted</span>
-                                    <span><i class="fas fa-certificate mr-1"></i>Compliant</span>
+                                    <span><i class="fas fa-shield-alt mr-1"></i>100% Secure</span>
+                                    <span><i class="fas fa-check-circle mr-1"></i>Compliant</span>
                                 </div>
                             </div>
                         </div>
@@ -688,32 +705,32 @@
 
                 <!-- Quick Actions Panel -->
                 <section id="quick-actions" class="mb-8">
-                    <div class="bg-white rounded-xl shadow-lg p-8">
-                        <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                    <div class="bg-gray-900 rounded-xl shadow-lg p-8 border border-gray-800">
+                        <h2 class="text-2xl font-bold mb-6 text-white">
                             <i class="fas fa-bolt mr-3 text-yellow-500"></i>
                             Quick Actions
                         </h2>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            <button onclick="window.open('email-system.html', '_blank')" class="action-btn bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-xl transition-all">
+                            <button onclick="window.open('email-system.html', '_blank')" class="action-btn bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-xl transition-all border border-blue-700">
                                 <i class="fas fa-envelope text-2xl mb-2"></i>
                                 <div class="font-semibold">Email System</div>
                                 <div class="text-xs opacity-90">Compose & Send</div>
                             </button>
                             
-                            <button onclick="window.open('calendar-system.html', '_blank')" class="action-btn bg-green-500 hover:bg-green-600 text-white p-4 rounded-xl transition-all">
+                            <button onclick="window.open('calendar-system.html', '_blank')" class="action-btn bg-green-600 hover:bg-green-700 text-white p-4 rounded-xl transition-all border border-green-700">
                                 <i class="fas fa-calendar text-2xl mb-2"></i>
                                 <div class="font-semibold">Calendar</div>
                                 <div class="text-xs opacity-90">Schedule Events</div>
                             </button>
                             
-                            <button onclick="window.open('hr-system.html', '_blank')" class="action-btn bg-purple-500 hover:bg-purple-600 text-white p-4 rounded-xl transition-all">
+                            <button onclick="window.open('hr-system.html', '_blank')" class="action-btn bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-xl transition-all border border-purple-700">
                                 <i class="fas fa-users-cog text-2xl mb-2"></i>
                                 <div class="font-semibold">HR System</div>
                                 <div class="text-xs opacity-90">Manage Staff</div>
                             </button>
                             
-                            <button onclick="window.open('financial-management.html', '_blank')" class="action-btn bg-orange-500 hover:bg-orange-600 text-white p-4 rounded-xl transition-all">
+                            <button onclick="window.open('financial-management.html', '_blank')" class="action-btn bg-orange-600 hover:bg-orange-700 text-white p-4 rounded-xl transition-all border border-orange-700">
                                 <i class="fas fa-chart-line text-2xl mb-2"></i>
                                 <div class="font-semibold">Financials</div>
                                 <div class="text-xs opacity-90">Reports & Bills</div>
@@ -724,41 +741,41 @@
 
                 <!-- Cloud Storage Section -->
                 <section id="cloud-storage" class="mb-8">
-                    <div class="bg-white rounded-xl shadow-lg p-8">
-                        <h2 class="text-2xl font-bold mb-6 text-gray-800">
-                            <i class="fas fa-cloud mr-3 text-blue-600"></i>
+                    <div class="bg-gray-900 rounded-xl shadow-lg p-8 border border-gray-800">
+                        <h2 class="text-2xl font-bold mb-6 text-white">
+                            <i class="fas fa-cloud mr-3 text-blue-500"></i>
                             Cloud Storage Solutions
                         </h2>
-                        <p class="text-gray-600 mb-6">Professional cloud storage solutions with user authentication, data synchronization, and advanced collaboration features. Secure, reliable, and accessible from any device.</p>
+                        <p class="text-gray-400 mb-6">Professional cloud storage solutions with user authentication, data synchronization, and advanced collaboration features. Secure, reliable, and accessible from any device.</p>
                         
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="storage-card bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border border-blue-200 hover:shadow-lg transition-all">
+                            <div class="storage-card bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:shadow-lg transition-all">
                                 <div class="text-center">
-                                    <i class="fas fa-shield-alt text-4xl text-blue-600 mb-4"></i>
+                                    <i class="fas fa-shield-alt text-4xl text-blue-500 mb-4"></i>
                                 </div>
-                                <h3 class="text-xl font-bold text-blue-800 mb-2">Cloud Storage Pro</h3>
-                                <p class="text-blue-700 font-semibold mb-2">20GB Free Storage</p>
-                                <p class="text-sm text-gray-600">Advanced cloud storage with user authentication</p>
+                                <h3 class="text-xl font-bold text-white mb-2">Cloud Storage Pro</h3>
+                                <p class="text-blue-400 font-semibold mb-2">20GB Free Storage</p>
+                                <p class="text-sm text-gray-400">Advanced cloud storage with user authentication</p>
                             </div>
-                            <div class="storage-card bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border border-green-200 hover:shadow-lg transition-all">
+                            <div class="storage-card bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:shadow-lg transition-all">
                                 <div class="text-center">
-                                    <i class="fas fa-users text-4xl text-green-600 mb-4"></i>
+                                    <i class="fas fa-users text-4xl text-green-500 mb-4"></i>
                                 </div>
-                                <h3 class="text-xl font-bold text-green-800 mb-2">Target Market</h3>
-                                <p class="text-green-700 font-semibold mb-2">SMEs & Enterprises</p>
-                                <ul class="text-sm text-gray-600 space-y-1">
+                                <h3 class="text-xl font-bold text-white mb-2">Target Market</h3>
+                                <p class="text-green-400 font-semibold mb-2">SMEs & Enterprises</p>
+                                <ul class="text-sm text-gray-400 space-y-1">
                                     <li>• SMEs (1-50 employees)</li>
                                     <li>• NGOs and Schools</li>
                                     <li>• Professional Services</li>
                                 </ul>
                             </div>
-                            <div class="storage-card bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl border border-yellow-200 hover:shadow-lg transition-all">
+                            <div class="storage-card bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:shadow-lg transition-all">
                                 <div class="text-center">
-                                    <i class="fas fa-lock text-4xl text-yellow-600 mb-4"></i>
+                                    <i class="fas fa-lock text-4xl text-yellow-500 mb-4"></i>
                                 </div>
-                                <h3 class="text-xl font-bold text-yellow-800 mb-2">Enterprise</h3>
-                                <p class="text-yellow-700 font-semibold mb-2">50GB Free Storage</p>
-                                <p class="text-sm text-gray-600">Advanced cloud storage with enterprise features</p>
+                                <h3 class="text-xl font-bold text-white mb-2">Enterprise</h3>
+                                <p class="text-yellow-400 font-semibold mb-2">50GB Free Storage</p>
+                                <p class="text-sm text-gray-400">Advanced cloud storage with enterprise features</p>
                             </div>
                         </div>
                     </div>
@@ -766,61 +783,61 @@
 
                 <!-- Overview Section -->
                 <section id="overview" class="mb-12">
-                    <div class="bg-white rounded-lg shadow-md p-8">
-                        <h2 class="text-2xl font-bold mb-6 text-gray-800">
-                            <i class="fas fa-info-circle mr-3 text-indigo-600"></i>
+                    <div class="bg-gray-900 rounded-lg shadow-md p-8 border border-gray-800">
+                        <h2 class="text-2xl font-bold mb-6 text-white">
+                            <i class="fas fa-info-circle mr-3 text-indigo-500"></i>
                             Business Overview
                         </h2>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                            <div class="card-hover clickable bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-lg" onclick="showValueProposition()">
-                                <h3 class="font-semibold text-lg mb-3 text-indigo-800">
+                            <div class="card-hover clickable bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-lg border border-gray-700" onclick="showValueProposition()">
+                                <h3 class="font-semibold text-lg mb-3 text-indigo-400">
                                     <i class="fas fa-bullseye mr-2"></i>Value Proposition
                                 </h3>
-                                <p class="text-gray-700">"We save offices up to 50% of admin time so they can focus on growth."</p>
-                                <p class="text-sm text-indigo-600 mt-2 font-semibold">Click to learn more →</p>
+                                <p class="text-gray-300">"We save offices up to 50% of admin time so they can focus on growth."</p>
+                                <p class="text-sm text-indigo-400 mt-2 font-semibold">Click to learn more →</p>
                             </div>
                             
-                            <div class="card-hover clickable bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-lg" onclick="showTargetMarket()">
-                                <h3 class="font-semibold text-lg mb-3 text-emerald-800">
+                            <div class="card-hover clickable bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-lg border border-gray-700" onclick="showTargetMarket()">
+                                <h3 class="font-semibold text-lg mb-3 text-green-400">
                                     <i class="fas fa-users mr-2"></i>Target Market
                                 </h3>
-                                <ul class="text-gray-700 space-y-1">
+                                <ul class="text-gray-300 space-y-1">
                                     <li>• SMEs (1-50 employees)</li>
                                     <li>• NGOs and Schools</li>
                                     <li>• Professional Services</li>
                                     <li>• Growing Businesses</li>
                                 </ul>
-                                <p class="text-sm text-emerald-600 mt-2 font-semibold">View packages →</p>
+                                <p class="text-sm text-green-400 mt-2 font-semibold">View packages →</p>
                             </div>
                         </div>
 
-                        <div class="bg-gradient-to-r from-indigo-50 to-purple-50 border-l-4 border-indigo-600 p-8 rounded-xl shadow-sm">
+                        <div class="bg-gradient-to-r from-gray-800 to-gray-900 border-l-4 border-red-600 p-8 rounded-xl shadow-sm border border-gray-700">
                             <div class="flex items-center justify-between mb-6">
-                                <h3 class="text-2xl font-bold text-indigo-900">
-                                    <i class="fas fa-shield-alt mr-3 text-indigo-600"></i>Enterprise Challenges We Solve
+                                <h3 class="text-2xl font-bold text-white">
+                                    <i class="fas fa-shield-alt mr-3 text-red-500"></i>Enterprise Challenges We Solve
                                 </h3>
-                                <span class="bg-indigo-100 text-indigo-800 px-4 py-2 rounded-full text-sm font-semibold">
+                                <span class="bg-gray-800 text-red-500 px-4 py-2 rounded-full text-sm font-semibold border border-gray-700">
                                     50% Time Savings Guaranteed
                                 </span>
                             </div>
-                            <p class="text-gray-700 mb-8 text-lg leading-relaxed">
+                            <p class="text-gray-300 mb-8 text-lg leading-relaxed">
                                 Transform your operational challenges into competitive advantages. Our enterprise-grade solutions eliminate inefficiencies, ensure compliance, and drive measurable business growth.
                             </p>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <!-- Document Organization -->
-                                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-indigo-100" onclick="showProblemSolution('document-organization')">
+                                <div class="bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-700" onclick="showProblemSolution('document-organization')">
                                     <div class="flex items-start space-x-4">
                                         <div class="flex-shrink-0">
-                                            <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                                                <i class="fas fa-folder-open text-red-600 text-xl"></i>
+                                            <div class="w-12 h-12 bg-red-900 rounded-lg flex items-center justify-center">
+                                                <i class="fas fa-folder-open text-red-500 text-xl"></i>
                                             </div>
                                         </div>
                                         <div class="flex-1">
-                                            <h4 class="font-semibold text-gray-900 mb-2">Poor Document Organization</h4>
-                                            <p class="text-sm text-gray-600 mb-3">Scattered files, version conflicts, and retrieval delays costing hours daily</p>
-                                            <div class="flex items-center text-indigo-600 text-sm font-medium">
+                                            <h4 class="font-semibold text-white mb-2">Poor Document Organization</h4>
+                                            <p class="text-sm text-gray-400 mb-3">Scattered files, version conflicts, and retrieval delays costing hours daily</p>
+                                            <div class="flex items-center text-red-500 text-sm font-medium">
                                                 <i class="fas fa-arrow-right mr-2"></i>
                                                 <span>Smart Digital Filing</span>
                                             </div>
@@ -829,17 +846,17 @@
                                 </div>
 
                                 <!-- Manual Data Entry -->
-                                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-indigo-100" onclick="showProblemSolution('data-entry')">
+                                <div class="bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-700" onclick="showProblemSolution('data-entry')">
                                     <div class="flex items-start space-x-4">
                                         <div class="flex-shrink-0">
-                                            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                                                <i class="fas fa-keyboard text-orange-600 text-xl"></i>
+                                            <div class="w-12 h-12 bg-orange-900 rounded-lg flex items-center justify-center">
+                                                <i class="fas fa-keyboard text-orange-500 text-xl"></i>
                                             </div>
                                         </div>
                                         <div class="flex-1">
-                                            <h4 class="font-semibold text-gray-900 mb-2">Manual Data Entry</h4>
-                                            <p class="text-sm text-gray-600 mb-3">Repetitive typing, human errors, and wasted administrative hours</p>
-                                            <div class="flex items-center text-indigo-600 text-sm font-medium">
+                                            <h4 class="font-semibold text-white mb-2">Manual Data Entry</h4>
+                                            <p class="text-sm text-gray-400 mb-3">Repetitive typing, human errors, and wasted administrative hours</p>
+                                            <div class="flex items-center text-red-500 text-sm font-medium">
                                                 <i class="fas fa-arrow-right mr-2"></i>
                                                 <span>Automated Workflows</span>
                                             </div>
@@ -848,17 +865,17 @@
                                 </div>
 
                                 <!-- Email Overload -->
-                                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-indigo-100" onclick="showProblemSolution('email-overload')">
+                                <div class="bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-700" onclick="showProblemSolution('email-overload')">
                                     <div class="flex items-start space-x-4">
                                         <div class="flex-shrink-0">
-                                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                                <i class="fas fa-envelope text-blue-600 text-xl"></i>
+                                            <div class="w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center">
+                                                <i class="fas fa-envelope text-blue-500 text-xl"></i>
                                             </div>
                                         </div>
                                         <div class="flex-1">
-                                            <h4 class="font-semibold text-gray-900 mb-2">Email Overload</h4>
-                                            <p class="text-sm text-gray-600 mb-3">Hundreds of daily emails, missed communications, and response delays</p>
-                                            <div class="flex items-center text-indigo-600 text-sm font-medium">
+                                            <h4 class="font-semibold text-white mb-2">Email Overload</h4>
+                                            <p class="text-sm text-gray-400 mb-3">Hundreds of daily emails, missed communications, and response delays</p>
+                                            <div class="flex items-center text-red-500 text-sm font-medium">
                                                 <i class="fas fa-arrow-right mr-2"></i>
                                                 <span>Smart Email Management</span>
                                             </div>
@@ -867,17 +884,17 @@
                                 </div>
 
                                 <!-- HR & Payroll -->
-                                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-indigo-100" onclick="showProblemSolution('hr-payroll')">
+                                <div class="bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-700" onclick="showProblemSolution('hr-payroll')">
                                     <div class="flex items-start space-x-4">
                                         <div class="flex-shrink-0">
-                                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                                                <i class="fas fa-users-cog text-green-600 text-xl"></i>
+                                            <div class="w-12 h-12 bg-green-900 rounded-lg flex items-center justify-center">
+                                                <i class="fas fa-users-cog text-green-500 text-xl"></i>
                                             </div>
                                         </div>
                                         <div class="flex-1">
-                                            <h4 class="font-semibold text-gray-900 mb-2">HR & Payroll Admin</h4>
-                                            <p class="text-sm text-gray-600 mb-3">Complex calculations, compliance risks, and time-consuming processes</p>
-                                            <div class="flex items-center text-indigo-600 text-sm font-medium">
+                                            <h4 class="font-semibold text-white mb-2">HR & Payroll Admin</h4>
+                                            <p class="text-sm text-gray-400 mb-3">Complex calculations, compliance risks, and time-consuming processes</p>
+                                            <div class="flex items-center text-red-500 text-sm font-medium">
                                                 <i class="fas fa-arrow-right mr-2"></i>
                                                 <span>Automated HR Systems</span>
                                             </div>
@@ -886,36 +903,36 @@
                                 </div>
 
                                 <!-- Billing Delays -->
-                                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-indigo-100" onclick="showProblemSolution('billing-delays')">
+                                <div class="bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-700" onclick="showProblemSolution('billing-delays')">
                                     <div class="flex items-start space-x-4">
                                         <div class="flex-shrink-0">
-                                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                                                <i class="fas fa-file-invoice-dollar text-purple-600 text-xl"></i>
+                                            <div class="w-12 h-12 bg-purple-900 rounded-lg flex items-center justify-center">
+                                                <i class="fas fa-file-invoice-dollar text-purple-500 text-xl"></i>
                                             </div>
                                         </div>
                                         <div class="flex-1">
-                                            <h4 class="font-semibold text-gray-900 mb-2">Billing Delays</h4>
-                                            <p class="text-sm text-gray-600 mb-3">Manual invoicing, payment tracking issues, and cash flow problems</p>
-                                            <div class="flex items-center text-indigo-600 text-sm font-medium">
+                                            <h4 class="font-semibold text-white mb-2">Billing Delays</h4>
+                                            <p class="text-sm text-gray-400 mb-3">Late invoicing, cash flow problems, and payment tracking issues</p>
+                                            <div class="flex items-center text-red-500 text-sm font-medium">
                                                 <i class="fas fa-arrow-right mr-2"></i>
-                                                <span>Automated Billing</span>
+                                                <span>Automated Billing System</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Customer Follow-ups -->
-                                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-indigo-100" onclick="showProblemSolution('customer-followup')">
+                                <div class="bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-700" onclick="showProblemSolution('customer-followup')">
                                     <div class="flex items-start space-x-4">
                                         <div class="flex-shrink-0">
-                                            <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center">
-                                                <i class="fas fa-handshake text-pink-600 text-xl"></i>
+                                            <div class="w-12 h-12 bg-pink-900 rounded-lg flex items-center justify-center">
+                                                <i class="fas fa-handshake text-pink-500 text-xl"></i>
                                             </div>
                                         </div>
                                         <div class="flex-1">
-                                            <h4 class="font-semibold text-gray-900 mb-2">Customer Follow-ups</h4>
-                                            <p class="text-sm text-gray-600 mb-3">Missed opportunities, inconsistent communication, and lost revenue</p>
-                                            <div class="flex items-center text-indigo-600 text-sm font-medium">
+                                            <h4 class="font-semibold text-white mb-2">Customer Follow-ups</h4>
+                                            <p class="text-sm text-gray-400 mb-3">Missed opportunities, inconsistent communication, and lost revenue</p>
+                                            <div class="flex items-center text-red-500 text-sm font-medium">
                                                 <i class="fas fa-arrow-right mr-2"></i>
                                                 <span>CRM Automation</span>
                                             </div>
@@ -924,17 +941,17 @@
                                 </div>
 
                                 <!-- Compliance Deadlines -->
-                                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-indigo-100" onclick="showProblemSolution('compliance-deadlines')">
+                                <div class="bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-700" onclick="showProblemSolution('compliance-deadlines')">
                                     <div class="flex items-start space-x-4">
                                         <div class="flex-shrink-0">
-                                            <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                                                <i class="fas fa-clipboard-check text-yellow-600 text-xl"></i>
+                                            <div class="w-12 h-12 bg-yellow-900 rounded-lg flex items-center justify-center">
+                                                <i class="fas fa-clipboard-check text-yellow-500 text-xl"></i>
                                             </div>
                                         </div>
                                         <div class="flex-1">
-                                            <h4 class="font-semibold text-gray-900 mb-2">Compliance Deadlines</h4>
-                                            <p class="text-sm text-gray-600 mb-3">Regulatory risks, missed deadlines, and potential penalties</p>
-                                            <div class="flex items-center text-indigo-600 text-sm font-medium">
+                                            <h4 class="font-semibold text-white mb-2">Compliance Deadlines</h4>
+                                            <p class="text-sm text-gray-400 mb-3">Regulatory risks, missed deadlines, and potential penalties</p>
+                                            <div class="flex items-center text-red-500 text-sm font-medium">
                                                 <i class="fas fa-arrow-right mr-2"></i>
                                                 <span>Automated Compliance</span>
                                             </div>
@@ -943,17 +960,17 @@
                                 </div>
 
                                 <!-- IT Inefficiencies -->
-                                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-indigo-100" onclick="showProblemSolution('it-inefficiencies')">
+                                <div class="bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-700" onclick="showProblemSolution('it-inefficiencies')">
                                     <div class="flex items-start space-x-4">
                                         <div class="flex-shrink-0">
-                                            <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
-                                                <i class="fas fa-server text-indigo-600 text-xl"></i>
+                                            <div class="w-12 h-12 bg-indigo-900 rounded-lg flex items-center justify-center">
+                                                <i class="fas fa-server text-indigo-500 text-xl"></i>
                                             </div>
                                         </div>
                                         <div class="flex-1">
-                                            <h4 class="font-semibold text-gray-900 mb-2">IT Inefficiencies</h4>
-                                            <p class="text-sm text-gray-600 mb-3">System downtime, poor integration, and technical bottlenecks</p>
-                                            <div class="flex items-center text-indigo-600 text-sm font-medium">
+                                            <h4 class="font-semibold text-white mb-2">IT Inefficiencies</h4>
+                                            <p class="text-sm text-gray-400 mb-3">System downtime, poor integration, and technical bottlenecks</p>
+                                            <div class="flex items-center text-red-500 text-sm font-medium">
                                                 <i class="fas fa-arrow-right mr-2"></i>
                                                 <span>Enterprise IT Solutions</span>
                                             </div>
@@ -962,17 +979,17 @@
                                 </div>
 
                                 <!-- Task Tracking Issues -->
-                                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-indigo-100" onclick="showProblemSolution('task-tracking')">
+                                <div class="bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-700" onclick="showProblemSolution('task-tracking')">
                                     <div class="flex items-start space-x-4">
                                         <div class="flex-shrink-0">
-                                            <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
-                                                <i class="fas fa-tasks text-teal-600 text-xl"></i>
+                                            <div class="w-12 h-12 bg-teal-900 rounded-lg flex items-center justify-center">
+                                                <i class="fas fa-tasks text-teal-500 text-xl"></i>
                                             </div>
                                         </div>
                                         <div class="flex-1">
-                                            <h4 class="font-semibold text-gray-900 mb-2">Task Tracking Issues</h4>
-                                            <p class="text-sm text-gray-600 mb-3">Missed deadlines, poor visibility, and project delays</p>
-                                            <div class="flex items-center text-indigo-600 text-sm font-medium">
+                                            <h4 class="font-semibold text-white mb-2">Task Tracking Issues</h4>
+                                            <p class="text-sm text-gray-400 mb-3">Missed deadlines, poor visibility, and project delays</p>
+                                            <div class="flex items-center text-red-500 text-sm font-medium">
                                                 <i class="fas fa-arrow-right mr-2"></i>
                                                 <span>Advanced Project Management</span>
                                             </div>
@@ -981,13 +998,13 @@
                                 </div>
                             </div>
                             
-                            <div class="mt-8 bg-indigo-600 rounded-lg p-6 text-white">
+                            <div class="mt-8 bg-red-600 rounded-lg p-6 text-white border border-red-700">
                                 <div class="flex items-center justify-between">
                                     <div>
                                         <h4 class="text-xl font-bold mb-2">Ready to Transform Your Operations?</h4>
-                                        <p class="text-indigo-100">Schedule your complimentary efficiency assessment and discover how we can save you 50% of admin time.</p>
+                                        <p class="text-red-100">Schedule your complimentary efficiency assessment and discover how we can save you 50% of admin time.</p>
                                     </div>
-                                    <button onclick="scheduleAssessment()" class="bg-white text-indigo-600 px-6 py-3 rounded-lg font-semibold hover:bg-indigo-50 transition">
+                                    <button onclick="scheduleAssessment()" class="bg-white text-red-600 px-6 py-3 rounded-lg font-semibold hover:bg-red-50 transition border border-red-200">
                                         Schedule Assessment
                                     </button>
                                 </div>
@@ -998,44 +1015,44 @@
 
                 <!-- 5 Systems Framework -->
                 <section id="systems" class="mb-12">
-                    <div class="bg-white rounded-xl shadow-lg p-8">
+                    <div class="bg-gray-900 rounded-xl shadow-lg p-8 border border-gray-800">
                         <div class="flex items-center justify-between mb-8">
-                            <h2 class="text-3xl font-bold text-gray-800">
-                                <i class="fas fa-cubes mr-4 text-indigo-600"></i>
+                            <h2 class="text-3xl font-bold text-white">
+                                <i class="fas fa-cubes mr-4 text-red-500"></i>
                                 The 5 Systems Framework
                             </h2>
                             <div class="flex items-center space-x-4">
-                                <span class="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-semibold">
+                                <span class="bg-green-900 text-green-400 px-4 py-2 rounded-full text-sm font-semibold border border-green-800">
                                     <i class="fas fa-check-circle mr-2"></i>All Systems Active
                                 </span>
-                                <span class="text-gray-500 text-sm">
+                                <span class="text-gray-400 text-sm">
                                     <i class="fas fa-clock mr-2"></i>Last Updated: Today
                                 </span>
                             </div>
                         </div>
                         
-                        <div class="mb-8 p-6 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-200">
+                        <div class="mb-8 p-6 bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl border border-gray-700">
                             <div class="flex items-center">
-                                <i class="fas fa-info-circle text-2xl text-indigo-600 mr-4"></i>
+                                <i class="fas fa-info-circle text-2xl text-red-500 mr-4"></i>
                                 <div>
-                                    <h3 class="text-lg font-bold text-indigo-800 mb-2">Complete Office Transformation</h3>
-                                    <p class="text-indigo-700">Our 5-system framework transforms your office from manual chaos to automated efficiency. Each system addresses specific pain points with proven solutions.</p>
+                                    <h3 class="text-lg font-bold text-white mb-2">Complete Office Transformation</h3>
+                                    <p class="text-gray-300">Our 5-system framework transforms your office from manual chaos to automated efficiency. Each system addresses specific pain points with proven solutions.</p>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
                             <!-- System 1 -->
-                            <div class="framework-card bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl border-2 border-blue-200 hover:shadow-2xl transition-all duration-300 cursor-pointer group" onclick="showSystemDetails(1)">
+                            <div class="framework-card bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl border-2 border-gray-700 hover:shadow-2xl transition-all duration-300 cursor-pointer group" onclick="showSystemDetails(1)">
                                 <div class="flex items-center justify-between mb-6">
                                     <div class="flex items-center">
-                                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">
+                                        <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">
                                             1
                                         </div>
                                         <div class="ml-4">
-                                            <h3 class="text-xl font-bold text-blue-800">Document Management</h3>
+                                            <h3 class="text-xl font-bold text-white">Document Management</h3>
                                             <div class="flex items-center mt-1">
-                                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">
+                                                <span class="bg-green-900 text-green-400 px-2 py-1 rounded-full text-xs font-semibold border border-green-800">
                                                     <i class="fas fa-check mr-1"></i>Active
                                                 </span>
                                             </div>
@@ -1048,29 +1065,29 @@
                                 
                                 <div class="space-y-4">
                                     <div class="flex items-start">
-                                        <i class="fas fa-exchange-alt text-blue-600 mt-1 mr-3"></i>
+                                        <i class="fas fa-exchange-alt text-blue-500 mt-1 mr-3"></i>
                                         <div>
-                                            <h4 class="font-semibold text-gray-800 mb-1">Problem Solved</h4>
-                                            <p class="text-gray-600 text-sm">Lost files, paper clutter, slow document retrieval</p>
+                                            <h4 class="font-semibold text-white mb-1">Problem Solved</h4>
+                                            <p class="text-gray-400 text-sm">Lost files, paper clutter, slow document retrieval</p>
                                         </div>
                                     </div>
                                     
                                     <div class="flex items-start">
-                                        <i class="fas fa-lightbulb text-blue-600 mt-1 mr-3"></i>
+                                        <i class="fas fa-lightbulb text-blue-500 mt-1 mr-3"></i>
                                         <div>
-                                            <h4 class="font-semibold text-gray-800 mb-1">Solution Provided</h4>
-                                            <p class="text-gray-600 text-sm">Digital organization, cloud storage, intelligent search</p>
+                                            <h4 class="font-semibold text-white mb-1">Solution Provided</h4>
+                                            <p class="text-gray-400 text-sm">Digital organization, cloud storage, intelligent search</p>
                                         </div>
                                     </div>
                                     
                                     <div class="flex flex-wrap gap-2 mt-4">
-                                        <span class="bg-blue-100 text-blue-800 px-3 py-2 rounded-lg text-xs font-semibold border border-blue-300">
+                                        <span class="bg-gray-800 text-blue-400 px-3 py-2 rounded-lg text-xs font-semibold border border-gray-600">
                                             <i class="fas fa-google-drive mr-1"></i>Google Drive
                                         </span>
-                                        <span class="bg-blue-100 text-blue-800 px-3 py-2 rounded-lg text-xs font-semibold border border-blue-300">
+                                        <span class="bg-gray-800 text-blue-400 px-3 py-2 rounded-lg text-xs font-semibold border border-gray-600">
                                             <i class="fas fa-search mr-1"></i>Smart Search
                                         </span>
-                                        <span class="bg-blue-100 text-blue-800 px-3 py-2 rounded-lg text-xs font-semibold border border-blue-300">
+                                        <span class="bg-gray-800 text-blue-400 px-3 py-2 rounded-lg text-xs font-semibold border border-gray-600">
                                             <i class="fas fa-file-pdf mr-1"></i>PDF Tools
                                         </span>
                                     </div>
