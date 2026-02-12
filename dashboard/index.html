@@ -519,17 +519,508 @@
             align-items: center;
         }
         
-        .shortcut-key {
-            padding: 0.25rem 0.5rem;
-            background: #F3F4F6;
-            border: 1px solid #D1D5DB;
-            border-radius: 0.25rem;
-            font-family: monospace;
+        /* Security Protection Styles */
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
             font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .security-badge.protected {
+            background: linear-gradient(135deg, #DCFCE7, #BBF7D0);
+            color: #16A34A;
+            border: 1px solid #16A34A;
+        }
+        
+        .security-badge.warning {
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+            color: #D97706;
+            border: 1px solid #D97706;
+        }
+        
+        .security-badge.critical {
+            background: linear-gradient(135deg, #FEE2E2, #FECACA);
+            color: #DC2626;
+            border: 1px solid #DC2626;
+        }
+        
+        .security-shield {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            font-size: 0.75rem;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(22, 163, 74, 0.3);
+        }
+        
+        .security-shield::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 1rem;
+            height: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .security-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9998;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .security-overlay.active {
+            display: flex;
+        }
+        
+        .security-alert {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 500px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            text-align: center;
+        }
+        
+        .security-alert-icon {
+            width: 4rem;
+            height: 4rem;
+            background: linear-gradient(135deg, #FEE2E2, #FECACA);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #DC2626;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+        }
+        
+        .security-alert-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+        
+        .security-alert-message {
+            color: #6B7280;
+            margin-bottom: 1.5rem;
+        }
+        
+        .security-alert-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .security-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #D1D5DB;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .security-btn.primary {
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+            color: #FFFFFF;
+            border-color: #16A34A;
+        }
+        
+        .security-btn.secondary {
+            background: #F3F4F6;
+            color: #374151;
+            border-color: #D1D5DB;
+        }
+        
+        .security-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Department Security Indicators */
+        .department-security {
+            position: relative;
+        }
+        
+        .department-security::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            border-radius: 2px;
+        }
+        
+        .department-security.secure::after {
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+        }
+        
+        .department-security.warning::after {
+            background: linear-gradient(135deg, #F59E0B, #FCD34D);
+        }
+        
+        .department-security.critical::after {
+            background: linear-gradient(135deg, #DC2626, #EF4444);
+        }
+        
+        /* Login Security */
+        .login-security {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+            border: 1px solid #E5E7EB;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .login-security-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .login-security-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .login-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+        
+        .login-feature:hover {
+            background: #F0FDF4;
+            border-color: #16A34A;
+        }
+        
+        .login-feature-icon {
+            width: 2rem;
+            height: 2rem;
+            background: #F0FDF4;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #16A34A;
+            font-size: 1rem;
+        }
+        
+        .login-feature-text {
+            flex: 1;
+        }
+        
+        .login-feature-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+        
+        .login-feature-desc {
+            font-size: 0.75rem;
+            color: #6B7280;
+        }
+        
+        /* Data Protection */
+        .data-protection {
+            background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+            border: 1px solid #16A34A;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .data-protection-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #14532D;
+            margin-bottom: 1rem;
+        }
+        
+        .data-protection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .data-protection-item {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .data-protection-item:hover {
+            border-color: #16A34A;
+            transform: translateY(-2px);
+        }
+        
+        .data-protection-icon {
+            width: 2rem;
+            height: 2rem;
+            background: #F0FDF4;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #16A34A;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .data-protection-text {
+            font-size: 0.875rem;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        /* Access Control */
+        .access-control {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .access-control-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #14532D;
+            margin-bottom: 1rem;
+        }
+        
+        .access-level {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .access-level-name {
+            font-size: 0.875rem;
+            font-weight: 500;
             color: #374151;
         }
         
-        /* Modern Enterprise Dashboard Styles */
+        .access-level-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .access-level.admin {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+        
+        .access-level.editor {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+        
+        .access-level.viewer {
+            background: #DCFCE7;
+            color: #16A34A;
+        }
+        
+        .access-level.guest {
+            background: #F3F4F6;
+            color: #6B7280;
+        }
+        
+        /* Security Monitoring */
+        .security-monitoring {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .monitoring-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .monitoring-item {
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .monitoring-item:hover {
+            border-color: #16A34A;
+            transform: translateY(-2px);
+        }
+        
+        .monitoring-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .monitoring-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .monitoring-value {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .monitoring-status.online {
+            color: #16A34A;
+        }
+        
+        .monitoring-status.warning {
+            color: #D97706;
+        }
+        
+        .monitoring-status.offline {
+            color: #DC2626;
+        }
+        
+        /* Security Alerts */
+        .security-alerts {
+            position: fixed;
+            top: 4rem;
+            right: 4rem;
+            z-index: 9999;
+            max-width: 400px;
+        }
+        
+        .security-alert-item {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            animation: slideInRight 0.3s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .security-alert-item.success {
+            border-left: 4px solid #16A34A;
+        }
+        
+        .security-alert-item.warning {
+            border-left: 4px solid #D97706;
+        }
+        
+        .security-alert-item.error {
+            border-left: 4px solid #DC2626;
+        }
+        
+        .security-alert-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .security-alert-icon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        
+        .security-alert-text {
+            flex: 1;
+            font-size: 0.875rem;
+            color: #374151;
+        }
+        
+        /* Responsive Security */
+        @media (max-width: 768px) {
+            .security-alerts {
+                top: 1rem;
+                right: 1rem;
+                left: 1rem;
+                max-width: calc(100% - 2rem);
+            }
+            
+            .security-alert-item {
+                padding: 0.75rem;
+            }
+            
+            .security-alert-content {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .data-protection-grid,
+            .access-control,
+            .monitoring-grid {
+                grid-template-columns: 1fr;
+            }
+        }
         body {
             background: #FAFAFA;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -2111,17 +2602,38 @@
         .opacity-75 {
             opacity: 0.75;
         }
-        
-        .transition-all {
-            transition: all 0.2s ease;
-        }
 
-        /* Professional Dashboard Styles */
-        .service-card {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
+            /* Framework Cards Styles */
+            .framework-card {
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .framework-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            }
+            
+            .framework-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+                transition: left 0.8s;
+                z-index: 1;
+            }
+            
+            .framework-card:hover::before {
+                left: 100%;
+            }
+            
+            .framework-card .group-hover\:scale-110:hover {
+                transform: scale(1.1);
+            }
         
         .service-card:hover {
             transform: translateY(-4px);
@@ -2299,6 +2811,24 @@
     </style>
 </head>
 <body class="bg-black text-white">
+    <!-- Security Protection Overlay -->
+    <div class="security-overlay" id="securityOverlay">
+        <div class="security-alert">
+            <div class="security-alert-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="security-alert-title">Security Alert</h3>
+            <p class="security-alert-message">Unauthorized access attempt detected. Your session has been terminated for security reasons.</p>
+            <div class="security-alert-actions">
+                <button class="security-btn primary" onclick="handleSecurityAlert('continue')">Continue</button>
+                <button class="security-btn secondary" onclick="handleSecurityAlert('logout')">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Alerts Container -->
+    <div class="security-alerts" id="securityAlerts"></div>
+
     <!-- Command Palette -->
     <div id="commandPalette" class="command-palette">
         <div class="command-palette-content">
@@ -2523,20 +3053,67 @@
                     <i class="fas fa-shield-alt nav-item-icon"></i>
                     <span>IT Compliance</span>
                 </a>
-                <a href="#data-entry-automation" class="nav-item-enterprise" onclick="navigateToPage('data-entry-automation.html', this)">
-                    <i class="fas fa-keyboard nav-item-icon"></i>
-                    <span>Data Entry & Automation</span>
-                </a>
-                <a href="#hr-system" class="nav-item-enterprise" onclick="navigateToPage('hr-system.html', this)">
+                <a href="#hr-system" class="nav-item-enterprise department-security secure" onclick="navigateToPage('hr-system.html', this)">
                     <i class="fas fa-users-cog nav-item-icon"></i>
                     <span>HR System</span>
                     <span class="nav-item-badge">New</span>
+                    <div class="security-shield">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
                 </a>
-                <a href="#accounting-tools" class="nav-item-enterprise" onclick="navigateToPage('accounting-tools.html', this)">
+                <a href="#accounting-tools" class="nav-item-enterprise department-security secure" onclick="navigateToPage('accounting-tools.html', this)">
                     <i class="fas fa-calculator nav-item-icon"></i>
                     <span>Accounting Tools</span>
                     <span class="nav-item-badge">7</span>
+                    <div class="security-shield">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
                 </a>
+                
+                <!-- Accounting Integrations Collapsible Menu -->
+                <div class="nav-submenu">
+                    <a href="#accounting-integrations" class="nav-item-enterprise submenu-toggle" onclick="toggleSubmenu('accounting-integrations', this)">
+                        <i class="fas fa-calculator nav-item-icon"></i>
+                        <span>Accounting Integrations</span>
+                        <i class="fas fa-chevron-down nav-chevron" id="accounting-integrations-chevron"></i>
+                        <span class="nav-item-badge">7</span>
+                    </a>
+                    
+                    <div class="submenu-content" id="accounting-integrations-submenu">
+                        <a href="#zoho-books" class="nav-item-sub" onclick="navigateToPage('accounting-tools.html', this)">
+                            <i class="fas fa-book nav-item-icon"></i>
+                            <span>Zoho Books</span>
+                        </a>
+                        <a href="#quickbooks" class="nav-item-sub" onclick="navigateToPage('accounting-tools.html', this)">
+                            <i class="fas fa-chart-line nav-item-icon"></i>
+                            <span>QuickBooks</span>
+                        </a>
+                        <a href="#xero" class="nav-item-sub" onclick="navigateToPage('accounting-tools.html', this)">
+                            <i class="fas fa-balance-scale nav-item-icon"></i>
+                            <span>Xero</span>
+                        </a>
+                        <a href="#excel" class="nav-item-sub" onclick="navigateToPage('accounting-tools.html', this)">
+                            <i class="fas fa-file-excel nav-item-icon"></i>
+                            <span>Excel</span>
+                        </a>
+                        <a href="#freshbooks" class="nav-item-sub" onclick="navigateToPage('accounting-tools.html', this)">
+                            <i class="fas fa-file-invoice-dollar nav-item-icon"></i>
+                            <span>FreshBooks</span>
+                        </a>
+                        <a href="#wave" class="nav-item-sub" onclick="navigateToPage('accounting-tools.html', this)">
+                            <i class="fas fa-water nav-item-icon"></i>
+                            <span>Wave Financial</span>
+                        </a>
+                        <a href="#paypal" class="nav-item-sub" onclick="navigateToPage('accounting-tools.html', this)">
+                            <i class="fab fa-paypal nav-item-icon"></i>
+                            <span>PayPal</span>
+                        </a>
+                        <a href="#stripe" class="nav-item-sub" onclick="navigateToPage('accounting-tools.html', this)">
+                            <i class="fab fa-stripe nav-item-icon"></i>
+                            <span>Stripe</span>
+                        </a>
+                    </div>
+                </div>
             </nav>
             
             <nav class="nav-section">
@@ -6839,6 +7416,154 @@ function openITCompliance() {
             });
         }
 
+        // Security Protection Functions
+        function checkSecurityLevel() {
+            // Simulate security check
+            const securityLevels = ['secure', 'warning', 'critical'];
+            const randomLevel = securityLevels[Math.floor(Math.random() * securityLevels.length)];
+            
+            // Update security indicators
+            const departments = document.querySelectorAll('.department-security');
+            departments.forEach(dept => {
+                dept.classList.remove('secure', 'warning', 'critical');
+                dept.classList.add(randomLevel);
+            });
+            
+            return randomLevel;
+        }
+
+        function showSecurityAlert(type, message) {
+            const alertsContainer = document.getElementById('securityAlerts');
+            const alertItem = document.createElement('div');
+            alertItem.className = `security-alert-item ${type}`;
+            
+            const iconClass = type === 'success' ? 'fa-check-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-shield-alt';
+            const iconColor = type === 'success' ? '#16A34A' : type === 'warning' ? '#D97706' : '#DC2626';
+            
+            alertItem.innerHTML = `
+                <div class="security-alert-content">
+                    <div class="security-alert-icon" style="background: ${iconColor}20; color: ${iconColor};">
+                        <i class="fas ${iconClass}"></i>
+                    </div>
+                    <div class="security-alert-text">${message}</div>
+                </div>
+            `;
+            
+            alertsContainer.appendChild(alertItem);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                alertItem.remove();
+            }, 5000);
+        }
+
+        function handleSecurityAlert(action) {
+            const overlay = document.getElementById('securityOverlay');
+            
+            if (action === 'continue') {
+                overlay.classList.remove('active');
+                showSecurityAlert('success', 'Security verification completed. Session restored.');
+            } else if (action === 'logout') {
+                overlay.classList.remove('active');
+                logout();
+            }
+        }
+
+        function simulateSecurityBreach() {
+            // Simulate random security events
+            const securityEvents = [
+                { type: 'warning', message: 'Unusual login pattern detected from new device' },
+                { type: 'success', message: 'Security scan completed - no threats found' },
+                { type: 'warning', message: 'Multiple failed login attempts detected' },
+                { type: 'success', message: 'Firewall rules updated successfully' },
+                { type: 'warning', message: 'Suspicious activity in accounting department' },
+                { type: 'success', message: 'Security patches applied to all systems' }
+            ];
+            
+            const randomEvent = securityEvents[Math.floor(Math.random() * securityEvents.length)];
+            showSecurityAlert(randomEvent.type, randomEvent.message);
+        }
+
+        function protectDepartment(departmentName) {
+            // Add protection to specific department
+            const deptElement = document.querySelector(`[href*="${departmentName}"]`);
+            if (deptElement) {
+                deptElement.classList.add('department-security', 'secure');
+                
+                // Add security shield if not present
+                if (!deptElement.querySelector('.security-shield')) {
+                    const shield = document.createElement('div');
+                    shield.className = 'security-shield';
+                    shield.innerHTML = '<i class="fas fa-shield-alt"></i>';
+                    deptElement.appendChild(shield);
+                }
+                
+                showSecurityAlert('success', `${departmentName} department secured successfully`);
+            }
+        }
+
+        function initializeSecurityMonitoring() {
+            // Start security monitoring
+            setInterval(() => {
+                checkSecurityLevel();
+            }, 30000); // Check every 30 seconds
+            
+            // Simulate random security events
+            setInterval(() => {
+                if (Math.random() > 0.7) { // 30% chance
+                    simulateSecurityBreach();
+                }
+            }, 45000); // Check every 45 seconds
+            
+            // Protect critical departments
+            protectDepartment('hr-system');
+            protectDepartment('accounting-tools');
+            protectDepartment('document-management');
+            
+            // Initial security check
+            showSecurityAlert('success', 'Security monitoring initialized successfully');
+        }
+
+        // Enhanced Sidebar Navigation Functions
+        function toggleSubmenu(submenuId, element) {
+            const submenu = document.getElementById(submenuId + '-submenu');
+            const chevron = document.getElementById(submenuId + '-chevron');
+            
+            if (submenu.classList.contains('expanded')) {
+                submenu.classList.remove('expanded');
+                chevron.classList.remove('rotated');
+            } else {
+                submenu.classList.add('expanded');
+                chevron.classList.add('rotated');
+            }
+        }
+
+        function initializeSubmenus() {
+            // Auto-expand accounting integrations if coming from accounting tools page
+            const urlParams = new URLSearchParams(window.location.search);
+            const tool = urlParams.get('tool');
+            
+            if (tool) {
+                const accountingSubmenu = document.getElementById('accounting-integrations-submenu');
+                const chevron = document.getElementById('accounting-integrations-chevron');
+                
+                if (accountingSubmenu && chevron) {
+                    accountingSubmenu.classList.add('expanded');
+                    chevron.classList.add('rotated');
+                    
+                    // Highlight the specific tool
+                    const submenuItems = accountingSubmenu.querySelectorAll('.nav-item-sub');
+                    submenuItems.forEach(item => {
+                        if (item.textContent.toLowerCase().includes(tool.toLowerCase())) {
+                            item.style.background = '#F0FDF4';
+                            item.style.color = '#16A34A';
+                            item.style.fontWeight = '600';
+                        }
+                    });
+                }
+            }
+        }
+
         function composeEmail() {
             showNotification('Opening email composer...', 'info');
             setTimeout(() => {
@@ -6968,10 +7693,7 @@ function openITCompliance() {
             checkAuthStatus();
             setActiveNavigation();
             
-            // Initialize Modern Dashboard
-            initializeModernDashboard();
-            
-            // Initialize Enterprise UX enhancements
+            // Initialize Enhanced UX enhancements
             setupEnterpriseKeyboardShortcuts();
             setupGlobalSearch();
             setupCommandPaletteSearch();
@@ -6982,6 +7704,12 @@ function openITCompliance() {
             initializeWorkflowCanvas();
             initializeKPICharts();
             setupSystemInteractions();
+            
+            // Initialize Enhanced Sidebar Navigation
+            initializeSubmenus();
+            
+            // Initialize Security Protection
+            initializeSecurityMonitoring();
             
             // Start real-time updates
             setInterval(updateKPIDashboard, 30000); // Update KPIs every 30 seconds

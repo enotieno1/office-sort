@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accounting Tools - OOES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Greenish-Reddish-Whitish Theme Variables */
+            --color-bg-primary: #F0FDF4;
+            --color-bg-secondary: #DCFCE7;
+            --color-bg-tertiary: #BBF7D0;
+            --color-bg-card: #FFFFFF;
+            --color-bg-hover: #F7FEE7;
+            --color-text-primary: #14532D;
+            --color-text-secondary: #166534;
+            --color-text-tertiary: #15803D;
+            --color-text-muted: #16A34A;
+            --color-text-disabled: #22C55E;
+            --color-accent-primary: #DC2626;
+            --color-accent-secondary: #EF4444;
+            --color-accent-tertiary: #F87171;
+            --color-accent-success: #16A34A;
+            --color-accent-warning: #F59E0B;
+            --color-border-primary: #DCFCE7;
+            --color-border-secondary: #BBF7D0;
+            --color-border-light: #86EFAC;
+            --color-shadow-primary: rgba(34, 197, 94, 0.1);
+            --color-shadow-secondary: rgba(34, 197, 94, 0.2);
+            --color-shadow-accent: rgba(220, 38, 38, 0.3);
+        }
+
+        /* Enhanced Navigation Styles */
+        .accounting-nav {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #E5E7EB;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #F3F4F6;
+            overflow-x: auto;
+        }
+        
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #6B7280;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            white-space: nowrap;
+        }
+        
+        .nav-tab:hover {
+            color: #16A34A;
+            background: #F0FDF4;
+        }
+        
+        .nav-tab.active {
+            color: #16A34A;
+            border-bottom-color: #16A34A;
+            background: #F0FDF4;
+        }
+        
+        .quick-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .quick-nav-btn {
+            padding: 0.5rem 1rem;
+            background: #FFFFFF;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quick-nav-btn:hover {
+            background: #F9FAFB;
+            border-color: #16A34A;
+            color: #16A34A;
+            transform: translateY(-1px);
+        }
+        
+        .quick-nav-btn.primary {
+            background: #16A34A;
+            color: #FFFFFF;
+            border-color: #16A34A;
+        }
+        
+        .quick-nav-btn.primary:hover {
+            background: #15803D;
+        }
+        
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* Enhanced Click Flow & Page Transitions */
+        .tool-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+            transform: scaleY(0);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-8px) rotateX(2deg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+            border-color: #16A34A;
+        }
+        
+        .tool-card:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .tool-card:active {
+            transform: translateY(-4px) rotateX(1deg);
+            transition: all 0.1s ease;
+        }
+        
+        .tool-card.clicked {
+            animation: cardClick 0.6s ease-out;
+        }
+        
+        @keyframes cardClick {
+            0% {
+                transform: translateY(-8px) rotateX(2deg) scale(1);
+            }
+            50% {
+                transform: translateY(-12px) rotateX(3deg) scale(1.05);
+                box-shadow: 0 30px 60px -15px rgba(22, 163, 74, 0.4);
+            }
+            100% {
+                transform: translateY(-8px) rotateX(2deg) scale(1);
+            }
+        }
+        
+        .tool-icon {
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #16A34A;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .tool-card:hover .tool-icon {
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+            color: #FFFFFF;
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .tool-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .tool-card:hover .tool-title {
+            color: #16A34A;
+        }
+        
+        .tool-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-status.connected {
+            background: linear-gradient(135deg, #DCFCE7, #BBF7D0);
+            color: #16A34A;
+            border: 1px solid #16A34A;
+        }
+        
+        .tool-status.disconnected {
+            background: linear-gradient(135deg, #FEE2E2, #FECACA);
+            color: #DC2626;
+            border: 1px solid #DC2626;
+        }
+        
+        .tool-status.pending {
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+            color: #D97706;
+            border: 1px solid #D97706;
+        }
+        
+        .tool-card:hover .tool-status {
+            transform: scale(1.05);
+        }
+        
+        .tool-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tool-metric {
+            text-align: center;
+            padding: 0.5rem;
+            background: #F9FAFB;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .tool-card:hover .tool-metric {
+            background: #F0FDF4;
+            border-color: #16A34A;
+            transform: scale(1.02);
+        }
+        
+        .tool-metric-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+            transition: color 0.3s ease;
+        }
+        
+        .tool-card:hover .tool-metric-value {
+            color: #16A34A;
+        }
+        
+        .tool-metric-label {
+            font-size: 0.75rem;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .tool-actions {
+            display: flex;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 4;
+        }
+        
+        .tool-action {
+            flex: 1;
+            padding: 0.5rem;
+            background: #F3F4F6;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tool-action::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(22, 163, 74, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .tool-action:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .tool-action:hover {
+            background: #16A34A;
+            color: #FFFFFF;
+            border-color: #16A34A;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+        }
+        
+        .tool-action.primary {
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+            color: #FFFFFF;
+            border-color: #16A34A;
+        }
+        
+        .tool-action.primary:hover {
+            background: linear-gradient(135deg, #15803D, #16A34A);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.4);
+        }
+        
+        .tool-action:active {
+            transform: translateY(0);
+        }
+        
+        /* Page Transition Overlay */
+        .page-transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .page-transition-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .transition-loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #FFFFFF;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .transition-text {
+            color: #FFFFFF;
+            font-size: 1.125rem;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+        
+        /* Quick Access Buttons */
+        .quick-access-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 2rem;
+            height: 2rem;
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 5;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        
+        .tool-card:hover .quick-access-btn {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .quick-access-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.4);
+        }
+        
+        /* Enhanced Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .tool-card {
+            animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .tool-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        
+        .tool-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+        
+        .tool-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+        
+        .tool-card:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+        
+        .tool-card:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+        
+        .tool-card:nth-child(7) {
+            animation-delay: 0.6s;
+        }
+        
+        .tool-card:nth-child(8) {
+            animation-delay: 0.7s;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-tabs {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-nav {
+                flex-direction: column;
+            }
+            
+            .tool-metrics {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .tool-card {
+            animation: slideInUp 0.6s ease-out;
+        }
+        
+        .tool-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        
+        .tool-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+        
+        .tool-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+        
+        .tool-card:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+        
+        .tool-card:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-600 to-green-700 text-white">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <button onclick="goBack()" class="text-white hover:bg-green-700 px-3 py-2 rounded-lg transition">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                    </button>
+                    <h1 class="text-2xl font-bold">
+                        <i class="fas fa-calculator mr-3"></i>
+                        Accounting Tools
+                    </h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-right">
+                        <p class="text-sm text-green-100">Active Integrations</p>
+                        <p class="text-lg font-bold text-white">8</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-green-100">Monthly Transactions</p>
+                        <p class="text-lg font-bold text-white">2,747</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-8">
+        
+        <!-- Enhanced Navigation Section -->
+        <div class="accounting-nav">
+            <div class="flex items-center justify-between mb-4">
+                <h1 class="text-2xl font-bold text-gray-800">
+                    <i class="fas fa-calculator mr-3 text-green-600"></i>
+                    Accounting Tools
+                </h1>
+                <div class="quick-nav">
+                    <button class="quick-nav-btn primary" onclick="switchView('all')">
+                        <i class="fas fa-th-large"></i>
+                        All Tools
+                    </button>
+                    <button class="quick-nav-btn" onclick="switchView('connected')">
+                        <i class="fas fa-link"></i>
+                        Connected
+                    </button>
+                    <button class="quick-nav-btn" onclick="switchView('recent')">
+                        <i class="fas fa-clock"></i>
+                        Recent
+                    </button>
+                    <button class="quick-nav-btn" onclick="addNewIntegration()">
+                        <i class="fas fa-plus"></i>
+                        Add Tool
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Navigation Tabs -->
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="switchTab('overview', this)">Overview</button>
+                <button class="nav-tab" onclick="switchTab('quickbooks', this)">QuickBooks</button>
+                <button class="nav-tab" onclick="switchTab('xero', this)">Xero</button>
+                <button class="nav-tab" onclick="switchTab('zoho', this)">Zoho Books</button>
+                <button class="nav-tab" onclick="switchTab('freshbooks', this)">FreshBooks</button>
+                <button class="nav-tab" onclick="switchTab('excel', this)">Excel</button>
+                <button class="nav-tab" onclick="switchTab('wave', this)">Wave</button>
+                <button class="nav-tab" onclick="switchTab('paypal', this)">PayPal</button>
+                <button class="nav-tab" onclick="switchTab('stripe', this)">Stripe</button>
+            </div>
+        </div>
+
+        <!-- Tool Grid -->
+        <div class="tool-grid" id="toolGrid">
+            <!-- QuickBooks -->
+            <div class="tool-card" onclick="navigateToTool('quickbooks', this)">
+                <button class="quick-access-btn" onclick="event.stopPropagation(); quickAccessTool('quickbooks')">
+                    <i class="fas fa-external-link-alt"></i>
+                </button>
+                <div class="tool-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="tool-title">QuickBooks</h3>
+                <div class="tool-status connected">
+                    <i class="fas fa-circle" style="font-size: 0.5rem;"></i>
+                    Connected
+                </div>
+                <div class="tool-metrics">
+                    <div class="tool-metric">
+                        <div class="tool-metric-value">847</div>
+                        <div class="tool-metric-label">Transactions</div>
+                    </div>
+                    <div class="tool-metric">
+                        <div class="tool-metric-value">2m</div>
+                        <div class="tool-metric-label">Last Sync</div>
+                    </div>
+                </div>
+                <div class="tool-actions">
+                    <button class="tool-action primary" onclick="event.stopPropagation(); configureQuickBooks()">
+                        <i class="fas fa-cog"></i>
+                        Configure
+                    </button>
+                    <button class="tool-action" onclick="event.stopPropagation(); syncQuickBooks()">
+                        <i class="fas fa-sync"></i>
+                        Sync
+                    </button>
+                </div>
+            </div>
+
+            <!-- Xero -->
+            <div class="tool-card" onclick="navigateToTool('xero', this)">
+                <button class="quick-access-btn" onclick="event.stopPropagation(); quickAccessTool('xero')">
+                    <i class="fas fa-external-link-alt"></i>
+                </button>
+                <div class="tool-icon">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <h3 class="tool-title">Xero</h3>
+                <div class="tool-status connected">
+                    <i class="fas fa-circle" style="font-size: 0.5rem;"></i>
+                    Connected
+                </div>
+                <div class="tool-metrics">
+                    <div class="tool-metric">
+                        <div class="tool-metric-value">623</div>
+                        <div class="tool-metric-label">Transactions</div>
+                    </div>
+                    <div class="tool-metric">
+                        <div class="tool-metric-value">5m</div>
+                        <div class="tool-metric-label">Last Sync</div>
+                    </div>
+                </div>
+                <div class="tool-actions">
+                    <button class="tool-action primary" onclick="event.stopPropagation(); configureXero()">
+                        <i class="fas fa-cog"></i>
+                        Configure
+                    </button>
+                    <button class="tool-action" onclick="event.stopPropagation(); syncXero()">
+                        <i class="fas fa-sync"></i>
+                        Sync
+                    </button>
+                </div>
+            </div>
+
+            <!-- Zoho Books -->
+            <div class="tool-card" onclick="navigateToTool('zoho', this)">
+                <button class="quick-access-btn" onclick="event.stopPropagation(); quickAccessTool('zoho')">
+                    <i class="fas fa-external-link-alt"></i>
+                </button>
+                <div class="tool-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3 class="tool-title">Zoho Books</h3>
+                <div class="tool-status connected">
+                    <i class="fas fa-circle" style="font-size: 0.5rem;"></i>
+                    Connected
+                </div>
+                <div class="tool-metrics">
+                    <div class="tool-metric">
+                        <div class="tool-metric-value">456</div>
+                        <div class="tool-metric-label">Transactions</div>
+                    </div>
+                    <div class="tool-metric">
+                        <div class="tool-metric-value">10m</div>
+                        <div class="tool-metric-label">Last Sync</div>
+                    </div>
+                </div>
+                <div class="tool-actions">
+                    <button class="tool-action primary" onclick="event.stopPropagation(); configureZoho()">
+                        <i class="fas fa-cog"></i>
+                        Configure
+                    </button>
+                    <button class="tool-action" onclick="event.stopPropagation(); syncZoho()">
+                        <i class="fas fa-sync"></i>
+                        Sync
+                    </button>
+                </div>
+            </div>
+
+            <!-- FreshBooks -->
+            <div class="tool-card" onclick="navigateToTool('freshbooks', this)">
+                <button class="quick-access-btn" onclick="event.stopPropagation(); quickAccessTool('freshbooks')">
+                    <i class="fas fa-external-link-alt"></i>
+                </button>
+                <div class="tool-icon">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <h3 class="tool-title">FreshBooks</h3>
+                <div class="tool-status pending">
+                    <i class="fas fa-circle" style="font-size: 0.5rem;"></i>
+                    Pending
+                </div>
+                <div class="tool-metrics">
+                    <div class="tool-metric">
+                        <div class="tool-metric-value">--</div>
+                        <div class="tool-metric-label">Transactions</div>
+                    </div>
+                    <div class="tool-metric">
+                        <div class="tool-metric-value">--</div>
+                        <div class="tool-metric-label">Last Sync</div>
+                    </div>
+                </div>
+                <div class="tool-actions">
+                    <button class="tool-action primary" onclick="event.stopPropagation(); configureFreshBooks()">
+                        <i class="fas fa-cog"></i>
+                        Configure
+                    </button>
+                    <button class="tool-action" onclick="event.stopPropagation(); syncFreshBooks()">
+                        <i class="fas fa-sync"></i>
+                        Sync
+                    </button>
+                </div>
+            </div>
+
+            <!-- Excel -->
+            <div class="tool-card" onclick="navigateToTool('excel', this)">
+                <button class="quick-access-btn" onclick="event.stopPropagation(); quickAccessTool('excel')">
+                    <i class="fas fa-external-link-alt"></i>
+                </button>
+                <div class="tool-icon">
+                    <i class="fas fa-file-excel"></i>
+                </div>
+                <h3 class="tool-title">Excel</h3>
+                <div class="tool-status connected">
+                    <i class="fas fa-circle" style="font-size: 0.5rem;"></i>
+                    Connected
+                </div>
+                <div class="tool-metrics">
+                    <div class="tool-metric">
+                        <div class="tool-metric-value">1.2K</div>
+                        <div class="tool-metric-label">Files</div>
+                    </div>
+                    <div class="tool-metric">
+                        <div class="tool-metric-value">1h</div>
+                        <div class="tool-metric-label">Last Sync</div>
+                    </div>
+                </div>
+                <div class="tool-actions">
+                    <button class="tool-action primary" onclick="event.stopPropagation(); configureExcel()">
+                        <i class="fas fa-cog"></i>
+                        Configure
+                    </button>
+                    <button class="tool-action" onclick="event.stopPropagation(); syncExcel()">
+                        <i class="fas fa-sync"></i>
+                        Sync
+                    </button>
+                </div>
+            </div>
+
+            <!-- Wave Financial -->
+            <div class="tool-card" onclick="navigateToTool('wave', this)">
+                <button class="quick-access-btn" onclick="event.stopPropagation(); quickAccessTool('wave')">
+                    <i class="fas fa-external-link-alt"></i>
+                </button>
+                <div class="tool-icon">
+                    <i class="fas fa-water"></i>
+                </div>
+                <h3 class="tool-title">Wave Financial</h3>
+                <div class="tool-status disconnected">
+                    <i class="fas fa-circle" style="font-size: 0.5rem;"></i>
+                    Disconnected
+                </div>
+                <div class="tool-metrics">
+                    <div class="tool-metric">
+                        <div class="tool-metric-value">--</div>
+                        <div class="tool-metric-label">Transactions</div>
+                    </div>
+                    <div class="tool-metric">
+                        <div class="tool-metric-value">--</div>
+                        <div class="tool-metric-label">Last Sync</div>
+                    </div>
+                </div>
+                <div class="tool-actions">
+                    <button class="tool-action primary" onclick="event.stopPropagation(); configureWave()">
+                        <i class="fas fa-cog"></i>
+                        Configure
+                    </button>
+                    <button class="tool-action" onclick="event.stopPropagation(); syncWave()">
+                        <i class="fas fa-sync"></i>
+                        Sync
+                    </button>
+                </div>
+            </div>
+
+            <!-- PayPal -->
+            <div class="tool-card" onclick="navigateToTool('paypal', this)">
+                <button class="quick-access-btn" onclick="event.stopPropagation(); quickAccessTool('paypal')">
+                    <i class="fas fa-external-link-alt"></i>
+                </button>
+                <div class="tool-icon">
+                    <i class="fab fa-paypal"></i>
+                </div>
+                <h3 class="tool-title">PayPal</h3>
+                <div class="tool-status connected">
+                    <i class="fas fa-circle" style="font-size: 0.5rem;"></i>
+                    Connected
+                </div>
+                <div class="tool-metrics">
+                    <div class="tool-metric">
+                        <div class="tool-metric-value">234</div>
+                        <div class="tool-metric-label">Transactions</div>
+                    </div>
+                    <div class="tool-metric">
+                        <div class="tool-metric-value">30m</div>
+                        <div class="tool-metric-label">Last Sync</div>
+                    </div>
+                </div>
+                <div class="tool-actions">
+                    <button class="tool-action primary" onclick="event.stopPropagation(); configurePayPal()">
+                        <i class="fas fa-cog"></i>
+                        Configure
+                    </button>
+                    <button class="tool-action" onclick="event.stopPropagation(); syncPayPal()">
+                        <i class="fas fa-sync"></i>
+                        Sync
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stripe -->
+            <div class="tool-card" onclick="navigateToTool('stripe', this)">
+                <button class="quick-access-btn" onclick="event.stopPropagation(); quickAccessTool('stripe')">
+                    <i class="fas fa-external-link-alt"></i>
+                </button>
+                <div class="tool-icon">
+                    <i class="fab fa-stripe"></i>
+                </div>
+                <h3 class="tool-title">Stripe</h3>
+                <div class="tool-status connected">
+                    <i class="fas fa-circle" style="font-size: 0.5rem;"></i>
+                    Connected
+                </div>
+                <div class="tool-metrics">
+                    <div class="tool-metric">
+                        <div class="tool-metric-value">567</div>
+                        <div class="tool-metric-label">Transactions</div>
+                    </div>
+                    <div class="tool-metric">
+                        <div class="tool-metric-value">15m</div>
+                        <div class="tool-metric-label">Last Sync</div>
+                    </div>
+                </div>
+                <div class="tool-actions">
+                    <button class="tool-action primary" onclick="event.stopPropagation(); configureStripe()">
+                        <i class="fas fa-cog"></i>
+                        Configure
+                    </button>
+                    <button class="tool-action" onclick="event.stopPropagation(); syncStripe()">
+                        <i class="fas fa-sync"></i>
+                        Sync
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Transition Overlay -->
+    <div class="page-transition-overlay" id="pageTransitionOverlay">
+        <div class="text-center">
+            <div class="transition-loader"></div>
+            <div class="transition-text" id="transitionText">Loading...</div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Click Flow & Navigation Functions
+        function navigateToTool(toolName, element) {
+            // Add clicked animation
+            element.classList.add('clicked');
+            
+            // Show transition overlay
+            const overlay = document.getElementById('pageTransitionOverlay');
+            const transitionText = document.getElementById('transitionText');
+            
+            transitionText.textContent = `Opening ${toolName.charAt(0).toUpperCase() + toolName.slice(1)}...`;
+            overlay.classList.add('active');
+            
+            // Simulate navigation delay
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                showNotification(`${toolName.charAt(0).toUpperCase() + toolName.slice(1)} opened successfully!`, 'success');
+                element.classList.remove('clicked');
+            }, 1500);
+        }
+
+        function quickAccessTool(toolName) {
+            // Quick access - instant navigation
+            showNotification(`Quick access to ${toolName}...`, 'info');
+            
+            // Simulate instant tool access
+            setTimeout(() => {
+                window.open(`https://${toolName}.com`, '_blank');
+            }, 500);
+        }
+
+        function openTool(toolName) {
+            // Legacy function - redirect to new navigation
+            const card = document.querySelector(`[onclick*="${toolName}"]`);
+            if (card) {
+                navigateToTool(toolName, card);
+            }
+        }
+
+        function switchTab(tabName, element) {
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Add active class to clicked tab
+            element.classList.add('active');
+            
+            // Filter tools based on selected tab
+            const toolCards = document.querySelectorAll('.tool-card');
+            let visibleCount = 0;
+            
+            toolCards.forEach(card => {
+                if (tabName === 'overview') {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    // Check if card matches the selected tool
+                    const cardTitle = card.querySelector('.tool-title').textContent.toLowerCase();
+                    if (cardTitle.includes(tabName.toLowerCase())) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+            
+            showNotification(`Showing ${visibleCount} tools (${tabName})`, 'info');
+        }
+
+        function switchView(viewType) {
+            const toolCards = document.querySelectorAll('.tool-card');
+            let visibleCount = 0;
+            
+            toolCards.forEach(card => {
+                if (viewType === 'all') {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else if (viewType === 'connected') {
+                    const status = card.querySelector('.tool-status');
+                    if (status && status.classList.contains('connected')) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                } else if (viewType === 'recent') {
+                    // Show first 4 tools as "recent"
+                    const index = Array.from(toolCards).indexOf(card);
+                    if (index < 4) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+            
+            showNotification(`Showing ${visibleCount} tools (${viewType})`, 'info');
+        }
+
+        function addNewIntegration() {
+            showNotification('Opening integration wizard...', 'info');
+            setTimeout(() => {
+                showNotification('Integration wizard ready', 'success');
+            }, 1500);
+        }
+
+        // Tool-specific Functions
+        function configureQuickBooks() {
+            showNotification('Opening QuickBooks configuration...', 'info');
+            setTimeout(() => {
+                showNotification('QuickBooks configuration loaded', 'success');
+            }, 1500);
+        }
+
+        function syncQuickBooks() {
+            showNotification('Syncing QuickBooks data...', 'info');
+            setTimeout(() => {
+                showNotification('QuickBooks synced successfully! 15 new transactions', 'success');
+            }, 2000);
+        }
+
+        function configureXero() {
+            showNotification('Opening Xero configuration...', 'info');
+            setTimeout(() => {
+                showNotification('Xero configuration loaded', 'success');
+            }, 1500);
+        }
+
+        function syncXero() {
+            showNotification('Syncing Xero data...', 'info');
+            setTimeout(() => {
+                showNotification('Xero synced successfully! 8 new transactions', 'success');
+            }, 2000);
+        }
+
+        function configureZoho() {
+            showNotification('Opening Zoho Books configuration...', 'info');
+            setTimeout(() => {
+                showNotification('Zoho Books configuration loaded', 'success');
+            }, 1500);
+        }
+
+        function syncZoho() {
+            showNotification('Syncing Zoho Books data...', 'info');
+            setTimeout(() => {
+                showNotification('Zoho Books synced successfully! 12 new transactions', 'success');
+            }, 2000);
+        }
+
+        function configureFreshBooks() {
+            showNotification('Opening FreshBooks configuration...', 'info');
+            setTimeout(() => {
+                showNotification('FreshBooks configuration loaded', 'success');
+            }, 1500);
+        }
+
+        function syncFreshBooks() {
+            showNotification('Syncing FreshBooks data...', 'info');
+            setTimeout(() => {
+                showNotification('FreshBooks synced successfully! 5 new transactions', 'success');
+            }, 2000);
+        }
+
+        function configureExcel() {
+            showNotification('Opening Excel configuration...', 'info');
+            setTimeout(() => {
+                showNotification('Excel configuration loaded', 'success');
+            }, 1500);
+        }
+
+        function syncExcel() {
+            showNotification('Syncing Excel files...', 'info');
+            setTimeout(() => {
+                showNotification('Excel synced successfully! 3 new files processed', 'success');
+            }, 2000);
+        }
+
+        function configureWave() {
+            showNotification('Opening Wave Financial configuration...', 'info');
+            setTimeout(() => {
+                showNotification('Wave Financial configuration loaded', 'success');
+            }, 1500);
+        }
+
+        function syncWave() {
+            showNotification('Syncing Wave Financial data...', 'info');
+            setTimeout(() => {
+                showNotification('Wave Financial synced successfully! 2 new transactions', 'success');
+            }, 2000);
+        }
+
+        function configurePayPal() {
+            showNotification('Opening PayPal configuration...', 'info');
+            setTimeout(() => {
+                showNotification('PayPal configuration loaded', 'success');
+            }, 1500);
+        }
+
+        function syncPayPal() {
+            showNotification('Syncing PayPal data...', 'info');
+            setTimeout(() => {
+                showNotification('PayPal synced successfully! 7 new transactions', 'success');
+            }, 2000);
+        }
+
+        function configureStripe() {
+            showNotification('Opening Stripe configuration...', 'info');
+            setTimeout(() => {
+                showNotification('Stripe configuration loaded', 'success');
+            }, 1500);
+        }
+
+        function syncStripe() {
+            showNotification('Syncing Stripe data...', 'info');
+            setTimeout(() => {
+                showNotification('Stripe synced successfully! 18 new transactions', 'success');
+            }, 2000);
+        }
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        // Notification function
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-6 py-4 rounded-lg shadow-lg z-50 ${
+                type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+            } text-white`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'} mr-3"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Keyboard shortcuts for enhanced navigation
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + 1-8 for quick tool access
+            if ((e.ctrlKey || e.metaKey) && e.key >= '1' && e.key <= '8') {
+                e.preventDefault();
+                const toolIndex = parseInt(e.key) - 1;
+                const toolCards = document.querySelectorAll('.tool-card');
+                if (toolCards[toolIndex]) {
+                    const toolName = toolCards[toolIndex].querySelector('.tool-title').textContent.toLowerCase();
+                    navigateToTool(toolName, toolCards[toolIndex]);
+                }
+            }
+            
+            // Ctrl/Cmd + Q for quick access
+            if ((e.ctrlKey || e.metaKey) && e.key === 'q') {
+                e.preventDefault();
+                showNotification('Quick access mode activated - Click any tool for instant access', 'info');
+            }
+            
+            // Escape to close any overlay
+            if (e.key === 'Escape') {
+                const overlay = document.getElementById('pageTransitionOverlay');
+                overlay.classList.remove('active');
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            showNotification('Accounting Tools loaded successfully', 'success');
+            
+            // Add hover sound effects (optional enhancement)
+            const toolCards = document.querySelectorAll('.tool-card');
+            toolCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.cursor = 'pointer';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
