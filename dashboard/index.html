@@ -529,7 +529,1324 @@
             color: #374151;
         }
         
-        /* Responsive Enterprise Navigation */
+        /* Modern Enterprise Dashboard Styles */
+        body {
+            background: #FAFAFA;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1F2937;
+        }
+        
+        .ooes-dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        
+        .dashboard-hero {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+            border-radius: 1.5rem;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: #6B7280;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .hero-stat {
+            text-align: center;
+        }
+        
+        .hero-stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #16A34A;
+            margin-bottom: 0.25rem;
+        }
+        
+        .hero-stat-label {
+            font-size: 0.875rem;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .quick-action {
+            padding: 0.75rem 1.5rem;
+            background: #FFFFFF;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quick-action:hover {
+            background: #F9FAFB;
+            border-color: #16A34A;
+            color: #16A34A;
+            transform: translateY(-1px);
+        }
+        
+        .quick-action.primary {
+            background: #16A34A;
+            color: #FFFFFF;
+            border-color: #16A34A;
+        }
+        
+        .quick-action.primary:hover {
+            background: #15803D;
+        }
+        
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .module-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #16A34A;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+            z-index: 2;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            z-index: 10;
+        }
+        
+        .module-card:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .module-icon {
+            width: 3rem;
+            height: 3rem;
+            background: #F0FDF4;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #16A34A;
+            margin-bottom: 1.5rem;
+        }
+        
+        .module-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+        
+        .module-description {
+            color: #6B7280;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .module-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .module-features li {
+            padding: 0.5rem 0;
+            color: #374151;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .module-features li::before {
+            content: '✓';
+            color: #16A34A;
+            font-weight: 600;
+            margin-right: 0.75rem;
+        }
+        
+        .module-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #F3F4F6;
+        }
+        
+        .module-metric {
+            text-align: center;
+        }
+        
+        .module-metric-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #16A34A;
+        }
+        
+        .module-metric-label {
+            font-size: 0.75rem;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .activity-feed {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #F3F4F6;
+            position: relative;
+            background: #FFFFFF;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #F0FDF4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #16A34A;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .activity-content {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .activity-title {
+            font-weight: 500;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+        
+        .activity-description {
+            font-size: 0.875rem;
+            color: #6B7280;
+            margin-bottom: 0.25rem;
+        }
+        
+        .activity-time {
+            font-size: 0.75rem;
+            color: #9CA3AF;
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .status-badge.success {
+            background: #DCFCE7;
+            color: #16A34A;
+        }
+        
+        .status-badge.warning {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+        
+        .status-badge.info {
+            background: #DBEAFE;
+            color: #2563EB;
+        }
+        
+        .navigation-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        
+        .nav-tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #6B7280;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+        }
+        
+        .nav-tab:hover {
+            color: #16A34A;
+        }
+        
+        .nav-tab.active {
+            color: #16A34A;
+            border-bottom-color: #16A34A;
+        }
+        
+        .search-bar {
+            position: relative;
+            max-width: 400px;
+            margin-bottom: 2rem;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #16A34A;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9CA3AF;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .ooes-dashboard {
+                padding: 1rem;
+            }
+            
+            .dashboard-hero {
+                padding: 2rem 1.5rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .hero-stat-value {
+                font-size: 2rem;
+            }
+            
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-actions {
+                flex-direction: column;
+            }
+            
+            .navigation-tabs {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .module-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .module-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        
+        .module-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+        
+        .module-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+        
+        .module-card:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+        
+        .module-card:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .dashboard-header {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #E5E7EB;
+        }
+        
+        .dashboard-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .dashboard-subtitle {
+            color: #6B7280;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .dashboard-section {
+            background: #FFFFFF;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #E5E7EB;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #F3F4F6;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-description {
+            color: #6B7280;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        
+        .section-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .section-action-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #D1D5DB;
+            background: #FFFFFF;
+            color: #374151;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-action-btn:hover {
+            background: #F9FAFB;
+            border-color: #16A34A;
+            color: #16A34A;
+        }
+        
+        .section-action-btn.primary {
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+            color: #FFFFFF;
+            border-color: #16A34A;
+        }
+        
+        .section-action-btn.primary:hover {
+            background: linear-gradient(135deg, #15803D, #16A34A);
+        }
+        
+        .content-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .content-grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .content-grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .content-grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        
+        .content-grid-auto {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        .metric-card {
+            background: #F9FAFB;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .metric-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #6B7280;
+        }
+        
+        .metric-icon {
+            width: 2rem;
+            height: 2rem;
+            background: #F0FDF4;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #16A34A;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-change {
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .metric-change.positive {
+            color: #16A34A;
+        }
+        
+        .metric-change.negative {
+            color: #DC2626;
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, #E5E7EB 0%, transparent 100%);
+            margin: 2rem 0;
+        }
+        
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .status-indicator.online {
+            background: #DCFCE7;
+            color: #16A34A;
+        }
+        
+        .status-indicator.offline {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+        
+        .status-indicator.warning {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+        
+        .priority-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .priority-badge.high {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+        
+        .priority-badge.medium {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+        
+        .priority-badge.low {
+            background: #F0FDF4;
+            color: #16A34A;
+        }
+        
+        /* Responsive Professional Layout */
+        @media (max-width: 1024px) {
+            .dashboard-container {
+                padding: 0 1rem;
+            }
+            
+            .content-grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .dashboard-header {
+                padding: 1.5rem;
+            }
+            
+            .dashboard-section {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 0 0.75rem;
+            }
+            
+            .content-grid-3,
+            .content-grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-header {
+                padding: 1rem;
+            }
+            
+            .dashboard-section {
+                padding: 1rem;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .dashboard-title {
+                font-size: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.25rem;
+            }
+            
+            .metric-value {
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* Professional Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .dashboard-section {
+            animation: slideInUp 0.6s ease-out;
+        }
+        
+        .dashboard-section:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        
+        .dashboard-section:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+        
+        .dashboard-section:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+        
+        /* Professional Typography */
+        .text-xs {
+            font-size: 0.75rem;
+            line-height: 1rem;
+        }
+        
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+        
+        .text-base {
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+        
+        .text-lg {
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+        }
+        
+        .text-xl {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+        }
+        
+        .text-2xl {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
+        
+        .text-3xl {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+        }
+        
+        /* Professional Spacing */
+        .space-y-1 > * + * {
+            margin-top: 0.25rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-8 > * + * {
+            margin-top: 2rem;
+        }
+        .system-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .system-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #16A34A, #22C55E);
+            transition: height 0.3s ease;
+        }
+        
+        .system-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .system-card:hover::before {
+            height: 8px;
+        }
+        
+        .system-icon {
+            width: 4rem;
+            height: 4rem;
+            background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #16A34A;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .system-card:hover .system-icon {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, #DCFCE7, #BBF7D0);
+        }
+        
+        .system-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.75rem;
+        }
+        
+        .system-description {
+            color: #6B7280;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .system-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .system-features li {
+            padding: 0.5rem 0;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+        }
+        
+        .system-features li::before {
+            content: '✓';
+            color: #16A34A;
+            font-weight: bold;
+            margin-right: 0.75rem;
+        }
+        
+        .system-action {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .system-action:hover {
+            background: linear-gradient(135deg, #15803D, #16A34A);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(22, 163, 74, 0.3);
+        }
+        
+        .system-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #F3F4F6;
+        }
+        
+        .system-stat {
+            text-align: center;
+        }
+        
+        .system-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #16A34A;
+        }
+        
+        .system-stat-label {
+            font-size: 0.75rem;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .system-progress {
+            margin-top: 1rem;
+        }
+        
+        .system-progress-bar {
+            height: 0.5rem;
+            background: #F3F4F6;
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+        
+        .system-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #16A34A, #22C55E);
+            border-radius: 9999px;
+            transition: width 0.3s ease;
+        }
+        
+        .system-progress-text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: #6B7280;
+        }
+        
+        /* SOP Management Styles */
+        .sop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .sop-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .sop-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .sop-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+        
+        .sop-title {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+        
+        .sop-category {
+            font-size: 0.75rem;
+            color: #6B7280;
+            background: #F3F4F6;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+        
+        .sop-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .sop-status.active {
+            background: #DCFCE7;
+            color: #16A34A;
+        }
+        
+        .sop-status.draft {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+        
+        .sop-status.archived {
+            background: #F3F4F6;
+            color: #6B7280;
+        }
+        
+        /* Automation Workflow Styles */
+        .workflow-canvas {
+            background: #F9FAFB;
+            border: 2px dashed #D1D5DB;
+            border-radius: 1rem;
+            padding: 2rem;
+            min-height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .workflow-node {
+            background: #FFFFFF;
+            border: 2px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            position: absolute;
+            min-width: 150px;
+            cursor: move;
+            transition: all 0.3s ease;
+        }
+        
+        .workflow-node:hover {
+            border-color: #16A34A;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .workflow-node.trigger {
+            border-color: #3B82F6;
+            background: #EFF6FF;
+        }
+        
+        .workflow-node.action {
+            border-color: #16A34A;
+            background: #F0FDF4;
+        }
+        
+        .workflow-node.condition {
+            border-color: #F59E0B;
+            background: #FFFBEB;
+        }
+        
+        /* Client Dashboard Styles */
+        .client-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .client-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        
+        .client-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .client-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .client-avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+        }
+        
+        .client-name {
+            font-weight: 600;
+            color: #111827;
+        }
+        
+        .client-status {
+            margin-left: auto;
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background: #10B981;
+        }
+        
+        .client-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .client-metric {
+            text-align: center;
+            padding: 0.5rem;
+            background: #F9FAFB;
+            border-radius: 0.5rem;
+        }
+        
+        .client-metric-value {
+            font-weight: 600;
+            color: #16A34A;
+        }
+        
+        .client-metric-label {
+            font-size: 0.75rem;
+            color: #6B7280;
+        }
+        
+        /* KPI Tracking Styles */
+        .kpi-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .kpi-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #16A34A, #22C55E);
+        }
+        
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+        
+        .kpi-title {
+            color: #6B7280;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .kpi-icon {
+            width: 2rem;
+            height: 2rem;
+            background: #F0FDF4;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #16A34A;
+        }
+        
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+        
+        .kpi-change {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .kpi-change.positive {
+            color: #16A34A;
+        }
+        
+        .kpi-change.negative {
+            color: #DC2626;
+        }
+        
+        .kpi-chart {
+            margin-top: 1rem;
+            height: 60px;
+            background: #F9FAFB;
+            border-radius: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Performance Reporting Styles */
+        .report-container {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #F3F4F6;
+        }
+        
+        .report-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+        }
+        
+        .report-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .report-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #D1D5DB;
+            background: #FFFFFF;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .report-btn:hover {
+            background: #F9FAFB;
+            border-color: #16A34A;
+            color: #16A34A;
+        }
+        
+        .report-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        
+        .report-chart {
+            background: #F9FAFB;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6B7280;
+        }
+        
+        .report-insights {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .insight-card {
+            background: #F9FAFB;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            border-left: 4px solid #16A34A;
+        }
+        
+        .insight-title {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+        
+        .insight-description {
+            font-size: 0.875rem;
+            color: #6B7280;
+            line-height: 1.5;
+        }
         @media (max-width: 768px) {
             .nav-search {
                 max-width: 200px;
@@ -1252,6 +2569,854 @@
             <div class="container mx-auto px-6 py-8">
                 
                 <!-- Executive Dashboard Overview -->
+                <section id="executive-overview" class="mb-8">
+                    <div class="bg-gradient-to-r from-black to-gray-900 rounded-xl shadow-lg p-8 text-white border border-gray-800">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-bold">
+                                <i class="fas fa-tachometer-alt mr-3"></i>
+                                Executive Dashboard
+                            </h2>
+                            <div class="flex items-center space-x-4">
+                                <span class="bg-gray-800 px-3 py-1 rounded-full text-sm border border-gray-700">
+                                    <i class="fas fa-circle text-green-500 mr-2"></i>System Online
+                                </span>
+                                <span class="bg-gray-800 px-3 py-1 rounded-full text-sm border border-gray-700">
+                                    <i class="fas fa-clock text-gray-400 mr-2"></i>Last Updated: 2 min ago
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-green-400">Active Clients</h3>
+                                    <i class="fas fa-users text-green-400"></i>
+                                </div>
+                                <div class="text-3xl font-bold text-white">234</div>
+                                <div class="text-sm text-gray-400">+8 this month</div>
+                            </div>
+                            
+                            <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-blue-400">Total Revenue</h3>
+                                    <i class="fas fa-dollar-sign text-blue-400"></i>
+                                </div>
+                                <div class="text-3xl font-bold text-white">$2.4M</div>
+                                <div class="text-sm text-green-400">+12.5%</div>
+                            </div>
+                            
+                            <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-yellow-400">Tasks Automated</h3>
+                                    <i class="fas fa-robot text-yellow-400"></i>
+                                </div>
+                                <div class="text-3xl font-bold text-white">1.2M</div>
+                                <div class="text-sm text-green-400">78% saved</div>
+                            </div>
+                            
+                            <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-purple-400">System Efficiency</h3>
+                                    <i class="fas fa-cogs text-purple-400"></i>
+                                </div>
+                                <div class="text-3xl font-bold text-white">91.8%</div>
+                                <div class="text-sm text-yellow-400">-1.2% vs target</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="systems" class="mb-12">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold mb-4" style="color: #111827;">5-System Framework</h2>
+                        <p class="text-lg" style="color: #6B7280;">Comprehensive business management systems for operational excellence</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- SOP Management System -->
+                        <div class="system-card">
+                            <div class="system-icon">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                            <h3 class="system-title">SOP Management</h3>
+                            <p class="system-description">Standardized operating procedures for consistent quality and compliance across all business operations.</p>
+                            <ul class="system-features">
+                                <li>Document templates and workflows</li>
+                                <li>Version control and approvals</li>
+                                <li>Training and compliance tracking</li>
+                                <li>Automated updates and notifications</li>
+                            </ul>
+                            <div class="system-stats">
+                                <div class="system-stat">
+                                    <div class="system-stat-value">47</div>
+                                    <div class="system-stat-label">Active SOPs</div>
+                                </div>
+                                <div class="system-stat">
+                                    <div class="system-stat-value">92%</div>
+                                    <div class="system-stat-label">Compliance</div>
+                                </div>
+                                <div class="system-stat">
+                                    <div class="system-stat-value">12</div>
+                                    <div class="system-stat-label">Departments</div>
+                                </div>
+                            </div>
+                            <div class="system-progress">
+                                <div class="system-progress-bar">
+                                    <div class="system-progress-fill" style="width: 85%;"></div>
+                                </div>
+                                <div class="system-progress-text">
+                                    <span>Implementation Progress</span>
+                                    <span>85%</span>
+                                </div>
+                            </div>
+                            <a href="#sops" class="system-action" onclick="navigateToSection('sops', this)">
+                                <i class="fas fa-arrow-right mr-2"></i>Manage SOPs
+                            </a>
+                        </div>
+                        
+                        <!-- Automation Workflows -->
+                        <div class="system-card">
+                            <div class="system-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3 class="system-title">Automation Workflows</h3>
+                            <p class="system-description">Intelligent automation systems that streamline repetitive tasks and optimize business processes.</p>
+                            <ul class="system-features">
+                                <li>Visual workflow builder</li>
+                                <li>Trigger-based automation</li>
+                                <li>Integration with 50+ tools</li>
+                                <li>Performance monitoring</li>
+                            </ul>
+                            <div class="system-stats">
+                                <div class="system-stat">
+                                    <div class="system-stat-value">156</div>
+                                    <div class="system-stat-label">Active Workflows</div>
+                                </div>
+                                <div class="system-stat">
+                                    <div class="system-stat-value">78%</div>
+                                    <div class="system-stat-label">Time Saved</div>
+                                </div>
+                                <div class="system-stat">
+                                    <div class="system-stat-value">24/7</div>
+                                    <div class="system-stat-label">Operation</div>
+                                </div>
+                            </div>
+                            <div class="system-progress">
+                                <div class="system-progress-bar">
+                                    <div class="system-progress-fill" style="width: 72%;"></div>
+                                </div>
+                                <div class="system-progress-text">
+                                    <span>Automation Coverage</span>
+                                    <span>72%</span>
+                                </div>
+                            </div>
+                            <a href="#automation" class="system-action" onclick="navigateToSection('automation', this)">
+                                <i class="fas fa-arrow-right mr-2"></i>Build Workflows
+                            </a>
+                        </div>
+                        
+                        <!-- Client Dashboards -->
+                        <div class="system-card">
+                            <div class="system-icon">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            <h3 class="system-title">Client Dashboards</h3>
+                            <p class="system-description">Real-time client portals providing transparency, insights, and collaborative tools for better engagement.</p>
+                            <ul class="system-features">
+                                <li>Customizable client views</li>
+                                <li>Real-time data synchronization</li>
+                                <li>Performance metrics and KPIs</li>
+                                <li>Secure document sharing</li>
+                            </ul>
+                            <div class="system-stats">
+                                <div class="system-stat">
+                                    <div class="system-stat-value">234</div>
+                                    <div class="system-stat-label">Active Clients</div>
+                                </div>
+                                <div class="system-stat">
+                                    <div class="system-stat-value">98%</div>
+                                    <div class="system-stat-label">Satisfaction</div>
+                                </div>
+                                <div class="system-stat">
+                                    <div class="system-stat-value">1.2M</div>
+                                    <div class="system-stat-label">Data Points</div>
+                                </div>
+                            </div>
+                            <div class="system-progress">
+                                <div class="system-progress-bar">
+                                    <div class="system-progress-fill" style="width: 91%;"></div>
+                                </div>
+                                <div class="system-progress-text">
+                                    <span>Client Adoption</span>
+                                    <span>91%</span>
+                                </div>
+                            </div>
+                            <a href="#client-dashboards" class="system-action" onclick="navigateToSection('client-dashboards', this)">
+                                <i class="fas fa-arrow-right mr-2"></i>View Clients
+                            </a>
+                        </div>
+                        
+                        <!-- KPI Tracking -->
+                        <div class="system-card">
+                            <div class="system-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <h3 class="system-title">KPI Tracking</h3>
+                            <p class="system-description">Comprehensive performance monitoring with real-time KPIs, alerts, and predictive analytics.</p>
+                            <ul class="system-features">
+                                <li>Custom KPI definitions</li>
+                                <li>Real-time monitoring</li>
+                                <li>Automated alerts and reports</li>
+                                <li>Trend analysis and forecasting</li>
+                            </ul>
+                            <div class="system-stats">
+                                <div class="system-stat">
+                                    <div class="system-stat-value">89</div>
+                                    <div class="system-stat-label">KPIs Tracked</div>
+                                </div>
+                                <div class="system-stat">
+                                    <div class="system-stat-value">15min</div>
+                                    <div class="system-stat-label">Data Refresh</div>
+                                </div>
+                                <div class="system-stat">
+                                    <div class="system-stat-value">99.9%</div>
+                                    <div class="system-stat-label">Uptime</div>
+                                </div>
+                            </div>
+                            <div class="system-progress">
+                                <div class="system-progress-bar">
+                                    <div class="system-progress-fill" style="width: 88%;"></div>
+                                </div>
+                                <div class="system-progress-text">
+                                    <span>Target Achievement</span>
+                                    <span>88%</span>
+                                </div>
+                            </div>
+                            <a href="#kpi-tracking" class="system-action" onclick="navigateToSection('kpi-tracking', this)">
+                                <i class="fas fa-arrow-right mr-2"></i>Track KPIs
+                            </a>
+                        </div>
+                        
+                        <!-- Performance Reporting -->
+                        <div class="system-card">
+                            <div class="system-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="system-title">Performance Reporting</h3>
+                            <p class="system-description">Advanced analytics and reporting tools providing actionable insights for data-driven decisions.</p>
+                            <ul class="system-features">
+                                <li>Automated report generation</li>
+                                <li>Interactive dashboards</li>
+                                <li>Custom report templates</li>
+                                <li>Executive summaries</li>
+                            </ul>
+                            <div class="system-stats">
+                                <div class="system-stat">
+                                    <div class="system-stat-value">1,247</div>
+                                    <div class="system-stat-label">Reports Generated</div>
+                                </div>
+                                <div class="system-stat">
+                                    <div class="system-stat-value">45</div>
+                                    <div class="system-stat-label">Report Types</div>
+                                </div>
+                                <div class="system-stat">
+                                    <div class="system-stat-value">3.2s</div>
+                                    <div class="system-stat-label">Avg Load Time</div>
+                                </div>
+                            </div>
+                            <div class="system-progress">
+                                <div class="system-progress-bar">
+                                    <div class="system-progress-fill" style="width: 94%;"></div>
+                                </div>
+                                <div class="system-progress-text">
+                                    <span>Report Accuracy</span>
+                                    <span>94%</span>
+                                </div>
+                            </div>
+                            <a href="#performance-reporting" class="system-action" onclick="navigateToSection('performance-reporting', this)">
+                                <i class="fas fa-arrow-right mr-2"></i>View Reports
+                            </a>
+                        </div>
+                        
+                        <!-- Integration Hub -->
+                        <div class="system-card">
+                            <div class="system-icon">
+                                <i class="fas fa-plug"></i>
+                            </div>
+                            <h3 class="system-title">Integration Hub</h3>
+                            <p class="system-description">Centralized integration platform connecting all business systems and third-party applications.</p>
+                            <ul class="system-features">
+                                <li>API management and monitoring</li>
+                                <li>Data synchronization</li>
+                                <li>Security and compliance</li>
+                                <li>Real-time error handling</li>
+                            </ul>
+                            <div class="system-stats">
+                                <div class="system-stat">
+                                    <div class="system-stat-value">127</div>
+                                    <div class="system-stat-label">Integrations</div>
+                                </div>
+                                <div class="system-stat">
+                                    <div class="system-stat-value">10M+</div>
+                                    <div class="system-stat-label">API Calls/Month</div>
+                                </div>
+                                <div class="system-stat">
+                                    <div class="system-stat-value">99.8%</div>
+                                    <div class="system-stat-label">Success Rate</div>
+                                </div>
+                            </div>
+                            <div class="system-progress">
+                                <div class="system-progress-bar">
+                                    <div class="system-progress-fill" style="width: 96%;"></div>
+                                </div>
+                                <div class="system-progress-text">
+                                    <span>System Health</span>
+                                    <span>96%</span>
+                                </div>
+                            </div>
+                            <a href="#integration-hub" class="system-action" onclick="navigateToSection('integration-hub', this)">
+                                <i class="fas fa-arrow-right mr-2"></i>Manage Integrations
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SOP Management Section -->
+                <section id="sops" class="mb-12">
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold" style="color: #111827;">SOP Management</h2>
+                            <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                                <i class="fas fa-plus mr-2"></i>Create New SOP
+                            </button>
+                        </div>
+                        
+                        <div class="sop-grid">
+                            <div class="sop-card">
+                                <div class="sop-header">
+                                    <div>
+                                        <div class="sop-title">Client Onboarding Process</div>
+                                        <div class="sop-category">Operations</div>
+                                    </div>
+                                    <span class="sop-status active">Active</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-3">Standardized process for onboarding new clients with all required documentation and training.</p>
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-gray-500">Last updated: 2 days ago</span>
+                                    <button class="text-green-600 hover:text-green-700">View Details</button>
+                                </div>
+                            </div>
+                            
+                            <div class="sop-card">
+                                <div class="sop-header">
+                                    <div>
+                                        <div class="sop-title">Financial Reporting Standards</div>
+                                        <div class="sop-category">Finance</div>
+                                    </div>
+                                    <span class="sop-status active">Active</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-3">Comprehensive guidelines for financial reporting, compliance, and audit procedures.</p>
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-gray-500">Last updated: 1 week ago</span>
+                                    <button class="text-green-600 hover:text-green-700">View Details</button>
+                                </div>
+                            </div>
+                            
+                            <div class="sop-card">
+                                <div class="sop-header">
+                                    <div>
+                                        <div class="sop-title">IT Security Protocols</div>
+                                        <div class="sop-category">Technology</div>
+                                    </div>
+                                    <span class="sop-status draft">Draft</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-3">Security protocols and best practices for data protection and system access.</p>
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-gray-500">Last updated: 3 days ago</span>
+                                    <button class="text-green-600 hover:text-green-700">View Details</button>
+                                </div>
+                            </div>
+                            
+                            <div class="sop-card">
+                                <div class="sop-header">
+                                    <div>
+                                        <div class="sop-title">Customer Service Standards</div>
+                                        <div class="sop-category">Customer Support</div>
+                                    </div>
+                                    <span class="sop-status active">Active</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-3">Guidelines for customer interactions, response times, and service quality metrics.</p>
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-gray-500">Last updated: 5 days ago</span>
+                                    <button class="text-green-600 hover:text-green-700">View Details</button>
+                                </div>
+                            </div>
+                            
+                            <div class="sop-card">
+                                <div class="sop-header">
+                                    <div>
+                                        <div class="sop-title">HR Recruitment Process</div>
+                                        <div class="sop-category">Human Resources</div>
+                                    </div>
+                                    <span class="sop-status active">Active</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-3">End-to-end recruitment process from job posting to onboarding new employees.</p>
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-gray-500">Last updated: 2 weeks ago</span>
+                                    <button class="text-green-600 hover:text-green-700">View Details</button>
+                                </div>
+                            </div>
+                            
+                            <div class="sop-card">
+                                <div class="sop-header">
+                                    <div>
+                                        <div class="sop-title">Quality Assurance Procedures</div>
+                                        <div class="sop-category">Quality</div>
+                                    </div>
+                                    <span class="sop-status archived">Archived</span>
+                                </div>
+                                <p class="text-sm text-gray-600 mb-3">Legacy QA procedures. Updated version available in current SOPs.</p>
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-gray-500">Last updated: 1 month ago</span>
+                                    <button class="text-green-600 hover:text-green-700">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Automation Workflows Section -->
+                <section id="automation" class="mb-12">
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold" style="color: #111827;">Automation Workflows</h2>
+                            <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                                <i class="fas fa-plus mr-2"></i>Create Workflow
+                            </button>
+                        </div>
+                        
+                        <div class="workflow-canvas" id="workflowCanvas">
+                            <div class="workflow-node trigger" style="top: 50px; left: 50px;">
+                                <div class="font-semibold text-blue-700">New Client</div>
+                                <div class="text-sm text-gray-600">Trigger</div>
+                            </div>
+                            
+                            <div class="workflow-node action" style="top: 50px; left: 250px;">
+                                <div class="font-semibold text-green-700">Send Welcome Email</div>
+                                <div class="text-sm text-gray-600">Email Action</div>
+                            </div>
+                            
+                            <div class="workflow-node condition" style="top: 50px; left: 450px;">
+                                <div class="font-semibold text-yellow-700">Premium Client?</div>
+                                <div class="text-sm text-gray-600">Condition</div>
+                            </div>
+                            
+                            <div class="workflow-node action" style="top: 150px; left: 650px;">
+                                <div class="font-semibold text-green-700">Schedule VIP Onboarding</div>
+                                <div class="text-sm text-gray-600">Calendar Action</div>
+                            </div>
+                            
+                            <div class="workflow-node action" style="top: 250px; left: 450px;">
+                                <div class="font-semibold text-green-700">Standard Onboarding</div>
+                                <div class="text-sm text-gray-600">Process Action</div>
+                            </div>
+                            
+                            <div class="workflow-node trigger" style="top: 200px; left: 50px;">
+                                <div class="font-semibold text-blue-700">Monthly Report</div>
+                                <div class="text-sm text-gray-600">Scheduled Trigger</div>
+                            </div>
+                            
+                            <div class="workflow-node action" style="top: 200px; left: 250px;">
+                                <div class="font-semibold text-green-700">Generate Report</div>
+                                <div class="text-sm text-gray-600">Data Action</div>
+                            </div>
+                            
+                            <div class="workflow-node action" style="top: 200px; left: 450px;">
+                                <div class="font-semibold text-green-700">Email to Management</div>
+                                <div class="text-sm text-gray-600">Email Action</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-center space-x-4">
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                                <i class="fas fa-play mr-2"></i>Test Workflow
+                            </button>
+                            <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                                <i class="fas fa-save mr-2"></i>Save Changes
+                            </button>
+                            <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
+                                <i class="fas fa-undo mr-2"></i>Reset
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Client Dashboards Section -->
+                <section id="client-dashboards" class="mb-12">
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold" style="color: #111827;">Client Dashboards</h2>
+                            <div class="flex space-x-2">
+                                <input type="text" placeholder="Search clients..." class="px-4 py-2 border border-gray-300 rounded-lg">
+                                <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                                    <i class="fas fa-plus mr-2"></i>Add Client
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="client-grid">
+                            <div class="client-card">
+                                <div class="client-header">
+                                    <img src="https://picsum.photos/seed/client1/40/40.jpg" alt="Client" class="client-avatar">
+                                    <div class="client-name">TechCorp Solutions</div>
+                                    <div class="client-status"></div>
+                                </div>
+                                <div class="client-metrics">
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">98%</div>
+                                        <div class="client-metric-label">Satisfaction</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">24</div>
+                                        <div class="client-metric-label">Projects</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">3.2M</div>
+                                        <div class="client-metric-label">Revenue</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">A+</div>
+                                        <div class="client-metric-label">Grade</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="client-card">
+                                <div class="client-header">
+                                    <img src="https://picsum.photos/seed/client2/40/40.jpg" alt="Client" class="client-avatar">
+                                    <div class="client-name">Global Finance Inc</div>
+                                    <div class="client-status"></div>
+                                </div>
+                                <div class="client-metrics">
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">95%</div>
+                                        <div class="client-metric-label">Satisfaction</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">18</div>
+                                        <div class="client-metric-label">Projects</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">2.8M</div>
+                                        <div class="client-metric-label">Revenue</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">A</div>
+                                        <div class="client-metric-label">Grade</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="client-card">
+                                <div class="client-header">
+                                    <img src="https://picsum.photos/seed/client3/40/40.jpg" alt="Client" class="client-avatar">
+                                    <div class="client-name">Retail Dynamics</div>
+                                    <div class="client-status"></div>
+                                </div>
+                                <div class="client-metrics">
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">92%</div>
+                                        <div class="client-metric-label">Satisfaction</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">31</div>
+                                        <div class="client-metric-label">Projects</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">4.1M</div>
+                                        <div class="client-metric-label">Revenue</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">A+</div>
+                                        <div class="client-metric-label">Grade</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="client-card">
+                                <div class="client-header">
+                                    <img src="https://picsum.photos/seed/client4/40/40.jpg" alt="Client" class="client-avatar">
+                                    <div class="client-name">Healthcare Plus</div>
+                                    <div class="client-status"></div>
+                                </div>
+                                <div class="client-metrics">
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">97%</div>
+                                        <div class="client-metric-label">Satisfaction</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">15</div>
+                                        <div class="client-metric-label">Projects</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">1.9M</div>
+                                        <div class="client-metric-label">Revenue</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">A</div>
+                                        <div class="client-metric-label">Grade</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="client-card">
+                                <div class="client-header">
+                                    <img src="https://picsum.photos/seed/client5/40/40.jpg" alt="Client" class="client-avatar">
+                                    <div class="client-name">Education First</div>
+                                    <div class="client-status"></div>
+                                </div>
+                                <div class="client-metrics">
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">89%</div>
+                                        <div class="client-metric-label">Satisfaction</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">22</div>
+                                        <div class="client-metric-label">Projects</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">1.5M</div>
+                                        <div class="client-metric-label">Revenue</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">B+</div>
+                                        <div class="client-metric-label">Grade</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="client-card">
+                                <div class="client-header">
+                                    <img src="https://picsum.photos/seed/client6/40/40.jpg" alt="Client" class="client-avatar">
+                                    <div class="client-name">Manufacturing Pro</div>
+                                    <div class="client-status"></div>
+                                </div>
+                                <div class="client-metrics">
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">94%</div>
+                                        <div class="client-metric-label">Satisfaction</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">28</div>
+                                        <div class="client-metric-label">Projects</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">3.7M</div>
+                                        <div class="client-metric-label">Revenue</div>
+                                    </div>
+                                    <div class="client-metric">
+                                        <div class="client-metric-value">A</div>
+                                        <div class="client-metric-label">Grade</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- KPI Tracking Section -->
+                <section id="kpi-tracking" class="mb-12">
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold" style="color: #111827;">KPI Tracking</h2>
+                            <div class="flex space-x-2">
+                                <select class="px-4 py-2 border border-gray-300 rounded-lg">
+                                    <option>Last 30 Days</option>
+                                    <option>Last Quarter</option>
+                                    <option>Last Year</option>
+                                </select>
+                                <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                                    <i class="fas fa-download mr-2"></i>Export Report
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="kpi-dashboard">
+                            <div class="kpi-card">
+                                <div class="kpi-header">
+                                    <div class="kpi-title">Revenue Growth</div>
+                                    <div class="kpi-icon">
+                                        <i class="fas fa-dollar-sign"></i>
+                                    </div>
+                                </div>
+                                <div class="kpi-value">$2.4M</div>
+                                <div class="kpi-change positive">
+                                    <i class="fas fa-arrow-up mr-1"></i>
+                                    <span>12.5% vs last month</span>
+                                </div>
+                                <div class="kpi-chart">
+                                    <canvas id="revenueChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div class="kpi-card">
+                                <div class="kpi-header">
+                                    <div class="kpi-title">Client Satisfaction</div>
+                                    <div class="kpi-icon">
+                                        <i class="fas fa-smile"></i>
+                                    </div>
+                                </div>
+                                <div class="kpi-value">94.2%</div>
+                                <div class="kpi-change positive">
+                                    <i class="fas fa-arrow-up mr-1"></i>
+                                    <span>2.1% vs last month</span>
+                                </div>
+                                <div class="kpi-chart">
+                                    <canvas id="satisfactionChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div class="kpi-card">
+                                <div class="kpi-header">
+                                    <div class="kpi-title">Project Completion</div>
+                                    <div class="kpi-icon">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                </div>
+                                <div class="kpi-value">87%</div>
+                                <div class="kpi-change negative">
+                                    <i class="fas fa-arrow-down mr-1"></i>
+                                    <span>3.2% vs last month</span>
+                                </div>
+                                <div class="kpi-chart">
+                                    <canvas id="completionChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div class="kpi-card">
+                                <div class="kpi-header">
+                                    <div class="kpi-title">Operational Efficiency</div>
+                                    <div class="kpi-icon">
+                                        <i class="fas fa-cogs"></i>
+                                    </div>
+                                </div>
+                                <div class="kpi-value">91.8%</div>
+                                <div class="kpi-change positive">
+                                    <i class="fas fa-arrow-up mr-1"></i>
+                                    <span>5.7% vs last month</span>
+                                </div>
+                                <div class="kpi-chart">
+                                    <canvas id="efficiencyChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div class="kpi-card">
+                                <div class="kpi-header">
+                                    <div class="kpi-title">Employee Productivity</div>
+                                    <div class="kpi-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                </div>
+                                <div class="kpi-value">78.5%</div>
+                                <div class="kpi-change positive">
+                                    <i class="fas fa-arrow-up mr-1"></i>
+                                    <span>1.8% vs last month</span>
+                                </div>
+                                <div class="kpi-chart">
+                                    <canvas id="productivityChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div class="kpi-card">
+                                <div class="kpi-header">
+                                    <div class="kpi-title">Cost Reduction</div>
+                                    <div class="kpi-icon">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                </div>
+                                <div class="kpi-value">$847K</div>
+                                <div class="kpi-change positive">
+                                    <i class="fas fa-arrow-up mr-1"></i>
+                                    <span>18.3% saved this year</span>
+                                </div>
+                                <div class="kpi-chart">
+                                    <canvas id="costChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Performance Reporting Section -->
+                <section id="performance-reporting" class="mb-12">
+                    <div class="report-container">
+                        <div class="report-header">
+                            <h2 class="report-title">Performance Reports</h2>
+                            <div class="report-actions">
+                                <button class="report-btn">
+                                    <i class="fas fa-filter mr-2"></i>Filter
+                                </button>
+                                <button class="report-btn">
+                                    <i class="fas fa-calendar mr-2"></i>Date Range
+                                </button>
+                                <button class="report-btn">
+                                    <i class="fas fa-download mr-2"></i>Export
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="report-content">
+                            <div class="report-chart">
+                                <div class="text-center">
+                                    <i class="fas fa-chart-bar text-4xl text-gray-400 mb-4"></i>
+                                    <p>Interactive Performance Chart</p>
+                                    <p class="text-sm text-gray-500">Revenue, client satisfaction, and operational metrics over time</p>
+                                </div>
+                            </div>
+                            
+                            <div class="report-insights">
+                                <div class="insight-card">
+                                    <div class="insight-title">
+                                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                                        Key Insight
+                                    </div>
+                                    <div class="insight-description">
+                                        Revenue growth has accelerated by 12.5% this month, driven primarily by new client acquisitions in the technology sector.
+                                    </div>
+                                </div>
+                                
+                                <div class="insight-card">
+                                    <div class="insight-title">
+                                        <i class="fas fa-exclamation-triangle text-orange-500 mr-2"></i>
+                                        Action Required
+                                    </div>
+                                    <div class="insight-description">
+                                        Project completion rate has decreased by 3.2%. Consider reviewing resource allocation and timeline management.
+                                    </div>
+                                </div>
+                                
+                                <div class="insight-card">
+                                    <div class="insight-title">
+                                        <i class="fas fa-trophy text-green-500 mr-2"></i>
+                                        Achievement
+                                    </div>
+                                    <div class="insight-description">
+                                        Operational efficiency has improved by 5.7%, resulting in $847K cost savings this year.
+                                    </div>
+                                </div>
+                                
+                                <div class="insight-card">
+                                    <div class="insight-title">
+                                        <i class="fas fa-chart-line text-blue-500 mr-2"></i>
+                                        Trend Analysis
+                                    </div>
+                                    <div class="insight-description">
+                                        Client satisfaction continues to improve with a 2.1% increase, maintaining our industry-leading position.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
                 <section id="executive-overview" class="mb-8">
                     <div class="bg-gradient-to-r from-black to-gray-900 rounded-xl shadow-lg p-8 text-white border border-gray-800">
                         <div class="flex items-center justify-between mb-6">
@@ -4305,6 +6470,375 @@ function openITCompliance() {
             }, 1500);
         }
 
+        // Modern Dashboard Functions
+        function switchTab(tabName, element) {
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Add active class to clicked tab
+            element.classList.add('active');
+            
+            // Show notification
+            showNotification(`Switched to ${tabName} view`, 'info');
+        }
+
+        function performGlobalSearch() {
+            const searchInput = document.getElementById('globalSearch');
+            if (searchInput) {
+                const query = searchInput.value.trim();
+                if (query.length > 0) {
+                    showNotification(`Searching for: ${query}`, 'info');
+                    setTimeout(() => {
+                        showNotification(`Found 12 results for "${query}"`, 'success');
+                    }, 1000);
+                }
+            }
+        }
+
+        function initializeModernDashboard() {
+            // Add search functionality
+            const searchInput = document.getElementById('globalSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', performGlobalSearch);
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        performGlobalSearch();
+                    }
+                });
+            }
+
+            // Add hover effects to module cards
+            const moduleCards = document.querySelectorAll('.module-card');
+            moduleCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(-4px)';
+                });
+            });
+
+            // Add click handlers to quick actions
+            const quickActions = document.querySelectorAll('.quick-action');
+            quickActions.forEach(action => {
+                action.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const actionText = this.textContent.trim();
+                    showNotification(`Opening ${actionText}...`, 'info');
+                });
+            });
+        }
+
+        // Original Functions
+        function refreshMetrics() {
+            showNotification('Refreshing dashboard metrics...', 'info');
+            setTimeout(() => {
+                showNotification('Metrics updated successfully', 'success');
+                updateKPIDashboard();
+            }, 1500);
+        }
+
+        function exportMetrics() {
+            showNotification('Generating metrics report...', 'info');
+            setTimeout(() => {
+                showNotification('Metrics report exported successfully', 'success');
+            }, 2000);
+        }
+
+        function viewSystemDetails() {
+            showNotification('Loading system details...', 'info');
+            setTimeout(() => {
+                showNotification('System details loaded', 'success');
+            }, 1500);
+        }
+
+        function configureSystems() {
+            showNotification('Opening system configuration...', 'info');
+            setTimeout(() => {
+                showNotification('Configuration panel ready', 'success');
+            }, 1500);
+        }
+
+        function viewAllActivity() {
+            showNotification('Loading activity log...', 'info');
+            setTimeout(() => {
+                showNotification('Activity log loaded', 'success');
+            }, 1500);
+        }
+
+        // Original Functions
+        function initializeWorkflowCanvas() {
+            const canvas = document.getElementById('workflowCanvas');
+            if (canvas) {
+                let isDragging = false;
+                let currentNode = null;
+                let offsetX = 0;
+                let offsetY = 0;
+                
+                // Make workflow nodes draggable
+                const nodes = canvas.querySelectorAll('.workflow-node');
+                nodes.forEach(node => {
+                    node.addEventListener('mousedown', function(e) {
+                        isDragging = true;
+                        currentNode = this;
+                        offsetX = e.clientX - this.offsetLeft;
+                        offsetY = e.clientY - this.offsetTop;
+                        this.style.zIndex = 1000;
+                    });
+                });
+                
+                document.addEventListener('mousemove', function(e) {
+                    if (isDragging && currentNode) {
+                        const canvasRect = canvas.getBoundingClientRect();
+                        let newX = e.clientX - canvasRect.left - offsetX;
+                        let newY = e.clientY - canvasRect.top - offsetY;
+                        
+                        // Keep node within canvas bounds
+                        newX = Math.max(0, Math.min(newX, canvasRect.width - currentNode.offsetWidth));
+                        newY = Math.max(0, Math.min(newY, canvasRect.height - currentNode.offsetHeight));
+                        
+                        currentNode.style.left = newX + 'px';
+                        currentNode.style.top = newY + 'px';
+                    }
+                });
+                
+                document.addEventListener('mouseup', function() {
+                    if (currentNode) {
+                        currentNode.style.zIndex = '';
+                    }
+                    isDragging = false;
+                    currentNode = null;
+                });
+            }
+        }
+
+        function createNewWorkflow() {
+            showNotification('Opening workflow builder...', 'info');
+            setTimeout(() => {
+                showNotification('Workflow builder loaded successfully', 'success');
+            }, 1500);
+        }
+
+        function testWorkflow() {
+            showNotification('Testing workflow execution...', 'info');
+            setTimeout(() => {
+                showNotification('Workflow test completed successfully', 'success');
+            }, 2000);
+        }
+
+        function saveWorkflow() {
+            showNotification('Saving workflow configuration...', 'info');
+            setTimeout(() => {
+                showNotification('Workflow saved successfully', 'success');
+            }, 1500);
+        }
+
+        function createNewSOP() {
+            showNotification('Opening SOP editor...', 'info');
+            setTimeout(() => {
+                showNotification('SOP editor loaded successfully', 'success');
+            }, 1500);
+        }
+
+        function viewSOPDetails(sopId) {
+            showNotification(`Loading SOP details for ${sopId}...`, 'info');
+            setTimeout(() => {
+                showNotification('SOP details loaded successfully', 'success');
+            }, 1500);
+        }
+
+        function addNewClient() {
+            showNotification('Opening client registration form...', 'info');
+            setTimeout(() => {
+                showNotification('Client registration form loaded', 'success');
+            }, 1500);
+        }
+
+        function searchClients(query) {
+            const clientCards = document.querySelectorAll('.client-card');
+            let visibleCount = 0;
+            
+            clientCards.forEach(card => {
+                const clientName = card.querySelector('.client-name').textContent.toLowerCase();
+                if (clientName.includes(query.toLowerCase())) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            showNotification(`Found ${visibleCount} clients matching "${query}"`, 'info');
+        }
+
+        function exportKPIReport() {
+            showNotification('Generating KPI report...', 'info');
+            setTimeout(() => {
+                showNotification('KPI report exported successfully', 'success');
+            }, 2000);
+        }
+
+        function updateKPIDashboard() {
+            // Simulate real-time KPI updates
+            const kpiValues = document.querySelectorAll('.kpi-value');
+            kpiValues.forEach(value => {
+                const currentValue = value.textContent;
+                if (currentValue.includes('$')) {
+                    const numValue = parseFloat(currentValue.replace(/[^0-9.]/g, ''));
+                    const change = (Math.random() - 0.5) * 0.1;
+                    const newValue = numValue * (1 + change);
+                    value.textContent = `$${newValue.toFixed(1)}M`;
+                } else if (currentValue.includes('%')) {
+                    const numValue = parseFloat(currentValue.replace(/[^0-9.]/g, ''));
+                    const change = (Math.random() - 0.5) * 2;
+                    const newValue = Math.max(0, Math.min(100, numValue + change));
+                    value.textContent = `${newValue.toFixed(1)}%`;
+                }
+            });
+        }
+
+        function generatePerformanceReport() {
+            showNotification('Generating performance report...', 'info');
+            setTimeout(() => {
+                showNotification('Performance report generated successfully', 'success');
+            }, 2500);
+        }
+
+        function filterReports() {
+            showNotification('Opening report filters...', 'info');
+        }
+
+        function setReportDateRange() {
+            showNotification('Opening date range selector...', 'info');
+        }
+
+        function initializeKPICharts() {
+            // Initialize mini charts for KPI cards
+            const chartElements = ['revenueChart', 'satisfactionChart', 'completionChart', 
+                                 'efficiencyChart', 'productivityChart', 'costChart'];
+            
+            chartElements.forEach(chartId => {
+                const canvas = document.getElementById(chartId);
+                if (canvas) {
+                    const ctx = canvas.getContext('2d');
+                    // Simple line chart simulation
+                    const width = canvas.width = canvas.offsetWidth;
+                    const height = canvas.height = 60;
+                    
+                    ctx.strokeStyle = '#16A34A';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    
+                    for (let i = 0; i < width; i += 5) {
+                        const y = height / 2 + Math.sin(i * 0.05) * 20 + Math.random() * 10 - 5;
+                        if (i === 0) {
+                            ctx.moveTo(i, y);
+                        } else {
+                            ctx.lineTo(i, y);
+                        }
+                    }
+                    
+                    ctx.stroke();
+                }
+            });
+        }
+
+        function updateSystemStats() {
+            // Simulate real-time system statistics updates
+            const statValues = document.querySelectorAll('.system-stat-value');
+            statValues.forEach(stat => {
+                const currentValue = stat.textContent;
+                if (currentValue.includes('%')) {
+                    const numValue = parseInt(currentValue.replace(/[^0-9]/g, ''));
+                    const change = Math.floor(Math.random() * 3) - 1;
+                    const newValue = Math.max(0, Math.min(100, numValue + change));
+                    stat.textContent = `${newValue}%`;
+                } else if (!isNaN(currentValue)) {
+                    const numValue = parseInt(currentValue);
+                    const change = Math.floor(Math.random() * 5) - 2;
+                    const newValue = Math.max(0, numValue + change);
+                    stat.textContent = newValue;
+                }
+            });
+        }
+
+        function setupSystemInteractions() {
+            // Add click handlers for system cards
+            const systemActions = document.querySelectorAll('.system-action');
+            systemActions.forEach(action => {
+                action.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const systemName = this.closest('.system-card').querySelector('.system-title').textContent;
+                    showNotification(`Opening ${systemName}...`, 'info');
+                    setTimeout(() => {
+                        showNotification(`${systemName} loaded successfully`, 'success');
+                    }, 1500);
+                });
+            });
+
+            // Add hover effects for SOP cards
+            const sopCards = document.querySelectorAll('.sop-card');
+            sopCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Add click handlers for SOP view buttons
+            const sopViewButtons = document.querySelectorAll('.sop-card button');
+            sopViewButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const sopTitle = this.closest('.sop-card').querySelector('.sop-title').textContent;
+                    viewSOPDetails(sopTitle);
+                });
+            });
+
+            // Add search functionality for clients
+            const clientSearch = document.querySelector('input[placeholder="Search clients..."]');
+            if (clientSearch) {
+                clientSearch.addEventListener('input', function(e) {
+                    searchClients(e.target.value);
+                });
+            }
+
+            // Add click handlers for client cards
+            const clientCards = document.querySelectorAll('.client-card');
+            clientCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const clientName = this.querySelector('.client-name').textContent;
+                    showNotification(`Opening dashboard for ${clientName}...`, 'info');
+                });
+            });
+
+            // Add click handlers for KPI export
+            const kpiExportBtn = document.querySelector('button:has(.fa-download)');
+            if (kpiExportBtn) {
+                kpiExportBtn.addEventListener('click', exportKPIReport);
+            }
+
+            // Add click handlers for report buttons
+            const reportButtons = document.querySelectorAll('.report-btn');
+            reportButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const buttonText = this.textContent.trim();
+                    if (buttonText.includes('Filter')) {
+                        filterReports();
+                    } else if (buttonText.includes('Date')) {
+                        setReportDateRange();
+                    } else if (buttonText.includes('Export')) {
+                        generatePerformanceReport();
+                    }
+                });
+            });
+        }
+
         function composeEmail() {
             showNotification('Opening email composer...', 'info');
             setTimeout(() => {
@@ -4434,12 +6968,24 @@ function openITCompliance() {
             checkAuthStatus();
             setActiveNavigation();
             
+            // Initialize Modern Dashboard
+            initializeModernDashboard();
+            
             // Initialize Enterprise UX enhancements
             setupEnterpriseKeyboardShortcuts();
             setupGlobalSearch();
             setupCommandPaletteSearch();
             enhanceEnterpriseNavigation();
             enhancePageTransitions();
+            
+            // Initialize 5-System Framework
+            initializeWorkflowCanvas();
+            initializeKPICharts();
+            setupSystemInteractions();
+            
+            // Start real-time updates
+            setInterval(updateKPIDashboard, 30000); // Update KPIs every 30 seconds
+            setInterval(updateSystemStats, 60000); // Update system stats every minute
             
             // Show mobile menu button on small screens
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
