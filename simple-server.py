@@ -16,8 +16,8 @@ class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         path = self.translate_path(self.path)
         
         # Default to index.html if path is '/'
-        if path == '/':
-            path = '/dashboard/index.html'
+        if self.path == '/':
+            path = 'dashboard/index.html'
         
         try:
             # Try to open the file
@@ -40,7 +40,7 @@ class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_header('Content-type', content_type)
                 self.send_header('Access-Control-Allow-Origin', '*')
                 self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-                self.end_headers(content)
+                self.end_headers()
                 self.wfile.write(content)
                 
         except FileNotFoundError:
@@ -48,7 +48,7 @@ class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_response(404)
             self.send_header('Content-type', 'text/html')
             self.end_headers()
-            self.wfile.write(b'<h1>404 Not Found</h1><p>The file ' + path + ' was not found on this server.</p>')
+            self.wfile.write(b'<h1>404 Not Found</h1><p>The file ' + path.encode() + b' was not found on this server.</p>')
 
 def run_server():
     try:

@@ -8,32 +8,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* Dark Corporate Theme Variables */
-            --color-bg-primary: #000000;
-            --color-bg-secondary: #1A1A1A;
-            --color-bg-tertiary: #2D2D2D;
-            --color-bg-card: #1A1A1A;
-            --color-bg-hover: #374151;
-            --color-text-primary: #FFFFFF;
-            --color-text-secondary: #F9FAFB;
-            --color-text-tertiary: #D1D5DB;
-            --color-text-muted: #9CA3AF;
-            --color-text-disabled: #6B7280;
+            /* Greenish-Reddish-Whitish Theme Variables */
+            --color-bg-primary: #F0FDF4;
+            --color-bg-secondary: #DCFCE7;
+            --color-bg-tertiary: #BBF7D0;
+            --color-bg-card: #FFFFFF;
+            --color-bg-hover: #F7FEE7;
+            --color-text-primary: #14532D;
+            --color-text-secondary: #166534;
+            --color-text-tertiary: #15803D;
+            --color-text-muted: #16A34A;
+            --color-text-disabled: #22C55E;
             --color-accent-primary: #DC2626;
             --color-accent-secondary: #EF4444;
-            --color-accent-tertiary: #FCA5A5;
-            --color-accent-success: #10B981;
+            --color-accent-tertiary: #F87171;
+            --color-accent-success: #16A34A;
             --color-accent-warning: #F59E0B;
-            --color-border-primary: #374151;
-            --color-border-secondary: #4B5563;
-            --color-border-light: #6B7280;
-            --color-shadow-primary: rgba(0, 0, 0, 0.3);
-            --color-shadow-secondary: rgba(0, 0, 0, 0.4);
+            --color-border-primary: #DCFCE7;
+            --color-border-secondary: #BBF7D0;
+            --color-border-light: #86EFAC;
+            --color-shadow-primary: rgba(34, 197, 94, 0.1);
+            --color-shadow-secondary: rgba(34, 197, 94, 0.2);
             --color-shadow-accent: rgba(220, 38, 38, 0.3);
         }
 
         .gradient-bg {
-            background: linear-gradient(135deg, #000000 0%, #1A1A1A 100%);
+            background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
         }
         .card-hover {
             transition: all 0.3s ease;
@@ -50,17 +50,17 @@
             display: block;
         }
         .nav-item:hover {
-            background-color: rgba(99, 102, 241, 0.1);
-            border-left: 4px solid #6366f1;
+            background-color: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22C55E;
             padding-left: 12px;
-            color: #4f46e5 !important;
+            color: #16A34A !important;
             text-decoration: none;
         }
         .nav-item.active {
-            background-color: rgba(99, 102, 241, 0.1);
-            border-left: 4px solid #6366f1;
+            background-color: rgba(34, 197, 94, 0.2);
+            border-left: 4px solid #22C55E;
             padding-left: 12px;
-            color: #4f46e5 !important;
+            color: #16A34A !important;
             text-decoration: none;
         }
         .clickable {
@@ -70,12 +70,12 @@
         .clickable:hover {
             opacity: 0.8;
             transform: scale(1.02);
-            background-color: rgba(99, 102, 241, 0.05);
+            background-color: rgba(34, 197, 94, 0.05);
             border-radius: 4px;
             padding: 2px 4px;
         }
         .section-link {
-            color: #4f46e5;
+            color: #16A34A;
             text-decoration: none;
             font-weight: 500;
         }
@@ -167,10 +167,15 @@
             border-radius: 50%;
             display: inline-block;
             margin-right: 8px;
+            animation: pulse 2s infinite;
         }
         .status-connected { background-color: #10b981; }
         .status-disconnected { background-color: #ef4444; }
         .status-pending { background-color: #f59e0b; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
         .stage-item {
             cursor: pointer;
             transition: all 0.2s ease;
@@ -182,7 +187,520 @@
             transform: translateX(5px);
         }
         
-        /* Responsive Navigation */
+        /* Enterprise Navigation Styles */
+        .enterprise-nav {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+            border-bottom: 1px solid #E5E7EB;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-search {
+            position: relative;
+            max-width: 400px;
+        }
+        
+        .nav-search input {
+            width: 100%;
+            padding: 0.5rem 2.5rem 0.5rem 1rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            background: #F9FAFB;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-search input:focus {
+            outline: none;
+            border-color: #16A34A;
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+        }
+        
+        .nav-search-icon {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6B7280;
+            pointer-events: none;
+        }
+        
+        .command-palette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .command-palette.active {
+            display: flex;
+        }
+        
+        .command-palette-content {
+            background: #FFFFFF;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 600px;
+            max-height: 70vh;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+        
+        .command-palette-header {
+            padding: 1rem;
+            border-bottom: 1px solid #E5E7EB;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .command-palette-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            padding: 0.5rem;
+        }
+        
+        .command-palette-results {
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+        
+        .command-item {
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border-bottom: 1px solid #F3F4F6;
+        }
+        
+        .command-item:hover, .command-item.selected {
+            background-color: #F3F4F6;
+        }
+        
+        .command-item-icon {
+            width: 2rem;
+            height: 2rem;
+            background: #F3F4F6;
+            border-radius: 0.375rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #374151;
+        }
+        
+        .command-item-content {
+            flex: 1;
+        }
+        
+        .command-item-title {
+            font-weight: 500;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+        
+        .command-item-description {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+        
+        .quick-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .quick-action-btn {
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid #D1D5DB;
+            background: #FFFFFF;
+            color: #374151;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+        
+        .quick-action-btn:hover {
+            background: #F9FAFB;
+            border-color: #16A34A;
+            color: #16A34A;
+        }
+        
+        .sidebar-nav {
+            background: #FFFFFF;
+            border-right: 1px solid #E5E7EB;
+            height: calc(100vh - 4rem);
+            overflow-y: auto;
+        }
+        
+        .sidebar-nav::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar-nav::-webkit-scrollbar-track {
+            background: #F3F4F6;
+        }
+        
+        .sidebar-nav::-webkit-scrollbar-thumb {
+            background: #D1D5DB;
+            border-radius: 3px;
+        }
+        
+        .nav-section {
+            padding: 1rem 0;
+        }
+        
+        .nav-section-title {
+            padding: 0 1rem 0.5rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .nav-item-enterprise {
+            display: flex;
+            align-items: center;
+            padding: 0.625rem 1rem;
+            color: #374151;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            position: relative;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item-enterprise:hover {
+            background-color: #F3F4F6;
+            color: #16A34A;
+            border-left-color: #16A34A;
+        }
+        
+        .nav-item-enterprise.active {
+            background-color: #F0FDF4;
+            color: #16A34A;
+            border-left-color: #16A34A;
+            font-weight: 500;
+        }
+        
+        .nav-item-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-right: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6B7280;
+        }
+        
+        .nav-item-enterprise:hover .nav-item-icon,
+        .nav-item-enterprise.active .nav-item-icon {
+            color: #16A34A;
+        }
+        
+        .nav-item-badge {
+            margin-left: auto;
+            padding: 0.125rem 0.5rem;
+            background: #EF4444;
+            color: #FFFFFF;
+            font-size: 0.625rem;
+            font-weight: 600;
+            border-radius: 9999px;
+        }
+        
+        .favorites-bar {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #E5E7EB;
+            overflow-x: auto;
+        }
+        
+        .favorite-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0.75rem;
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            color: #374151;
+            text-decoration: none;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        
+        .favorite-item:hover {
+            background: #FFFFFF;
+            border-color: #16A34A;
+            color: #16A34A;
+        }
+        
+        /* Keyboard Shortcuts Modal */
+        .shortcuts-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .shortcuts-modal.active {
+            display: flex;
+        }
+        
+        .shortcuts-content {
+            background: #FFFFFF;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .shortcut-group {
+            padding: 1.5rem;
+            border-bottom: 1px solid #E5E7EB;
+        }
+        
+        .shortcut-group:last-child {
+            border-bottom: none;
+        }
+        
+        .shortcut-group-title {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+        
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+        
+        .shortcut-item:last-child {
+            border-bottom: none;
+        }
+        
+        .shortcut-desc {
+            color: #374151;
+            font-size: 0.875rem;
+        }
+        
+        .shortcut-keys {
+            display: flex;
+            gap: 0.25rem;
+            align-items: center;
+        }
+        
+        .shortcut-key {
+            padding: 0.25rem 0.5rem;
+            background: #F3F4F6;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.25rem;
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #374151;
+        }
+        
+        /* Responsive Enterprise Navigation */
+        @media (max-width: 768px) {
+            .nav-search {
+                max-width: 200px;
+            }
+            
+            .quick-actions {
+                display: none;
+            }
+            
+            .sidebar-nav {
+                position: fixed;
+                left: -100%;
+                top: 4rem;
+                width: 280px;
+                height: calc(100vh - 4rem);
+                background: #FFFFFF;
+                box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+                z-index: 9999;
+                transition: left 0.3s ease;
+            }
+            
+            .sidebar-nav.active {
+                left: 0;
+            }
+            
+            .mobile-menu-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.3);
+                z-index: 9998;
+                display: none;
+            }
+            
+            .mobile-menu-overlay.active {
+                display: block;
+            }
+        }
+        .page-transition {
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .page-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(20, 83, 45, 0.1);
+            backdrop-filter: blur(2px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .page-loading.active {
+            display: flex;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #DCFCE7;
+            border-top: 4px solid #16A34A;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Breadcrumb Navigation */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .breadcrumb-item {
+            color: #166534;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+        
+        .breadcrumb-item:hover {
+            color: #16A34A;
+        }
+        
+        .breadcrumb-item.active {
+            color: #14532D;
+            font-weight: 600;
+        }
+        
+        .breadcrumb-separator {
+            color: #86EFAC;
+            margin: 0 0.25rem;
+        }
+        
+        /* Sticky Navigation */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(240, 253, 244, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #DCFCE7;
+        }
+        
+        /* Enhanced Navigation Menu */
+        .nav-menu-enhanced {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .nav-category {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #DCFCE7;
+        }
+        
+        .nav-category-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #14532D;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        
+        .nav-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        /* Loading States */
+        .loading-skeleton {
+            background: linear-gradient(90deg, #DCFCE7 25%, #F0FDF4 50%, #DCFCE7 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 0.375rem;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Responsive Navigation Improvements */
+        @media (max-width: 768px) {
+            .nav-menu-enhanced {
+                max-height: 60vh;
+                overflow-y: auto;
+            }
+            
+            .breadcrumb {
+                padding: 0.5rem;
+                font-size: 0.75rem;
+            }
+        }
         @media (max-width: 1024px) {
             .nav-menu {
                 position: fixed;
@@ -190,8 +708,8 @@
                 left: -100%;
                 width: 280px;
                 height: 100vh;
-                background: white;
-                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+                background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+                box-shadow: 2px 0 10px rgba(34, 197, 94, 0.2);
                 z-index: 9999;
                 transition: left 0.3s ease;
                 overflow-y: auto;
@@ -207,13 +725,28 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: rgba(0,0,0,0.5);
+                background: rgba(34, 197, 94, 0.3);
                 z-index: 9998;
                 display: none;
             }
             
             .nav-overlay.active {
                 display: block;
+            }
+
+            .nav-menu .nav-item {
+                color: #14532D !important;
+                border-bottom: 1px solid rgba(34, 197, 94, 0.1);
+            }
+
+            .nav-menu .nav-item:hover {
+                background-color: rgba(34, 197, 94, 0.1);
+                color: #16A34A !important;
+            }
+
+            .nav-menu .nav-item.active {
+                background-color: rgba(34, 197, 94, 0.2);
+                color: #16A34A !important;
             }
         }
         
@@ -449,43 +982,157 @@
     </style>
 </head>
 <body class="bg-black text-white">
-    <!-- Navigation Overlay -->
-    <div class="nav-overlay" id="nav-overlay" onclick="closeMobileMenu()"></div>
+    <!-- Command Palette -->
+    <div id="commandPalette" class="command-palette">
+        <div class="command-palette-content">
+            <div class="command-palette-header">
+                <i class="fas fa-search" style="color: #6B7280;"></i>
+                <input type="text" id="commandInput" class="command-palette-input" placeholder="Type a command or search..." autocomplete="off">
+                <button onclick="closeCommandPalette()" style="background: none; border: none; color: #6B7280; cursor: pointer; padding: 0.5rem;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="command-palette-results" id="commandResults">
+                <!-- Command items will be dynamically added here -->
+            </div>
+        </div>
+    </div>
 
-    <!-- Header -->
-    <header class="bg-black border-b border-gray-800 shadow-lg">
-        <div class="container mx-auto px-6 py-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h1 class="text-3xl font-bold flex items-center">
-                        <i class="fas fa-cogs mr-3"></i>
-                        OOES
-                    </h1>
-                    <p class="text-gray-400 mt-1">Office Operations Efficiency Solution</p>
-                </div>
-                <div class="text-right flex items-center space-x-4">
-                    <div class="text-right">
-                        <p class="text-sm text-gray-400">Save up to 50% of admin time</p>
-                        <p class="text-lg font-semibold text-white">Enterprise Efficiency Solutions</p>
+    <!-- Keyboard Shortcuts Modal -->
+    <div id="shortcutsModal" class="shortcuts-modal">
+        <div class="shortcuts-content">
+            <div style="padding: 1.5rem; border-bottom: 1px solid #E5E7EB; display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="margin: 0; font-size: 1.25rem; color: #111827;">Keyboard Shortcuts</h2>
+                <button onclick="closeShortcutsModal()" style="background: none; border: none; color: #6B7280; cursor: pointer; padding: 0.5rem;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div style="overflow-y: auto; max-height: 60vh;">
+                <div class="shortcut-group">
+                    <div class="shortcut-group-title">Navigation</div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Open Command Palette</span>
+                        <div class="shortcut-keys">
+                            <span class="shortcut-key">Ctrl</span>
+                            <span class="shortcut-key">K</span>
+                        </div>
                     </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Toggle Mobile Menu</span>
+                        <div class="shortcut-keys">
+                            <span class="shortcut-key">Alt</span>
+                            <span class="shortcut-key">M</span>
+                        </div>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Show Keyboard Shortcuts</span>
+                        <div class="shortcut-keys">
+                            <span class="shortcut-key">Ctrl</span>
+                            <span class="shortcut-key">/</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="shortcut-group">
+                    <div class="shortcut-group-title">Quick Actions</div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Go to Dashboard</span>
+                        <div class="shortcut-keys">
+                            <span class="shortcut-key">G</span>
+                            <span class="shortcut-key">D</span>
+                        </div>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Go to Accounting</span>
+                        <div class="shortcut-keys">
+                            <span class="shortcut-key">G</span>
+                            <span class="shortcut-key">A</span>
+                        </div>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Go to HR System</span>
+                        <div class="shortcut-keys">
+                            <span class="shortcut-key">G</span>
+                            <span class="shortcut-key">H</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="shortcut-group">
+                    <div class="shortcut-group-title">Search</div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Focus Search</span>
+                        <div class="shortcut-keys">
+                            <span class="shortcut-key">/</span>
+                        </div>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-desc">Global Search</span>
+                        <div class="shortcut-keys">
+                            <span class="shortcut-key">Ctrl</span>
+                            <span class="shortcut-key">F</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileSidebar()"></div>
+
+    <!-- Enterprise Header -->
+    <header class="enterprise-nav">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-8">
+                    <!-- Logo and Brand -->
+                    <div class="flex items-center">
+                        <h1 class="text-2xl font-bold flex items-center" style="color: #111827;">
+                            <i class="fas fa-cogs mr-3" style="color: #16A34A;"></i>
+                            OOES
+                        </h1>
+                    </div>
+                    
+                    <!-- Search Bar -->
+                    <div class="nav-search">
+                        <input type="text" id="globalSearch" placeholder="Search anything..." autocomplete="off">
+                        <i class="fas fa-search nav-search-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <button class="quick-action-btn" onclick="openCommandPalette()">
+                            <i class="fas fa-command"></i>
+                            <span>Commands</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="openShortcutsModal()">
+                            <i class="fas fa-keyboard"></i>
+                            <span>Shortcuts</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="toggleMobileSidebar()" style="display: none;" id="mobileMenuBtn">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                    
                     <!-- User Profile -->
                     <div class="relative">
-                        <button onclick="toggleUserMenu()" class="flex items-center space-x-2 bg-gray-800 px-4 py-2 rounded-lg hover:bg-gray-700 transition border border-gray-700">
+                        <button onclick="toggleUserMenu()" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-100 transition border border-gray-200" style="background: #FFFFFF;">
                             <img src="https://picsum.photos/seed/user/32/32.jpg" alt="User" class="w-8 h-8 rounded-full">
-                            <span id="userName" class="text-white font-medium">User</span>
-                            <i class="fas fa-chevron-down text-white text-sm"></i>
+                            <span id="userName" class="font-medium" style="color: #374151;">User</span>
+                            <i class="fas fa-chevron-down text-sm" style="color: #6B7280;"></i>
                         </button>
                         
                         <!-- User Dropdown Menu -->
-                        <div id="userMenu" class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg py-2 hidden z-50 border border-gray-700">
-                            <div class="px-4 py-2 border-b border-gray-700">
-                                <p id="userEmail" class="text-sm font-medium text-white">user@example.com</p>
-                                <p class="text-xs text-gray-400">Premium Account</p>
+                        <div id="userMenu" class="absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-2 hidden z-50" style="background: #FFFFFF; border: 1px solid #E5E7EB;">
+                            <div class="px-4 py-2 border-b border-gray-200">
+                                <p id="userEmail" class="text-sm font-medium" style="color: #111827;">user@example.com</p>
+                                <p class="text-xs" style="color: #6B7280;">Premium Account</p>
                             </div>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Profile</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Settings</a>
-                            <div class="border-t border-gray-700">
-                                <a href="#" onclick="logout()" class="block px-4 py-2 text-sm text-red-500 hover:bg-gray-700">
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100" style="color: #374151;">Profile</a>
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100" style="color: #374151;">Settings</a>
+                            <div class="border-t border-gray-200">
+                                <a href="#" onclick="logout()" class="block px-4 py-2 text-sm hover:bg-gray-100" style="color: #EF4444;">
                                     <i class="fas fa-sign-out-alt mr-2"></i>Logout
                                 </a>
                             </div>
@@ -496,81 +1143,113 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <div class="container mx-auto px-6 py-8">
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            
-            <!-- Sidebar Navigation -->
-            <div class="lg:col-span-1">
-                <div class="bg-gray-900 rounded-lg shadow-md p-6 lg:sticky lg:top-8 border border-gray-800">
-                    <!-- Mobile Menu Toggle -->
-                    <div class="lg:hidden mb-4">
-                        <button onclick="toggleMobileMenu()" class="w-full bg-red-600 text-white px-4 py-2 rounded-lg flex items-center justify-between">
-                            <span class="font-semibold">Menu</span>
-                            <i class="fas fa-bars" id="menu-icon"></i>
-                        </button>
-                    </div>
-                    
-                    <!-- Navigation Menu -->
-                    <nav id="nav-menu" class="nav-menu space-y-2">
-                        <div class="p-4 border-b border-gray-700">
-                            <h3 class="text-lg font-semibold text-white">
-                                <i class="fas fa-compass mr-2"></i>Navigation
-                            </h3>
-                            <button onclick="closeMobileMenu()" class="mt-2 text-gray-400 hover:text-white">
-                                <i class="fas fa-times"></i> Close
-                            </button>
-                        </div>
-                        <div class="px-4 pb-4">
-                            <a href="#overview" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
-                                <i class="fas fa-home mr-2"></i>Overview
-                            </a>
-                            <a href="#systems" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
-                                <i class="fas fa-cubes mr-2"></i>5 Systems Framework
-                            </a>
-                            <a href="#packages" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
-                                <i class="fas fa-box mr-2"></i>Service Packages
-                            </a>
-                            <a href="#implementation" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
-                                <i class="fas fa-tasks mr-2"></i>Implementation Plan
-                            </a>
-                            <a href="#financial" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
-                                <i class="fas fa-chart-line mr-2"></i>Financial Model
-                            </a>
-                            <a href="#scaling" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
-                                <i class="fas fa-rocket mr-2"></i>Scaling Plan
-                            </a>
-                            <a href="#it-compliance" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
-                                <i class="fas fa-shield-alt mr-2"></i>IT Compliance
-                            </a>
-                            <a href="#data-entry-automation" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
-                                <i class="fas fa-keyboard mr-2"></i>Data Entry & Automation
-                            </a>
-                            <a href="#hr-system" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
-                                <i class="fas fa-users-cog mr-2"></i>HR System
-                            </a>
-                            <a href="#office-activities" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
-                                <i class="fas fa-briefcase mr-2"></i>Office Activities
-                            </a>
-                            <a href="#email" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
-                                <i class="fas fa-envelope mr-2"></i>Email System
-                            </a>
-                            <a href="#security" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
-                                <i class="fas fa-shield-alt mr-2"></i>Security Center
-                            </a>
-                            <a href="#document-management" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
-                                <i class="fas fa-folder-open mr-2"></i>Document Management
-                            </a>
-                            <a href="#tools" class="nav-item block px-3 py-2 rounded text-gray-300 hover:text-red-500 hover:bg-gray-800" onclick="closeMobileMenu()">
-                                <i class="fas fa-tools mr-2"></i>Tools & Tech
-                            </a>
-                        </div>
-                    </nav>
-                </div>
+    <!-- Enterprise Layout -->
+    <div class="flex" style="min-height: 100vh;">
+        <!-- Enterprise Sidebar -->
+        <aside class="sidebar-nav lg:col-span-1" id="sidebarNav">
+            <!-- Favorites Bar -->
+            <div class="favorites-bar">
+                <a href="#overview" class="favorite-item" onclick="navigateToSection('overview', this)">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#accounting-tools" class="favorite-item" onclick="navigateToPage('accounting-tools.html', this)">
+                    <i class="fas fa-calculator"></i>
+                    <span>Accounting</span>
+                </a>
+                <a href="#hr-system" class="favorite-item" onclick="navigateToPage('hr-system.html', this)">
+                    <i class="fas fa-users-cog"></i>
+                    <span>HR</span>
+                </a>
+                <a href="#tools" class="favorite-item" onclick="navigateToPage('tools.html', this)">
+                    <i class="fas fa-tools"></i>
+                    <span>Tools</span>
+                </a>
             </div>
+            
+            <!-- Main Navigation -->
+            <nav class="nav-section">
+                <div class="nav-section-title">Main</div>
+                <a href="#overview" class="nav-item-enterprise" onclick="navigateToSection('overview', this)">
+                    <i class="fas fa-home nav-item-icon"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#systems" class="nav-item-enterprise" onclick="navigateToSection('systems', this)">
+                    <i class="fas fa-cubes nav-item-icon"></i>
+                    <span>5 Systems Framework</span>
+                </a>
+                <a href="#packages" class="nav-item-enterprise" onclick="navigateToSection('packages', this)">
+                    <i class="fas fa-box nav-item-icon"></i>
+                    <span>Service Packages</span>
+                </a>
+            </nav>
+            
+            <nav class="nav-section">
+                <div class="nav-section-title">Business</div>
+                <a href="#implementation" class="nav-item-enterprise" onclick="navigateToSection('implementation', this)">
+                    <i class="fas fa-tasks nav-item-icon"></i>
+                    <span>Implementation Plan</span>
+                </a>
+                <a href="#financial" class="nav-item-enterprise" onclick="navigateToSection('financial', this)">
+                    <i class="fas fa-chart-line nav-item-icon"></i>
+                    <span>Financial Model</span>
+                </a>
+                <a href="#scaling" class="nav-item-enterprise" onclick="navigateToSection('scaling', this)">
+                    <i class="fas fa-rocket nav-item-icon"></i>
+                    <span>Scaling Plan</span>
+                </a>
+            </nav>
+            
+            <nav class="nav-section">
+                <div class="nav-section-title">Systems</div>
+                <a href="#it-compliance" class="nav-item-enterprise" onclick="navigateToPage('it-compliance.html', this)">
+                    <i class="fas fa-shield-alt nav-item-icon"></i>
+                    <span>IT Compliance</span>
+                </a>
+                <a href="#data-entry-automation" class="nav-item-enterprise" onclick="navigateToPage('data-entry-automation.html', this)">
+                    <i class="fas fa-keyboard nav-item-icon"></i>
+                    <span>Data Entry & Automation</span>
+                </a>
+                <a href="#hr-system" class="nav-item-enterprise" onclick="navigateToPage('hr-system.html', this)">
+                    <i class="fas fa-users-cog nav-item-icon"></i>
+                    <span>HR System</span>
+                    <span class="nav-item-badge">New</span>
+                </a>
+                <a href="#accounting-tools" class="nav-item-enterprise" onclick="navigateToPage('accounting-tools.html', this)">
+                    <i class="fas fa-calculator nav-item-icon"></i>
+                    <span>Accounting Tools</span>
+                    <span class="nav-item-badge">7</span>
+                </a>
+            </nav>
+            
+            <nav class="nav-section">
+                <div class="nav-section-title">Operations</div>
+                <a href="#office-activities" class="nav-item-enterprise" onclick="navigateToSection('office-activities', this)">
+                    <i class="fas fa-briefcase nav-item-icon"></i>
+                    <span>Office Activities</span>
+                </a>
+                <a href="#email" class="nav-item-enterprise" onclick="navigateToSection('email', this)">
+                    <i class="fas fa-envelope nav-item-icon"></i>
+                    <span>Email System</span>
+                </a>
+                <a href="#security" class="nav-item-enterprise" onclick="navigateToSection('security', this)">
+                    <i class="fas fa-shield-alt nav-item-icon"></i>
+                    <span>Security Center</span>
+                </a>
+                <a href="#document-management" class="nav-item-enterprise" onclick="navigateToPage('document-management.html', this)">
+                    <i class="fas fa-folder-open nav-item-icon"></i>
+                    <span>Document Management</span>
+                </a>
+                <a href="#tools" class="nav-item-enterprise" onclick="navigateToPage('tools.html', this)">
+                    <i class="fas fa-tools nav-item-icon"></i>
+                    <span>Tools & Tech</span>
+                </a>
+            </nav>
+        </aside>
 
-            <!-- Main Content Area -->
-            <div class="lg:col-span-3">
+        <!-- Main Content Area -->
+        <main class="flex-1" style="background: #F9FAFB;">
+            <div class="container mx-auto px-6 py-8">
                 
                 <!-- Executive Dashboard Overview -->
                 <section id="executive-overview" class="mb-8">
@@ -603,6 +1282,192 @@
                             <div class="text-center">
                                 <div class="text-3xl font-bold mb-2">45</div>
                                 <div class="text-sm opacity-90">Active Projects</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Accounting Integration Section -->
+                <section id="accounting-integration" class="mb-8">
+                    <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-xl shadow-lg p-8 border border-green-200">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-bold text-green-800">
+                                <i class="fas fa-calculator mr-3 text-green-600"></i>
+                                Accounting Integration Hub
+                            </h2>
+                            <button onclick="navigateToPage('accounting-tools.html', this)" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                                <i class="fas fa-external-link-alt mr-2"></i>View Full Dashboard
+                            </button>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <!-- QuickBooks Status -->
+                            <div class="bg-white rounded-lg p-6 shadow-md border border-green-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center">
+                                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                                            <i class="fas fa-chart-line text-green-600 text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800">QuickBooks</h3>
+                                            <div class="flex items-center">
+                                                <span class="status-indicator status-connected"></span>
+                                                <span class="text-sm text-green-600 font-medium">Connected</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-gray-600">Transactions</span>
+                                        <span class="font-semibold text-gray-800">847</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-gray-600">Last Sync</span>
+                                        <span class="font-semibold text-gray-800">2 mins ago</span>
+                                    </div>
+                                    <button onclick="syncQuickBooks()" class="w-full bg-green-100 text-green-700 px-3 py-2 rounded-lg hover:bg-green-200 transition text-sm font-medium mt-3">
+                                        <i class="fas fa-sync mr-1"></i>Sync Now
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Xero Status -->
+                            <div class="bg-white rounded-lg p-6 shadow-md border border-blue-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center">
+                                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                            <i class="fas fa-balance-scale text-blue-600 text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800">Xero</h3>
+                                            <div class="flex items-center">
+                                                <span class="status-indicator status-connected"></span>
+                                                <span class="text-sm text-blue-600 font-medium">Connected</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-gray-600">Transactions</span>
+                                        <span class="font-semibold text-gray-800">623</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-gray-600">Last Sync</span>
+                                        <span class="font-semibold text-gray-800">5 mins ago</span>
+                                    </div>
+                                    <button onclick="syncXero()" class="w-full bg-blue-100 text-blue-700 px-3 py-2 rounded-lg hover:bg-blue-200 transition text-sm font-medium mt-3">
+                                        <i class="fas fa-sync mr-1"></i>Sync Now
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- FreshBooks Status -->
+                            <div class="bg-white rounded-lg p-6 shadow-md border border-orange-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center">
+                                        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+                                            <i class="fas fa-file-invoice-dollar text-orange-600 text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800">FreshBooks</h3>
+                                            <div class="flex items-center">
+                                                <span class="status-indicator status-connected"></span>
+                                                <span class="text-sm text-orange-600 font-medium">Connected</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-gray-600">Transactions</span>
+                                        <span class="font-semibold text-gray-800">412</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-gray-600">Last Sync</span>
+                                        <span class="font-semibold text-gray-800">10 mins ago</span>
+                                    </div>
+                                    <button onclick="navigateToPage('accounting-tools.html', this)" class="w-full bg-orange-100 text-orange-700 px-3 py-2 rounded-lg hover:bg-orange-200 transition text-sm font-medium mt-3">
+                                        <i class="fas fa-external-link-alt mr-1"></i>View Details
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Overall Status -->
+                            <div class="bg-white rounded-lg p-6 shadow-md border border-purple-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center">
+                                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                                            <i class="fas fa-chart-pie text-purple-600 text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-gray-800">Overview</h3>
+                                            <div class="flex items-center">
+                                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold">6/7 Active</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-gray-600">Total Revenue</span>
+                                        <span class="font-semibold text-green-600">KSh 2.5M</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm">
+                                        <span class="text-gray-600">Active Integrations</span>
+                                        <span class="font-semibold text-gray-800">6/7</span>
+                                    </div>
+                                    <button onclick="navigateToPage('accounting-tools.html', this)" class="w-full bg-purple-100 text-purple-700 px-3 py-2 rounded-lg hover:bg-purple-200 transition text-sm font-medium mt-3">
+                                        <i class="fas fa-cog mr-1"></i>Manage All
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Accounting Activity -->
+                        <div class="bg-white rounded-lg p-6 shadow-md">
+                            <h3 class="text-lg font-bold text-gray-800 mb-4">
+                                <i class="fas fa-history mr-2 text-green-600"></i>
+                                Recent Accounting Activity
+                            </h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                            <i class="fas fa-arrow-down text-green-600 text-xs"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-gray-800">Payment Received - ABC Corp</p>
+                                            <p class="text-sm text-gray-500">QuickBooks • 2 hours ago</p>
+                                        </div>
+                                    </div>
+                                    <span class="font-bold text-green-600">+KSh 45,000</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3">
+                                            <i class="fas fa-arrow-up text-red-600 text-xs"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-gray-800">Office Supplies</p>
+                                            <p class="text-sm text-gray-500">Xero • 5 hours ago</p>
+                                        </div>
+                                    </div>
+                                    <span class="font-bold text-red-600">-KSh 12,500</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                            <i class="fas fa-arrow-down text-green-600 text-xs"></i>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-gray-800">Client Payment - XYZ Ltd</p>
+                                            <p class="text-sm text-gray-500">QuickBooks • 1 day ago</p>
+                                        </div>
+                                    </div>
+                                    <span class="font-bold text-green-600">+KSh 28,000</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -3564,12 +4429,594 @@ function openITCompliance() {
             }
         });
 
-        // Initialize authentication on page load
+        // Initialize authentication and navigation on page load
         document.addEventListener('DOMContentLoaded', function() {
             checkAuthStatus();
+            setActiveNavigation();
+            
+            // Initialize Enterprise UX enhancements
+            setupEnterpriseKeyboardShortcuts();
+            setupGlobalSearch();
+            setupCommandPaletteSearch();
+            enhanceEnterpriseNavigation();
+            enhancePageTransitions();
+            
+            // Show mobile menu button on small screens
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            if (window.innerWidth <= 768 && mobileMenuBtn) {
+                mobileMenuBtn.style.display = 'flex';
+            }
+            
+            // Update breadcrumb for current page
+            updateBreadcrumb('Dashboard');
         });
 
-        // Schedule Assessment Function
+        // Accounting Integration Functions
+        function syncQuickBooks() {
+            showNotification('Syncing QuickBooks data...', 'info');
+            setTimeout(() => {
+                showNotification('QuickBooks synced successfully! 23 new transactions', 'success');
+                updateAccountingData();
+            }, 2000);
+        }
+
+        function syncXero() {
+            showNotification('Syncing Xero data...', 'info');
+            setTimeout(() => {
+                showNotification('Xero synced successfully! 18 new transactions', 'success');
+                updateAccountingData();
+            }, 2000);
+        }
+
+        function updateAccountingData() {
+            // Simulate real-time data updates
+            const revenueElements = document.querySelectorAll('.text-green-600');
+            revenueElements.forEach(element => {
+                if (element.textContent.includes('KSh')) {
+                    const currentValue = parseInt(element.textContent.replace(/[^\d]/g, ''));
+                    const newValue = currentValue + Math.floor(Math.random() * 10000);
+                    element.textContent = `KSh ${(newValue / 1000000).toFixed(1)}M`;
+                }
+            });
+        }
+
+        // Enterprise Navigation Functions
+        function openCommandPalette() {
+            const palette = document.getElementById('commandPalette');
+            const input = document.getElementById('commandInput');
+            const results = document.getElementById('commandResults');
+            
+            palette.classList.add('active');
+            input.value = '';
+            input.focus();
+            
+            // Populate command palette with available commands
+            const commands = [
+                { icon: 'fas fa-home', title: 'Dashboard', description: 'Go to main dashboard', action: () => navigateToSection('overview') },
+                { icon: 'fas fa-calculator', title: 'Accounting Tools', description: 'Open accounting software integrations', action: () => navigateToPage('accounting-tools.html') },
+                { icon: 'fas fa-users-cog', title: 'HR System', description: 'Manage human resources', action: () => navigateToPage('hr-system.html') },
+                { icon: 'fas fa-shield-alt', title: 'IT Compliance', description: 'View compliance status', action: () => navigateToPage('it-compliance.html') },
+                { icon: 'fas fa-tools', title: 'Tools & Tech', description: 'Access technical tools', action: () => navigateToPage('tools.html') },
+                { icon: 'fas fa-folder-open', title: 'Document Management', description: 'Manage documents', action: () => navigateToPage('document-management.html') },
+                { icon: 'fas fa-keyboard', title: 'Data Entry Automation', description: 'Automate data entry tasks', action: () => navigateToPage('data-entry-automation.html') },
+                { icon: 'fas fa-cubes', title: '5 Systems Framework', description: 'View system framework', action: () => navigateToSection('systems') },
+                { icon: 'fas fa-box', title: 'Service Packages', description: 'Browse service packages', action: () => navigateToSection('packages') },
+                { icon: 'fas fa-tasks', title: 'Implementation Plan', description: 'View implementation timeline', action: () => navigateToSection('implementation') },
+                { icon: 'fas fa-chart-line', title: 'Financial Model', description: 'View financial projections', action: () => navigateToSection('financial') },
+                { icon: 'fas fa-rocket', title: 'Scaling Plan', description: 'View scaling strategy', action: () => navigateToSection('scaling') }
+            ];
+            
+            displayCommandResults(commands);
+        }
+
+        function displayCommandResults(commands) {
+            const results = document.getElementById('commandResults');
+            results.innerHTML = commands.map(cmd => `
+                <div class="command-item" onclick="executeCommand('${cmd.title}')">
+                    <div class="command-item-icon">
+                        <i class="${cmd.icon}"></i>
+                    </div>
+                    <div class="command-item-content">
+                        <div class="command-item-title">${cmd.title}</div>
+                        <div class="command-item-description">${cmd.description}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function executeCommand(commandTitle) {
+            const commands = {
+                'Dashboard': () => navigateToSection('overview'),
+                'Accounting Tools': () => navigateToPage('accounting-tools.html'),
+                'HR System': () => navigateToPage('hr-system.html'),
+                'IT Compliance': () => navigateToPage('it-compliance.html'),
+                'Tools & Tech': () => navigateToPage('tools.html'),
+                'Document Management': () => navigateToPage('document-management.html'),
+                'Data Entry Automation': () => navigateToPage('data-entry-automation.html'),
+                '5 Systems Framework': () => navigateToSection('systems'),
+                'Service Packages': () => navigateToSection('packages'),
+                'Implementation Plan': () => navigateToSection('implementation'),
+                'Financial Model': () => navigateToSection('financial'),
+                'Scaling Plan': () => navigateToSection('scaling')
+            };
+            
+            if (commands[commandTitle]) {
+                commands[commandTitle]();
+                closeCommandPalette();
+            }
+        }
+
+        function closeCommandPalette() {
+            const palette = document.getElementById('commandPalette');
+            palette.classList.remove('active');
+        }
+
+        function openShortcutsModal() {
+            const modal = document.getElementById('shortcutsModal');
+            modal.classList.add('active');
+        }
+
+        function closeShortcutsModal() {
+            const modal = document.getElementById('shortcutsModal');
+            modal.classList.remove('active');
+        }
+
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('sidebarNav');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function setupGlobalSearch() {
+            const searchInput = document.getElementById('globalSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    const query = e.target.value.toLowerCase();
+                    if (query.length > 2) {
+                        performGlobalSearch(query);
+                    }
+                });
+                
+                searchInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        const query = e.target.value;
+                        if (query) {
+                            executeSearch(query);
+                        }
+                    }
+                });
+            }
+        }
+
+        function performGlobalSearch(query) {
+            // Simulate global search across all modules
+            const searchResults = [
+                { title: 'Dashboard', type: 'Navigation', url: '#overview' },
+                { title: 'QuickBooks Integration', type: 'Accounting', url: 'accounting-tools.html' },
+                { title: 'HR System', type: 'Management', url: 'hr-system.html' },
+                { title: 'IT Compliance', type: 'Security', url: 'it-compliance.html' },
+                { title: 'Document Management', type: 'Operations', url: 'document-management.html' }
+            ].filter(item => item.title.toLowerCase().includes(query));
+            
+            // Display search results (could be enhanced with a dropdown)
+            console.log('Search results:', searchResults);
+        }
+
+        function executeSearch(query) {
+            showNotification(`Searching for: ${query}`, 'info');
+            // Implement actual search logic
+        }
+
+        function setupEnterpriseKeyboardShortcuts() {
+            document.addEventListener('keydown', function(e) {
+                // Command Palette
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    openCommandPalette();
+                }
+                
+                // Global Search
+                if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                    e.preventDefault();
+                    document.getElementById('globalSearch')?.focus();
+                }
+                
+                // Keyboard Shortcuts Modal
+                if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+                    e.preventDefault();
+                    openShortcutsModal();
+                }
+                
+                // Quick Navigation
+                if (e.altKey) {
+                    switch(e.key) {
+                        case 'd':
+                            e.preventDefault();
+                            navigateToSection('overview');
+                            break;
+                        case 'a':
+                            e.preventDefault();
+                            navigateToPage('accounting-tools.html');
+                            break;
+                        case 'h':
+                            e.preventDefault();
+                            navigateToPage('hr-system.html');
+                            break;
+                        case 't':
+                            e.preventDefault();
+                            navigateToPage('tools.html');
+                            break;
+                    }
+                }
+                
+                // Escape to close modals
+                if (e.key === 'Escape') {
+                    closeCommandPalette();
+                    closeShortcutsModal();
+                    const sidebar = document.getElementById('sidebarNav');
+                    if (sidebar && sidebar.classList.contains('active')) {
+                        toggleMobileSidebar();
+                    }
+                }
+            });
+        }
+
+        function setupCommandPaletteSearch() {
+            const input = document.getElementById('commandInput');
+            if (input) {
+                input.addEventListener('input', function(e) {
+                    const query = e.target.value.toLowerCase();
+                    const allCommands = [
+                        { icon: 'fas fa-home', title: 'Dashboard', description: 'Go to main dashboard' },
+                        { icon: 'fas fa-calculator', title: 'Accounting Tools', description: 'Open accounting software integrations' },
+                        { icon: 'fas fa-users-cog', title: 'HR System', description: 'Manage human resources' },
+                        { icon: 'fas fa-shield-alt', title: 'IT Compliance', description: 'View compliance status' },
+                        { icon: 'fas fa-tools', title: 'Tools & Tech', description: 'Access technical tools' }
+                    ];
+                    
+                    const filteredCommands = allCommands.filter(cmd => 
+                        cmd.title.toLowerCase().includes(query) || 
+                        cmd.description.toLowerCase().includes(query)
+                    );
+                    
+                    displayCommandResults(filteredCommands);
+                });
+                
+                // Keyboard navigation in command palette
+                input.addEventListener('keydown', function(e) {
+                    const items = document.querySelectorAll('.command-item');
+                    const selectedIndex = Array.from(items).findIndex(item => item.classList.contains('selected'));
+                    
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        items.forEach(item => item.classList.remove('selected'));
+                        const nextIndex = selectedIndex < items.length - 1 ? selectedIndex + 1 : 0;
+                        items[nextIndex].classList.add('selected');
+                        items[nextIndex].scrollIntoView({ block: 'nearest' });
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        items.forEach(item => item.classList.remove('selected'));
+                        const prevIndex = selectedIndex > 0 ? selectedIndex - 1 : items.length - 1;
+                        items[prevIndex].classList.add('selected');
+                        items[prevIndex].scrollIntoView({ block: 'nearest' });
+                    } else if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const selectedItem = items[selectedIndex] || items[0];
+                        if (selectedItem) {
+                            const title = selectedItem.querySelector('.command-item-title').textContent;
+                            executeCommand(title);
+                        }
+                    }
+                });
+            }
+        }
+
+        function enhanceEnterpriseNavigation() {
+            // Add hover effects and micro-interactions
+            document.querySelectorAll('.nav-item-enterprise').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(4px)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+                
+                item.addEventListener('click', function() {
+                    // Add ripple effect
+                    const ripple = document.createElement('div');
+                    ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(22, 163, 74, 0.3);
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        pointer-events: none;
+                    `;
+                    
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => ripple.remove(), 600);
+                });
+            });
+        }
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Original Functions
+        function showPageLoading() {
+            const loadingElement = document.getElementById('pageLoading');
+            if (loadingElement) {
+                loadingElement.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function hidePageLoading() {
+            const loadingElement = document.getElementById('pageLoading');
+            if (loadingElement) {
+                loadingElement.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function updateBreadcrumb(pageTitle) {
+            const breadcrumb = document.getElementById('breadcrumb');
+            if (breadcrumb) {
+                const currentPage = `<span class="breadcrumb-item active">${pageTitle}</span>`;
+                breadcrumb.innerHTML = `
+                    <a href="index.html" class="breadcrumb-item">
+                        <i class="fas fa-home mr-1"></i>Home
+                    </a>
+                    <span class="breadcrumb-separator">/</span>
+                    ${currentPage}
+                `;
+            }
+        }
+
+        function enhanceNavigationSpeed() {
+            // Preload critical resources
+            const criticalLinks = document.querySelectorAll('.nav-item[href^="#"]');
+            criticalLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        const sectionId = href.substring(1);
+                        const section = document.getElementById(sectionId);
+                        if (section) {
+                            // Preload section content
+                            section.style.display = 'none';
+                            section.style.visibility = 'hidden';
+                        }
+                    }
+                });
+            });
+        }
+
+        function optimizeMobileMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            
+            // Add touch support for mobile
+            if ('ontouchstart' in window) {
+                navMenu.addEventListener('touchstart', function(e) {
+                    // Handle touch gestures for better mobile experience
+                    if (e.target.closest('.nav-item')) {
+                        const item = e.target.closest('.nav-item');
+                        item.style.transform = 'scale(0.95)';
+                    }
+                });
+
+                navMenu.addEventListener('touchend', function(e) {
+                    if (e.target.closest('.nav-item')) {
+                        const item = e.target.closest('.nav-item');
+                        item.style.transform = 'scale(1)';
+                    }
+                });
+            }
+        }
+
+        function addSmoothScrolling() {
+            // Smooth scroll for all anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        const offsetTop = targetElement.offsetTop - 80; // Account for sticky header
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        function addKeyboardNavigation() {
+            // Enhanced keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                // Alt + M for mobile menu
+                if (e.altKey && e.key === 'm') {
+                    toggleMobileMenu();
+                }
+                
+                // Escape to close mobile menu
+                if (e.key === 'Escape') {
+                    closeMobileMenu();
+                }
+                
+                // Tab navigation enhancement
+                if (e.key === 'Tab') {
+                    const focusableElements = document.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])');
+                    const currentFocus = document.activeElement;
+                    const currentIndex = Array.from(focusableElements).indexOf(currentFocus);
+                    
+                    if (e.shiftKey && currentIndex > 0) {
+                        e.preventDefault();
+                        focusableElements[currentIndex - 1].focus();
+                    } else if (!e.shiftKey && currentIndex < focusableElements.length - 1) {
+                        e.preventDefault();
+                        focusableElements[currentIndex + 1].focus();
+                    }
+                }
+            });
+        }
+
+        function enhancePageTransitions() {
+            // Add page transition class to body
+            document.body.classList.add('page-transition');
+            
+            // Remove transition class after page load
+            setTimeout(() => {
+                document.body.classList.remove('page-transition');
+            }, 500);
+        }
+
+        // Original Functions
+        function navigateToSection(sectionId, element) {
+            // Show loading indicator
+            showPageLoading();
+            
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Add active class to clicked item
+            element.classList.add('active');
+            
+            // Update breadcrumb
+            const sectionNames = {
+                'overview': 'Dashboard',
+                'systems': '5 Systems Framework',
+                'packages': 'Service Packages',
+                'implementation': 'Implementation Plan',
+                'financial': 'Financial Model',
+                'scaling': 'Scaling Plan',
+                'office-activities': 'Office Activities',
+                'email': 'Email System',
+                'security': 'Security Center'
+            };
+            updateBreadcrumb(sectionNames[sectionId] || sectionId);
+            
+            // Smooth scroll to section with delay for loading effect
+            setTimeout(() => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                hidePageLoading();
+            }, 300);
+            
+            // Close mobile menu if open
+            closeMobileMenu();
+        }
+
+        function navigateToPage(pageUrl, element) {
+            // Show loading indicator
+            showPageLoading();
+            
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Add active class to clicked item
+            element.classList.add('active');
+            
+            // Navigate to page with enhanced transition
+            setTimeout(() => {
+                window.location.href = pageUrl;
+            }, 300);
+            
+            // Close mobile menu if open
+            closeMobileMenu();
+        }
+
+        // Mobile Menu Functions
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            
+            if (navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            } else {
+                navMenu.classList.add('active');
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            }
+        }
+
+        function closeMobileMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            
+            navMenu.classList.remove('active');
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
+        }
+
+        // Set active navigation item based on current page/section
+        function setActiveNavigation() {
+            const currentPath = window.location.pathname;
+            const currentHash = window.location.hash;
+            
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Set active based on current page or hash
+            if (currentPath.includes('hr-system.html')) {
+                document.querySelector('[href="#hr-system"]').classList.add('active');
+            } else if (currentPath.includes('document-management.html')) {
+                document.querySelector('[href="#document-management"]').classList.add('active');
+            } else if (currentPath.includes('tools.html')) {
+                document.querySelector('[href="#tools"]').classList.add('active');
+            } else if (currentPath.includes('accounting-tools.html')) {
+                document.querySelector('[href="#accounting-tools"]').classList.add('active');
+            } else if (currentPath.includes('it-compliance.html')) {
+                document.querySelector('[href="#it-compliance"]').classList.add('active');
+            } else if (currentPath.includes('data-entry-automation.html')) {
+                document.querySelector('[href="#data-entry-automation"]').classList.add('active');
+            } else if (currentHash) {
+                const activeItem = document.querySelector(`[href="${currentHash}"]`);
+                if (activeItem) {
+                    activeItem.classList.add('active');
+                }
+            } else {
+                // Default to overview
+                document.querySelector('[href="#overview"]').classList.add('active');
+            }
+        }
         function scheduleAssessment() {
             showNotification('Opening Assessment Scheduler...', 'info');
             
