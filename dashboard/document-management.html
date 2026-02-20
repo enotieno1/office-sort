@@ -732,6 +732,27 @@
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', initializeDocumentSystem);
-    </script>
+    
+        function closeModal(element) {
+            const modal = element ? element.closest('.modal, .fixed') : document.querySelector('.modal.active, .fixed.inset-0');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.style.display = 'none';
+            }
+        }
+
+        function validateForm(form) {
+            const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+            for (let input of inputs) {
+                if (!input.value.trim()) {
+                    showNotification(`Please fill in ${input.name || 'the required field'}`, 'error');
+                    input.focus();
+                    return false;
+                }
+            }
+            showNotification('Form submitted successfully!', 'success');
+            return true;
+        }
+</script>
 </body>
 </html>

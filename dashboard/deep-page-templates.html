@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Page Templates - OOES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-button {
+            transition: all 0.2s ease;
+        }
+        .tab-button.active {
+            background-color: #10b981;
+            color: white;
+            border-bottom: 3px solid #059669;
+        }
+        .info-card {
+            transition: all 0.3s ease;
+        }
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 24px;
+            height: calc(100% + 20px);
+            width: 2px;
+            background: #e5e7eb;
+        }
+        .timeline-item:last-child::before {
+            display: none;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: 0;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #10b981;
+        }
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .action-button {
+            transition: all 0.2s ease;
+        }
+        .action-button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Employee Profile Deep Page Template -->
+    <div id="employee-profile-template" class="hidden">
+        <div class="max-w-7xl mx-auto">
+            <!-- Profile Header -->
+            <div class="bg-white rounded-lg shadow-sm mb-6">
+                <div class="p-6">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center">
+                            <div class="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                                JD
+                            </div>
+                            <div class="ml-6">
+                                <h1 class="text-2xl font-bold text-gray-900">John Doe</h1>
+                                <p class="text-gray-600">Senior Software Engineer</p>
+                                <div class="flex items-center mt-2 space-x-4">
+                                    <span class="text-sm text-gray-500">
+                                        <i class="fas fa-building mr-1"></i> IT Department
+                                    </span>
+                                    <span class="text-sm text-gray-500">
+                                        <i class="fas fa-envelope mr-1"></i> john.doe@company.com
+                                    </span>
+                                    <span class="text-sm text-gray-500">
+                                        <i class="fas fa-phone mr-1"></i> +1 (555) 123-4567
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="action-button px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                <i class="fas fa-edit mr-2"></i> Edit Profile
+                            </button>
+                            <button class="action-button px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                                <i class="fas fa-download mr-2"></i> Export
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="border-t border-gray-200 px-6 py-4">
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-gray-900">4.8</div>
+                            <div class="text-sm text-gray-500">Performance Rating</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-gray-900">98%</div>
+                            <div class="text-sm text-gray-500">Attendance Rate</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-gray-900">3</div>
+                            <div class="text-sm text-gray-500">Projects</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-gray-900">2.5</div>
+                            <div class="text-sm text-gray-500">Years Service</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="bg-white rounded-lg shadow-sm mb-6">
+                <div class="border-b border-gray-200">
+                    <nav class="flex space-x-8 px-6" aria-label="Tabs">
+                        <button class="tab-button active py-4 px-1 border-b-2 font-medium text-sm" data-tab="personal">
+                            Personal Details
+                        </button>
+                        <button class="tab-button py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="attendance">
+                            Attendance History
+                        </button>
+                        <button class="tab-button py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="salary">
+                            Salary History
+                        </button>
+                        <button class="tab-button py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="performance">
+                            Performance Records
+                        </button>
+                        <button class="tab-button py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="documents">
+                            Documents
+                        </button>
+                        <button class="tab-button py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700" data-tab="disciplinary">
+                            Disciplinary Logs
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="p-6">
+                    <!-- Personal Details Tab -->
+                    <div id="personal-tab" class="tab-content active">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="info-card bg-gray-50 rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">Personal Information</h3>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Date of Birth:</span>
+                                        <span class="font-medium">March 15, 1990</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Gender:</span>
+                                        <span class="font-medium">Male</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Marital Status:</span>
+                                        <span class="font-medium">Married</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Nationality:</span>
+                                        <span class="font-medium">American</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="info-card bg-gray-50 rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">Contact Information</h3>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Address:</span>
+                                        <span class="font-medium">123 Main St, City, State 12345</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Emergency Contact:</span>
+                                        <span class="font-medium">Jane Doe (555-987-6543)</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Personal Email:</span>
+                                        <span class="font-medium">john.personal@email.com</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cross-Module Links -->
+                        <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                            <h4 class="text-sm font-semibold text-blue-900 mb-2">Related Information</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <button class="cross-module-link px-3 py-1 bg-white text-blue-700 rounded-full text-sm hover:bg-blue-100" 
+                                        data-cross-link="hr-employee-salary" 
+                                        data-cross-link-data='{"employeeId": "123"}'>
+                                    <i class="fas fa-dollar-sign mr-1"></i> View Salary History
+                                </button>
+                                <button class="cross-module-link px-3 py-1 bg-white text-blue-700 rounded-full text-sm hover:bg-blue-100"
+                                        data-cross-link="hr-employee-contract"
+                                        data-cross-link-data='{"employeeId": "123"}'>
+                                    <i class="fas fa-file-contract mr-1"></i> View Contract
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Attendance History Tab -->
+                    <div id="attendance-tab" class="tab-content">
+                        <div class="bg-white rounded-lg overflow-hidden">
+                            <div class="p-6 border-b border-gray-200">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-lg font-semibold text-gray-900">Attendance Records</h3>
+                                    <div class="flex space-x-2">
+                                        <select class="border border-gray-300 rounded px-3 py-1 text-sm">
+                                            <option>Last 30 Days</option>
+                                            <option>Last 3 Months</option>
+                                            <option>Last 6 Months</option>
+                                            <option>This Year</option>
+                                        </select>
+                                        <button class="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700">
+                                            <i class="fas fa-download mr-1"></i> Export
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Check In</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Check Out</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Hours</th>
+                                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">Dec 15, 2024</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">9:00 AM</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">6:15 PM</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">9.25</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="status-badge bg-green-100 text-green-800">Present</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">Dec 14, 2024</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">8:45 AM</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">6:30 PM</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">9.75</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="status-badge bg-green-100 text-green-800">Present</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Salary History Tab -->
+                    <div id="salary-tab" class="tab-content">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <div class="lg:col-span-2">
+                                <div class="bg-white rounded-lg p-6">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Salary History</h3>
+                                    <div class="space-y-4">
+                                        <div class="timeline-item">
+                                            <div class="timeline-dot"></div>
+                                            <div class="bg-gray-50 rounded-lg p-4">
+                                                <div class="flex justify-between items-start">
+                                                    <div>
+                                                        <h4 class="font-semibold">$85,000 / year</h4>
+                                                        <p class="text-sm text-gray-600">Senior Software Engineer</p>
+                                                        <p class="text-xs text-gray-500 mt-1">Jan 1, 2024 - Present</p>
+                                                    </div>
+                                                    <span class="status-badge bg-green-100 text-green-800">Current</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-dot"></div>
+                                            <div class="bg-gray-50 rounded-lg p-4">
+                                                <div class="flex justify-between items-start">
+                                                    <div>
+                                                        <h4 class="font-semibold">$75,000 / year</h4>
+                                                        <p class="text-sm text-gray-600">Software Engineer</p>
+                                                        <p class="text-xs text-gray-500 mt-1">Jan 1, 2022 - Dec 31, 2023</p>
+                                                    </div>
+                                                    <span class="text-xs text-gray-500">+13.3%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="bg-white rounded-lg p-6">
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Current Compensation</h3>
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600">Base Salary:</span>
+                                            <span class="font-semibold">$85,000</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600">Annual Bonus:</span>
+                                            <span class="font-semibold">$8,500</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600">401k Match:</span>
+                                            <span class="font-semibold">$6,375</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600">Health Insurance:</span>
+                                            <span class="font-semibold">$4,200</span>
+                                        </div>
+                                        <div class="border-t pt-3 mt-3">
+                                            <div class="flex justify-between">
+                                                <span class="font-semibold">Total Package:</span>
+                                                <span class="font-bold text-green-600">$104,075</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Records Tab -->
+                    <div id="performance-tab" class="tab-content">
+                        <div class="space-y-6">
+                            <div class="bg-white rounded-lg p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-gray-900">Performance Reviews</h3>
+                                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
+                                        <i class="fas fa-plus mr-2"></i> New Review
+                                    </button>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h4 class="font-semibold">Q4 2024 Review</h4>
+                                            <span class="text-sm text-gray-500">Dec 15, 2024</span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="flex items-center mb-1">
+                                                <span class="text-sm text-gray-600 mr-2">Overall Rating:</span>
+                                                <div class="flex text-yellow-400">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                </div>
+                                                <span class="ml-2 text-sm font-semibold">4.8</span>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm text-gray-600 mb-3">Exceptional performance on the cloud migration project. Strong technical skills and team collaboration.</p>
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">View Details →</button>
+                                    </div>
+                                    <div class="border border-gray-200 rounded-lg p-4">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h4 class="font-semibold">Q3 2024 Review</h4>
+                                            <span class="text-sm text-gray-500">Sep 15, 2024</span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="flex items-center mb-1">
+                                                <span class="text-sm text-gray-600 mr-2">Overall Rating:</span>
+                                                <div class="flex text-yellow-400">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="far fa-star"></i>
+                                                </div>
+                                                <span class="ml-2 text-sm font-semibold">4.2</span>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm text-gray-600 mb-3">Consistent performance. Good progress on learning new technologies.</p>
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">View Details →</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-4">Goals & Objectives</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-check-circle text-green-600 mr-3"></i>
+                                            <div>
+                                                <p class="font-medium">Complete AWS Certification</p>
+                                                <p class="text-sm text-gray-600">Due: Nov 30, 2024</p>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge bg-green-100 text-green-800">Completed</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                                        <div class="flex items-center">
+                                            <i class="fas fa-clock text-yellow-600 mr-3"></i>
+                                            <div>
+                                                <p class="font-medium">Lead Team Project</p>
+                                                <p class="text-sm text-gray-600">Due: Jan 31, 2025</p>
+                                            </div>
+                                        </div>
+                                        <span class="status-badge bg-yellow-100 text-yellow-800">In Progress</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Documents Tab -->
+                    <div id="documents-tab" class="tab-content">
+                        <div class="bg-white rounded-lg">
+                            <div class="p-6 border-b border-gray-200">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-lg font-semibold text-gray-900">Employee Documents</h3>
+                                    <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm">
+                                        <i class="fas fa-upload mr-2"></i> Upload Document
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                        <div class="flex items-start justify-between mb-2">
+                                            <i class="fas fa-file-pdf text-red-500 text-2xl"></i>
+                                            <span class="text-xs text-gray-500">2.3 MB</span>
+                                        </div>
+                                        <h4 class="font-medium text-sm mb-1">Employment Contract</h4>
+                                        <p class="text-xs text-gray-600 mb-2">Uploaded: Jan 15, 2022</p>
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-800 text-xs">
+                                                <i class="fas fa-eye mr-1"></i> View
+                                            </button>
+                                            <button class="text-gray-600 hover:text-gray-800 text-xs">
+                                                <i class="fas fa-download mr-1"></i> Download
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                        <div class="flex items-start justify-between mb-2">
+                                            <i class="fas fa-file-alt text-blue-500 text-2xl"></i>
+                                            <span class="text-xs text-gray-500">1.1 MB</span>
+                                        </div>
+                                        <h4 class="font-medium text-sm mb-1">Resume</h4>
+                                        <p class="text-xs text-gray-600 mb-2">Uploaded: Dec 10, 2021</p>
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-800 text-xs">
+                                                <i class="fas fa-eye mr-1"></i> View
+                                            </button>
+                                            <button class="text-gray-600 hover:text-gray-800 text-xs">
+                                                <i class="fas fa-download mr-1"></i> Download
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                        <div class="flex items-start justify-between mb-2">
+                                            <i class="fas fa-file-certificate text-green-500 text-2xl"></i>
+                                            <span class="text-xs text-gray-500">856 KB</span>
+                                        </div>
+                                        <h4 class="font-medium text-sm mb-1">AWS Certification</h4>
+                                        <p class="text-xs text-gray-600 mb-2">Uploaded: Nov 28, 2024</p>
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-800 text-xs">
+                                                <i class="fas fa-eye mr-1"></i> View
+                                            </button>
+                                            <button class="text-gray-600 hover:text-gray-800 text-xs">
+                                                <i class="fas fa-download mr-1"></i> Download
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Disciplinary Logs Tab -->
+                    <div id="disciplinary-tab" class="tab-content">
+                        <div class="bg-white rounded-lg p-6">
+                            <div class="text-center py-12">
+                                <i class="fas fa-shield-check text-green-500 text-6xl mb-4"></i>
+                                <h3 class="text-lg font-semibold text-gray-900 mb-2">Clean Record</h3>
+                                <p class="text-gray-600">No disciplinary actions on record for this employee.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invoice Detail Deep Page Template -->
+    <div id="invoice-detail-template" class="hidden">
+        <div class="max-w-6xl mx-auto">
+            <div class="bg-white rounded-lg shadow-sm">
+                <!-- Invoice Header -->
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-900">Invoice #INV002</h1>
+                            <p class="text-gray-600">Created: December 10, 2024</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <span class="status-badge bg-yellow-100 text-yellow-800">Pending</span>
+                            <button class="action-button px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                <i class="fas fa-edit mr-2"></i> Edit
+                            </button>
+                            <button class="action-button px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                                <i class="fas fa-download mr-2"></i> PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Invoice Details -->
+                <div class="p-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-900 mb-2">Bill To</h3>
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <p class="font-medium">XYZ Ltd</p>
+                                <p class="text-sm text-gray-600">Attn: John Smith</p>
+                                <p class="text-sm text-gray-600">456 Business Ave</p>
+                                <p class="text-sm text-gray-600">City, State 67890</p>
+                                <p class="text-sm text-gray-600">john.smith@xyz.com</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-900 mb-2">Invoice Details</h3>
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-sm text-gray-600">Invoice Date:</span>
+                                    <span class="font-medium">Dec 10, 2024</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-sm text-gray-600">Due Date:</span>
+                                    <span class="font-medium">Jan 10, 2025</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-sm text-gray-600">PO Number:</span>
+                                    <span class="font-medium">PO-2024-0156</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Line Items -->
+                    <div class="mb-6">
+                        <h3 class="text-sm font-semibold text-gray-900 mb-3">Line Items</h3>
+                        <div class="border border-gray-200 rounded-lg overflow-hidden">
+                            <table class="min-w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Description</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Quantity</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Unit Price</th>
+                                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-4 py-3">Software Development Services</td>
+                                        <td class="px-4 py-3">120 hours</td>
+                                        <td class="px-4 py-3">$50.00</td>
+                                        <td class="px-4 py-3">$6,000.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3">Project Management</td>
+                                        <td class="px-4 py-3">40 hours</td>
+                                        <td class="px-4 py-3">$75.00</td>
+                                        <td class="px-4 py-3">$3,000.00</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot class="bg-gray-50">
+                                    <tr>
+                                        <td colspan="3" class="px-4 py-3 text-right font-semibold">Subtotal:</td>
+                                        <td class="px-4 py-3 font-semibold">$9,000.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="px-4 py-3 text-right">Tax (8%):</td>
+                                        <td class="px-4 py-3">$720.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="px-4 py-3 text-right font-semibold">Total:</td>
+                                        <td class="px-4 py-3 font-bold text-lg">$9,720.00</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Cross-Module Links -->
+                    <div class="p-4 bg-blue-50 rounded-lg">
+                        <h4 class="text-sm font-semibold text-blue-900 mb-2">Related Information</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="cross-module-link px-3 py-1 bg-white text-blue-700 rounded-full text-sm hover:bg-blue-100"
+                                    data-cross-link="finance-invoice-client"
+                                    data-cross-link-data='{"invoiceId": "INV002", "clientId": "XYZ-001"}'>
+                                <i class="fas fa-handshake mr-1"></i> View Client Details
+                            </button>
+                            <button class="px-3 py-1 bg-white text-blue-700 rounded-full text-sm hover:bg-blue-100">
+                                <i class="fas fa-file-contract mr-1"></i> View Contract
+                            </button>
+                            <button class="px-3 py-1 bg-white text-blue-700 rounded-full text-sm hover:bg-blue-100">
+                                <i class="fas fa-chart-line mr-1"></i> Payment History
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.addEventListener('click', (e) => {
+            if (e.target.matches('.tab-button')) {
+                const tabName = e.target.dataset.tab;
+                
+                // Update button states
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.classList.add('text-gray-500', 'hover:text-gray-700');
+                });
+                e.target.classList.add('active');
+                e.target.classList.remove('text-gray-500', 'hover:text-gray-700');
+                
+                // Update content visibility
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(`${tabName}-tab`).classList.add('active');
+            }
+        });
+    
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 max-w-sm ${
+                type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
+                type === 'warning' ? 'bg-yellow-500 text-white' :
+                'bg-blue-500 text-white'
+            }`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${
+                        type === 'success' ? 'fa-check-circle' :
+                        type === 'error' ? 'fa-exclamation-circle' :
+                        type === 'warning' ? 'fa-exclamation-triangle' :
+                        'fa-info-circle'
+                    } mr-3"></i>
+                    <div class="font-medium">${message}</div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function closeModal(element) {
+            const modal = element ? element.closest('.modal, .fixed') : document.querySelector('.modal.active, .fixed.inset-0');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.style.display = 'none';
+            }
+        }
+
+        function validateForm(form) {
+            const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+            for (let input of inputs) {
+                if (!input.value.trim()) {
+                    showNotification(`Please fill in ${input.name || 'the required field'}`, 'error');
+                    input.focus();
+                    return false;
+                }
+            }
+            showNotification('Form submitted successfully!', 'success');
+            return true;
+        }
+</script>
+</body>
+</html>

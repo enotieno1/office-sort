@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Management | OOES Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-white: #FFFFFF;
+            --primary-light-gray: #F8F9FA;
+            --secondary-light-gray: #F1F3F4;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --accent-blue: #3B82F6;
+            --accent-green: #059669;
+            --accent-red: #EF4444;
+            --accent-yellow: #F59E0B;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary-light-gray);
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-header {
+            background: var(--primary-white);
+            border-bottom: 1px solid var(--secondary-light-gray);
+            padding: 1rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .breadcrumb-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb-item:hover {
+            color: var(--accent-blue);
+        }
+
+        .breadcrumb-current {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .folder-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .folder-card {
+            background: var(--primary-white);
+            border: 1px solid var(--secondary-light-gray);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .folder-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-color: var(--accent-blue);
+        }
+
+        .folder-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 24px;
+            color: white;
+        }
+
+        .document-list {
+            background: var(--primary-white);
+            border: 1px solid var(--secondary-light-gray);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .document-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--secondary-light-gray);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .document-item:hover {
+            background: var(--primary-light-gray);
+        }
+
+        .document-item:last-child {
+            border-bottom: none;
+        }
+
+        .doc-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 16px;
+            color: white;
+        }
+
+        .doc-icon.pdf { background: linear-gradient(135deg, #EF4444, #DC2626); }
+        .doc-icon.excel { background: linear-gradient(135deg, #10B981, #059669); }
+        .doc-icon.word { background: linear-gradient(135deg, #3B82F6, #2563EB); }
+        .doc-icon.powerpoint { background: linear-gradient(135deg, #F59E0B, #D97706); }
+        .doc-icon.image { background: linear-gradient(135deg, #8B5CF6, #7C3AED); }
+        .doc-icon.other { background: linear-gradient(135deg, #6B7280, #4B5563); }
+
+        .doc-info {
+            flex: 1;
+        }
+
+        .doc-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .doc-meta {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .action-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn:hover {
+            background: #2563EB;
+            transform: translateY(-1px);
+        }
+
+        .action-btn-secondary {
+            background: var(--primary-white);
+            color: var(--text-secondary);
+            border: 1px solid var(--secondary-light-gray);
+        }
+
+        .action-btn-secondary:hover {
+            background: var(--primary-light-gray);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .search-bar {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 1px solid var(--secondary-light-gray);
+            border-radius: 12px;
+            font-size: 0.875rem;
+            background: var(--primary-white);
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .upload-area {
+            border: 2px dashed var(--secondary-light-gray);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            background: var(--primary-white);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 2rem;
+        }
+
+        .upload-area:hover {
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .upload-area.dragover {
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--primary-white);
+            border: 1px solid var(--secondary-light-gray);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container mx-auto px-4">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="index-light.html" class="breadcrumb-item">
+                    <i class="fas fa-home"></i>
+                    Dashboard
+                </a>
+                <span class="text-gray-400">/</span>
+                <a href="index-light.html" class="breadcrumb-item">Widgets</a>
+                <span class="text-gray-400">/</span>
+                <span class="breadcrumb-current">Document Management</span>
+            </nav>
+
+            <!-- Header Content -->
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900 mb-2">
+                        <i class="fas fa-folder-open mr-2"></i>
+                        Document Management
+                    </h1>
+                    <p class="text-gray-600">Organize, share, and manage all your documents</p>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <button class="action-btn action-btn-secondary" onclick="openUploadModal()">
+                        <i class="fas fa-upload"></i>
+                        Upload Files
+                    </button>
+                    <button class="action-btn" onclick="createFolder()">
+                        <i class="fas fa-folder-plus"></i>
+                        New Folder
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-6">
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">1,247</div>
+                <div class="stat-label">Total Documents</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">234</div>
+                <div class="stat-label">Shared Files</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">12</div>
+                <div class="stat-label">Recent Uploads</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">89.5 GB</div>
+                <div class="stat-label">Storage Used</div>
+            </div>
+        </div>
+
+        <!-- Search -->
+        <div class="search-bar">
+            <input type="text" placeholder="Search documents, folders, or files..." class="search-input" id="docSearch">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+
+        <!-- Folders -->
+        <h2 class="text-xl font-semibold mb-4">Quick Folders</h2>
+        <div class="folder-grid">
+            <div class="folder-card" onclick="openFolder('hr')">
+                <div class="folder-icon" style="background: linear-gradient(135deg, #3B82F6, #2563EB);">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="font-semibold text-gray-900">HR Documents</h3>
+                <p class="text-sm text-gray-600">234 files</p>
+            </div>
+
+            <div class="folder-card" onclick="openFolder('finance')">
+                <div class="folder-icon" style="background: linear-gradient(135deg, #059669, #047857);">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="font-semibold text-gray-900">Finance</h3>
+                <p class="text-sm text-gray-600">156 files</p>
+            </div>
+
+            <div class="folder-card" onclick="openFolder('legal')">
+                <div class="folder-icon" style="background: linear-gradient(135deg, #8B5CF6, #7C3AED);">
+                    <i class="fas fa-gavel"></i>
+                </div>
+                <h3 class="font-semibold text-gray-900">Legal</h3>
+                <p class="text-sm text-gray-600">89 files</p>
+            </div>
+
+            <div class="folder-card" onclick="openFolder('marketing')">
+                <div class="folder-icon" style="background: linear-gradient(135deg, #F59E0B, #D97706);">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <h3 class="font-semibold text-gray-900">Marketing</h3>
+                <p class="text-sm text-gray-600">312 files</p>
+            </div>
+
+            <div class="folder-card" onclick="openFolder('operations')">
+                <div class="folder-icon" style="background: linear-gradient(135deg, #EF4444, #DC2626);">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3 class="font-semibold text-gray-900">Operations</h3>
+                <p class="text-sm text-gray-600">198 files</p>
+            </div>
+
+            <div class="folder-card" onclick="openFolder('projects')">
+                <div class="folder-icon" style="background: linear-gradient(135deg, #6B7280, #4B5563);">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <h3 class="font-semibold text-gray-900">Projects</h3>
+                <p class="text-sm text-gray-600">267 files</p>
+            </div>
+        </div>
+
+        <!-- Upload Area -->
+        <div class="upload-area" onclick="document.getElementById('fileInput').click()" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Drop files here or click to upload</h3>
+            <p class="text-gray-600">Support for PDF, DOC, XLS, PPT, and images</p>
+            <input type="file" id="fileInput" multiple style="display: none;" onchange="handleFileSelect(event)">
+        </div>
+
+        <!-- Recent Documents -->
+        <h2 class="text-xl font-semibold mb-4">Recent Documents</h2>
+        <div class="document-list">
+            <div class="document-item" onclick="openDocument(1)">
+                <div class="doc-icon pdf">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="doc-info">
+                    <div class="doc-name">Q4_2024_Financial_Report.pdf</div>
+                    <div class="doc-meta">2.4 MB • 2 hours ago • John Doe</div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); shareDocument(1)">
+                        <i class="fas fa-share"></i>
+                    </button>
+                    <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); downloadDocument(1)">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="document-item" onclick="openDocument(2)">
+                <div class="doc-icon excel">
+                    <i class="fas fa-file-excel"></i>
+                </div>
+                <div class="doc-info">
+                    <div class="doc-name">Employee_Spreadsheet_Q4.xlsx</div>
+                    <div class="doc-meta">1.8 MB • 5 hours ago • Sarah Johnson</div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); shareDocument(2)">
+                        <i class="fas fa-share"></i>
+                    </button>
+                    <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); downloadDocument(2)">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="document-item" onclick="openDocument(3)">
+                <div class="doc-icon word">
+                    <i class="fas fa-file-word"></i>
+                </div>
+                <div class="doc-info">
+                    <div class="doc-name">Policy_Update_Draft.docx</div>
+                    <div class="doc-meta">856 KB • 1 day ago • Mike Wilson</div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); shareDocument(3)">
+                        <i class="fas fa-share"></i>
+                    </button>
+                    <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); downloadDocument(3)">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="document-item" onclick="openDocument(4)">
+                <div class="doc-icon powerpoint">
+                    <i class="fas fa-file-powerpoint"></i>
+                </div>
+                <div class="doc-info">
+                    <div class="doc-name">Sales_Presentation_Q4.pptx</div>
+                    <div class="doc-meta">3.2 MB • 2 days ago • Lisa Chen</div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); shareDocument(4)">
+                        <i class="fas fa-share"></i>
+                    </button>
+                    <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); downloadDocument(4)">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="document-item" onclick="openDocument(5)">
+                <div class="doc-icon image">
+                    <i class="fas fa-file-image"></i>
+                </div>
+                <div class="doc-info">
+                    <div class="doc-name">Company_Logo_2024.png</div>
+                    <div class="doc-meta">245 KB • 3 days ago • Design Team</div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); shareDocument(5)">
+                        <i class="fas fa-share"></i>
+                    </button>
+                    <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); downloadDocument(5)">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Folder functions
+        function openFolder(folderName) {
+            alert(`Opening ${folderName} folder...`);
+        }
+
+        function createFolder() {
+            const folderName = prompt('Enter folder name:');
+            if (folderName) {
+                alert(`Folder "${folderName}" created successfully!`);
+            }
+        }
+
+        // Document functions
+        function openDocument(docId) {
+            alert(`Opening document ${docId}...`);
+        }
+
+        function shareDocument(docId) {
+            alert(`Sharing document ${docId}...`);
+        }
+
+        function downloadDocument(docId) {
+            alert(`Downloading document ${docId}...`);
+        }
+
+        // Upload functions
+        function openUploadModal() {
+            document.getElementById('fileInput').click();
+        }
+
+        function handleFileSelect(event) {
+            const files = event.target.files;
+            if (files.length > 0) {
+                alert(`Uploading ${files.length} file(s)...`);
+            }
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                alert(`Uploading ${files.length} file(s) via drag & drop...`);
+            }
+            
+            event.target.classList.remove('dragover');
+        }
+
+        function handleDragOver(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            event.target.classList.add('dragover');
+        }
+
+        function handleDragLeave(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            event.target.classList.remove('dragover');
+        }
+
+        // Search functionality
+        document.getElementById('docSearch').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            console.log(`Searching for: ${query}`);
+        });
+    
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 max-w-sm ${
+                type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
+                type === 'warning' ? 'bg-yellow-500 text-white' :
+                'bg-blue-500 text-white'
+            }`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${
+                        type === 'success' ? 'fa-check-circle' :
+                        type === 'error' ? 'fa-exclamation-circle' :
+                        type === 'warning' ? 'fa-exclamation-triangle' :
+                        'fa-info-circle'
+                    } mr-3"></i>
+                    <div class="font-medium">${message}</div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function closeModal(element) {
+            const modal = element ? element.closest('.modal, .fixed') : document.querySelector('.modal.active, .fixed.inset-0');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.style.display = 'none';
+            }
+        }
+
+        function validateForm(form) {
+            const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+            for (let input of inputs) {
+                if (!input.value.trim()) {
+                    showNotification(`Please fill in ${input.name || 'the required field'}`, 'error');
+                    input.focus();
+                    return false;
+                }
+            }
+            showNotification('Form submitted successfully!', 'success');
+            return true;
+        }
+</script>
+</body>
+</html>

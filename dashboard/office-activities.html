@@ -557,6 +557,101 @@
                     'Strategic planning'
                 ],
                 process: 'Data Setup → Dashboard Design → Automation'
+            },
+            'task-management': {
+                title: 'Task Management System',
+                description: 'Advanced task management with project tracking and deadline management.',
+                features: [
+                    'Kanban boards',
+                    'Gantt charts',
+                    'Automated reminders',
+                    'Task dependencies',
+                    'Time tracking',
+                    'Team collaboration'
+                ],
+                benefits: [
+                    'Better project visibility',
+                    'Improved deadline management',
+                    'Team coordination',
+                    'Resource optimization'
+                ],
+                process: 'Setup → Board Creation → Team Training → Automation'
+            },
+            'customer-relations': {
+                title: 'Customer Relations Management',
+                description: 'CRM system with contact tracking and communication history.',
+                features: [
+                    'Contact tracking',
+                    'Communication history',
+                    'Lead management',
+                    'Sales pipeline',
+                    'Customer support',
+                    'Analytics dashboard'
+                ],
+                benefits: [
+                    'Better customer relationships',
+                    'Improved sales tracking',
+                    'Enhanced customer service',
+                    'Data-driven insights'
+                ],
+                process: 'Data Import → System Setup → Team Training → Integration'
+            },
+            'hr-management': {
+                title: 'HR Management System',
+                description: 'Comprehensive HR management with employee records and payroll.',
+                features: [
+                    'Employee records',
+                    'Payroll processing',
+                    'Performance tracking',
+                    'Leave management',
+                    'Recruitment tools',
+                    'Compliance monitoring'
+                ],
+                benefits: [
+                    'Streamlined HR processes',
+                    'Better employee management',
+                    'Automated payroll',
+                    'Compliance assurance'
+                ],
+                process: 'Setup → Data Migration → Training → Go Live'
+            },
+            'inventory-management': {
+                title: 'Inventory Management System',
+                description: 'Smart inventory tracking with automated reordering and reporting.',
+                features: [
+                    'Real-time tracking',
+                    'Automated reordering',
+                    'Barcode scanning',
+                    'Multi-location support',
+                    'Analytics dashboard',
+                    'Mobile access'
+                ],
+                benefits: [
+                    'Reduced stockouts',
+                    'Optimal inventory levels',
+                    'Cost savings',
+                    'Better decision making'
+                ],
+                process: 'Assessment → Setup → Training → Optimization'
+            },
+            'reporting-analytics': {
+                title: 'Reporting & Analytics System',
+                description: 'Real-time dashboards and custom business reports for data-driven decisions.',
+                features: [
+                    'Real-time dashboards',
+                    'Custom reports',
+                    'KPI tracking',
+                    'Performance metrics',
+                    'Trend analysis',
+                    'Data visualization'
+                ],
+                benefits: [
+                    'Data-driven decisions',
+                    'Performance insights',
+                    'Custom reports',
+                    'Strategic planning'
+                ],
+                process: 'Data Setup → Dashboard Design → Automation'
             }
         };
 
@@ -566,7 +661,10 @@
             const modalContent = document.getElementById('modalContent');
             const activity = activityDetails[activityType];
             
-            if (!activity) return;
+            if (!activity) {
+                showNotification('Activity details not found', 'error');
+                return;
+            }
             
             modalTitle.textContent = activity.title;
             
@@ -627,12 +725,53 @@
         function launchService() {
             // This would launch the actual service
             closeModal();
-            alert('Service would launch in production environment');
+            showNotification('Service would launch in production environment', 'info');
         }
 
         function goBack() {
             window.location.href = 'index.html';
         }
-    </script>
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 max-w-sm ${
+                type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
+                type === 'warning' ? 'bg-yellow-500 text-white' :
+                'bg-blue-500 text-white'
+            }`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${
+                        type === 'success' ? 'fa-check-circle' :
+                        type === 'error' ? 'fa-exclamation-circle' :
+                        type === 'warning' ? 'fa-exclamation-triangle' :
+                        'fa-info-circle'
+                    } mr-3"></i>
+                    <div class="font-medium">${message}</div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    
+        function validateForm(form) {
+            const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+            for (let input of inputs) {
+                if (!input.value.trim()) {
+                    showNotification(`Please fill in ${input.name || 'the required field'}`, 'error');
+                    input.focus();
+                    return false;
+                }
+            }
+            showNotification('Form submitted successfully!', 'success');
+            return true;
+        }
+</script>
 </body>
 </html>

@@ -264,7 +264,7 @@
                         </div>
                     </div>
 
-                    <form onsubmit="handleSignIn(event)">
+                    <form onsubmit="handleSignIn(event)" onsubmit="return validateForm(this)">
                         <div class="space-y-6">
                             <div class="input-group">
                                 <input type="email" id="signInEmail" placeholder=" " required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none">
@@ -326,7 +326,7 @@
                         </div>
                     </div>
 
-                    <form onsubmit="handleSignUp(event)">
+                    <form onsubmit="handleSignUp(event)" onsubmit="return validateForm(this)">
                         <div class="space-y-6">
                             <div class="grid grid-cols-2 gap-4">
                                 <div class="input-group">
@@ -621,6 +621,18 @@
             }
         `;
         document.head.appendChild(style);
-    </script>
+    
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        function closeModal(element) {
+            const modal = element ? element.closest('.modal, .fixed') : document.querySelector('.modal.active, .fixed.inset-0');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.style.display = 'none';
+            }
+        }
+</script>
 </body>
 </html>

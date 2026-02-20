@@ -2447,6 +2447,63 @@
             margin: 0 0.25rem;
         }
         
+        /* Search Results */
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        
+        .search-result-item {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #F3F4F6;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .search-result-item:hover {
+            background-color: #F9FAFB;
+        }
+        
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .search-result-title {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+        
+        .search-result-description {
+            color: #6B7280;
+            font-size: 0.875rem;
+        }
+        
+        .search-result-type {
+            display: inline-block;
+            padding: 0.125rem 0.5rem;
+            background: #E5E7EB;
+            color: #374151;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+        
+        .search-no-results {
+            padding: 1rem;
+            text-align: center;
+            color: #6B7280;
+        }
+        
         /* Sticky Navigation */
         .sticky-nav {
             position: sticky;
@@ -2810,25 +2867,9 @@
         }
     </style>
 </head>
-<body class="bg-black text-white">
-    <!-- Security Protection Overlay -->
-    <div class="security-overlay" id="securityOverlay">
-        <div class="security-alert">
-            <div class="security-alert-icon">
-                <i class="fas fa-shield-alt"></i>
-            </div>
-            <h3 class="security-alert-title">Security Alert</h3>
-            <p class="security-alert-message">Unauthorized access attempt detected. Your session has been terminated for security reasons.</p>
-            <div class="security-alert-actions">
-                <button class="security-btn primary" onclick="handleSecurityAlert('continue')">Continue</button>
-                <button class="security-btn secondary" onclick="handleSecurityAlert('logout')">Logout</button>
-            </div>
-        </div>
-    </div>
+<body class="gradient-bg">
 
-    <!-- Security Alerts Container -->
-    <div class="security-alerts" id="securityAlerts"></div>
-
+    
     <!-- Command Palette -->
     <div id="commandPalette" class="command-palette">
         <div class="command-palette-content">
@@ -2939,10 +2980,11 @@
                         </h1>
                     </div>
                     
-                    <!-- Search Bar -->
+                    <!-- Enhanced Search Bar -->
                     <div class="nav-search">
-                        <input type="text" id="globalSearch" placeholder="Search anything..." autocomplete="off">
+                        <input type="text" id="globalSearch" placeholder="Search modules, documents, users..." autocomplete="off" onkeyup="performGlobalSearch(event)">
                         <i class="fas fa-search nav-search-icon"></i>
+                        <div id="searchResults" class="search-results hidden"></div>
                     </div>
                 </div>
                 
@@ -3004,6 +3046,18 @@
                     <i class="fas fa-calculator"></i>
                     <span>Accounting</span>
                 </a>
+                <a href="excel-system.html" class="favorite-item" onclick="navigateToPage('excel-system.html', this)" style="background: linear-gradient(135deg, #10B981, #34D399); color: white;">
+                    <i class="fas fa-file-excel"></i>
+                    <span>Excel System</span>
+                </a>
+                <a href="#sql-system" class="favorite-item" onclick="openSQLSystem()" style="background: linear-gradient(135deg, #3B82F6, #60A5FA); color: white;">
+                    <i class="fas fa-database"></i>
+                    <span>SQL System</span>
+                </a>
+                <a href="#accountant-portal" class="favorite-item" onclick="openAccountantPortal()" style="background: linear-gradient(135deg, #16A34A, #22C55E); color: white;">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Accountant Portal</span>
+                </a>
                 <a href="#hr-system" class="favorite-item" onclick="navigateToPage('hr-system.html', this)">
                     <i class="fas fa-users-cog"></i>
                     <span>HR</span>
@@ -3012,12 +3066,16 @@
                     <i class="fas fa-tools"></i>
                     <span>Tools</span>
                 </a>
+                <a href="#navigation-diagnostic" class="favorite-item" onclick="navigateToPageEnhanced('navigation-diagnostic.html', this)">
+                    <i class="fas fa-stethoscope"></i>
+                    <span>Diagnostic</span>
+                </a>
             </div>
             
             <!-- Main Navigation -->
             <nav class="nav-section">
                 <div class="nav-section-title">Main</div>
-                <a href="#overview" class="nav-item-enterprise" onclick="navigateToSection('overview', this)">
+                <a href="#overview" class="nav-item-enterprise" onclick="navigateToSectionEnhanced('overview', this)">
                     <i class="fas fa-home nav-item-icon"></i>
                     <span>Dashboard</span>
                 </a>
@@ -3053,10 +3111,52 @@
                     <i class="fas fa-shield-alt nav-item-icon"></i>
                     <span>IT Compliance</span>
                 </a>
-                <a href="#hr-system" class="nav-item-enterprise department-security secure" onclick="navigateToPage('hr-system.html', this)">
-                    <i class="fas fa-users-cog nav-item-icon"></i>
-                    <span>HR System</span>
+                <a href="#data-entry-automation" class="nav-item-enterprise department-security secure" onclick="navigateToPage('data-entry-automation.html', this)">
+                    <i class="fas fa-robot nav-item-icon"></i>
+                    <span>Data Entry Automation</span>
                     <span class="nav-item-badge">New</span>
+                    <div class="security-shield">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                </a>
+                
+                <a href="#database-management" class="nav-item-enterprise department-security secure" onclick="navigateToPageEnhanced('database-management.html', this)">
+                    <i class="fas fa-database nav-item-icon"></i>
+                    <span>Database Management</span>
+                    <span class="nav-item-badge">SQL</span>
+                    <div class="security-shield">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                </a>
+                
+                <a href="#navigation-diagnostic" class="nav-item-enterprise department-security secure" onclick="navigateToPageEnhanced('navigation-diagnostic.html', this)">
+                    <i class="fas fa-stethoscope nav-item-icon"></i>
+                    <span>Navigation Diagnostic</span>
+                    <span class="nav-item-badge">FIX</span>
+                    <div class="security-shield">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                </a>
+                <a href="excel-system.html" class="nav-item-enterprise department-security secure" onclick="navigateToPage('excel-system.html', this)" style="background: linear-gradient(135deg, #F0FDF4, #DCFCE7); border-left: 4px solid #10B981;">
+                    <i class="fas fa-file-excel nav-item-icon" style="color: #10B981;"></i>
+                    <span style="color: #10B981; font-weight: 600;">Excel System</span>
+                    <span class="nav-item-badge" style="background: #10B981; color: white;">NEW</span>
+                    <div class="security-shield">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                </a>
+                <a href="#sql-system" class="nav-item-enterprise department-security secure" onclick="openSQLSystem()" style="background: linear-gradient(135deg, #F0FDF4, #DCFCE7); border-left: 4px solid #16A34A;">
+                    <i class="fas fa-database nav-item-icon" style="color: #16A34A;"></i>
+                    <span style="color: #16A34A; font-weight: 600;">SQL System</span>
+                    <span class="nav-item-badge" style="background: #16A34A; color: white;">NEW</span>
+                    <div class="security-shield">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                </a>
+                <a href="#accountant-portal" class="nav-item-enterprise department-security secure" onclick="openAccountantPortal()" style="background: linear-gradient(135deg, #F0FDF4, #DCFCE7); border-left: 4px solid #16A34A;">
+                    <i class="fas fa-user-tie nav-item-icon" style="color: #16A34A;"></i>
+                    <span style="color: #16A34A; font-weight: 600;">Accountant Portal</span>
+                    <span class="nav-item-badge" style="background: #16A34A; color: white;">NEW</span>
                     <div class="security-shield">
                         <i class="fas fa-shield-alt"></i>
                     </div>
@@ -3144,6 +3244,15 @@
         <!-- Main Content Area -->
         <main class="flex-1" style="background: #F9FAFB;">
             <div class="container mx-auto px-6 py-8">
+                
+                <!-- Breadcrumb Navigation -->
+                <nav id="breadcrumb" class="breadcrumb mb-6">
+                    <a href="index.html" class="breadcrumb-item">
+                        <i class="fas fa-home mr-1"></i>Home
+                    </a>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item active">Dashboard</span>
+                </nav>
                 
                 <!-- Executive Dashboard Overview -->
                 <section id="executive-overview" class="mb-8">
@@ -8308,7 +8417,7 @@ function openITCompliance() {
                             <p class="text-gray-600">Book your complimentary efficiency assessment with our experts</p>
                         </div>
                         
-                        <form onsubmit="submitAssessment(event)" class="space-y-4">
+                        <form onsubmit="submitAssessment(event)" class="space-y-4" onsubmit="return validateForm(this)">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
                                 <input type="text" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
@@ -8373,6 +8482,458 @@ function openITCompliance() {
                 modal.remove();
             }
         }
-    </script>
+
+        // Missing navigation functions
+        function openCommandPalette() {
+            const palette = document.getElementById('commandPalette');
+            if (palette) {
+                palette.classList.add('active');
+                document.getElementById('commandInput').focus();
+                populateCommandResults();
+            }
+        }
+
+        function closeCommandPalette() {
+            const palette = document.getElementById('commandPalette');
+            if (palette) {
+                palette.classList.remove('active');
+            }
+        }
+
+        function populateCommandResults() {
+            const results = document.getElementById('commandResults');
+            if (results) {
+                const commands = [
+                    { icon: 'fas fa-home', title: 'Dashboard', action: 'overview' },
+                    { icon: 'fas fa-users-cog', title: 'HR System', action: 'hr-system' },
+                    { icon: 'fas fa-file-alt', title: 'Document Management', action: 'document-management' },
+                    { icon: 'fas fa-tools', title: 'Productivity Tools', action: 'tools' },
+                    { icon: 'fas fa-calculator', title: 'Accounting Tools', action: 'accounting-tools' },
+                    { icon: 'fas fa-shield-alt', title: 'IT Compliance', action: 'it-compliance' },
+                    { icon: 'fas fa-robot', title: 'Data Entry Automation', action: 'data-entry-automation' }
+                ];
+
+                results.innerHTML = commands.map(cmd => `
+                    <div class="command-item" onclick="executeCommand('${cmd.action}')">
+                        <div class="command-item-icon">
+                            <i class="${cmd.icon}"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-900">${cmd.title}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function executeCommand(action) {
+            closeCommandPalette();
+            const element = document.querySelector(`[href="#${action}"]`);
+            if (element) {
+                element.click();
+            } else {
+                navigateToPage(`${action}.html`, element);
+            }
+        }
+
+        function openShortcutsModal() {
+            const modal = document.getElementById('shortcutsModal');
+            if (modal) {
+                modal.classList.add('active');
+            }
+        }
+
+        function toggleUserMenu() {
+            const menu = document.getElementById('userMenu');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+        }
+
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('sidebarNav');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            if (sidebar && overlay) {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            }
+        }
+
+        function toggleSubmenu(submenuId, element) {
+            const submenu = document.getElementById(`${submenuId}-submenu`);
+            const chevron = document.getElementById(`${submenuId}-chevron`);
+            if (submenu && chevron) {
+                submenu.classList.toggle('hidden');
+                chevron.classList.toggle('fa-chevron-down');
+                chevron.classList.toggle('fa-chevron-up');
+            }
+        }
+
+        function showNotification(message, type = 'info', description = '') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 max-w-sm ${
+                type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
+                type === 'warning' ? 'bg-yellow-500 text-white' :
+                'bg-blue-500 text-white'
+            }`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${
+                        type === 'success' ? 'fa-check-circle' :
+                        type === 'error' ? 'fa-exclamation-circle' :
+                        type === 'warning' ? 'fa-exclamation-triangle' :
+                        'fa-info-circle'
+                    } mr-3"></i>
+                    <div>
+                        <div class="font-medium">${message}</div>
+                        ${description ? `<div class="text-sm opacity-90">${description}</div>` : ''}
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function handleSecurityAlert(action) {
+            const overlay = document.getElementById('securityOverlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+            }
+            if (action === 'logout') {
+                window.location.href = '#';
+            }
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                showNotification('Logging out...', 'info');
+                setTimeout(() => {
+                    window.location.href = '#';
+                }, 1000);
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setActiveNavigation();
+            enhanceNavigationSpeed();
+            optimizeMobileMenu();
+            addSmoothScrolling();
+            addKeyboardNavigation();
+            enhancePageTransitions();
+        });
+
+        // Global keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+K for command palette
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                openCommandPalette();
+            }
+            // Escape to close modals
+            if (e.key === 'Escape') {
+                closeCommandPalette();
+                const modal = document.getElementById('shortcutsModal');
+                if (modal && modal.classList.contains('active')) {
+                    modal.classList.remove('active');
+                }
+            }
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            const userMenu = document.getElementById('userMenu');
+            if (userMenu && !e.target.closest('#userMenu') && !e.target.closest('[onclick*="toggleUserMenu"]')) {
+                userMenu.classList.add('hidden');
+            }
+            
+            // Close search results when clicking outside
+            const searchResults = document.getElementById('searchResults');
+            const searchInput = document.getElementById('globalSearch');
+            if (searchResults && !e.target.closest('#searchResults') && !e.target.closest('#globalSearch')) {
+                searchResults.classList.add('hidden');
+            }
+        });
+
+        // Enhanced Global Search
+        function performGlobalSearch(event) {
+            const query = event.target.value.trim();
+            const searchResults = document.getElementById('searchResults');
+            
+            if (query.length < 2) {
+                searchResults.classList.add('hidden');
+                return;
+            }
+            
+            // Search data
+            const searchData = [
+                { title: 'Dashboard', description: 'Main dashboard overview', type: 'Page', url: '#overview' },
+                { title: 'HR System', description: 'Human resources management', type: 'Module', url: '#hr-system' },
+                { title: 'Document Management', description: 'File and document repository', type: 'Module', url: '#document-management' },
+                { title: 'Accounting Tools', description: 'Financial management tools', type: 'Module', url: '#accounting-tools' },
+                { title: 'IT Compliance', description: 'Security and compliance management', type: 'Module', url: '#it-compliance' },
+                { title: 'Data Entry Automation', description: 'Automated data processing', type: 'Module', url: '#data-entry-automation' },
+                { title: 'Database Management', description: 'SQL database administration', type: 'Module', url: '#database-management' },
+                { title: 'Navigation Diagnostic', description: 'System navigation analysis and repair', type: 'Module', url: '#navigation-diagnostic' },
+                { title: 'Tools & Tech', description: 'Productivity tools and technology', type: 'Module', url: '#tools' },
+                { title: '5 Systems Framework', description: 'Core business systems', type: 'Section', url: '#systems' },
+                { title: 'Service Packages', description: 'Subscription tiers and pricing', type: 'Section', url: '#packages' },
+                { title: 'Implementation Plan', description: 'Project implementation roadmap', type: 'Section', url: '#implementation' },
+                { title: 'Financial Model', description: 'Revenue and cost projections', type: 'Section', url: '#financial' },
+                { title: 'Scaling Plan', description: 'Business growth strategies', type: 'Section', url: '#scaling' }
+            ];
+            
+            // Filter results
+            const results = searchData.filter(item => 
+                item.title.toLowerCase().includes(query.toLowerCase()) ||
+                item.description.toLowerCase().includes(query.toLowerCase())
+            );
+            
+            // Display results
+            if (results.length > 0) {
+                searchResults.innerHTML = results.map(item => `
+                    <div class="search-result-item" onclick="navigateToSearchResult('${item.url}', '${item.title}')">
+                        <div class="search-result-title">
+                            ${item.title}
+                            <span class="search-result-type">${item.type}</span>
+                        </div>
+                        <div class="search-result-description">${item.description}</div>
+                    </div>
+                `).join('');
+                searchResults.classList.remove('hidden');
+            } else {
+                searchResults.innerHTML = '<div class="search-no-results">No results found for "' + query + '"</div>';
+                searchResults.classList.remove('hidden');
+            }
+        }
+
+        // Navigate to search result
+        function navigateToSearchResult(url, title) {
+            const searchResults = document.getElementById('searchResults');
+            searchResults.classList.add('hidden');
+            
+            // Clear search
+            document.getElementById('globalSearch').value = '';
+            
+            // Update breadcrumb
+            updateBreadcrumb(title);
+            
+            // Navigate
+            if (url.startsWith('#')) {
+                const section = url.substring(1);
+                const element = document.querySelector(`[href="${url}"]`);
+                if (element) {
+                    element.click();
+                } else {
+                    navigateToSection(section, document.querySelector(`[href="${url}"]`));
+                }
+            } else {
+                window.location.href = url;
+            }
+        }
+
+        // Enhanced breadcrumb update
+        function updateBreadcrumb(pageTitle, additionalPath = []) {
+            const breadcrumb = document.getElementById('breadcrumb');
+            if (breadcrumb) {
+                let breadcrumbHTML = `
+                    <a href="index.html" class="breadcrumb-item" onclick="navigateToSection('overview', this)">
+                        <i class="fas fa-home mr-1"></i>Home
+                    </a>
+                `;
+                
+                // Add additional path items
+                additionalPath.forEach(item => {
+                    breadcrumbHTML += `
+                        <span class="breadcrumb-separator">/</span>
+                        <a href="${item.url}" class="breadcrumb-item" onclick="${item.onclick}">${item.title}</a>
+                    `;
+                });
+                
+                // Add current page
+                breadcrumbHTML += `
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item active">${pageTitle}</span>
+                `;
+                
+                breadcrumb.innerHTML = breadcrumbHTML;
+            }
+        }
+
+        // Enhanced navigation with breadcrumb updates
+        function navigateToSectionEnhanced(sectionId, element) {
+            // Update breadcrumb
+            const sectionNames = {
+                'overview': 'Dashboard',
+                'systems': '5 Systems Framework',
+                'packages': 'Service Packages',
+                'implementation': 'Implementation Plan',
+                'financial': 'Financial Model',
+                'scaling': 'Scaling Plan',
+                'office-activities': 'Office Activities',
+                'email': 'Email System',
+                'security': 'Security Center'
+            };
+            
+            updateBreadcrumb(sectionNames[sectionId] || sectionId);
+            
+            // Call original navigation function
+            navigateToSection(sectionId, element);
+        }
+
+        // Enhanced page navigation with breadcrumb updates
+        function navigateToPageEnhanced(pageUrl, element) {
+            // Update breadcrumb based on page
+            const pageNames = {
+                'hr-system.html': 'HR System',
+                'document-management.html': 'Document Management',
+                'tools.html': 'Tools & Tech',
+                'accounting-tools.html': 'Accounting Tools',
+                'it-compliance.html': 'IT Compliance',
+                'data-entry-automation.html': 'Data Entry Automation',
+                'database-management.html': 'Database Management',
+                'navigation-diagnostic.html': 'Navigation Diagnostic'
+            };
+            
+            const pageTitle = pageNames[pageUrl] || pageUrl.replace('.html', '').replace(/-/g, ' ');
+            updateBreadcrumb(pageTitle);
+            
+            // Call original navigation function
+            navigateToPage(pageUrl, element);
+        }
+
+        // Add keyboard shortcuts for search
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+K or Cmd+K for search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('globalSearch').focus();
+            }
+            
+            // Escape to close search results
+            if (e.key === 'Escape') {
+                document.getElementById('searchResults').classList.add('hidden');
+                document.getElementById('globalSearch').blur();
+            }
+        });
+
+        // Initialize enhanced navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add search input event listener
+            const searchInput = document.getElementById('globalSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', performGlobalSearch);
+            }
+            
+            // Check Accountant Portal status
+            checkAccountantPortalStatus();
+        });
+
+        // Check if Accountant Portal is running
+        async function checkAccountantPortalStatus() {
+            try {
+                const response = await fetch('http://localhost:3003', { 
+                    method: 'HEAD',
+                    mode: 'no-cors',
+                    cache: 'no-cache'
+                });
+                
+                // If we get here, the portal is likely running
+                updateAccountantPortalStatus(true);
+            } catch (error) {
+                // Portal is not running
+                updateAccountantPortalStatus(false);
+            }
+        }
+
+        // Update Accountant Portal status in UI
+        function updateAccountantPortalStatus(isRunning) {
+            const accountantPortalLinks = document.querySelectorAll('a[href="#accountant-portal"]');
+            
+            accountantPortalLinks.forEach(link => {
+                const statusBadge = link.querySelector('.nav-item-badge');
+                if (statusBadge) {
+                    if (isRunning) {
+                        statusBadge.textContent = 'ONLINE';
+                        statusBadge.style.background = '#16A34A';
+                        statusBadge.style.color = 'white';
+                    } else {
+                        statusBadge.textContent = 'OFFLINE';
+                        statusBadge.style.background = '#DC2626';
+                        statusBadge.style.color = 'white';
+                    }
+                }
+            });
+        }
+    
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        // Function to open Accountant Portal in new window
+        function openAccountantPortal() {
+            // Open Accountant Portal in new tab/window
+            window.open('http://localhost:3003', '_blank');
+            
+            // Show notification
+            showNotification('Opening Accountant Portal...', 'success');
+        }
+
+        // Function to open SQL System in new window
+        function openSQLSystem() {
+            // Open SQL System in new tab/window
+            window.open('http://localhost:3004', '_blank');
+            
+            // Show notification
+            showNotification('Opening SQL Management System...', 'info');
+        }
+
+        // Function to show notifications
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 flex items-center space-x-2`;
+            
+            if (type === 'success') {
+                notification.style.background = 'linear-gradient(135deg, #16A34A, #22C55E)';
+                notification.style.color = 'white';
+            } else if (type === 'error') {
+                notification.style.background = 'linear-gradient(135deg, #DC2626, #EF4444)';
+                notification.style.color = 'white';
+            } else {
+                notification.style.background = 'linear-gradient(135deg, #3B82F6, #60A5FA)';
+                notification.style.color = 'white';
+            }
+            
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            notification.style.transform = 'translateX(100%)';
+            notification.style.transition = 'transform 0.3s ease';
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+</script>
 </body>
 </html>

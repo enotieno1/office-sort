@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOES Navigation Architecture Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .demo-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: #10b981;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .nav-demo {
+            background: #1f2937;
+            border-radius: 0.5rem;
+            color: white;
+        }
+        .breadcrumb-demo {
+            background: #f3f4f6;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+        }
+        .search-demo {
+            position: relative;
+        }
+        .search-results-demo {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            z-index: 50;
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-600 to-green-700 text-white shadow-lg">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold mb-2">OOES Navigation Architecture</h1>
+                    <p class="text-green-100">Deep Navigation System for Office Operations Efficiency Solution</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="bg-white/20 px-4 py-2 rounded-full text-sm">
+                        <i class="fas fa-check-circle mr-2"></i>Enterprise Ready
+                    </span>
+                    <button onclick="window.location.href='navigation-layout.html'" class="bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors">
+                        <i class="fas fa-rocket mr-2"></i>Launch System
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- Overview Section -->
+        <section class="demo-section p-8 mb-8">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Complete Navigation Solution</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    A fully structured, scalable deep-navigation architecture that allows seamless movement from high-level dashboards to detailed sub-pages across all modules with hierarchical navigation, breadcrumb tracking, dynamic routing, and contextual linking.
+                </p>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-lg p-6 text-center">
+                    <div class="text-4xl font-bold text-green-600 mb-2">9</div>
+                    <div class="text-gray-600">Main Modules</div>
+                </div>
+                <div class="bg-white rounded-lg p-6 text-center">
+                    <div class="text-4xl font-bold text-blue-600 mb-2">45+</div>
+                    <div class="text-gray-600">Sub-modules</div>
+                </div>
+                <div class="bg-white rounded-lg p-6 text-center">
+                    <div class="text-4xl font-bold text-purple-600 mb-2">3</div>
+                    <div class="text-gray-600">Navigation Levels</div>
+                </div>
+                <div class="bg-white rounded-lg p-6 text-center">
+                    <div class="text-4xl font-bold text-orange-600 mb-2">∞</div>
+                    <div class="text-gray-600">Cross-Module Links</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Features Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- 3-Level Navigation -->
+            <div class="feature-card bg-white rounded-lg p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-sitemap text-green-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900">3-Level Navigation Hierarchy</h3>
+                </div>
+                <p class="text-gray-600 mb-4">Structured navigation with main modules, sub-modules, and deep functional pages.</p>
+                
+                <!-- Demo Navigation -->
+                <div class="nav-demo p-4">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between p-2 hover:bg-gray-700 rounded cursor-pointer">
+                            <div class="flex items-center">
+                                <i class="fas fa-tachometer-alt mr-3 text-green-400"></i>
+                                <span>Dashboard</span>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                        <div class="ml-4 space-y-1">
+                            <div class="flex items-center justify-between p-2 hover:bg-gray-700 rounded cursor-pointer">
+                                <div class="flex items-center">
+                                    <i class="fas fa-users mr-3 text-blue-400"></i>
+                                    <span>HR Management</span>
+                                </div>
+                                <i class="fas fa-chevron-down text-gray-400"></i>
+                            </div>
+                            <div class="ml-6 space-y-1 text-sm">
+                                <div class="p-2 hover:bg-gray-700 rounded cursor-pointer">Employee Directory</div>
+                                <div class="p-2 hover:bg-gray-700 rounded cursor-pointer">Attendance</div>
+                                <div class="p-2 hover:bg-gray-700 rounded cursor-pointer">Leave Requests</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breadcrumb System -->
+            <div class="feature-card bg-white rounded-lg p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-route text-blue-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900">Dynamic Breadcrumb System</h3>
+                </div>
+                <p class="text-gray-600 mb-4">Automatic breadcrumb generation with clickable navigation and route tracking.</p>
+                
+                <!-- Demo Breadcrumbs -->
+                <div class="space-y-3">
+                    <div class="breadcrumb-demo">
+                        <nav class="flex items-center text-sm">
+                            <a href="#" class="text-blue-600 hover:underline">Dashboard</a>
+                            <i class="fas fa-chevron-right mx-2 text-gray-400"></i>
+                            <a href="#" class="text-blue-600 hover:underline">HR</a>
+                            <i class="fas fa-chevron-right mx-2 text-gray-400"></i>
+                            <a href="#" class="text-blue-600 hover:underline">Employee Directory</a>
+                            <i class="fas fa-chevron-right mx-2 text-gray-400"></i>
+                            <span class="text-gray-700 font-medium">John Doe</span>
+                        </nav>
+                    </div>
+                    <div class="breadcrumb-demo">
+                        <nav class="flex items-center text-sm">
+                            <a href="#" class="text-blue-600 hover:underline">Dashboard</a>
+                            <i class="fas fa-chevron-right mx-2 text-gray-400"></i>
+                            <a href="#" class="text-blue-600 hover:underline">Finance</a>
+                            <i class="fas fa-chevron-right mx-2 text-gray-400"></i>
+                            <a href="#" class="text-blue-600 hover:underline">Invoices</a>
+                            <i class="fas fa-chevron-right mx-2 text-gray-400"></i>
+                            <span class="text-gray-700 font-medium">INV002</span>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Search -->
+            <div class="feature-card bg-white rounded-lg p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-search text-purple-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900">Global Search with Deep Linking</h3>
+                </div>
+                <p class="text-gray-600 mb-4">Smart search across all modules with categorized results and direct navigation.</p>
+                
+                <!-- Demo Search -->
+                <div class="search-demo">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            placeholder="Search across all modules..."
+                            class="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                        >
+                        <i class="fas fa-search absolute left-3 top-4 text-gray-400"></i>
+                    </div>
+                    <div class="search-results-demo mt-2">
+                        <div class="p-3 hover:bg-gray-50 cursor-pointer border-b">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="font-medium">John Doe</div>
+                                    <div class="text-sm text-gray-500">HR > Employee Directory</div>
+                                </div>
+                                <i class="fas fa-arrow-right text-gray-400"></i>
+                            </div>
+                        </div>
+                        <div class="p-3 hover:bg-gray-50 cursor-pointer border-b">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="font-medium">Invoice Management</div>
+                                    <div class="text-sm text-gray-500">Finance > Invoices</div>
+                                </div>
+                                <i class="fas fa-arrow-right text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cross-Module Links -->
+            <div class="feature-card bg-white rounded-lg p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-link text-orange-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900">Cross-Module Linking</h3>
+                </div>
+                <p class="text-gray-600 mb-4">Contextual links between related modules for seamless navigation.</p>
+                
+                <!-- Demo Cross Links -->
+                <div class="space-y-3">
+                    <div class="p-3 bg-blue-50 rounded-lg">
+                        <p class="text-sm font-medium text-blue-900 mb-2">From Employee Profile:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="px-3 py-1 bg-white text-blue-700 rounded-full text-xs hover:bg-blue-100">
+                                <i class="fas fa-dollar-sign mr-1"></i> View Salary History
+                            </button>
+                            <button class="px-3 py-1 bg-white text-blue-700 rounded-full text-xs hover:bg-blue-100">
+                                <i class="fas fa-file-contract mr-1"></i> View Contract
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-green-50 rounded-lg">
+                        <p class="text-sm font-medium text-green-900 mb-2">From Invoice:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="px-3 py-1 bg-white text-green-700 rounded-full text-xs hover:bg-green-100">
+                                <i class="fas fa-handshake mr-1"></i> Client Details
+                            </button>
+                            <button class="px-3 py-1 bg-white text-green-700 rounded-full text-xs hover:bg-green-100">
+                                <i class="fas fa-chart-line mr-1"></i> Payment History
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Features -->
+        <section class="demo-section p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Advanced Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg p-6 text-center">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-shield-alt text-indigo-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Role-Based Access</h3>
+                    <p class="text-sm text-gray-600">Dynamic navigation visibility based on user roles and permissions</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 text-center">
+                    <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-mobile-alt text-pink-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Mobile Responsive</h3>
+                    <p class="text-sm text-gray-600">Fully responsive design with mobile-optimized navigation</p>
+                </div>
+                <div class="bg-white rounded-lg p-6 text-center">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-tachometer-alt text-yellow-600 text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Performance Optimized</h3>
+                    <p class="text-sm text-gray-600">Lazy loading, caching, and optimized API calls</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Demo -->
+        <section class="demo-section p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Interactive Navigation Demo</h2>
+            <div class="bg-white rounded-lg p-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Navigation Tree -->
+                    <div>
+                        <h3 class="font-semibold text-gray-900 mb-4">Navigation Structure</h3>
+                        <div class="border border-gray-200 rounded-lg p-4 max-h-96 overflow-y-auto">
+                            <div id="nav-tree" class="space-y-2">
+                                <!-- Navigation tree will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Route Display -->
+                    <div>
+                        <h3 class="font-semibold text-gray-900 mb-4">Current Route & Breadcrumbs</h3>
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="mb-4">
+                                <p class="text-sm text-gray-600 mb-2">Selected Route:</p>
+                                <div id="current-route" class="font-mono text-sm bg-gray-100 p-2 rounded">/dashboard</div>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-600 mb-2">Breadcrumbs:</p>
+                                <div id="demo-breadcrumbs" class="breadcrumb-demo">
+                                    <nav class="flex items-center text-sm">
+                                        <span class="text-gray-700 font-medium">Dashboard</span>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Cross Links Demo -->
+                        <div class="mt-4">
+                            <h4 class="font-medium text-gray-900 mb-2">Cross-Module Links:</h4>
+                            <div id="cross-links" class="flex flex-wrap gap-2">
+                                <!-- Cross links will be populated based on selection -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Performance Metrics -->
+        <section class="demo-section p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">System Performance</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="bg-white rounded-lg p-6 text-center">
+                    <div class="text-3xl font-bold text-green-600 mb-2">< 100ms</div>
+                    <div class="text-gray-600">Average Response Time</div>
+                </div>
+                <div class="bg-white rounded-lg p-6 text-center">
+                    <div class="text-3xl font-bold text-blue-600 mb-2">95%</div>
+                    <div class="text-gray-600">Cache Hit Rate</div>
+                </div>
+                <div class="bg-white rounded-lg p-6 text-center">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">99.9%</div>
+                    <div class="text-gray-600">Uptime</div>
+                </div>
+                <div class="bg-white rounded-lg p-6 text-center">
+                    <div class="text-3xl font-bold text-orange-600 mb-2">A+</div>
+                    <div class="text-gray-600">Security Rating</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-4">OOES Navigation Architecture - Enterprise SaaS Standard</p>
+            <div class="flex justify-center space-x-6 text-sm">
+                <span><i class="fas fa-check-circle text-green-400 mr-2"></i>Scalable</span>
+                <span><i class="fas fa-check-circle text-green-400 mr-2"></i>Secure</span>
+                <span><i class="fas fa-check-circle text-green-400 mr-2"></i>Performant</span>
+                <span><i class="fas fa-check-circle text-green-400 mr-2"></i>Accessible</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation structure for demo
+        const navStructure = {
+            dashboard: {
+                title: 'Dashboard',
+                icon: 'fas fa-tachometer-alt',
+                children: {
+                    overview: { title: 'Overview' },
+                    analytics: { title: 'Analytics' },
+                    reports: { title: 'Reports' }
+                }
+            },
+            hr: {
+                title: 'HR Management',
+                icon: 'fas fa-users',
+                children: {
+                    employees: { 
+                        title: 'Employee Directory',
+                        deep: ['profile', 'performance', 'attendance', 'salary', 'documents']
+                    },
+                    attendance: { title: 'Attendance' },
+                    leave: { title: 'Leave Requests' },
+                    payroll: { title: 'Payroll' }
+                }
+            },
+            finance: {
+                title: 'Finance',
+                icon: 'fas fa-dollar-sign',
+                children: {
+                    budget: { title: 'Budget Management' },
+                    invoices: { 
+                        title: 'Invoices',
+                        deep: ['view', 'edit', 'payment']
+                    },
+                    expenses: { title: 'Expenses' }
+                }
+            },
+            procurement: {
+                title: 'Procurement',
+                icon: 'fas fa-shopping-cart',
+                children: {
+                    requests: { title: 'Purchase Requests' },
+                    vendors: { title: 'Vendor Management' },
+                    contracts: { title: 'Contracts' }
+                }
+            },
+            crm: {
+                title: 'CRM',
+                icon: 'fas fa-handshake',
+                children: {
+                    clients: { title: 'Client Management' },
+                    leads: { title: 'Lead Management' },
+                    sales: { title: 'Sales Pipeline' }
+                }
+            }
+        };
+
+        // Cross-module link mappings
+        const crossLinkMappings = {
+            'hr/employees/profile': [
+                { label: 'View Salary History', icon: 'fas fa-dollar-sign' },
+                { label: 'View Contract', icon: 'fas fa-file-contract' }
+            ],
+            'finance/invoices/view': [
+                { label: 'Client Details', icon: 'fas fa-handshake' },
+                { label: 'Payment History', icon: 'fas fa-chart-line' }
+            ],
+            'procurement/requests': [
+                { label: 'Budget Details', icon: 'fas fa-piggy-bank' },
+                { label: 'Vendor Contracts', icon: 'fas fa-file-signature' }
+            ]
+        };
+
+        // Populate navigation tree
+        function populateNavTree() {
+            const navTree = document.getElementById('nav-tree');
+            navTree.innerHTML = '';
+
+            Object.entries(navStructure).forEach(([key, module]) => {
+                const moduleDiv = document.createElement('div');
+                moduleDiv.className = 'mb-2';
+                
+                const moduleHeader = document.createElement('div');
+                moduleHeader.className = 'flex items-center justify-between p-2 hover:bg-gray-100 rounded cursor-pointer';
+                moduleHeader.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="${module.icon} mr-2 text-gray-600"></i>
+                        <span class="font-medium">${module.title}</span>
+                    </div>
+                    ${module.children ? '<i class="fas fa-chevron-right text-gray-400"></i>' : ''}
+                `;
+                
+                moduleDiv.appendChild(moduleHeader);
+
+                if (module.children) {
+                    const childrenDiv = document.createElement('div');
+                    childrenDiv.className = 'ml-6 mt-1 space-y-1 hidden';
+                    
+                    Object.entries(module.children).forEach(([childKey, child]) => {
+                        const childDiv = document.createElement('div');
+                        childDiv.className = 'p-2 hover:bg-gray-100 rounded cursor-pointer text-sm';
+                        childDiv.innerHTML = `
+                            <div class="flex items-center justify-between">
+                                <span>${child.title}</span>
+                                ${child.deep ? '<i class="fas fa-ellipsis-h text-gray-400"></i>' : ''}
+                            </div>
+                        `;
+                        
+                        childDiv.onclick = () => selectRoute(`/${key}/${childKey}`, `${module.title} > ${child.title}`);
+                        
+                        if (child.deep) {
+                            const deepDiv = document.createElement('div');
+                            deepDiv.className = 'ml-4 mt-1 space-y-1 hidden';
+                            
+                            child.deep.forEach(deepItem => {
+                                const deepChild = document.createElement('div');
+                                deepChild.className = 'p-2 hover:bg-gray-100 rounded cursor-pointer text-xs text-gray-600';
+                                deepChild.textContent = deepItem.charAt(0).toUpperCase() + deepItem.slice(1);
+                                deepChild.onclick = (e) => {
+                                    e.stopPropagation();
+                                    selectRoute(`/${key}/${childKey}/${deepItem}`, `${module.title} > ${child.title} > ${deepItem}`);
+                                };
+                                deepDiv.appendChild(deepChild);
+                            });
+                            
+                            childDiv.appendChild(deepDiv);
+                            childDiv.onclick = () => deepDiv.classList.toggle('hidden');
+                        }
+                        
+                        childrenDiv.appendChild(childDiv);
+                    });
+                    
+                    moduleDiv.appendChild(childrenDiv);
+                    moduleHeader.onclick = () => childrenDiv.classList.toggle('hidden');
+                }
+                
+                navTree.appendChild(moduleDiv);
+            });
+        }
+
+        // Handle route selection
+        function selectRoute(route, breadcrumb) {
+            document.getElementById('current-route').textContent = route;
+            
+            // Update breadcrumbs
+            const breadcrumbNav = document.createElement('nav');
+            breadcrumbNav.className = 'flex items-center text-sm';
+            
+            const parts = breadcrumb.split(' > ');
+            parts.forEach((part, index) => {
+                if (index > 0) {
+                    const chevron = document.createElement('i');
+                    chevron.className = 'fas fa-chevron-right mx-2 text-gray-400';
+                    breadcrumbNav.appendChild(chevron);
+                }
+                
+                if (index === parts.length - 1) {
+                    const span = document.createElement('span');
+                    span.className = 'text-gray-700 font-medium';
+                    span.textContent = part;
+                    breadcrumbNav.appendChild(span);
+                } else {
+                    const link = document.createElement('a');
+                    link.href = '#';
+                    link.className = 'text-blue-600 hover:underline';
+                    link.textContent = part;
+                    breadcrumbNav.appendChild(link);
+                }
+            });
+            
+            document.getElementById('demo-breadcrumbs').innerHTML = '';
+            document.getElementById('demo-breadcrumbs').appendChild(breadcrumbNav);
+            
+            // Update cross-links
+            updateCrossLinks(route);
+        }
+
+        // Update cross-module links
+        function updateCrossLinks(route) {
+            const crossLinksDiv = document.getElementById('cross-links');
+            crossLinksDiv.innerHTML = '';
+            
+            const links = crossLinkMappings[route] || [];
+            
+            if (links.length === 0) {
+                crossLinksDiv.innerHTML = '<span class="text-sm text-gray-500">No cross-module links available</span>';
+                return;
+            }
+            
+            links.forEach(link => {
+                const button = document.createElement('button');
+                button.className = 'px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm hover:bg-blue-100 transition-colors';
+                button.innerHTML = `<i class="${link.icon} mr-1"></i> ${link.label}`;
+                crossLinksDiv.appendChild(button);
+            });
+        }
+
+        // Initialize demo
+        document.addEventListener('DOMContentLoaded', () => {
+            populateNavTree();
+            selectRoute('/dashboard', 'Dashboard');
+        });
+    
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 max-w-sm ${
+                type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
+                type === 'warning' ? 'bg-yellow-500 text-white' :
+                'bg-blue-500 text-white'
+            }`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${
+                        type === 'success' ? 'fa-check-circle' :
+                        type === 'error' ? 'fa-exclamation-circle' :
+                        type === 'warning' ? 'fa-exclamation-triangle' :
+                        'fa-info-circle'
+                    } mr-3"></i>
+                    <div class="font-medium">${message}</div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function closeModal(element) {
+            const modal = element ? element.closest('.modal, .fixed') : document.querySelector('.modal.active, .fixed.inset-0');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.style.display = 'none';
+            }
+        }
+
+        function validateForm(form) {
+            const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+            for (let input of inputs) {
+                if (!input.value.trim()) {
+                    showNotification(`Please fill in ${input.name || 'the required field'}`, 'error');
+                    input.focus();
+                    return false;
+                }
+            }
+            showNotification('Form submitted successfully!', 'success');
+            return true;
+        }
+</script>
+</body>
+</html>

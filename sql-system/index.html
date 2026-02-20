@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Management System - OOES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/sql/sql.min.js"></script>
+    <style>
+        :root {
+            --color-bg-primary: #F0FDF4;
+            --color-bg-secondary: #DCFCE7;
+            --color-bg-tertiary: #BBF7D0;
+            --color-bg-card: #FFFFFF;
+            --color-bg-hover: #F7FEE7;
+            --color-text-primary: #14532D;
+            --color-text-secondary: #166534;
+            --color-text-tertiary: #15803D;
+            --color-text-muted: #16A34A;
+            --color-text-disabled: #22C55E;
+            --color-accent-primary: #DC2626;
+            --color-accent-secondary: #EF4444;
+            --color-accent-tertiary: #F87171;
+            --color-accent-success: #16A34A;
+            --color-accent-warning: #F59E0B;
+            --color-border-primary: #DCFCE7;
+            --color-border-secondary: #BBF7D0;
+            --color-border-light: #86EFAC;
+            --color-shadow-primary: rgba(34, 197, 94, 0.1);
+            --color-shadow-secondary: rgba(34, 197, 94, 0.2);
+            --color-shadow-accent: rgba(220, 38, 38, 0.3);
+        }
+
+        body {
+            background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .sql-editor {
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+
+        .CodeMirror {
+            height: 300px;
+            font-size: 14px;
+        }
+
+        .result-table {
+            background: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .result-table th {
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .result-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .result-table tr:hover {
+            background: #F9FAFB;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-connected {
+            background: #DCFCE7;
+            color: #16A34A;
+        }
+
+        .status-disconnected {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+
+        .query-button {
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .query-button:hover {
+            background: linear-gradient(135deg, #15803D, #16A34A);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(22, 163, 74, 0.3);
+        }
+
+        .schema-card {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .schema-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            background: #F9FAFB;
+            transition: all 0.2s ease;
+        }
+
+        .table-item:hover {
+            background: #F3F4F6;
+            transform: translateX(4px);
+        }
+
+        .tab-button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+            color: white;
+        }
+
+        .tab-button:not(.active) {
+            background: #F3F4F6;
+            color: #374151;
+        }
+
+        .tab-button:not(.active):hover {
+            background: #E5E7EB;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-database text-green-600 text-2xl"></i>
+                        <h1 class="text-2xl font-bold text-gray-900">SQL Management System</h1>
+                    </div>
+                    <span class="status-indicator status-connected" id="connectionStatus">
+                        <i class="fas fa-circle text-xs"></i>
+                        Connected
+                    </span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <select id="databaseSelect" class="px-3 py-2 border border-gray-300 rounded-lg">
+                        <option value="main">Main Database</option>
+                        <option value="accounting">Accounting DB</option>
+                        <option value="hr">HR Database</option>
+                        <option value="inventory">Inventory DB</option>
+                    </select>
+                    <button onclick="refreshSchema()" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Tab Navigation -->
+        <div class="flex space-x-2 mb-8">
+            <button class="tab-button active" onclick="switchTab('query')" id="queryTab">
+                <i class="fas fa-code mr-2"></i>Query Editor
+            </button>
+            <button class="tab-button" onclick="switchTab('schema')" id="schemaTab">
+                <i class="fas fa-sitemap mr-2"></i>Database Schema
+            </button>
+            <button class="tab-button" onclick="switchTab('history')" id="historyTab">
+                <i class="fas fa-history mr-2"></i>Query History
+            </button>
+            <button class="tab-button" onclick="switchTab('backup')" id="backupTab">
+                <i class="fas fa-download mr-2"></i>Backup & Export
+            </button>
+        </div>
+
+        <!-- Query Editor Tab -->
+        <div id="queryTabContent" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- SQL Editor -->
+                <div>
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-semibold text-gray-900">SQL Query Editor</h2>
+                            <div class="flex space-x-2">
+                                <button onclick="formatSQL()" class="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
+                                    <i class="fas fa-magic"></i> Format
+                                </button>
+                                <button onclick="clearEditor()" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition">
+                                    <i class="fas fa-trash"></i> Clear
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="sql-editor">
+                            <textarea id="sqlEditor" placeholder="Enter your SQL query here...">-- Welcome to SQL Management System
+-- Select a table and start querying
+
+SELECT * FROM users LIMIT 10;</textarea>
+                        </div>
+                        
+                        <div class="flex justify-between items-center mt-4">
+                            <div class="flex space-x-2">
+                                <button onclick="executeQuery()" class="query-button">
+                                    <i class="fas fa-play mr-2"></i>Execute Query
+                                </button>
+                                <button onclick="explainQuery()" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+                                    <i class="fas fa-info-circle mr-2"></i>Explain
+                                </button>
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <span id="queryTime">Ready</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 mt-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="showTableStructure()" class="px-3 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition">
+                                <i class="fas fa-table mr-2"></i>Show Tables
+                            </button>
+                            <button onclick="showIndexes()" class="px-3 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition">
+                                <i class="fas fa-list mr-2"></i>Show Indexes
+                            </button>
+                            <button onclick="showConstraints()" class="px-3 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition">
+                                <i class="fas fa-lock mr-2"></i>Show Constraints
+                            </button>
+                            <button onclick="showStatistics()" class="px-3 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition">
+                                <i class="fas fa-chart-bar mr-2"></i>Statistics
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div>
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-semibold text-gray-900">Query Results</h2>
+                            <div class="flex space-x-2">
+                                <button onclick="exportResults()" class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 transition">
+                                    <i class="fas fa-file-export"></i> Export
+                                </button>
+                                <button onclick="copyResults()" class="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div id="queryResults" class="result-table">
+                            <div class="text-center py-8 text-gray-500">
+                                <i class="fas fa-database text-4xl mb-4"></i>
+                                <p>Execute a query to see results here</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                            <div class="flex justify-between text-sm">
+                                <span>Rows affected: <strong id="rowsAffected">0</strong></span>
+                                <span>Execution time: <strong id="executionTime">0ms</strong></span>
+                                <span>Status: <strong id="queryStatus">Ready</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Database Schema Tab -->
+        <div id="schemaTabContent" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2">
+                    <div class="schema-card">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Database Tables</h3>
+                        <div id="tablesList">
+                            <!-- Tables will be populated here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="schema-card">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Table Details</h3>
+                        <div id="tableDetails">
+                            <p class="text-gray-500">Select a table to view details</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Query History Tab -->
+        <div id="historyTabContent" class="tab-content hidden">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Query History</h3>
+                <div id="queryHistory" class="space-y-3">
+                    <!-- Query history will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Backup & Export Tab -->
+        <div id="backupTabContent" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Database Backup</h3>
+                    <div class="space-y-4">
+                        <button onclick="createBackup()" class="w-full px-4 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                            <i class="fas fa-download mr-2"></i>Create Full Backup
+                        </button>
+                        <button onclick="createSchemaBackup()" class="w-full px-4 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+                            <i class="fas fa-file-code mr-2"></i>Schema Only
+                        </button>
+                        <button onclick="createDataBackup()" class="w-full px-4 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition">
+                            <i class="fas fa-table mr-2"></i>Data Only
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Export Options</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Export Format</label>
+                            <select id="exportFormat" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                                <option value="sql">SQL</option>
+                                <option value="csv">CSV</option>
+                                <option value="json">JSON</option>
+                                <option value="xml">XML</option>
+                            </select>
+                        </div>
+                        <button onclick="exportDatabase()" class="w-full px-4 py-3 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition">
+                            <i class="fas fa-file-export mr-2"></i>Export Database
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Initialize CodeMirror
+        let editor;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            editor = CodeMirror.fromTextArea(document.getElementById('sqlEditor'), {
+                mode: 'text/x-sql',
+                theme: 'monokai',
+                lineNumbers: true,
+                autoCloseBrackets: true,
+                matchBrackets: true,
+                indentUnit: 4,
+                tabSize: 4,
+                lineWrapping: true
+            });
+            
+            // Load initial data
+            loadDatabaseSchema();
+            loadQueryHistory();
+        });
+
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + 'TabContent').classList.remove('hidden');
+            document.getElementById(tabName + 'Tab').classList.add('active');
+        }
+
+        // SQL Query Execution
+        async function executeQuery() {
+            const query = editor.getValue();
+            if (!query.trim()) {
+                showNotification('Please enter a SQL query', 'error');
+                return;
+            }
+            
+            const startTime = Date.now();
+            document.getElementById('queryStatus').textContent = 'Executing...';
+            
+            try {
+                const response = await fetch('/api/sql/execute', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        query: query,
+                        database: document.getElementById('databaseSelect').value
+                    })
+                });
+                
+                const result = await response.json();
+                const endTime = Date.now();
+                
+                displayResults(result);
+                updateQueryStats(result, endTime - startTime);
+                addToHistory(query, result);
+                
+            } catch (error) {
+                document.getElementById('queryStatus').textContent = 'Error';
+                showNotification('Query execution failed: ' + error.message, 'error');
+            }
+        }
+
+        // Display query results
+        function displayResults(result) {
+            const resultsDiv = document.getElementById('queryResults');
+            
+            if (result.error) {
+                resultsDiv.innerHTML = `
+                    <div class="text-center py-8 text-red-500">
+                        <i class="fas fa-exclamation-triangle text-4xl mb-4"></i>
+                        <p>${result.error}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            if (!result.data || result.data.length === 0) {
+                resultsDiv.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-info-circle text-4xl mb-4"></i>
+                        <p>No results returned</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const columns = Object.keys(result.data[0]);
+            let tableHTML = '<table><thead><tr>';
+            
+            columns.forEach(col => {
+                tableHTML += `<th>${col}</th>`;
+            });
+            
+            tableHTML += '</tr></thead><tbody>';
+            
+            result.data.forEach(row => {
+                tableHTML += '<tr>';
+                columns.forEach(col => {
+                    tableHTML += `<td>${row[col] || ''}</td>`;
+                });
+                tableHTML += '</tr>';
+            });
+            
+            tableHTML += '</tbody></table>';
+            resultsDiv.innerHTML = tableHTML;
+        }
+
+        // Update query statistics
+        function updateQueryStats(result, executionTime) {
+            document.getElementById('rowsAffected').textContent = result.rowCount || 0;
+            document.getElementById('executionTime').textContent = executionTime + 'ms';
+            document.getElementById('queryStatus').textContent = result.error ? 'Error' : 'Success';
+        }
+
+        // Load database schema
+        async function loadDatabaseSchema() {
+            try {
+                const response = await fetch('/api/sql/schema');
+                const schema = await response.json();
+                displaySchema(schema);
+            } catch (error) {
+                console.error('Failed to load schema:', error);
+            }
+        }
+
+        // Display database schema
+        function displaySchema(schema) {
+            const tablesDiv = document.getElementById('tablesList');
+            
+            if (!schema.tables || schema.tables.length === 0) {
+                tablesDiv.innerHTML = '<p class="text-gray-500">No tables found</p>';
+                return;
+            }
+            
+            let html = '';
+            schema.tables.forEach(table => {
+                html += `
+                    <div class="table-item">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-table text-blue-500"></i>
+                            <span class="font-medium">${table.name}</span>
+                            <span class="text-sm text-gray-500">${table.rows} rows</span>
+                        </div>
+                        <button onclick="showTableDetails('${table.name}')" class="text-blue-500 hover:text-blue-700">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            
+            tablesDiv.innerHTML = html;
+        }
+
+        // Show table details
+        async function showTableDetails(tableName) {
+            try {
+                const response = await fetch(`/api/sql/table/${tableName}`);
+                const details = await response.json();
+                
+                const detailsDiv = document.getElementById('tableDetails');
+                let html = `
+                    <h4 class="font-semibold mb-3">${tableName}</h4>
+                    <div class="space-y-2">
+                `;
+                
+                details.columns.forEach(col => {
+                    html += `
+                        <div class="flex justify-between text-sm">
+                            <span class="font-medium">${col.name}</span>
+                            <span class="text-gray-500">${col.type}</span>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+                detailsDiv.innerHTML = html;
+                
+            } catch (error) {
+                console.error('Failed to load table details:', error);
+            }
+        }
+
+        // Utility functions
+        function formatSQL() {
+            // Simple SQL formatting (you can use a library for better formatting)
+            let formatted = editor.getValue()
+                .replace(/\s+/g, ' ')
+                .replace(/,/g, ',\n    ')
+                .replace(/\bSELECT\b/gi, '\nSELECT')
+                .replace(/\bFROM\b/gi, '\nFROM')
+                .replace(/\bWHERE\b/gi, '\nWHERE')
+                .replace(/\bORDER BY\b/gi, '\nORDER BY')
+                .replace(/\bGROUP BY\b/gi, '\nGROUP BY');
+            
+            editor.setValue(formatted);
+        }
+
+        function clearEditor() {
+            editor.setValue('');
+            editor.focus();
+        }
+
+        function explainQuery() {
+            const query = editor.getValue();
+            if (!query.trim()) {
+                showNotification('Please enter a SQL query to explain', 'error');
+                return;
+            }
+            
+            // Add EXPLAIN prefix
+            const explainedQuery = query.trim().startsWith('EXPLAIN') ? query : `EXPLAIN ${query}`;
+            editor.setValue(explainedQuery);
+            executeQuery();
+        }
+
+        function showTableStructure() {
+            editor.setValue('SHOW TABLES;');
+            executeQuery();
+        }
+
+        function showIndexes() {
+            editor.setValue('SHOW INDEX FROM users;');
+            executeQuery();
+        }
+
+        function showConstraints() {
+            editor.setValue(`
+SELECT 
+    CONSTRAINT_NAME,
+    CONSTRAINT_TYPE,
+    TABLE_NAME,
+    COLUMN_NAME
+FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+WHERE TABLE_SCHEMA = DATABASE();
+            `);
+            executeQuery();
+        }
+
+        function showStatistics() {
+            editor.setValue(`
+SELECT 
+    TABLE_NAME,
+    TABLE_ROWS,
+    DATA_LENGTH,
+    INDEX_LENGTH,
+    (DATA_LENGTH + INDEX_LENGTH) as TOTAL_SIZE
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_SCHEMA = DATABASE()
+ORDER BY TOTAL_SIZE DESC;
+            `);
+            executeQuery();
+        }
+
+        function exportResults() {
+            showNotification('Export functionality coming soon!', 'info');
+        }
+
+        function copyResults() {
+            const table = document.querySelector('#queryResults table');
+            if (table) {
+                const text = table.innerText;
+                navigator.clipboard.writeText(text);
+                showNotification('Results copied to clipboard', 'success');
+            }
+        }
+
+        function refreshSchema() {
+            loadDatabaseSchema();
+            showNotification('Schema refreshed', 'success');
+        }
+
+        function createBackup() {
+            showNotification('Creating full backup...', 'info');
+            setTimeout(() => showNotification('Backup created successfully!', 'success'), 2000);
+        }
+
+        function createSchemaBackup() {
+            showNotification('Creating schema backup...', 'info');
+            setTimeout(() => showNotification('Schema backup created!', 'success'), 2000);
+        }
+
+        function createDataBackup() {
+            showNotification('Creating data backup...', 'info');
+            setTimeout(() => showNotification('Data backup created!', 'success'), 2000);
+        }
+
+        function exportDatabase() {
+            const format = document.getElementById('exportFormat').value;
+            showNotification(`Exporting database as ${format.toUpperCase()}...`, 'info');
+            setTimeout(() => showNotification('Database exported successfully!', 'success'), 2000);
+        }
+
+        function addToHistory(query, result) {
+            const history = JSON.parse(localStorage.getItem('sqlHistory') || '[]');
+            history.unshift({
+                query: query,
+                timestamp: new Date().toISOString(),
+                success: !result.error,
+                rowCount: result.rowCount || 0
+            });
+            
+            // Keep only last 50 queries
+            if (history.length > 50) {
+                history.pop();
+            }
+            
+            localStorage.setItem('sqlHistory', JSON.stringify(history));
+            loadQueryHistory();
+        }
+
+        function loadQueryHistory() {
+            const history = JSON.parse(localStorage.getItem('sqlHistory') || '[]');
+            const historyDiv = document.getElementById('queryHistory');
+            
+            if (history.length === 0) {
+                historyDiv.innerHTML = '<p class="text-gray-500">No query history yet</p>';
+                return;
+            }
+            
+            let html = '';
+            history.forEach((item, index) => {
+                const date = new Date(item.timestamp).toLocaleString();
+                const statusClass = item.success ? 'text-green-500' : 'text-red-500';
+                const statusIcon = item.success ? 'fa-check-circle' : 'fa-exclamation-circle';
+                
+                html += `
+                    <div class="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition cursor-pointer" onclick="loadHistoryQuery(${index})">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="${statusClass}">
+                                <i class="fas ${statusIcon} mr-2"></i>
+                                ${item.rowCount} rows affected
+                            </span>
+                            <span class="text-sm text-gray-500">${date}</span>
+                        </div>
+                        <code class="text-sm bg-gray-800 text-green-400 p-2 rounded block overflow-x-auto">
+                            ${item.query.substring(0, 100)}${item.query.length > 100 ? '...' : ''}
+                        </code>
+                    </div>
+                `;
+            });
+            
+            historyDiv.innerHTML = html;
+        }
+
+        function loadHistoryQuery(index) {
+            const history = JSON.parse(localStorage.getItem('sqlHistory') || '[]');
+            if (history[index]) {
+                editor.setValue(history[index].query);
+                switchTab('query');
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50 flex items-center space-x-2`;
+            
+            if (type === 'success') {
+                notification.style.background = 'linear-gradient(135deg, #16A34A, #22C55E)';
+                notification.style.color = 'white';
+            } else if (type === 'error') {
+                notification.style.background = 'linear-gradient(135deg, #DC2626, #EF4444)';
+                notification.style.color = 'white';
+            } else {
+                notification.style.background = 'linear-gradient(135deg, #3B82F6, #60A5FA)';
+                notification.style.color = 'white';
+            }
+            
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

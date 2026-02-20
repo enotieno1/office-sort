@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accountant Portal - OOES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-bg-primary: #F0FDF4;
+            --color-bg-secondary: #DCFCE7;
+            --color-bg-tertiary: #BBF7D0;
+            --color-bg-card: #FFFFFF;
+            --color-bg-hover: #F7FEE7;
+            --color-text-primary: #14532D;
+            --color-text-secondary: #166534;
+            --color-text-tertiary: #15803D;
+            --color-text-muted: #16A34A;
+            --color-text-disabled: #22C55E;
+            --color-accent-primary: #DC2626;
+            --color-accent-secondary: #EF4444;
+            --color-accent-tertiary: #F87171;
+            --color-accent-success: #16A34A;
+            --color-accent-warning: #F59E0B;
+            --color-border-primary: #DCFCE7;
+            --color-border-secondary: #BBF7D0;
+            --color-border-light: #86EFAC;
+            --color-shadow-primary: rgba(34, 197, 94, 0.1);
+            --color-shadow-secondary: rgba(34, 197, 94, 0.2);
+            --color-shadow-accent: rgba(220, 38, 38, 0.3);
+        }
+
+        body {
+            background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .portal-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #DCFCE7;
+            transition: all 0.3s ease;
+        }
+
+        .portal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .tool-button {
+            background: linear-gradient(135deg, #16A34A 0%, #15803D 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .tool-button:hover {
+            background: linear-gradient(135deg, #15803D 0%, #14532D 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(22, 163, 74, 0.3);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: #DCFCE7;
+            color: #166534;
+        }
+
+        .status-pending {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .status-urgent {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .quick-stat {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .quick-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #16A34A;
+        }
+
+        .quick-stat-label {
+            font-size: 0.875rem;
+            color: #6B7280;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-calculator text-green-600 text-2xl"></i>
+                        <h1 class="text-2xl font-bold text-gray-900">Accountant Portal</h1>
+                    </div>
+                    <span class="status-badge status-active">
+                        <i class="fas fa-circle text-xs"></i>
+                        System Active
+                    </span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-600" id="currentTime"></span>
+                    <button class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div class="flex items-center space-x-2">
+                        <img src="https://picsum.photos/seed/accountant/32/32.jpg" alt="User" class="w-8 h-8 rounded-full">
+                        <span class="text-sm font-medium text-gray-700">Accountant</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="quick-stat">
+                <div class="quick-stat-value" id="pendingInvoices">0</div>
+                <div class="quick-stat-label">Pending Invoices</div>
+            </div>
+            <div class="quick-stat">
+                <div class="quick-stat-value" id="unpaidBills">0</div>
+                <div class="quick-stat-label">Unpaid Bills</div>
+            </div>
+            <div class="quick-stat">
+                <div class="quick-stat-value" id="monthlyRevenue">$0</div>
+                <div class="quick-stat-label">Monthly Revenue</div>
+            </div>
+            <div class="quick-stat">
+                <div class="quick-stat-value" id="taxDeadline">0</div>
+                <div class="quick-stat-label">Days to Tax Deadline</div>
+            </div>
+        </div>
+
+        <!-- Accounting Tools Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Invoice Management -->
+            <div class="portal-card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-file-invoice text-green-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Invoice Management</h3>
+                            <p class="text-sm text-gray-600">Create and manage invoices</p>
+                        </div>
+                    </div>
+                    <span class="status-badge status-pending">12 pending</span>
+                </div>
+                <a href="invoice-management.html" class="tool-button w-full justify-center">
+                    <i class="fas fa-arrow-right"></i>
+                    Open Invoice Manager
+                </a>
+            </div>
+
+            <!-- Bill Payment -->
+            <div class="portal-card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-credit-card text-blue-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Bill Payment</h3>
+                            <p class="text-sm text-gray-600">Process and track payments</p>
+                        </div>
+                    </div>
+                    <span class="status-badge status-urgent">3 urgent</span>
+                </div>
+                <a href="bill-payment.html" class="tool-button w-full justify-center">
+                    <i class="fas fa-arrow-right"></i>
+                    Open Bill Payment
+                </a>
+            </div>
+
+            <!-- Financial Reports -->
+            <div class="portal-card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-chart-line text-purple-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Financial Reports</h3>
+                            <p class="text-sm text-gray-600">Generate financial reports</p>
+                        </div>
+                    </div>
+                    <span class="status-badge status-active">Ready</span>
+                </div>
+                <a href="financial-reports.html" class="tool-button w-full justify-center">
+                    <i class="fas fa-arrow-right"></i>
+                    Open Reports
+                </a>
+            </div>
+
+            <!-- Tax Management -->
+            <div class="portal-card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-receipt text-red-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Tax Management</h3>
+                            <p class="text-sm text-gray-600">Handle tax compliance</p>
+                        </div>
+                    </div>
+                    <span class="status-badge status-pending">Due soon</span>
+                </div>
+                <a href="tax-management.html" class="tool-button w-full justify-center">
+                    <i class="fas fa-arrow-right"></i>
+                    Open Tax Manager
+                </a>
+            </div>
+
+            <!-- Bank Reconciliation -->
+            <div class="portal-card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-university text-yellow-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Bank Reconciliation</h3>
+                            <p class="text-sm text-gray-600">Match bank transactions</p>
+                        </div>
+                    </div>
+                    <span class="status-badge status-active">Ready</span>
+                </div>
+                <a href="bank-reconciliation.html" class="tool-button w-full justify-center">
+                    <i class="fas fa-arrow-right"></i>
+                    Open Reconciliation
+                </a>
+            </div>
+
+            <!-- Expense Tracking -->
+            <div class="portal-card">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-wallet text-indigo-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Expense Tracking</h3>
+                            <p class="text-sm text-gray-600">Track and categorize expenses</p>
+                        </div>
+                    </div>
+                    <span class="status-badge status-active">Ready</span>
+                </div>
+                <a href="expense-tracking.html" class="tool-button w-full justify-center">
+                    <i class="fas fa-arrow-right"></i>
+                    Open Expense Tracker
+                </a>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="portal-card">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Recent Accounting Activity</h2>
+            <div class="space-y-3" id="recentActivity">
+                <!-- Activity items will be populated by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleString();
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Sample data for demonstration
+        const accountingData = {
+            pendingInvoices: 12,
+            unpaidBills: 8,
+            monthlyRevenue: 45678,
+            taxDeadline: 15,
+            recentActivity: [
+                { time: '2 hours ago', action: 'Invoice #1234 created', status: 'success' },
+                { time: '4 hours ago', action: 'Bill payment processed', status: 'success' },
+                { time: '6 hours ago', action: 'Tax report generated', status: 'info' },
+                { time: '1 day ago', action: 'Bank reconciliation completed', status: 'success' },
+                { time: '2 days ago', action: 'Expense report submitted', status: 'warning' }
+            ]
+        };
+
+        // Update dashboard stats
+        document.getElementById('pendingInvoices').textContent = accountingData.pendingInvoices;
+        document.getElementById('unpaidBills').textContent = accountingData.unpaidBills;
+        document.getElementById('monthlyRevenue').textContent = `$${accountingData.monthlyRevenue.toLocaleString()}`;
+        document.getElementById('taxDeadline').textContent = accountingData.taxDeadline;
+
+        // Populate recent activity
+        const activityContainer = document.getElementById('recentActivity');
+        accountingData.recentActivity.forEach(activity => {
+            const statusColors = {
+                success: 'text-green-600 bg-green-100',
+                info: 'text-blue-600 bg-blue-100',
+                warning: 'text-yellow-600 bg-yellow-100'
+            };
+            
+            const activityItem = document.createElement('div');
+            activityItem.className = 'flex items-center justify-between p-3 bg-gray-50 rounded-lg';
+            activityItem.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <div class="w-2 h-2 rounded-full ${statusColors[activity.status].split(' ')[1]}"></div>
+                    <span class="text-sm font-medium text-gray-900">${activity.action}</span>
+                </div>
+                <span class="text-xs text-gray-500">${activity.time}</span>
+            `;
+            activityContainer.appendChild(activityItem);
+        });
+
+        // Simulate real-time updates
+        setInterval(() => {
+            // Randomly update some stats to simulate real-time activity
+            const random = Math.random();
+            if (random > 0.8) {
+                const currentInvoices = parseInt(document.getElementById('pendingInvoices').textContent);
+                document.getElementById('pendingInvoices').textContent = currentInvoices + 1;
+            }
+        }, 30000); // Update every 30 seconds
+    </script>
+</body>
+</html>

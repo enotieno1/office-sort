@@ -1,0 +1,1284 @@
+{
+  "timestamp": "2026-02-16T11:13:40.446594",
+  "scan_summary": {
+    "total_issues_found": 205,
+    "total_issues_fixed": 38,
+    "files_scanned": 38
+  },
+  "issues_found": [
+    {
+      "file": "accounting-tools-new.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "accounting-tools-new.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "accounting-tools-new.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "accounting-tools-new.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "accounting-tools.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "accounting-tools.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "accounting-tools.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "accounting-tools.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "ai-features.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "ai-features.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "ai-features.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "ai-features.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "ai-features.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "ai-features.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "auth.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "auth.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "auth.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "auth.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "auth.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "auth.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "auth.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "automation.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "automation.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "automation.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "automation.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "automation.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "automation.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "calendar-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "calendar-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "calendar-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "calendar-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "calendar-system.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "communication-department.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "communication-department.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "communication-department.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "communication-department.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "communication-department.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "data-entry-automation.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "data-entry-automation.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "data-entry-automation.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "data-entry-automation.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "data-entry-automation.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "data-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "data-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "data-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "data-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "data-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "data-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "database-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "database-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "database-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "database-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "database-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "database-management.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "deep-page-templates.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "deep-page-templates.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "deep-page-templates.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "deep-page-templates.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "deep-page-templates.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "deep-page-templates.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "department-dashboard.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "department-dashboard.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "department-dashboard.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "department-dashboard.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "document-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "document-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "document-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "document-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "documents-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "documents-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "documents-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "documents-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "documents-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "documents-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "email-system-updated.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "email-system-updated.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "email-system-updated.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "email-system-updated.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "email-system-updated.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "email-system-updated.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "email-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "email-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "email-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "email-system.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "financial-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "financial-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "financial-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "financial-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "financial-management.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "gmail-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "gmail-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "gmail-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "gmail-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "gmail-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "gmail-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "google-drive.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "google-drive.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "google-drive.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "google-drive.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "google-drive.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "google-drive.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "hr-system-fixed.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "hr-system-fixed.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "hr-system-fixed.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "hr-system-fixed.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "hr-system-fixed.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "hr-system-fixed.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "hr-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "hr-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "hr-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "hr-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "hr-system.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "hr-system.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "implementation.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "implementation.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "implementation.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "implementation.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "implementation.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "implementation.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "index-light.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "index-light.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "index-light.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "index-light.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "index-light.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "index-light.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "index.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "index.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "it-compliance.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "it-compliance.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "it-compliance.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "it-compliance.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "it-compliance.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "navigation-demo.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "navigation-demo.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "navigation-demo.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "navigation-demo.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "navigation-demo.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "navigation-demo.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "navigation-layout.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "navigation-layout.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "navigation-layout.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "navigation-layout.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "navigation-layout.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "navigation-layout.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "office-activities.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "office-activities.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "office-activities.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "operations-department.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "operations-department.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "operations-department.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "operations-department.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "operations-department.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "package-selection.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "package-selection.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "package-selection.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "package-selection.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "package-selection.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "package-selection.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "packages.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "packages.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "packages.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "packages.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "packages.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "packages.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "sales-department.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "sales-department.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "sales-department.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "sales-department.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "sales-department.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "scaling.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "scaling.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "scaling.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "scaling.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "scaling.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "scaling.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "security-center.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "security-center.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "security-center.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "security-center.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "security-center.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "systems.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "systems.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "systems.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "systems.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "systems.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "systems.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "tasks-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "tasks-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "tasks-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "tasks-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "tasks-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "tasks-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "tasks-management.html",
+      "type": "form_issue",
+      "issue": "Form without submission handler",
+      "fix": "Add onsubmit handler or method attribute"
+    },
+    {
+      "file": "tools.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "tools.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "tools.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "tools.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "tools.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "tools.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    },
+    {
+      "file": "trello-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: goBack()",
+      "fix": "Add goBack() function implementation"
+    },
+    {
+      "file": "trello-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: showNotification(",
+      "fix": "Add showNotification( function implementation"
+    },
+    {
+      "file": "trello-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: closeModal(",
+      "fix": "Add closeModal( function implementation"
+    },
+    {
+      "file": "trello-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: openModal(",
+      "fix": "Add openModal( function implementation"
+    },
+    {
+      "file": "trello-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToPage(",
+      "fix": "Add navigateToPage( function implementation"
+    },
+    {
+      "file": "trello-management.html",
+      "type": "missing_function",
+      "issue": "Missing function: navigateToSection(",
+      "fix": "Add navigateToSection( function implementation"
+    }
+  ],
+  "issues_fixed": [
+    "accounting-tools-new.html",
+    "accounting-tools.html",
+    "ai-features.html",
+    "auth.html",
+    "automation.html",
+    "calendar-system.html",
+    "communication-department.html",
+    "data-entry-automation.html",
+    "data-management.html",
+    "database-management.html",
+    "deep-page-templates.html",
+    "department-dashboard.html",
+    "document-management.html",
+    "documents-management.html",
+    "email-system-updated.html",
+    "email-system.html",
+    "financial-management.html",
+    "gmail-system.html",
+    "google-drive.html",
+    "hr-system-fixed.html",
+    "hr-system.html",
+    "implementation.html",
+    "index-light.html",
+    "index.html",
+    "it-compliance.html",
+    "navigation-demo.html",
+    "navigation-layout.html",
+    "office-activities.html",
+    "operations-department.html",
+    "package-selection.html",
+    "packages.html",
+    "sales-department.html",
+    "scaling.html",
+    "security-center.html",
+    "systems.html",
+    "tasks-management.html",
+    "tools.html",
+    "trello-management.html"
+  ],
+  "recommendations": [
+    "Consider creating a shared navigation.js file for common functions",
+    "Implement consistent form validation across all pages"
+  ]
+}

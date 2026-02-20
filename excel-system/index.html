@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Management System - OOES</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        :root {
+            --color-bg-primary: #F0FDF4;
+            --color-bg-secondary: #DCFCE7;
+            --color-bg-tertiary: #BBF7D0;
+            --color-bg-card: #FFFFFF;
+            --color-bg-hover: #F7FEE7;
+            --color-text-primary: #14532D;
+            --color-text-secondary: #166534;
+            --color-text-tertiary: #15803D;
+            --color-text-muted: #16A34A;
+            --color-text-disabled: #22C55E;
+            --color-accent-primary: #DC2626;
+            --color-accent-secondary: #EF4444;
+            --color-accent-tertiary: #F87171;
+            --color-accent-success: #16A34A;
+            --color-accent-warning: #F59E0B;
+            --color-border-primary: #DCFCE7;
+            --color-border-secondary: #BBF7D0;
+            --color-border-light: #86EFAC;
+            --color-shadow-primary: rgba(34, 197, 94, 0.1);
+            --color-shadow-secondary: rgba(34, 197, 94, 0.2);
+            --color-shadow-accent: rgba(220, 38, 38, 0.3);
+        }
+
+        body {
+            background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .excel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1px;
+            background: #E5E7EB;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .excel-cell {
+            background: white;
+            padding: 8px 12px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            border-right: 1px solid #E5E7EB;
+            position: relative;
+            cursor: cell;
+        }
+
+        .excel-cell:hover {
+            background: #F9FAFB;
+        }
+
+        .excel-cell.selected {
+            background: #EBF8FF;
+            border: 2px solid #3B82F6;
+        }
+
+        .excel-cell.editing {
+            background: white;
+            box-shadow: 0 0 0 2px #3B82F6;
+        }
+
+        .excel-header {
+            background: linear-gradient(135deg, #F3F4F6, #E5E7EB);
+            font-weight: 600;
+            color: #374151;
+            border-bottom: 2px solid #D1D5DB;
+        }
+
+        .excel-row-header {
+            background: linear-gradient(135deg, #F9FAFB, #F3F4F6);
+            font-weight: 600;
+            color: #6B7280;
+            border-right: 1px solid #E5E7EB;
+        }
+
+        .formula-bar {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            min-height: 48px;
+        }
+
+        .toolbar-button {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .toolbar-button:hover {
+            background: #F9FAFB;
+            border-color: #16A34A;
+            color: #16A34A;
+        }
+
+        .toolbar-button.active {
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+            color: white;
+            border-color: #16A34A;
+        }
+
+        .file-item {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .file-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+            color: white;
+        }
+
+        .tab-button:not(.active) {
+            background: #F3F4F6;
+            color: #374151;
+        }
+
+        .tab-button:not(.active):hover {
+            background: #E5E7EB;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-file-excel text-green-600 text-2xl"></i>
+                        <h1 class="text-2xl font-bold text-gray-900">Excel Management System</h1>
+                    </div>
+                    <span class="status-indicator status-connected">
+                        <i class="fas fa-circle text-xs"></i>
+                        Ready
+                    </span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <select id="workbookSelect" class="px-3 py-2 border border-gray-300 rounded-lg">
+                        <option value="new">New Workbook</option>
+                        <option value="sample1">Sample Sales Data</option>
+                        <option value="sample2">Budget Template</option>
+                        <option value="sample3">Employee Roster</option>
+                    </select>
+                    <button onclick="createNewWorkbook()" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                        <i class="fas fa-plus"></i> New
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Tab Navigation -->
+        <div class="flex space-x-2 mb-6">
+            <button class="tab-button active" onclick="switchTab('editor')" id="editorTab">
+                <i class="fas fa-edit mr-2"></i>Spreadsheet Editor
+            </button>
+            <button class="tab-button" onclick="switchTab('files')" id="filesTab">
+                <i class="fas fa-folder mr-2"></i>File Manager
+            </button>
+            <button class="tab-button" onclick="switchTab('templates')" id="templatesTab">
+                <i class="fas fa-file-alt mr-2"></i>Templates
+            </button>
+            <button class="tab-button" onclick="switchTab('import')" id="importTab">
+                <i class="fas fa-upload mr-2"></i>Import/Export
+            </button>
+        </div>
+
+        <!-- Spreadsheet Editor Tab -->
+        <div id="editorTabContent" class="tab-content">
+            <!-- Toolbar -->
+            <div class="bg-white rounded-xl shadow-lg p-4 mb-6">
+                <div class="flex flex-wrap gap-2 items-center">
+                    <button class="toolbar-button" onclick="formatCell('bold')" title="Bold">
+                        <i class="fas fa-bold"></i>
+                    </button>
+                    <button class="toolbar-button" onclick="formatCell('italic')" title="Italic">
+                        <i class="fas fa-italic"></i>
+                    </button>
+                    <button class="toolbar-button" onclick="formatCell('underline')" title="Underline">
+                        <i class="fas fa-underline"></i>
+                    </button>
+                    
+                    <div class="border-l border-gray-300 h-6 mx-2"></div>
+                    
+                    <button class="toolbar-button" onclick="formatCell('left')" title="Align Left">
+                        <i class="fas fa-align-left"></i>
+                    </button>
+                    <button class="toolbar-button" onclick="formatCell('center')" title="Align Center">
+                        <i class="fas fa-align-center"></i>
+                    </button>
+                    <button class="toolbar-button" onclick="formatCell('right')" title="Align Right">
+                        <i class="fas fa-align-right"></i>
+                    </button>
+                    
+                    <div class="border-l border-gray-300 h-6 mx-2"></div>
+                    
+                    <button class="toolbar-button" onclick="insertRow()" title="Insert Row">
+                        <i class="fas fa-plus-row"></i> Row
+                    </button>
+                    <button class="toolbar-button" onclick="insertColumn()" title="Insert Column">
+                        <i class="fas fa-plus-column"></i> Column
+                    </button>
+                    <button class="toolbar-button" onclick="deleteRow()" title="Delete Row">
+                        <i class="fas fa-minus-row"></i> Delete
+                    </button>
+                    
+                    <div class="border-l border-gray-300 h-6 mx-2"></div>
+                    
+                    <button class="toolbar-button" onclick="sumSelection()" title="Sum">
+                        <i class="fas fa-sigma"></i> Σ
+                    </button>
+                    <button class="toolbar-button" onclick="averageSelection()" title="Average">
+                        <i class="fas fa-chart-line"></i> Avg
+                    </button>
+                    <button class="toolbar-button" onclick="countSelection()" title="Count">
+                        <i class="fas fa-hashtag"></i> Count
+                    </button>
+                    
+                    <div class="border-l border-gray-300 h-6 mx-2"></div>
+                    
+                    <button class="toolbar-button" onclick="createChart()" title="Create Chart">
+                        <i class="fas fa-chart-bar"></i> Chart
+                    </button>
+                    <button class="toolbar-button" onclick="sortData()" title="Sort">
+                        <i class="fas fa-sort"></i> Sort
+                    </button>
+                    <button class="toolbar-button" onclick="filterData()" title="Filter">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                </div>
+            </div>
+
+            <!-- Formula Bar -->
+            <div class="bg-white rounded-xl shadow-lg p-4 mb-6">
+                <div class="flex items-center space-x-4">
+                    <label class="text-sm font-medium text-gray-700">fx</label>
+                    <input type="text" id="formulaBar" class="formula-bar flex-1" placeholder="Enter formula or value...">
+                    <button onclick="applyFormula()" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+                        <i class="fas fa-check"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Spreadsheet Grid -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="mb-4 flex justify-between items-center">
+                    <h3 class="text-lg font-semibold text-gray-900">Worksheet 1</h3>
+                    <div class="flex space-x-2">
+                        <button onclick="zoomIn()" class="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
+                            <i class="fas fa-search-plus"></i>
+                        </button>
+                        <button onclick="zoomOut()" class="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
+                            <i class="fas fa-search-minus"></i>
+                        </button>
+                        <button onclick="resetZoom()" class="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
+                            100%
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="spreadsheetContainer" class="overflow-auto" style="max-height: 600px;">
+                    <div id="spreadsheetGrid" class="excel-grid">
+                        <!-- Spreadsheet will be generated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- File Manager Tab -->
+        <div id="filesTabContent" class="tab-content hidden">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900">My Excel Files</h3>
+                    <button onclick="uploadFile()" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                        <i class="fas fa-upload mr-2"></i>Upload File
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="filesGrid">
+                    <!-- Files will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Templates Tab -->
+        <div id="templatesTabContent" class="tab-content hidden">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-6">Excel Templates</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="file-item" onclick="loadTemplate('budget')">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <i class="fas fa-calculator text-blue-500 text-2xl"></i>
+                            <h4 class="font-semibold">Budget Template</h4>
+                        </div>
+                        <p class="text-sm text-gray-600">Monthly budget planning with categories and summaries</p>
+                    </div>
+                    
+                    <div class="file-item" onclick="loadTemplate('invoice')">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <i class="fas fa-file-invoice text-green-500 text-2xl"></i>
+                            <h4 class="font-semibold">Invoice Template</h4>
+                        </div>
+                        <p class="text-sm text-gray-600">Professional invoice with automatic calculations</p>
+                    </div>
+                    
+                    <div class="file-item" onclick="loadTemplate('timesheet')">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <i class="fas fa-clock text-purple-500 text-2xl"></i>
+                            <h4 class="font-semibold">Timesheet Template</h4>
+                        </div>
+                        <p class="text-sm text-gray-600">Employee time tracking with overtime calculations</p>
+                    </div>
+                    
+                    <div class="file-item" onclick="loadTemplate('inventory')">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <i class="fas fa-boxes text-orange-500 text-2xl"></i>
+                            <h4 class="font-semibold">Inventory Template</h4>
+                        </div>
+                        <p class="text-sm text-gray-600">Stock management with reorder points</p>
+                    </div>
+                    
+                    <div class="file-item" onclick="loadTemplate('report')">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <i class="fas fa-chart-bar text-red-500 text-2xl"></i>
+                            <h4 class="font-semibold">Report Template</h4>
+                        </div>
+                        <p class="text-sm text-gray-600">Business report with charts and summaries</p>
+                    </div>
+                    
+                    <div class="file-item" onclick="loadTemplate('project')">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <i class="fas fa-project-diagram text-indigo-500 text-2xl"></i>
+                            <h4 class="font-semibold">Project Template</h4>
+                        </div>
+                        <p class="text-sm text-gray-600">Project tracking with milestones and budget</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Import/Export Tab -->
+        <div id="importTabContent" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Import Excel Files</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Select File</label>
+                            <input type="file" id="importFile" accept=".xlsx,.xls,.csv" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                        </div>
+                        <button onclick="importExcel()" class="w-full px-4 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+                            <i class="fas fa-upload mr-2"></i>Import File
+                        </button>
+                        
+                        <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-medium mb-2">Supported Formats:</h4>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• Excel (.xlsx, .xls)</li>
+                                <li>• CSV (.csv)</li>
+                                <li>• Google Sheets (via CSV export)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Export Excel Files</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Export Format</label>
+                            <select id="exportFormat" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                                <option value="xlsx">Excel (.xlsx)</option>
+                                <option value="csv">CSV (.csv)</option>
+                                <option value="pdf">PDF (.pdf)</option>
+                            </select>
+                        </div>
+                        <button onclick="exportExcel()" class="w-full px-4 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                            <i class="fas fa-download mr-2"></i>Export Current Workbook
+                        </button>
+                        
+                        <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                            <h4 class="font-medium mb-2">Export Options:</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" checked class="mr-2"> Include formulas
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" checked class="mr-2"> Include formatting
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" checked class="mr-2"> Include charts
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Global variables
+        let currentWorkbook = [];
+        let currentSheet = 0;
+        let selectedCell = null;
+        let zoomLevel = 100;
+
+        // Initialize spreadsheet
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSpreadsheet();
+            loadFileList();
+        });
+
+        function initializeSpreadsheet() {
+            // Create a 10x20 grid
+            const rows = 20;
+            const cols = 10;
+            currentWorkbook = Array(rows).fill(null).map(() => Array(cols).fill(''));
+            
+            renderSpreadsheet();
+        }
+
+        function renderSpreadsheet() {
+            const container = document.getElementById('spreadsheetGrid');
+            const rows = currentWorkbook.length;
+            const cols = currentWorkbook[0]?.length || 10;
+            
+            // Set grid template
+            container.style.gridTemplateColumns = `60px repeat(${cols}, 1fr)`;
+            
+            let html = '';
+            
+            // Header row
+            html += '<div class="excel-row-header"></div>';
+            for (let col = 0; col < cols; col++) {
+                html += `<div class="excel-header">${getColumnName(col)}</div>`;
+            }
+            
+            // Data rows
+            for (let row = 0; row < rows; row++) {
+                html += `<div class="excel-row-header">${row + 1}</div>`;
+                for (let col = 0; col < cols; col++) {
+                    const value = currentWorkbook[row]?.[col] || '';
+                    html += `<div class="excel-cell" data-row="${row}" data-col="${col}" onclick="selectCell(${row}, ${col})" ondblclick="editCell(${row}, ${col})">${value}</div>`;
+                }
+            }
+            
+            container.innerHTML = html;
+        }
+
+        function getColumnName(col) {
+            let name = '';
+            while (col >= 0) {
+                name = String.fromCharCode(65 + (col % 26)) + name;
+                col = Math.floor(col / 26) - 1;
+            }
+            return name;
+        }
+
+        function selectCell(row, col) {
+            // Remove previous selection
+            document.querySelectorAll('.excel-cell.selected').forEach(cell => {
+                cell.classList.remove('selected');
+            });
+            
+            // Add selection to current cell
+            const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+            if (cell) {
+                cell.classList.add('selected');
+                selectedCell = { row, col };
+                updateFormulaBar();
+            }
+        }
+
+        function editCell(row, col) {
+            const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+            if (!cell) return;
+            
+            const currentValue = currentWorkbook[row]?.[col] || '';
+            
+            // Create input element
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = currentValue;
+            input.className = 'w-full h-full border-none outline-none bg-transparent';
+            input.style.fontSize = '14px';
+            
+            // Clear cell and add input
+            cell.innerHTML = '';
+            cell.appendChild(input);
+            cell.classList.add('editing');
+            input.focus();
+            input.select();
+            
+            // Handle input events
+            input.addEventListener('blur', function() {
+                currentWorkbook[row][col] = input.value;
+                renderSpreadsheet();
+            });
+            
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    currentWorkbook[row][col] = input.value;
+                    renderSpreadsheet();
+                    selectCell(row + 1, col);
+                } else if (e.key === 'Tab') {
+                    currentWorkbook[row][col] = input.value;
+                    renderSpreadsheet();
+                    selectCell(row, col + 1);
+                } else if (e.key === 'Escape') {
+                    renderSpreadsheet();
+                }
+            });
+        }
+
+        function updateFormulaBar() {
+            if (selectedCell) {
+                const value = currentWorkbook[selectedCell.row]?.[selectedCell.col] || '';
+                document.getElementById('formulaBar').value = value;
+            }
+        }
+
+        function applyFormula() {
+            if (!selectedCell) return;
+            
+            const formula = document.getElementById('formulaBar').value;
+            const { row, col } = selectedCell;
+            
+            // Simple formula evaluation (in production, use a proper formula parser)
+            try {
+                if (formula.startsWith('=')) {
+                    const result = evaluateFormula(formula.substring(1));
+                    currentWorkbook[row][col] = result.toString();
+                } else {
+                    currentWorkbook[row][col] = formula;
+                }
+                renderSpreadsheet();
+            } catch (error) {
+                alert('Formula error: ' + error.message);
+            }
+        }
+
+        function evaluateFormula(formula) {
+            // Simple formula evaluation (basic implementation)
+            // In production, use a proper formula parser like formula-parser
+            if (formula.includes('SUM(')) {
+                const range = formula.match(/SUM\(([^)]+)\)/)?.[1];
+                if (range) {
+                    return sumRange(range);
+                }
+            } else if (formula.includes('AVERAGE(')) {
+                const range = formula.match(/AVERAGE\(([^)]+)\)/)?.[1];
+                if (range) {
+                    return averageRange(range);
+                }
+            } else if (formula.includes('COUNT(')) {
+                const range = formula.match(/COUNT\(([^)]+)\)/)?.[1];
+                if (range) {
+                    return countRange(range);
+                }
+            }
+            
+            // Try to evaluate as mathematical expression
+            try {
+                return Function('"use strict"; return (' + formula + ')')();
+            } catch {
+                return formula;
+            }
+        }
+
+        function sumRange(range) {
+            // Parse range like A1:A10
+            const cells = parseRange(range);
+            let sum = 0;
+            cells.forEach(({row, col}) => {
+                const value = parseFloat(currentWorkbook[row]?.[col]) || 0;
+                sum += value;
+            });
+            return sum;
+        }
+
+        function averageRange(range) {
+            const cells = parseRange(range);
+            let sum = 0;
+            let count = 0;
+            cells.forEach(({row, col}) => {
+                const value = parseFloat(currentWorkbook[row]?.[col]) || 0;
+                if (!isNaN(value)) {
+                    sum += value;
+                    count++;
+                }
+            });
+            return count > 0 ? sum / count : 0;
+        }
+
+        function countRange(range) {
+            const cells = parseRange(range);
+            let count = 0;
+            cells.forEach(({row, col}) => {
+                const value = currentWorkbook[row]?.[col];
+                if (value !== '' && value !== null && value !== undefined) {
+                    count++;
+                }
+            });
+            return count;
+        }
+
+        function parseRange(range) {
+            // Simple range parser for A1:A10 format
+            const match = range.match(/^([A-Z]+)(\d+):([A-Z]+)(\d+)$/);
+            if (!match) return [];
+            
+            const startCol = columnToIndex(match[1]);
+            const startRow = parseInt(match[2]) - 1;
+            const endCol = columnToIndex(match[3]);
+            const endRow = parseInt(match[4]) - 1;
+            
+            const cells = [];
+            for (let row = startRow; row <= endRow; row++) {
+                for (let col = startCol; col <= endCol; col++) {
+                    cells.push({ row, col });
+                }
+            }
+            return cells;
+        }
+
+        function columnToIndex(col) {
+            let index = 0;
+            for (let i = 0; i < col.length; i++) {
+                index = index * 26 + (col.charCodeAt(i) - 64);
+            }
+            return index - 1;
+        }
+
+        function columnToIndex(col) {
+            let index = 0;
+            for (let i = 0; i < col.length; i++) {
+                index = index * 26 + (col.charCodeAt(i) - 64);
+            }
+            return index - 1;
+        }
+
+        // Tab switching
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(tabName + 'TabContent').classList.remove('hidden');
+            document.getElementById(tabName + 'Tab').classList.add('active');
+        }
+
+        // Toolbar functions
+        function formatCell(format) {
+            if (!selectedCell) return;
+            // Apply formatting to selected cell
+            console.log('Formatting cell:', format);
+        }
+
+        function insertRow() {
+            if (!selectedCell) return;
+            const newRow = Array(currentWorkbook[0].length).fill('');
+            currentWorkbook.splice(selectedCell.row + 1, 0, newRow);
+            renderSpreadsheet();
+        }
+
+        function insertColumn() {
+            if (!selectedCell) return;
+            currentWorkbook.forEach(row => {
+                row.splice(selectedCell.col + 1, 0, '');
+            });
+            renderSpreadsheet();
+        }
+
+        function deleteRow() {
+            if (!selectedCell) return;
+            currentWorkbook.splice(selectedCell.row, 1);
+            renderSpreadsheet();
+        }
+
+        function sumSelection() {
+            if (selectedCell) {
+                document.getElementById('formulaBar').value = '=SUM(A1:A10)';
+                applyFormula();
+            }
+        }
+
+        function averageSelection() {
+            if (selectedCell) {
+                document.getElementById('formulaBar').value = '=AVERAGE(A1:A10)';
+                applyFormula();
+            }
+        }
+
+        function countSelection() {
+            if (selectedCell) {
+                document.getElementById('formulaBar').value = '=COUNT(A1:A10)';
+                applyFormula();
+            }
+        }
+
+        function createChart() {
+            alert('Chart creation feature coming soon!');
+        }
+
+        function sortData() {
+            alert('Sort feature coming soon!');
+        }
+
+        function filterData() {
+            alert('Filter feature coming soon!');
+        }
+
+        function zoomIn() {
+            zoomLevel = Math.min(zoomLevel + 10, 200);
+            applyZoom();
+        }
+
+        function zoomOut() {
+            zoomLevel = Math.max(zoomLevel - 10, 50);
+            applyZoom();
+        }
+
+        function resetZoom() {
+            zoomLevel = 100;
+            applyZoom();
+        }
+
+        function applyZoom() {
+            const container = document.getElementById('spreadsheetContainer');
+            container.style.transform = `scale(${zoomLevel / 100})`;
+            container.style.transformOrigin = 'top left';
+        }
+
+        function createNewWorkbook() {
+            if (confirm('Create a new workbook? Unsaved changes will be lost.')) {
+                initializeSpreadsheet();
+            }
+        }
+
+        function loadTemplate(templateName) {
+            // Load predefined templates
+            const templates = {
+                budget: [
+                    ['Category', 'Budgeted', 'Actual', 'Difference'],
+                    ['Rent', '$1000', '$1000', '$0'],
+                    ['Utilities', '$200', '$180', '$20'],
+                    ['Food', '$500', '$450', '$50']
+                ],
+                invoice: [
+                    ['Item', 'Quantity', 'Price', 'Total'],
+                    ['Product A', '10', '$50', '$500'],
+                    ['Product B', '5', '$25', '$125']
+                ],
+                timesheet: [
+                    ['Employee', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Total'],
+                    ['John Doe', '8', '8', '8', '8', '8', '40']
+                ]
+            };
+            
+            if (templates[templateName]) {
+                currentWorkbook = templates[templateName];
+                renderSpreadsheet();
+                switchTab('editor');
+            }
+        }
+
+        function loadFileList() {
+            const filesGrid = document.getElementById('filesGrid');
+            const files = [
+                { name: 'Sales Report Q1.xlsx', size: '245 KB', modified: '2024-02-15', icon: 'fa-chart-bar' },
+                { name: 'Budget 2024.xlsx', size: '156 KB', modified: '2024-02-10', icon: 'fa-calculator' },
+                { name: 'Employee List.xlsx', size: '89 KB', modified: '2024-02-08', icon: 'fa-users' },
+                { name: 'Inventory.xlsx', size: '412 KB', modified: '2024-02-05', icon: 'fa-boxes' }
+            ];
+            
+            let html = '';
+            files.forEach(file => {
+                html += `
+                    <div class="file-item" onclick="openFile('${file.name}')">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <i class="fas ${file.icon} text-green-500 text-2xl"></i>
+                            <div>
+                                <h4 class="font-semibold">${file.name}</h4>
+                                <p class="text-sm text-gray-600">${file.size} • ${file.modified}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            filesGrid.innerHTML = html;
+        }
+
+        function openFile(filename) {
+            alert(`Opening file: ${filename}`);
+            // In production, load the actual file data
+        }
+
+        function uploadFile() {
+            document.getElementById('importFile').click();
+        }
+
+        function importExcel() {
+            const fileInput = document.getElementById('importFile');
+            const file = fileInput.files[0];
+            
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+                    
+                    // Convert to our format
+                    currentWorkbook = jsonData;
+                    renderSpreadsheet();
+                    switchTab('editor');
+                    
+                    alert('File imported successfully!');
+                } catch (error) {
+                    alert('Error importing file: ' + error.message);
+                }
+            };
+            
+            reader.readAsArrayBuffer(file);
+        }
+
+        function exportExcel() {
+            try {
+                // Convert our data to Excel format
+                const ws = XLSX.utils.aoa_to_sheet(currentWorkbook);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+                
+                const format = document.getElementById('exportFormat').value;
+                
+                if (format === 'xlsx') {
+                    XLSX.writeFile(wb, 'workbook.xlsx');
+                } else if (format === 'csv') {
+                    const csv = XLSX.utils.sheet_to_csv(ws);
+                    downloadFile(csv, 'workbook.csv', 'text/csv');
+                } else if (format === 'pdf') {
+                    alert('PDF export coming soon!');
+                }
+            } catch (error) {
+                alert('Error exporting file: ' + error.message);
+            }
+        }
+
+        function downloadFile(content, filename, contentType) {
+            const blob = new Blob([content], { type: contentType });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

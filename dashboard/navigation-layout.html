@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOES - Office Operations Efficiency Solution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-bg-primary: #F0FDF4;
+            --color-bg-secondary: #DCFCE7;
+            --color-bg-tertiary: #BBF7D0;
+            --color-bg-card: #FFFFFF;
+            --color-bg-hover: #F7FEE7;
+            --color-text-primary: #14532D;
+            --color-text-secondary: #166534;
+            --color-text-tertiary: #15803D;
+            --color-text-muted: #16A34A;
+            --color-text-disabled: #22C55E;
+            --color-accent-primary: #DC2626;
+            --color-accent-secondary: #EF4444;
+            --color-accent-tertiary: #F87171;
+            --color-accent-success: #16A34A;
+            --color-accent-warning: #F59E0B;
+            --color-border-primary: #DCFCE7;
+            --color-border-secondary: #BBF7D0;
+            --color-border-light: #86EFAC;
+            --color-shadow-primary: rgba(34, 197, 94, 0.1);
+            --color-shadow-secondary: rgba(34, 197, 94, 0.2);
+            --color-shadow-accent: rgba(220, 38, 38, 0.3);
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+        }
+
+        .nav-item {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
+            color: var(--color-text-secondary);
+        }
+
+        .nav-item:hover {
+            background-color: var(--color-bg-hover);
+            border-left: 4px solid var(--color-accent-success);
+            padding-left: 0.75rem;
+            color: var(--color-accent-success);
+            text-decoration: none;
+        }
+
+        .nav-item.active {
+            background-color: var(--color-bg-secondary);
+            border-left: 4px solid var(--color-accent-success);
+            padding-left: 0.75rem;
+            color: var(--color-accent-success);
+            font-weight: 600;
+        }
+
+        .submodule-item {
+            padding-left: 2.5rem;
+            font-size: 0.875rem;
+        }
+
+        .sidebar-collapsed {
+            width: 4rem !important;
+        }
+
+        .sidebar-collapsed .nav-item span:not(.icon-only) {
+            display: none;
+        }
+
+        .sidebar-collapsed .submodules {
+            display: none !important;
+        }
+
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid var(--color-border-primary);
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            z-index: 1000;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .breadcrumb-item {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb-item:hover {
+            color: var(--color-accent-primary);
+            text-decoration: underline;
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .mobile-sidebar.active {
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .desktop-sidebar {
+                display: none;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu-overlay,
+            .mobile-menu-button {
+                display: none !important;
+            }
+        }
+
+        .loading-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .page-transition {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+
+    <!-- Mobile Sidebar -->
+    <div id="mobile-sidebar" class="mobile-sidebar">
+        <div class="p-4 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h2 class="text-lg font-bold text-green-800">OOES</h2>
+                <button id="close-mobile-menu" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-navigation" class="p-4">
+            <!-- Mobile navigation will be inserted here -->
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- Desktop Sidebar -->
+        <aside id="desktop-sidebar" class="desktop-sidebar w-64 bg-white shadow-lg flex flex-col transition-all duration-300">
+            <!-- Logo Section -->
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <i class="fas fa-building text-green-600 text-2xl mr-3"></i>
+                        <h1 class="text-xl font-bold text-green-800">OOES</h1>
+                    </div>
+                    <button id="sidebar-toggle" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav id="main-navigation" class="flex-1 p-4 overflow-y-auto">
+                <!-- Navigation items will be inserted here by JavaScript -->
+            </nav>
+
+            <!-- User Section -->
+            <div class="p-4 border-t border-gray-200">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                        JD
+                    </div>
+                    <div class="ml-3">
+                        <div class="text-sm font-medium text-gray-700">John Doe</div>
+                        <div class="text-xs text-gray-500">Administrator</div>
+                    </div>
+                    <button class="ml-auto text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation Bar -->
+            <header class="bg-white shadow-sm border-b border-gray-200">
+                <div class="flex items-center justify-between px-6 py-4">
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="mobile-menu-button text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+
+                    <!-- Breadcrumbs -->
+                    <nav class="flex-1">
+                        <ol id="breadcrumbs" class="flex items-center text-sm">
+                            <!-- Breadcrumbs will be inserted here -->
+                        </ol>
+                    </nav>
+
+                    <!-- Search Bar -->
+                    <div class="relative ml-4">
+                        <div class="relative">
+                            <input 
+                                type="text" 
+                                id="global-search" 
+                                placeholder="Search across all modules..."
+                                class="w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                            >
+                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </div>
+                        <div id="search-results" class="search-dropdown hidden">
+                            <!-- Search results will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="flex items-center ml-6 space-x-4">
+                        <button class="relative text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-cog text-xl"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-question-circle text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main id="main-content" class="flex-1 overflow-y-auto p-6">
+                <!-- Page content will be loaded here -->
+                <div class="page-transition">
+                    <div class="mb-6">
+                        <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+                        <p class="text-gray-600 mt-2">Welcome to the Office Operations Efficiency Solution</p>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-600">Total Employees</p>
+                                    <p class="text-2xl font-bold text-gray-900">248</p>
+                                    <p class="text-xs text-green-600 mt-1">+12% from last month</p>
+                                </div>
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-users text-blue-600"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-600">Pending Requests</p>
+                                    <p class="text-2xl font-bold text-gray-900">37</p>
+                                    <p class="text-xs text-yellow-600 mt-1">Requires attention</p>
+                                </div>
+                                <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-clock text-yellow-600"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-600">Monthly Revenue</p>
+                                    <p class="text-2xl font-bold text-gray-900">$84,250</p>
+                                    <p class="text-xs text-green-600 mt-1">+8% from last month</p>
+                                </div>
+                                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-dollar-sign text-green-600"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow p-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-600">Active Projects</p>
+                                    <p class="text-2xl font-bold text-gray-900">19</p>
+                                    <p class="text-xs text-blue-600 mt-1">On track</p>
+                                </div>
+                                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-project-diagram text-purple-600"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions Grid -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Recent Activities -->
+                        <div class="bg-white rounded-lg shadow">
+                            <div class="p-6 border-b border-gray-200">
+                                <h2 class="text-lg font-semibold text-gray-900">Recent Activities</h2>
+                            </div>
+                            <div class="p-6">
+                                <div class="space-y-4">
+                                    <div class="flex items-start">
+                                        <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3"></div>
+                                        <div class="flex-1">
+                                            <p class="text-sm text-gray-900">New employee onboarding completed</p>
+                                            <p class="text-xs text-gray-500">2 hours ago • HR Department</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3"></div>
+                                        <div class="flex-1">
+                                            <p class="text-sm text-gray-900">Invoice #INV002 paid successfully</p>
+                                            <p class="text-xs text-gray-500">4 hours ago • Finance</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3"></div>
+                                        <div class="flex-1">
+                                            <p class="text-sm text-gray-900">Purchase request awaiting approval</p>
+                                            <p class="text-xs text-gray-500">6 hours ago • Procurement</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Links -->
+                        <div class="bg-white rounded-lg shadow">
+                            <div class="p-6 border-b border-gray-200">
+                                <h2 class="text-lg font-semibold text-gray-900">Quick Actions</h2>
+                            </div>
+                            <div class="p-6">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <button class="p-4 text-left border border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition-colors" data-route="/hr/employees">
+                                        <i class="fas fa-user-plus text-green-600 mb-2"></i>
+                                        <p class="text-sm font-medium text-gray-900">Add Employee</p>
+                                    </button>
+                                    <button class="p-4 text-left border border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition-colors" data-route="/finance/invoices">
+                                        <i class="fas fa-file-invoice text-green-600 mb-2"></i>
+                                        <p class="text-sm font-medium text-gray-900">Create Invoice</p>
+                                    </button>
+                                    <button class="p-4 text-left border border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition-colors" data-route="/procurement/requests">
+                                        <i class="fas fa-shopping-cart text-green-600 mb-2"></i>
+                                        <p class="text-sm font-medium text-gray-900">New Request</p>
+                                    </button>
+                                    <button class="p-4 text-left border border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition-colors" data-route="/documents/repository">
+                                        <i class="fas fa-upload text-green-600 mb-2"></i>
+                                        <p class="text-sm font-medium text-gray-900">Upload Document</p>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="navigation-core.js"></script>
+    <script src="cross-module-links.js"></script>
+    <script>
+        // Mobile menu handlers
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            document.getElementById('mobile-sidebar').classList.add('active');
+            document.getElementById('mobile-menu-overlay').style.display = 'block';
+        });
+
+        document.getElementById('close-mobile-menu').addEventListener('click', closeMobileMenu);
+        document.getElementById('mobile-menu-overlay').addEventListener('click', closeMobileMenu);
+
+        function closeMobileMenu() {
+            document.getElementById('mobile-sidebar').classList.remove('active');
+            document.getElementById('mobile-menu-overlay').style.display = 'none';
+        }
+
+        // Sidebar toggle
+        document.getElementById('sidebar-toggle').addEventListener('click', () => {
+            const sidebar = document.getElementById('desktop-sidebar');
+            sidebar.classList.toggle('sidebar-collapsed');
+        });
+
+        // Close search results when clicking outside
+        document.addEventListener('click', (e) => {
+            const searchContainer = document.querySelector('.relative');
+            if (!searchContainer.contains(e.target)) {
+                document.getElementById('search-results').style.display = 'none';
+            }
+        });
+
+        // Initialize cross-module linking when navigation is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                if (window.crossModuleLinking) {
+                    window.crossModuleLinking.initializePageCrossLinks();
+                }
+            }, 1000);
+        });
+    
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 max-w-sm ${
+                type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
+                type === 'warning' ? 'bg-yellow-500 text-white' :
+                'bg-blue-500 text-white'
+            }`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${
+                        type === 'success' ? 'fa-check-circle' :
+                        type === 'error' ? 'fa-exclamation-circle' :
+                        type === 'warning' ? 'fa-exclamation-triangle' :
+                        'fa-info-circle'
+                    } mr-3"></i>
+                    <div class="font-medium">${message}</div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function closeModal(element) {
+            const modal = element ? element.closest('.modal, .fixed') : document.querySelector('.modal.active, .fixed.inset-0');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.style.display = 'none';
+            }
+        }
+
+        function validateForm(form) {
+            const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+            for (let input of inputs) {
+                if (!input.value.trim()) {
+                    showNotification(`Please fill in ${input.name || 'the required field'}`, 'error');
+                    input.focus();
+                    return false;
+                }
+            }
+            showNotification('Form submitted successfully!', 'success');
+            return true;
+        }
+</script>
+</body>
+</html>

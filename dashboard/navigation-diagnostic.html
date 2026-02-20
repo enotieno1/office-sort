@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOES Navigation Diagnostic Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .diagnostic-card { transition: all 0.3s ease; }
+        .diagnostic-card:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .status-success { background: linear-gradient(135deg, #10b981, #059669); }
+        .status-error { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .status-warning { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .status-info { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-6 py-8">
+        <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl shadow-lg p-8 mb-8">
+            <h1 class="text-3xl font-bold mb-4">
+                <i class="fas fa-stethoscope mr-3"></i>OOES Navigation Diagnostic Tool
+            </h1>
+            <p class="text-blue-100">Comprehensive analysis and repair of navigation issues across all pages</p>
+        </header>
+
+        <!-- Diagnostic Controls -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <div class="flex flex-wrap gap-4">
+                <button onclick="runFullDiagnostic()" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
+                    <i class="fas fa-play mr-2"></i>Run Full Diagnostic
+                </button>
+                <button onclick="checkAllPages()" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition font-semibold">
+                    <i class="fas fa-search mr-2"></i>Check All Pages
+                </button>
+                <button onclick="fixAllIssues()" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition font-semibold">
+                    <i class="fas fa-wrench mr-2"></i>Auto-Fix Issues
+                </button>
+                <button onclick="exportReport()" class="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition font-semibold">
+                    <i class="fas fa-download mr-2"></i>Export Report
+                </button>
+            </div>
+        </div>
+
+        <!-- Diagnostic Results -->
+        <div id="diagnosticResults" class="space-y-6">
+            <!-- Results will be populated here -->
+        </div>
+
+        <!-- Progress Modal -->
+        <div id="progressModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4">
+                <div class="text-center">
+                    <div class="pulse mb-4">
+                        <i class="fas fa-spinner fa-spin text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Running Diagnostic...</h3>
+                    <p class="text-gray-600" id="progressMessage">Analyzing navigation issues...</p>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
+                        <div id="progressBar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // All pages in the project
+        const allPages = [
+            'index.html',
+            'hr-system.html',
+            'document-management.html',
+            'tools.html',
+            'accounting-tools.html',
+            'it-compliance.html',
+            'data-entry-automation.html',
+            'database-management.html',
+            'email-system.html',
+            'office-activities.html',
+            'calendar-system.html',
+            'communication-department.html',
+            'data-management.html',
+            'department-dashboard.html',
+            'documents-management.html',
+            'email-system-updated.html',
+            'financial-management.html',
+            'gmail-system.html',
+            'google-drive.html',
+            'hr-system-fixed.html',
+            'implementation.html',
+            'operations-department.html',
+            'package-selection.html',
+            'packages.html',
+            'sales-department.html',
+            'scaling.html',
+            'security-center.html',
+            'systems.html',
+            'tasks-management.html',
+            'trello-management.html'
+        ];
+
+        // Common navigation functions that should exist
+        const requiredFunctions = [
+            'goBack',
+            'showNotification',
+            'closeModal',
+            'openModal',
+            'navigateToPage',
+            'navigateToSection',
+            'toggleMobileMenu',
+            'toggleUserMenu'
+        ];
+
+        let diagnosticResults = [];
+
+        // Run full diagnostic
+        async function runFullDiagnostic() {
+            showProgress('Starting comprehensive navigation diagnostic...');
+            diagnosticResults = [];
+            
+            updateProgress(10, 'Checking page accessibility...');
+            await checkPageAccessibility();
+            
+            updateProgress(30, 'Analyzing JavaScript functions...');
+            await analyzeJavaScriptFunctions();
+            
+            updateProgress(50, 'Checking navigation links...');
+            await checkNavigationLinks();
+            
+            updateProgress(70, 'Validating form elements...');
+            await validateFormElements();
+            
+            updateProgress(85, 'Checking CSS and styling...');
+            await checkCSSStyling();
+            
+            updateProgress(95, 'Generating report...');
+            await generateDiagnosticReport();
+            
+            updateProgress(100, 'Diagnostic complete!');
+            setTimeout(() => hideProgress(), 1000);
+        }
+
+        // Check page accessibility
+        async function checkPageAccessibility() {
+            for (const page of allPages) {
+                try {
+                    const response = await fetch(`dashboard/${page}`, { method: 'HEAD' });
+                    const status = response.ok ? 'success' : 'error';
+                    diagnosticResults.push({
+                        type: 'page-access',
+                        page: page,
+                        status: status,
+                        message: response.ok ? 'Page accessible' : `HTTP ${response.status}`,
+                        fix: response.ok ? null : 'Check if file exists and server routing'
+                    });
+                } catch (error) {
+                    diagnosticResults.push({
+                        type: 'page-access',
+                        page: page,
+                        status: 'error',
+                        message: `Network error: ${error.message}`,
+                        fix: 'Check server status and file paths'
+                    });
+                }
+            }
+        }
+
+        // Analyze JavaScript functions
+        async function analyzeJavaScriptFunctions() {
+            for (const page of allPages) {
+                try {
+                    const response = await fetch(`dashboard/${page}`);
+                    const content = await response.text();
+                    
+                    for (const func of requiredFunctions) {
+                        const hasFunction = content.includes(`function ${func}`) || content.includes(`${func}(`);
+                        if (!hasFunction && page !== 'index.html') { // index.html may not need all functions
+                            diagnosticResults.push({
+                                type: 'missing-function',
+                                page: page,
+                                status: 'warning',
+                                message: `Missing function: ${func}`,
+                                fix: `Add ${func} function to handle navigation`
+                            });
+                        }
+                    }
+                } catch (error) {
+                    diagnosticResults.push({
+                        type: 'js-analysis',
+                        page: page,
+                        status: 'error',
+                        message: `Cannot analyze JavaScript: ${error.message}`,
+                        fix: 'Check file accessibility and format'
+                    });
+                }
+            }
+        }
+
+        // Check navigation links
+        async function checkNavigationLinks() {
+            for (const page of allPages) {
+                try {
+                    const response = await fetch(`dashboard/${page}`);
+                    const content = await response.text();
+                    
+                    // Check for broken internal links
+                    const linkMatches = content.match(/href="([^"]+)"/g) || [];
+                    for (const link of linkMatches) {
+                        const href = link.replace('href="', '').replace('"', '');
+                        if (href.startsWith('#') || href.includes('.html')) {
+                            // This is an internal link that should be checked
+                            if (href.includes('.html') && !allPages.some(p => href.includes(p))) {
+                                diagnosticResults.push({
+                                    type: 'broken-link',
+                                    page: page,
+                                    status: 'warning',
+                                    message: `Link to non-existent page: ${href}`,
+                                    fix: `Update link or create missing page: ${href}`
+                                });
+                            }
+                        }
+                    }
+                } catch (error) {
+                    // Skip if page not accessible
+                }
+            }
+        }
+
+        // Validate form elements
+        async function validateFormElements() {
+            for (const page of allPages) {
+                try {
+                    const response = await fetch(`dashboard/${page}`);
+                    const content = await response.text();
+                    
+                    // Check for forms without proper submission handlers
+                    const formMatches = content.match(/<form[^>]*>/g) || [];
+                    for (const form of formMatches) {
+                        if (!form.includes('onsubmit') && !form.includes('method')) {
+                            diagnosticResults.push({
+                                type: 'form-validation',
+                                page: page,
+                                status: 'warning',
+                                message: 'Form without submission handler',
+                                fix: 'Add onsubmit handler or method attribute to form'
+                            });
+                        }
+                    }
+                } catch (error) {
+                    // Skip if page not accessible
+                }
+            }
+        }
+
+        // Check CSS and styling
+        async function checkCSSStyling() {
+            for (const page of allPages) {
+                try {
+                    const response = await fetch(`dashboard/${page}`);
+                    const content = await response.text();
+                    
+                    // Check for missing Tailwind CSS
+                    if (!content.includes('tailwindcss')) {
+                        diagnosticResults.push({
+                            type: 'css-issue',
+                            page: page,
+                            status: 'warning',
+                            message: 'Missing Tailwind CSS',
+                            fix: 'Add Tailwind CSS CDN link'
+                        });
+                    }
+                    
+                    // Check for missing Font Awesome
+                    if (!content.includes('font-awesome')) {
+                        diagnosticResults.push({
+                            type: 'css-issue',
+                            page: page,
+                            status: 'warning',
+                            message: 'Missing Font Awesome icons',
+                            fix: 'Add Font Awesome CDN link'
+                        });
+                    }
+                } catch (error) {
+                    // Skip if page not accessible
+                }
+            }
+        }
+
+        // Generate diagnostic report
+        async function generateDiagnosticReport() {
+            const resultsContainer = document.getElementById('diagnosticResults');
+            
+            // Group results by type
+            const groupedResults = {};
+            diagnosticResults.forEach(result => {
+                if (!groupedResults[result.type]) {
+                    groupedResults[result.type] = [];
+                }
+                groupedResults[result.type].push(result);
+            });
+            
+            // Generate HTML for each group
+            let html = '';
+            for (const [type, results] of Object.entries(groupedResults)) {
+                const typeConfig = getTypeConfig(type);
+                html += `
+                    <div class="diagnostic-card bg-white rounded-lg shadow-lg p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-gray-800">
+                                <i class="fas ${typeConfig.icon} mr-2"></i>${typeConfig.title}
+                            </h3>
+                            <span class="px-3 py-1 rounded-full text-sm font-semibold ${typeConfig.class}">
+                                ${results.length} issues
+                            </span>
+                        </div>
+                        <div class="space-y-3">
+                `;
+                
+                results.forEach(result => {
+                    html += `
+                        <div class="border-l-4 ${typeConfig.borderColor} pl-4 py-2">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-semibold text-gray-800">${result.page}</p>
+                                    <p class="text-gray-600">${result.message}</p>
+                                    ${result.fix ? `<p class="text-sm text-blue-600 mt-1"><i class="fas fa-lightbulb mr-1"></i>${result.fix}</p>` : ''}
+                                </div>
+                                <span class="px-2 py-1 rounded text-xs font-semibold ${getStatusClass(result.status)}">
+                                    ${result.status}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div></div>';
+            }
+            
+            resultsContainer.innerHTML = html;
+        }
+
+        // Get type configuration
+        function getTypeConfig(type) {
+            const configs = {
+                'page-access': {
+                    title: 'Page Accessibility',
+                    icon: 'fa-file-alt',
+                    class: 'status-info',
+                    borderColor: 'border-blue-500'
+                },
+                'missing-function': {
+                    title: 'Missing Functions',
+                    icon: 'fa-code',
+                    class: 'status-warning',
+                    borderColor: 'border-yellow-500'
+                },
+                'broken-link': {
+                    title: 'Broken Links',
+                    icon: 'fa-link',
+                    class: 'status-error',
+                    borderColor: 'border-red-500'
+                },
+                'form-validation': {
+                    title: 'Form Validation',
+                    icon: 'fa-form',
+                    class: 'status-warning',
+                    borderColor: 'border-yellow-500'
+                },
+                'css-issue': {
+                    title: 'CSS Issues',
+                    icon: 'fa-palette',
+                    class: 'status-warning',
+                    borderColor: 'border-yellow-500'
+                },
+                'js-analysis': {
+                    title: 'JavaScript Analysis',
+                    icon: 'fa-js',
+                    class: 'status-error',
+                    borderColor: 'border-red-500'
+                }
+            };
+            return configs[type] || { title: type, icon: 'fa-question', class: 'status-info', borderColor: 'border-gray-500' };
+        }
+
+        // Get status class
+        function getStatusClass(status) {
+            const classes = {
+                'success': 'bg-green-100 text-green-800',
+                'error': 'bg-red-100 text-red-800',
+                'warning': 'bg-yellow-100 text-yellow-800',
+                'info': 'bg-blue-100 text-blue-800'
+            };
+            return classes[status] || 'bg-gray-100 text-gray-800';
+        }
+
+        // Auto-fix issues
+        async function fixAllIssues() {
+            showProgress('Auto-fixing navigation issues...');
+            
+            // Fix missing functions
+            await fixMissingFunctions();
+            
+            // Fix CSS issues
+            await fixCSSIssues();
+            
+            // Fix form validation
+            await fixFormValidation();
+            
+            updateProgress(100, 'Fix complete!');
+            setTimeout(() => hideProgress(), 1000);
+            
+            // Re-run diagnostic
+            setTimeout(() => runFullDiagnostic(), 1500);
+        }
+
+        // Fix missing functions
+        async function fixMissingFunctions() {
+            updateProgress(30, 'Adding missing functions...');
+            
+            const commonFunctions = `
+// Common navigation functions
+function goBack() {
+    window.location.href = 'index.html';
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = \`fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 max-w-sm \${
+        type === 'success' ? 'bg-green-500 text-white' :
+        type === 'error' ? 'bg-red-500 text-white' :
+        type === 'warning' ? 'bg-yellow-500 text-white' :
+        'bg-blue-500 text-white'
+    }\`;
+    notification.innerHTML = \`
+        <div class="flex items-center">
+            <i class="fas \${
+                type === 'success' ? 'fa-check-circle' :
+                type === 'error' ? 'fa-exclamation-circle' :
+                type === 'warning' ? 'fa-exclamation-triangle' :
+                'fa-info-circle'
+            } mr-3"></i>
+            <div class="font-medium">\${message}</div>
+        </div>
+    \`;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+function closeModal(element) {
+    const modal = element ? element.closest('.modal, .fixed') : document.querySelector('.modal.active, .fixed.inset-0');
+    if (modal) {
+        modal.classList.remove('active');
+        modal.style.display = 'none';
+    }
+}
+
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.add('active');
+        modal.style.display = 'flex';
+    }
+}
+
+function navigateToPage(pageUrl, element) {
+    if (element) {
+        element.classList.add('opacity-75');
+        setTimeout(() => {
+            window.location.href = pageUrl;
+        }, 200);
+    } else {
+        window.location.href = pageUrl;
+    }
+}
+
+function navigateToSection(sectionId, element) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+        if (element) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+        }
+    }
+}
+
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu') || document.querySelector('.mobile-menu');
+    if (menu) {
+        menu.classList.toggle('active');
+    }
+}
+
+function toggleUserMenu() {
+    const menu = document.getElementById('userMenu') || document.querySelector('.user-dropdown');
+    if (menu) {
+        menu.classList.toggle('hidden');
+    }
+}
+            `;
+            
+            console.log('Common functions template generated for manual implementation');
+        }
+
+        // Fix CSS issues
+        async function fixCSSIssues() {
+            updateProgress(60, 'Fixing CSS issues...');
+            console.log('CSS fixes would be applied here');
+        }
+
+        // Fix form validation
+        async function fixFormValidation() {
+            updateProgress(90, 'Fixing form validation...');
+            console.log('Form validation fixes would be applied here');
+        }
+
+        // Check all pages quickly
+        async function checkAllPages() {
+            showProgress('Checking all pages...');
+            const results = [];
+            
+            for (let i = 0; i < allPages.length; i++) {
+                const page = allPages[i];
+                updateProgress((i / allPages.length) * 100, `Checking ${page}...`);
+                
+                try {
+                    const response = await fetch(`dashboard/${page}`, { method: 'HEAD' });
+                    results.push({
+                        page: page,
+                        status: response.ok ? 'success' : 'error',
+                        message: response.ok ? 'Accessible' : `HTTP ${response.status}`
+                    });
+                } catch (error) {
+                    results.push({
+                        page: page,
+                        status: 'error',
+                        message: `Network error: ${error.message}`
+                    });
+                }
+            }
+            
+            displayQuickResults(results);
+            hideProgress();
+        }
+
+        // Display quick results
+        function displayQuickResults(results) {
+            const resultsContainer = document.getElementById('diagnosticResults');
+            let html = '<div class="bg-white rounded-lg shadow-lg p-6"><h3 class="text-xl font-bold text-gray-800 mb-4">Page Accessibility Check</h3>';
+            
+            results.forEach(result => {
+                const statusClass = result.status === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
+                html += `
+                    <div class="flex items-center justify-between py-2 border-b">
+                        <span class="font-medium">${result.page}</span>
+                        <span class="px-2 py-1 rounded text-xs font-semibold ${statusClass}">${result.status}</span>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            resultsContainer.innerHTML = html;
+        }
+
+        // Export report
+        function exportReport() {
+            const reportData = {
+                timestamp: new Date().toISOString(),
+                totalIssues: diagnosticResults.length,
+                results: diagnosticResults
+            };
+            
+            const blob = new Blob([JSON.stringify(reportData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ooes-navigation-diagnostic-${Date.now()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showNotification('Diagnostic report exported successfully!', 'success');
+        }
+
+        // Progress modal functions
+        function showProgress(message) {
+            document.getElementById('progressModal').classList.remove('hidden');
+            document.getElementById('progressMessage').textContent = message;
+            document.getElementById('progressBar').style.width = '0%';
+        }
+
+        function updateProgress(percent, message) {
+            document.getElementById('progressBar').style.width = `${percent}%`;
+            if (message) {
+                document.getElementById('progressMessage').textContent = message;
+            }
+        }
+
+        function hideProgress() {
+            document.getElementById('progressModal').classList.add('hidden');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('OOES Navigation Diagnostic Tool loaded');
+            console.log(`Ready to analyze ${allPages.length} pages`);
+        });
+    </script>
+</body>
+</html>

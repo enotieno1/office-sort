@@ -325,7 +325,7 @@
                 </div>
             </div>
             <div class="p-8">
-                <form id="campaignForm" class="space-y-6">
+                <form id="campaignForm" class="space-y-6" onsubmit="return validateForm(this)">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Campaign Name</label>
@@ -502,6 +502,14 @@
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', initializeSalesDepartment);
-    </script>
+    
+        function closeModal(element) {
+            const modal = element ? element.closest('.modal, .fixed') : document.querySelector('.modal.active, .fixed.inset-0');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.style.display = 'none';
+            }
+        }
+</script>
 </body>
 </html>

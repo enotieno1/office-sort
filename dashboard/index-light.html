@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOES Dashboard - Fast Load</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-white: #FFFFFF;
+            --primary-light-gray: #F8F9FA;
+            --secondary-light-gray: #F1F3F4;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --accent-blue: #3B82F6;
+            --accent-green: #059669;
+            --accent-red: #EF4444;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary-light-gray);
+            margin: 0;
+            padding: 0;
+        }
+
+        .dashboard-header {
+            background: var(--primary-white);
+            border-bottom: 1px solid var(--secondary-light-gray);
+            padding: 1rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .widget-card {
+            background: var(--primary-white);
+            border: 1px solid var(--secondary-light-gray);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+
+        .widget-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .widget-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .widget-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .metric-value {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-online {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green);
+        }
+
+        .pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .quick-action {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quick-action:hover {
+            background: #2563EB;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <h1 class="text-2xl font-bold text-gray-900">
+                        <i class="fas fa-th-large mr-2"></i>
+                        OOES Dashboard
+                    </h1>
+                    <div class="status-indicator status-online">
+                        <span class="pulse"></span>
+                        System Online
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <input type="text" placeholder="Search..." class="px-4 py-2 border border-gray-300 rounded-lg">
+                    <button class="quick-action" onclick="refreshDashboard()">
+                        <i class="fas fa-sync-alt"></i>
+                        Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-6">
+        <!-- Quick Actions -->
+        <div class="flex gap-2 mb-6">
+            <button class="quick-action" onclick="openModule('tasks')">
+                <i class="fas fa-tasks"></i>
+                Tasks
+            </button>
+            <button class="quick-action" onclick="openModule('documents')">
+                <i class="fas fa-folder"></i>
+                Documents
+            </button>
+            <button class="quick-action" onclick="openModule('finance')">
+                <i class="fas fa-chart-line"></i>
+                Finance
+            </button>
+            <button class="quick-action" onclick="openModule('hr')">
+                <i class="fas fa-users"></i>
+                HR
+            </button>
+        </div>
+
+        <!-- Widgets Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Tasks Widget -->
+            <div class="widget-card" onclick="openModule('tasks')">
+                <div class="widget-header">
+                    <div class="widget-title">
+                        <div class="widget-icon" style="background: linear-gradient(135deg, #3B82F6, #2563EB);">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        Tasks & To-Do
+                    </div>
+                    <button class="quick-action" onclick="event.stopPropagation(); addTask()">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Pending Tasks</span>
+                        <span class="metric-value">23</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Completed Today</span>
+                        <span class="metric-value">15</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Overdue</span>
+                        <span class="metric-value" style="color: var(--accent-red);">3</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documents Widget -->
+            <div class="widget-card" onclick="openModule('documents')">
+                <div class="widget-header">
+                    <div class="widget-title">
+                        <div class="widget-icon" style="background: linear-gradient(135deg, #059669, #047857);">
+                            <i class="fas fa-folder"></i>
+                        </div>
+                        Documents
+                    </div>
+                    <button class="quick-action" onclick="event.stopPropagation(); uploadDoc()">
+                        <i class="fas fa-upload"></i>
+                    </button>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Total Files</span>
+                        <span class="metric-value">1,247</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Recent Uploads</span>
+                        <span class="metric-value">12</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Shared</span>
+                        <span class="metric-value">234</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Finance Widget -->
+            <div class="widget-card" onclick="openModule('finance')">
+                <div class="widget-header">
+                    <div class="widget-title">
+                        <div class="widget-icon" style="background: linear-gradient(135deg, #F59E0B, #D97706);">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        Finance & Billing
+                    </div>
+                    <button class="quick-action" onclick="event.stopPropagation(); createInvoice()">
+                        <i class="fas fa-file-invoice"></i>
+                    </button>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Revenue</span>
+                        <span class="metric-value">$2.4M</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Pending Invoices</span>
+                        <span class="metric-value">$12.4K</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Expenses</span>
+                        <span class="metric-value">$1.8M</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HR Widget -->
+            <div class="widget-card" onclick="openModule('hr')">
+                <div class="widget-header">
+                    <div class="widget-title">
+                        <div class="widget-icon" style="background: linear-gradient(135deg, #8B5CF6, #7C3AED);">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        HR & Payroll
+                    </div>
+                    <button class="quick-action" onclick="event.stopPropagation(); processPayroll()">
+                        <i class="fas fa-calculator"></i>
+                    </button>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Total Employees</span>
+                        <span class="metric-value">247</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Present Today</span>
+                        <span class="metric-value">234</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Leave Requests</span>
+                        <span class="metric-value">8</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Communication Widget -->
+            <div class="widget-card" onclick="openModule('communication')">
+                <div class="widget-header">
+                    <div class="widget-title">
+                        <div class="widget-icon" style="background: linear-gradient(135deg, #EF4444, #DC2626);">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        Communication
+                    </div>
+                    <button class="quick-action" onclick="event.stopPropagation(); composeMessage()">
+                        <i class="fas fa-pen"></i>
+                    </button>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Unread Emails</span>
+                        <span class="metric-value">23</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Messages</span>
+                        <span class="metric-value">12</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Notifications</span>
+                        <span class="metric-value">5</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compliance Widget -->
+            <div class="widget-card" onclick="openModule('compliance')">
+                <div class="widget-header">
+                    <div class="widget-title">
+                        <div class="widget-icon" style="background: linear-gradient(135deg, #6B7280, #4B5563);">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        Compliance
+                    </div>
+                    <button class="quick-action" onclick="event.stopPropagation(); viewCompliance()">
+                        <i class="fas fa-list-check"></i>
+                    </button>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Compliance Score</span>
+                        <span class="metric-value">98%</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Pending Tasks</span>
+                        <span class="metric-value">3</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="metric-label">Deadlines</span>
+                        <span class="metric-value">12</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Status -->
+        <div class="mt-8 bg-white rounded-lg p-6 border border-gray-200">
+            <h3 class="text-lg font-semibold mb-4">System Status</h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="text-center">
+                    <div class="metric-value">99.8%</div>
+                    <div class="metric-label">System Health</div>
+                </div>
+                <div class="text-center">
+                    <div class="metric-value">1.2s</div>
+                    <div class="metric-label">Response Time</div>
+                </div>
+                <div class="text-center">
+                    <div class="metric-value">247</div>
+                    <div class="metric-label">Active Users</div>
+                </div>
+                <div class="text-center">
+                    <div class="metric-value">23</div>
+                    <div class="metric-label">Active Modules</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Simple functions for demo
+        function openModule(module) {
+            // Navigate to specific module pages
+            switch(module) {
+                case 'tasks':
+                    window.location.href = 'tasks-management.html';
+                    break;
+                case 'documents':
+                    window.location.href = 'documents-management.html';
+                    break;
+                case 'finance':
+                    window.location.href = 'finance-management.html';
+                    break;
+                case 'hr':
+                    window.location.href = 'hr-management.html';
+                    break;
+                case 'communication':
+                    window.location.href = 'communication-center.html';
+                    break;
+                case 'compliance':
+                    window.location.href = 'compliance-center.html';
+                    break;
+                default:
+                    alert(`Opening ${module} module...`);
+            }
+        }
+
+        function addTask() {
+            alert('Add new task...');
+        }
+
+        function uploadDoc() {
+            alert('Upload document...');
+        }
+
+        function createInvoice() {
+            alert('Create invoice...');
+        }
+
+        function processPayroll() {
+            alert('Process payroll...');
+        }
+
+        function composeMessage() {
+            alert('Compose message...');
+        }
+
+        function viewCompliance() {
+            alert('View compliance...');
+        }
+
+        function refreshDashboard() {
+            location.reload();
+        }
+
+        // Auto-refresh metrics
+        setInterval(() => {
+            console.log('Refreshing metrics...');
+        }, 30000);
+    
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 max-w-sm ${
+                type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
+                type === 'warning' ? 'bg-yellow-500 text-white' :
+                'bg-blue-500 text-white'
+            }`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${
+                        type === 'success' ? 'fa-check-circle' :
+                        type === 'error' ? 'fa-exclamation-circle' :
+                        type === 'warning' ? 'fa-exclamation-triangle' :
+                        'fa-info-circle'
+                    } mr-3"></i>
+                    <div class="font-medium">${message}</div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function closeModal(element) {
+            const modal = element ? element.closest('.modal, .fixed') : document.querySelector('.modal.active, .fixed.inset-0');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.style.display = 'none';
+            }
+        }
+
+        function validateForm(form) {
+            const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+            for (let input of inputs) {
+                if (!input.value.trim()) {
+                    showNotification(`Please fill in ${input.name || 'the required field'}`, 'error');
+                    input.focus();
+                    return false;
+                }
+            }
+            showNotification('Form submitted successfully!', 'success');
+            return true;
+        }
+</script>
+</body>
+</html>

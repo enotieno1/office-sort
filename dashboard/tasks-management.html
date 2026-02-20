@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management | OOES Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-white: #FFFFFF;
+            --primary-light-gray: #F8F9FA;
+            --secondary-light-gray: #F1F3F4;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --accent-blue: #3B82F6;
+            --accent-green: #059669;
+            --accent-red: #EF4444;
+            --accent-yellow: #F59E0B;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary-light-gray);
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-header {
+            background: var(--primary-white);
+            border-bottom: 1px solid var(--secondary-light-gray);
+            padding: 1rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .breadcrumb-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb-item:hover {
+            color: var(--accent-blue);
+        }
+
+        .breadcrumb-current {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .task-card {
+            background: var(--primary-white);
+            border: 1px solid var(--secondary-light-gray);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .task-priority {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .priority-high {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent-red);
+        }
+
+        .priority-medium {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent-yellow);
+        }
+
+        .priority-low {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green);
+        }
+
+        .task-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: rgba(107, 114, 128, 0.1);
+            color: #6B7280;
+        }
+
+        .status-in-progress {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-blue);
+        }
+
+        .status-completed {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green);
+        }
+
+        .action-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-btn:hover {
+            background: #2563EB;
+            transform: translateY(-1px);
+        }
+
+        .action-btn-secondary {
+            background: var(--primary-white);
+            color: var(--text-secondary);
+            border: 1px solid var(--secondary-light-gray);
+        }
+
+        .action-btn-secondary:hover {
+            background: var(--primary-light-gray);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--primary-white);
+            border: 1px solid var(--secondary-light-gray);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .tab-nav {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--secondary-light-gray);
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn:hover {
+            color: var(--accent-blue);
+        }
+
+        .tab-btn.active {
+            color: var(--accent-blue);
+            border-bottom-color: var(--accent-blue);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--primary-white);
+            border-radius: 12px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--secondary-light-gray);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--secondary-light-gray);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            background: var(--primary-white);
+            cursor: pointer;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--secondary-light-gray);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container mx-auto px-4">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="index-light.html" class="breadcrumb-item">
+                    <i class="fas fa-home"></i>
+                    Dashboard
+                </a>
+                <span class="text-gray-400">/</span>
+                <a href="index-light.html" class="breadcrumb-item">Widgets</a>
+                <span class="text-gray-400">/</span>
+                <span class="breadcrumb-current">Task Management</span>
+            </nav>
+
+            <!-- Header Content -->
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900 mb-2">
+                        <i class="fas fa-tasks mr-2"></i>
+                        Task Management
+                    </h1>
+                    <p class="text-gray-600">Manage and track all your tasks in one place</p>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <button class="action-btn action-btn-secondary" onclick="exportTasks()">
+                        <i class="fas fa-download"></i>
+                        Export
+                    </button>
+                    <button class="action-btn" onclick="openTaskModal()">
+                        <i class="fas fa-plus"></i>
+                        New Task
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-6">
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">23</div>
+                <div class="stat-label">Pending Tasks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">15</div>
+                <div class="stat-label">In Progress</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">47</div>
+                <div class="stat-label">Completed Today</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Overdue</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('all')">All Tasks</button>
+            <button class="tab-btn" onclick="switchTab('pending')">Pending</button>
+            <button class="tab-btn" onclick="switchTab('in-progress')">In Progress</button>
+            <button class="tab-btn" onclick="switchTab('completed')">Completed</button>
+            <button class="tab-btn" onclick="switchTab('overdue')">Overdue</button>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="flex items-center gap-4 mb-6">
+            <div class="flex-1">
+                <input type="text" placeholder="Search tasks..." class="form-input" id="taskSearch">
+            </div>
+            <select class="form-select" style="width: 200px;">
+                <option>All Priorities</option>
+                <option>High Priority</option>
+                <option>Medium Priority</option>
+                <option>Low Priority</option>
+            </select>
+            <select class="form-select" style="width: 200px;">
+                <option>All Assignees</option>
+                <option>Me</option>
+                <option>Unassigned</option>
+                <option>Team A</option>
+                <option>Team B</option>
+            </select>
+        </div>
+
+        <!-- Tasks List -->
+        <div id="tasksList">
+            <!-- High Priority Task -->
+            <div class="task-card" onclick="openTaskDetail(1)">
+                <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-2">
+                            <h3 class="text-lg font-semibold text-gray-900">Q4 Financial Report Preparation</h3>
+                            <span class="task-priority priority-high">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                High Priority
+                            </span>
+                            <span class="task-status status-in-progress">
+                                <i class="fas fa-clock"></i>
+                                In Progress
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-3">Prepare comprehensive financial report for Q4 2024 including revenue analysis, expense breakdown, and profit margins.</p>
+                        <div class="flex items-center gap-4 text-sm text-gray-500">
+                            <span><i class="fas fa-calendar"></i> Due: Dec 15, 2024</span>
+                            <span><i class="fas fa-user"></i> Assigned to: John Doe</span>
+                            <span><i class="fas fa-folder"></i> Finance</span>
+                            <span><i class="fas fa-comments"></i> 3 comments</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); editTask(1)">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); deleteTask(1)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medium Priority Task -->
+            <div class="task-card" onclick="openTaskDetail(2)">
+                <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-2">
+                            <h3 class="text-lg font-semibold text-gray-900">Employee Performance Reviews</h3>
+                            <span class="task-priority priority-medium">
+                                <i class="fas fa-minus-circle"></i>
+                                Medium Priority
+                            </span>
+                            <span class="task-status status-pending">
+                                <i class="fas fa-pause-circle"></i>
+                                Pending
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-3">Conduct annual performance reviews for all team members, including goal setting and feedback sessions.</p>
+                        <div class="flex items-center gap-4 text-sm text-gray-500">
+                            <span><i class="fas fa-calendar"></i> Due: Dec 20, 2024</span>
+                            <span><i class="fas fa-user"></i> Assigned to: Sarah Johnson</span>
+                            <span><i class="fas fa-folder"></i> HR</span>
+                            <span><i class="fas fa-comments"></i> 5 comments</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); editTask(2)">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); deleteTask(2)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Low Priority Task -->
+            <div class="task-card" onclick="openTaskDetail(3)">
+                <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-2">
+                            <h3 class="text-lg font-semibold text-gray-900">Office Supplies Inventory</h3>
+                            <span class="task-priority priority-low">
+                                <i class="fas fa-check-circle"></i>
+                                Low Priority
+                            </span>
+                            <span class="task-status status-completed">
+                                <i class="fas fa-check"></i>
+                                Completed
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-3">Update office supplies inventory and create purchase orders for items running low.</p>
+                        <div class="flex items-center gap-4 text-sm text-gray-500">
+                            <span><i class="fas fa-calendar"></i> Completed: Dec 10, 2024</span>
+                            <span><i class="fas fa-user"></i> Assigned to: Mike Wilson</span>
+                            <span><i class="fas fa-folder"></i> Operations</span>
+                            <span><i class="fas fa-comments"></i> 2 comments</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); editTask(3)">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); deleteTask(3)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overdue Task -->
+            <div class="task-card" onclick="openTaskDetail(4)">
+                <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-2">
+                            <h3 class="text-lg font-semibold text-gray-900">Client Contract Renewal</h3>
+                            <span class="task-priority priority-high">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                High Priority
+                            </span>
+                            <span class="task-status status-pending" style="background: rgba(239, 68, 68, 0.1); color: var(--accent-red);">
+                                <i class="fas fa-exclamation-circle"></i>
+                                Overdue
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-3">Renew annual contract with ABC Corporation and negotiate terms for next year.</p>
+                        <div class="flex items-center gap-4 text-sm text-gray-500">
+                            <span><i class="fas fa-calendar" style="color: var(--accent-red);"></i> Was due: Dec 5, 2024</span>
+                            <span><i class="fas fa-user"></i> Assigned to: Lisa Chen</span>
+                            <span><i class="fas fa-folder"></i> Sales</span>
+                            <span><i class="fas fa-comments"></i> 8 comments</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); editTask(4)">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn action-btn-secondary" onclick="event.stopPropagation(); deleteTask(4)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Task Modal -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-bold text-gray-900">Create New Task</h2>
+                <button onclick="closeTaskModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form onsubmit="saveTask(event)" onsubmit="return validateForm(this)">
+                <div class="form-group">
+                    <label class="form-label">Task Title</label>
+                    <input type="text" class="form-input" placeholder="Enter task title" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-textarea" placeholder="Enter task description"></textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="form-group">
+                        <label class="form-label">Priority</label>
+                        <select class="form-select">
+                            <option>Low Priority</option>
+                            <option>Medium Priority</option>
+                            <option>High Priority</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Due Date</label>
+                        <input type="date" class="form-input">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="form-group">
+                        <label class="form-label">Assignee</label>
+                        <select class="form-select">
+                            <option>Unassigned</option>
+                            <option>John Doe</option>
+                            <option>Sarah Johnson</option>
+                            <option>Mike Wilson</option>
+                            <option>Lisa Chen</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select class="form-select">
+                            <option>Finance</option>
+                            <option>HR</option>
+                            <option>Operations</option>
+                            <option>Sales</option>
+                            <option>Marketing</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 justify-end">
+                    <button type="button" onclick="closeTaskModal()" class="action-btn action-btn-secondary">
+                        Cancel
+                    </button>
+                    <button type="submit" class="action-btn">
+                        <i class="fas fa-save"></i>
+                        Create Task
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        function switchTab(tab) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter tasks based on tab
+            console.log(`Switching to ${tab} tab`);
+        }
+
+        // Modal functions
+        function openTaskModal() {
+            document.getElementById('taskModal').classList.add('active');
+        }
+
+        function closeTaskModal() {
+            document.getElementById('taskModal').classList.remove('active');
+        }
+
+        function saveTask(event) {
+            event.preventDefault();
+            alert('Task created successfully!');
+            closeTaskModal();
+        }
+
+        // Task actions
+        function openTaskDetail(taskId) {
+            alert(`Opening task ${taskId} details...`);
+        }
+
+        function editTask(taskId) {
+            alert(`Editing task ${taskId}...`);
+        }
+
+        function deleteTask(taskId) {
+            if (confirm('Are you sure you want to delete this task?')) {
+                alert(`Task ${taskId} deleted`);
+            }
+        }
+
+        function exportTasks() {
+            alert('Exporting tasks to Excel...');
+        }
+
+        // Search functionality
+        document.getElementById('taskSearch').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            console.log(`Searching for: ${query}`);
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('taskModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeTaskModal();
+            }
+        });
+    
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 max-w-sm ${
+                type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
+                type === 'warning' ? 'bg-yellow-500 text-white' :
+                'bg-blue-500 text-white'
+            }`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${
+                        type === 'success' ? 'fa-check-circle' :
+                        type === 'error' ? 'fa-exclamation-circle' :
+                        type === 'warning' ? 'fa-exclamation-triangle' :
+                        'fa-info-circle'
+                    } mr-3"></i>
+                    <div class="font-medium">${message}</div>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function closeModal(element) {
+            const modal = element ? element.closest('.modal, .fixed') : document.querySelector('.modal.active, .fixed.inset-0');
+            if (modal) {
+                modal.classList.remove('active');
+                modal.style.display = 'none';
+            }
+        }
+</script>
+</body>
+</html>
