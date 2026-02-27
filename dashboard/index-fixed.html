@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOES - Efficiency Engineered for Excellence | Office Operations Efficiency Solution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Greenish-Reddish-Whitish Theme Variables */
+            --color-bg-primary: #F0FDF4;
+            --color-bg-secondary: #DCFCE7;
+            --color-bg-tertiary: #BBF7D0;
+            --color-bg-card: #FFFFFF;
+            --color-bg-hover: #F7FEE7;
+            --color-text-primary: #14532D;
+            --color-text-secondary: #166534;
+            --color-text-tertiary: #15803D;
+            --color-text-muted: #16A34A;
+            --color-text-disabled: #22C55E;
+            --color-accent-primary: #DC2626;
+            --color-accent-secondary: #EF4444;
+            --color-accent-tertiary: #F87171;
+            --color-accent-success: #16A34A;
+            --color-accent-warning: #F59E0B;
+            --color-border-primary: #DCFCE7;
+            --color-border-secondary: #BBF7D0;
+            --color-border-light: #86EFAC;
+            --color-shadow-primary: rgba(34, 197, 94, 0.1);
+            --color-shadow-secondary: rgba(34, 197, 94, 0.2);
+            --color-shadow-accent: rgba(220, 38, 38, 0.3);
+        }
+
+        body {
+            background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1F2937;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Professional Layout Structure */
+        .ooes-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            background: #FFFFFF;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #E5E7EB;
+            height: fit-content;
+            position: sticky;
+            top: 1.5rem;
+            overflow-y: auto;
+            max-height: calc(100vh - 3rem);
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .sidebar-logo {
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #14532D;
+        }
+
+        .nav-section {
+            margin-bottom: 2rem;
+        }
+
+        .nav-section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            padding-left: 0.5rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.25rem;
+            color: #374151;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item:hover {
+            background-color: #F0FDF4;
+            color: #16A34A;
+            transform: translateX(4px);
+        }
+
+        .nav-item.active {
+            background-color: #DCFCE7;
+            color: #16A34A;
+            font-weight: 500;
+            border-left: 3px solid #16A34A;
+        }
+
+        .nav-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-right: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6B7280;
+        }
+
+        .nav-item:hover .nav-icon,
+        .nav-item.active .nav-icon {
+            color: #16A34A;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Header */
+        .header {
+            background: #FFFFFF;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #E5E7EB;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .header-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-bar {
+            position: relative;
+            max-width: 400px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            background: #F9FAFB;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #16A34A;
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9CA3AF;
+        }
+
+        .header-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: #F9FAFB;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: #16A34A;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #16A34A;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #6B7280;
+            font-weight: 500;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .dashboard-section {
+            background: #FFFFFF;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-section:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #F3F4F6;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0;
+        }
+
+        .section-description {
+            color: #6B7280;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #D1D5DB;
+            background: #FFFFFF;
+            color: #374151;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: #F9FAFB;
+            border-color: #16A34A;
+            color: #16A34A;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #16A34A, #22C55E);
+            color: #FFFFFF;
+            border-color: #16A34A;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #15803D, #16A34A);
+        }
+
+        /* Module Cards */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .module-card {
+            background: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #16A34A;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .module-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .module-icon {
+            width: 3rem;
+            height: 3rem;
+            background: #F0FDF4;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #16A34A;
+            margin-bottom: 1.5rem;
+        }
+
+        .module-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .module-description {
+            color: #6B7280;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .module-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .module-features li {
+            padding: 0.5rem 0;
+            color: #374151;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .module-features li::before {
+            content: '✓';
+            color: #16A34A;
+            font-weight: 600;
+            margin-right: 0.75rem;
+        }
+
+        /* Activity Feed */
+        .activity-feed {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #F0FDF4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #16A34A;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 500;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-description {
+            font-size: 0.875rem;
+            color: #6B7280;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-time {
+            font-size: 0.75rem;
+            color: #9CA3AF;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-badge.success {
+            background: #DCFCE7;
+            color: #16A34A;
+        }
+
+        .status-badge.warning {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+
+        .status-badge.info {
+            background: #DBEAFE;
+            color: #2563EB;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .ooes-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .sidebar {
+                position: static;
+                max-height: none;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .header-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .ooes-container {
+                padding: 0.75rem;
+            }
+
+            .header {
+                padding: 1.5rem;
+            }
+
+            .dashboard-section {
+                padding: 1.5rem;
+            }
+
+            .module-card {
+                padding: 1.5rem;
+            }
+
+            .header-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dashboard-section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .dashboard-section:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .dashboard-section:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .dashboard-section:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        /* Scrollbar Styling */
+        .sidebar::-webkit-scrollbar,
+        .activity-feed::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track,
+        .activity-feed::-webkit-scrollbar-track {
+            background: #F3F4F6;
+            border-radius: 3px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb,
+        .activity-feed::-webkit-scrollbar-thumb {
+            background: #D1D5DB;
+            border-radius: 3px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover,
+        .activity-feed::-webkit-scrollbar-thumb:hover {
+            background: #9CA3AF;
+        }
+    </style>
+</head>
+<body>
+    <div class="ooes-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">OOES</div>
+                <div class="sidebar-title">Office Efficiency</div>
+            </div>
+
+            <nav class="nav-section">
+                <div class="nav-section-title">Main</div>
+                <a href="#dashboard" class="nav-item active">
+                    <i class="fas fa-tachometer-alt nav-icon"></i>
+                    Dashboard
+                </a>
+                <a href="#systems" class="nav-item">
+                    <i class="fas fa-cogs nav-icon"></i>
+                    Systems
+                </a>
+                <a href="#automation" class="nav-item">
+                    <i class="fas fa-robot nav-icon"></i>
+                    Automation
+                </a>
+            </nav>
+
+            <nav class="nav-section">
+                <div class="nav-section-title">Modules</div>
+                <a href="#documents" class="nav-item">
+                    <i class="fas fa-folder nav-icon"></i>
+                    Documents
+                </a>
+                <a href="#hr" class="nav-item">
+                    <i class="fas fa-users nav-icon"></i>
+                    HR System
+                </a>
+                <a href="#financial" class="nav-item">
+                    <i class="fas fa-dollar-sign nav-icon"></i>
+                    Financial
+                </a>
+                <a href="#email" class="nav-item">
+                    <i class="fas fa-envelope nav-icon"></i>
+                    Email System
+                </a>
+                <a href="#excel" class="nav-item">
+                    <i class="fas fa-file-excel nav-icon"></i>
+                    Excel System
+                </a>
+                <a href="#compliance" class="nav-item">
+                    <i class="fas fa-shield-alt nav-icon"></i>
+                    IT Compliance
+                </a>
+            </nav>
+
+            <nav class="nav-section">
+                <div class="nav-section-title">Tools</div>
+                <a href="#calendar" class="nav-item">
+                    <i class="fas fa-calendar nav-icon"></i>
+                    Calendar
+                </a>
+                <a href="#tasks" class="nav-item">
+                    <i class="fas fa-tasks nav-icon"></i>
+                    Tasks
+                </a>
+                <a href="#reports" class="nav-item">
+                    <i class="fas fa-chart-bar nav-icon"></i>
+                    Reports
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-content">
+                    <div>
+                        <h1 class="header-title">Dashboard Overview</h1>
+                        <p class="section-description">Welcome back! Here's what's happening in your office today.</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="search-bar">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" class="search-input" placeholder="Search anything...">
+                        </div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                            New Task
+                        </button>
+                    </div>
+                </div>
+
+                <div class="header-stats">
+                    <div class="stat-card">
+                        <div class="stat-value">87%</div>
+                        <div class="stat-label">Efficiency Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">24</div>
+                        <div class="stat-label">Active Tasks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">156</div>
+                        <div class="stat-label">Documents Processed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Team Members</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Quick Actions Section -->
+                <section class="dashboard-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">
+                                <i class="fas fa-bolt"></i>
+                                Quick Actions
+                            </h2>
+                            <p class="section-description">Frequently used tools and actions</p>
+                        </div>
+                        <div class="section-actions">
+                            <button class="btn">View All</button>
+                        </div>
+                    </div>
+                    <div class="modules-grid">
+                        <div class="module-card">
+                            <div class="module-icon">
+                                <i class="fas fa-file-upload"></i>
+                            </div>
+                            <h3 class="module-title">Upload Document</h3>
+                            <p class="module-description">Quickly upload and categorize new documents</p>
+                            <ul class="module-features">
+                                <li>Drag & drop support</li>
+                                <li>Auto-categorization</li>
+                                <li>Instant processing</li>
+                            </ul>
+                            <button class="btn btn-primary">Upload Now</button>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <h3 class="module-title">Add Employee</h3>
+                            <p class="module-description">Quickly add new team members to the system</p>
+                            <ul class="module-features">
+                                <li>Profile creation</li>
+                                <li>Role assignment</li>
+                                <li>Access permissions</li>
+                            </ul>
+                            <button class="btn btn-primary">Add Employee</button>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                            <h3 class="module-title">Create Report</h3>
+                            <p class="module-description">Generate instant reports and analytics</p>
+                            <ul class="module-features">
+                                <li>Custom templates</li>
+                                <li>Real-time data</li>
+                                <li>Export options</li>
+                            </ul>
+                            <button class="btn btn-primary">Create Report</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recent Activity Section -->
+                <section class="dashboard-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">
+                                <i class="fas fa-history"></i>
+                                Recent Activity
+                            </h2>
+                            <p class="section-description">Latest updates and actions across all systems</p>
+                        </div>
+                        <div class="section-actions">
+                            <button class="btn">View All</button>
+                        </div>
+                    </div>
+                    <div class="activity-feed">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Document Processed</div>
+                                <div class="activity-description">Q4 Financial Report was automatically categorized and archived</div>
+                                <div class="activity-time">2 minutes ago</div>
+                            </div>
+                            <span class="status-badge success">Completed</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">New Employee Added</div>
+                                <div class="activity-description">Sarah Johnson was added to the HR system</div>
+                                <div class="activity-time">15 minutes ago</div>
+                            </div>
+                            <span class="status-badge info">HR</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Automation Completed</div>
+                                <div class="activity-description">Email processing workflow completed 47 emails</div>
+                                <div class="activity-time">1 hour ago</div>
+                            </div>
+                            <span class="status-badge success">Automation</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Report Generated</div>
+                                <div class="activity-description">Monthly efficiency report is ready for review</div>
+                                <div class="activity-time">2 hours ago</div>
+                            </div>
+                            <span class="status-badge warning">Review Needed</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Security Scan</div>
+                                <div class="activity-description">Weekly security compliance check completed</div>
+                                <div class="activity-time">3 hours ago</div>
+                            </div>
+                            <span class="status-badge success">Secure</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- System Status Section -->
+                <section class="dashboard-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">
+                                <i class="fas fa-heartbeat"></i>
+                                System Status
+                            </h2>
+                            <p class="section-description">Real-time status of all integrated systems</p>
+                        </div>
+                        <div class="section-actions">
+                            <button class="btn">Refresh</button>
+                        </div>
+                    </div>
+                    <div class="modules-grid">
+                        <div class="module-card">
+                            <div class="module-icon">
+                                <i class="fas fa-folder"></i>
+                            </div>
+                            <h3 class="module-title">Document Management</h3>
+                            <p class="module-description">All systems operational</p>
+                            <ul class="module-features">
+                                <li>Storage: 2.3TB used of 5TB</li>
+                                <li>1,247 documents processed today</li>
+                                <li>Zero errors detected</li>
+                            </ul>
+                            <span class="status-badge success">Healthy</span>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">
+                                <i class="fas fa-users-cog"></i>
+                            </div>
+                            <h3 class="module-title">HR System</h3>
+                            <p class="module-description">Running smoothly</p>
+                            <ul class="module-features">
+                                <li>12 employees online</li>
+                                <li>3 pending approvals</li>
+                                <li>Payroll scheduled</li>
+                            </ul>
+                            <span class="status-badge success">Active</span>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3 class="module-title">Automation Engine</h3>
+                            <p class="module-description">Processing workflows</p>
+                            <ul class="module-features">
+                                <li>15 workflows active</li>
+                                <li>247 tasks completed today</li>
+                                <li>2 workflows queued</li>
+                            </ul>
+                            <span class="status-badge info">Processing</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Performance Metrics Section -->
+                <section class="dashboard-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">
+                                <i class="fas fa-chart-line"></i>
+                                Performance Metrics
+                            </h2>
+                            <p class="section-description">Key performance indicators and trends</p>
+                        </div>
+                        <div class="section-actions">
+                            <button class="btn">Export</button>
+                        </div>
+                    </div>
+                    <div class="modules-grid">
+                        <div class="module-card">
+                            <div class="module-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3 class="module-title">Time Savings</h3>
+                            <p class="module-description">Automated processes saving time</p>
+                            <ul class="module-features">
+                                <li>47 hours saved this week</li>
+                                <li>23% increase in efficiency</li>
+                                <li>156 tasks automated</li>
+                            </ul>
+                            <button class="btn btn-primary">View Details</button>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <h3 class="module-title">Cost Reduction</h3>
+                            <p class="module-description">Operational cost savings</p>
+                            <ul class="module-features">
+                                <li>$12,450 saved monthly</li>
+                                <li>18% reduction in overhead</li>
+                                <li>ROI: 342% this year</li>
+                            </ul>
+                            <button class="btn btn-primary">View Details</button>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">
+                                <i class="fas fa-smile"></i>
+                            </div>
+                            <h3 class="module-title">Team Satisfaction</h3>
+                            <p class="module-description">Employee satisfaction metrics</p>
+                            <ul class="module-features">
+                                <li>92% satisfaction rate</li>
+                                <li>4.8/5 average rating</li>
+                                <li>87% would recommend</li>
+                            </ul>
+                            <button class="btn btn-primary">View Details</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Navigation functionality
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all items
+                document.querySelectorAll('.nav-item').forEach(navItem => {
+                    navItem.classList.remove('active');
+                });
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                // Smooth scroll to section (if it exists)
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            // Implement search logic here
+            console.log('Searching for:', searchTerm);
+        });
+
+        // Button interactions
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (!this.classList.contains('btn-primary')) {
+                    e.preventDefault();
+                    console.log('Button clicked:', this.textContent.trim());
+                }
+            });
+        });
+
+        // Module card interactions
+        document.querySelectorAll('.module-card').forEach(card => {
+            card.addEventListener('click', function() {
+                console.log('Module card clicked:', this.querySelector('.module-title').textContent);
+            });
+        });
+
+        // Auto-refresh data (simulate real-time updates)
+        setInterval(() => {
+            // Update stats
+            const statValues = document.querySelectorAll('.stat-value');
+            statValues.forEach(stat => {
+                const currentValue = parseInt(stat.textContent);
+                const change = Math.floor(Math.random() * 5) - 2; // Random change between -2 and 2
+                const newValue = Math.max(0, currentValue + change);
+                stat.textContent = newValue;
+            });
+        }, 5000);
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease-in';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

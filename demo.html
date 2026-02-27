@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOES - Office Operations Efficiency Solution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        .module-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .status-green { background-color: #10b981; }
+        .status-yellow { background-color: #f59e0b; }
+        .status-red { background-color: #ef4444; }
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+        .sidebar.collapsed {
+            width: 80px;
+        }
+        .main-content {
+            transition: all 0.3s ease;
+        }
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <button id="sidebarToggle" class="text-white hover:text-blue-200">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <i class="fas fa-building text-2xl"></i>
+                    <div>
+                        <h1 class="text-xl font-bold">OOES</h1>
+                        <p class="text-xs opacity-90">Control Tower Dashboard</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <!-- Real-time Status Indicators -->
+                    <div class="hidden md:flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="status-indicator status-green pulse"></span>
+                            <span class="text-sm">Systems Online</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="status-indicator status-yellow"></span>
+                            <span class="text-sm">3 Alerts</span>
+                        </div>
+                    </div>
+                    <!-- User Menu -->
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 hover:bg-blue-700 px-3 py-2 rounded-lg transition">
+                            <i class="fas fa-user-circle text-xl"></i>
+                            <span class="hidden md:inline">Admin</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex pt-16">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar w-64 bg-white shadow-lg h-screen fixed left-0 top-16 overflow-y-auto">
+            <nav class="p-4">
+                <!-- Core Control Tower -->
+                <div class="mb-6">
+                    <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Control Tower</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#dashboard" class="flex items-center space-x-3 text-gray-700 hover:bg-blue-50 p-2 rounded-lg transition">
+                            <i class="fas fa-tachometer-alt text-blue-600"></i>
+                            <span class="sidebar-text">Operations Dashboard</span>
+                        </a></li>
+                        <li><a href="#automation" class="flex items-center space-x-3 text-gray-700 hover:bg-blue-50 p-2 rounded-lg transition">
+                            <i class="fas fa-robot text-purple-600"></i>
+                            <span class="sidebar-text">Workflow Engine</span>
+                        </a></li>
+                        <li><a href="#bottlenecks" class="flex items-center space-x-3 text-gray-700 hover:bg-blue-50 p-2 rounded-lg transition">
+                            <i class="fas fa-exclamation-triangle text-orange-600"></i>
+                            <span class="sidebar-text">Bottleneck Detection</span>
+                            <span class="notification-badge">2</span>
+                        </a></li>
+                        <li><a href="#ai-advisor" class="flex items-center space-x-3 text-gray-700 hover:bg-blue-50 p-2 rounded-lg transition">
+                            <i class="fas fa-brain text-pink-600"></i>
+                            <span class="sidebar-text">AI Advisor</span>
+                        </a></li>
+                    </ul>
+                </div>
+
+                <!-- Business Modules -->
+                <div class="mb-6">
+                    <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Business Modules</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#finance" class="flex items-center space-x-3 text-gray-700 hover:bg-blue-50 p-2 rounded-lg transition">
+                            <i class="fas fa-chart-line text-green-600"></i>
+                            <span class="sidebar-text">Finance & Accounting</span>
+                        </a></li>
+                        <li><a href="#hr" class="flex items-center space-x-3 text-gray-700 hover:bg-blue-50 p-2 rounded-lg transition">
+                            <i class="fas fa-users text-blue-600"></i>
+                            <span class="sidebar-text">HR & Workforce</span>
+                        </a></li>
+                        <li><a href="#operations" class="flex items-center space-x-3 text-gray-700 hover:bg-blue-50 p-2 rounded-lg transition">
+                            <i class="fas fa-boxes text-yellow-600"></i>
+                            <span class="sidebar-text">Operations & Inventory</span>
+                        </a></li>
+                        <li><a href="#crm" class="flex items-center space-x-3 text-gray-700 hover:bg-blue-50 p-2 rounded-lg transition">
+                            <i class="fas fa-handshake text-purple-600"></i>
+                            <span class="sidebar-text">CRM & Clients</span>
+                        </a></li>
+                        <li><a href="#analytics" class="flex items-center space-x-3 text-gray-700 hover:bg-blue-50 p-2 rounded-lg transition">
+                            <i class="fas fa-chart-bar text-red-600"></i>
+                            <span class="sidebar-text">Analytics & Intelligence</span>
+                        </a></li>
+                        <li><a href="#compliance" class="flex items-center space-x-3 text-gray-700 hover:bg-blue-50 p-2 rounded-lg transition">
+                            <i class="fas fa-shield-alt text-indigo-600"></i>
+                            <span class="sidebar-text">Compliance & Governance</span>
+                        </a></li>
+                    </ul>
+                </div>
+
+                <!-- Tools & Settings -->
+                <div class="mb-6">
+                    <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Tools & Settings</h3>
+                    <ul class="space-y-2">
+                        <li><a href="ocr-processor.html" class="flex items-center space-x-3 text-gray-700 hover:bg-blue-50 p-2 rounded-lg transition">
+                            <i class="fas fa-file-image text-orange-600"></i>
+                            <span class="sidebar-text">OCR Document Processing</span>
+                            <span class="notification-badge">5</span>
+                        </a></li>
+                        <li><a href="#collaboration" class="flex items-center space-x-3 text-gray-700 hover:bg-blue-50 p-2 rounded-lg transition">
+                            <i class="fas fa-comments text-teal-600"></i>
+                            <span class="sidebar-text">Collaboration</span>
+                        </a></li>
+                        <li><a href="#automation" class="flex items-center space-x-3 text-gray-700 hover:bg-blue-50 p-2 rounded-lg transition">
+                            <i class="fas fa-cogs text-gray-600"></i>
+                            <span class="sidebar-text">Automation Builder</span>
+                        </a></li>
+                        <li><a href="#settings" class="flex items-center space-x-3 text-gray-700 hover:bg-blue-50 p-2 rounded-lg transition">
+                            <i class="fas fa-cog text-gray-600"></i>
+                            <span class="sidebar-text">Settings</span>
+                        </a></li>
+                        <li><a href="architecture.html" class="flex items-center space-x-3 text-gray-700 hover:bg-blue-50 p-2 rounded-lg transition">
+                            <i class="fas fa-sitemap text-purple-600"></i>
+                            <span class="sidebar-text">System Architecture</span>
+                        </a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content ml-64 flex-1 p-6">
+            <!-- KPI Overview Section -->
+            <section class="mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold text-gray-800">Control Tower Overview</h2>
+                    <div class="flex space-x-4">
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                            <i class="fas fa-download mr-2"></i>Export Report
+                        </button>
+                        <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                            <i class="fas fa-sync mr-2"></i>Refresh Data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Real-time KPI Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="card-hover bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm text-gray-600 mb-1">Total Revenue</p>
+                                <p class="text-2xl font-bold text-gray-800">$847,392</p>
+                                <p class="text-sm text-green-600 mt-2">
+                                    <i class="fas fa-arrow-up"></i> 12.5% from last month
+                                </p>
+                            </div>
+                            <div class="bg-blue-100 p-3 rounded-lg">
+                                <i class="fas fa-dollar-sign text-blue-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-hover bg-white p-6 rounded-lg shadow-lg border-l-4 border-green-500">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm text-gray-600 mb-1">Active Employees</p>
+                                <p class="text-2xl font-bold text-gray-800">248</p>
+                                <p class="text-sm text-green-600 mt-2">
+                                    <i class="fas fa-arrow-up"></i> 8 new hires
+                                </p>
+                            </div>
+                            <div class="bg-green-100 p-3 rounded-lg">
+                                <i class="fas fa-users text-green-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-hover bg-white p-6 rounded-lg shadow-lg border-l-4 border-yellow-500">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm text-gray-600 mb-1">Pending Tasks</p>
+                                <p class="text-2xl font-bold text-gray-800">142</p>
+                                <p class="text-sm text-yellow-600 mt-2">
+                                    <i class="fas fa-exclamation-triangle"></i> 23 overdue
+                                </p>
+                            </div>
+                            <div class="bg-yellow-100 p-3 rounded-lg">
+                                <i class="fas fa-tasks text-yellow-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-hover bg-white p-6 rounded-lg shadow-lg border-l-4 border-purple-500">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm text-gray-600 mb-1">Efficiency Score</p>
+                                <p class="text-2xl font-bold text-gray-800">87.3%</p>
+                                <p class="text-sm text-green-600 mt-2">
+                                    <i class="fas fa-arrow-up"></i> 3.2% improvement
+                                </p>
+                            </div>
+                            <div class="bg-purple-100 p-3 rounded-lg">
+                                <i class="fas fa-chart-line text-purple-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Operations Dashboard -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                    <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold mb-4">Department Performance Overview</h3>
+                        <canvas id="departmentChart" width="400" height="200"></canvas>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold mb-4">Active Alerts</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3 p-3 bg-red-50 rounded-lg">
+                                <span class="status-indicator status-red"></span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-semibold">Payment Overdue</p>
+                                    <p class="text-xs text-gray-600">Invoice #1234 - 5 days late</p>
+                                </div>
+                                <button class="text-red-600 hover:text-red-800">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                            <div class="flex items-center space-x-3 p-3 bg-yellow-50 rounded-lg">
+                                <span class="status-indicator status-yellow"></span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-semibold">Inventory Low</p>
+                                    <p class="text-xs text-gray-600">Office supplies - 15% remaining</p>
+                                </div>
+                                <button class="text-yellow-600 hover:text-yellow-800">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                            <div class="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+                                <span class="status-indicator status-green"></span>
+                                <div class="flex-1">
+                                    <p class="text-sm font-semibold">System Update</p>
+                                    <p class="text-xs text-gray-600">Security patch available</p>
+                                </div>
+                                <button class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- OCR Document Processing -->
+                    <div class="module-card card-hover p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="bg-orange-100 p-3 rounded-lg">
+                                <i class="fas fa-file-image text-orange-600 text-2xl"></i>
+                            </div>
+                            <span class="bg-orange-500 text-white text-xs px-2 py-1 rounded-full">Active</span>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">OCR Document Processing</h3>
+                        <p class="text-sm text-gray-600 mb-4">Intelligent document scanning and extraction</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span>Document Scanning</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Text Extraction</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Handwriting Recognition</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Multi-language Support</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                        </div>
+                        <button onclick="window.location.href='ocr-processor.html'" class="mt-4 w-full bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition">
+                            Access OCR Module
+                        </button>
+                    </div>
+
+                    <!-- Finance & Accounting -->
+                    <div class="module-card card-hover p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="bg-green-100 p-3 rounded-lg">
+                                <i class="fas fa-chart-line text-green-600 text-2xl"></i>
+                            </div>
+                            <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">Active</span>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Finance & Accounting</h3>
+                        <p class="text-sm text-gray-600 mb-4">Complete financial management system</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span>General Ledger</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Expense Tracking</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Invoice Management</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Payroll Management</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                        </div>
+                        <button class="mt-4 w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
+                            Access Module
+                        </button>
+                    </div>
+
+                    <!-- HR & Workforce -->
+                    <div class="module-card card-hover p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="bg-blue-100 p-3 rounded-lg">
+                                <i class="fas fa-users text-blue-600 text-2xl"></i>
+                            </div>
+                            <span class="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">Active</span>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">HR & Workforce Management</h3>
+                        <p class="text-sm text-gray-600 mb-4">Complete employee lifecycle management</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span>Employee Database</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Attendance Tracking</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Performance Appraisal</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Recruitment Pipeline</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                        </div>
+                        <button class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                            Access Module
+                        </button>
+                    </div>
+
+                    <!-- Operations & Inventory -->
+                    <div class="module-card card-hover p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="bg-yellow-100 p-3 rounded-lg">
+                                <i class="fas fa-boxes text-yellow-600 text-2xl"></i>
+                            </div>
+                            <span class="bg-yellow-500 text-white text-xs px-2 py-1 rounded-full">Active</span>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Operations & Inventory</h3>
+                        <p class="text-sm text-gray-600 mb-4">Supply chain and asset management</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span>Inventory Tracking</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Asset Management</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Supply Chain Monitor</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Order Management</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                        </div>
+                        <button class="mt-4 w-full bg-yellow-600 text-white py-2 rounded-lg hover:bg-yellow-700 transition">
+                            Access Module
+                        </button>
+                    </div>
+
+                    <!-- CRM & Client Management -->
+                    <div class="module-card card-hover p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="bg-purple-100 p-3 rounded-lg">
+                                <i class="fas fa-handshake text-purple-600 text-2xl"></i>
+                            </div>
+                            <span class="bg-purple-500 text-white text-xs px-2 py-1 rounded-full">Active</span>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">CRM & Client Management</h3>
+                        <p class="text-sm text-gray-600 mb-4">Customer relationship management</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span>Lead Tracking</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Sales Pipeline</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Support Ticketing</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Contract Management</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                        </div>
+                        <button class="mt-4 w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition">
+                            Access Module
+                        </button>
+                    </div>
+
+                    <!-- Analytics & Intelligence -->
+                    <div class="module-card card-hover p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="bg-red-100 p-3 rounded-lg">
+                                <i class="fas fa-chart-bar text-red-600 text-2xl"></i>
+                            </div>
+                            <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">Active</span>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Analytics & Intelligence</h3>
+                        <p class="text-sm text-gray-600 mb-4">Business intelligence and insights</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span>Predictive Analytics</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Revenue Forecasting</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Efficiency Scoring</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Custom Reports</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                        </div>
+                        <button class="mt-4 w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition">
+                            Access Module
+                        </button>
+                    </div>
+
+                    <!-- Compliance & Governance -->
+                    <div class="module-card card-hover p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="bg-indigo-100 p-3 rounded-lg">
+                                <i class="fas fa-shield-alt text-indigo-600 text-2xl"></i>
+                            </div>
+                            <span class="bg-indigo-500 text-white text-xs px-2 py-1 rounded-full">Active</span>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">Compliance & Governance</h3>
+                        <p class="text-sm text-gray-600 mb-4">Regulatory compliance management</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span>Audit Trail Logs</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Access Control</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Compliance Tracker</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Policy Management</span>
+                                <span class="text-green-600">✓</span>
+                            </div>
+                        </div>
+                        <button class="mt-4 w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition">
+                            Access Module
+                        </button>
+                    </div>
+                </div>
+
+                <!-- AI Assistant Section -->
+                <div class="mt-8 bg-gradient-to-r from-purple-600 to-blue-600 p-6 rounded-lg shadow-lg text-white">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-white bg-opacity-20 p-3 rounded-lg">
+                                <i class="fas fa-brain text-3xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold">AI Efficiency Advisor</h3>
+                                <p class="text-sm opacity-90">Get intelligent recommendations for process optimization</p>
+                            </div>
+                        </div>
+                        <button class="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
+                            <i class="fas fa-comments mr-2"></i>Chat with AI
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Industry Modules Preview -->
+                <div class="mt-8">
+                    <h3 class="text-2xl font-bold mb-6">Industry-Specific Modules</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                        <div class="text-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition cursor-pointer">
+                            <i class="fas fa-landmark text-3xl text-blue-600 mb-2"></i>
+                            <p class="text-sm font-semibold">Government</p>
+                        </div>
+                        <div class="text-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition cursor-pointer">
+                            <i class="fas fa-heartbeat text-3xl text-red-600 mb-2"></i>
+                            <p class="text-sm font-semibold">Healthcare</p>
+                        </div>
+                        <div class="text-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition cursor-pointer">
+                            <i class="fas fa-industry text-3xl text-gray-600 mb-2"></i>
+                            <p class="text-sm font-semibold">Manufacturing</p>
+                        </div>
+                        <div class="text-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition cursor-pointer">
+                            <i class="fas fa-headset text-3xl text-green-600 mb-2"></i>
+                            <p class="text-sm font-semibold">Contact Center</p>
+                        </div>
+                        <div class="text-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition cursor-pointer">
+                            <i class="fas fa-hands-helping text-3xl text-purple-600 mb-2"></i>
+                            <p class="text-sm font-semibold">NGO</p>
+                        </div>
+                        <div class="text-center p-4 bg-white rounded-lg shadow hover:shadow-lg transition cursor-pointer">
+                            <i class="fas fa-shopping-cart text-3xl text-orange-600 mb-2"></i>
+                            <p class="text-sm font-semibold">Retail</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Sidebar Toggle
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const sidebarTexts = document.querySelectorAll('.sidebar-text');
+            
+            sidebar.classList.toggle('collapsed');
+            
+            if (sidebar.classList.contains('collapsed')) {
+                mainContent.style.marginLeft = '80px';
+                sidebarTexts.forEach(text => text.style.display = 'none');
+            } else {
+                mainContent.style.marginLeft = '256px';
+                setTimeout(() => {
+                    sidebarTexts.forEach(text => text.style.display = 'block');
+                }, 150);
+            }
+        });
+
+        // Department Performance Chart
+        const ctx = document.getElementById('departmentChart').getContext('2d');
+        const departmentChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [
+                    {
+                        label: 'Finance',
+                        data: [85, 88, 87, 90, 92, 94],
+                        borderColor: 'rgb(34, 197, 94)',
+                        backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                        tension: 0.4
+                    },
+                    {
+                        label: 'HR',
+                        data: [78, 82, 85, 83, 87, 89],
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Operations',
+                        data: [92, 90, 93, 95, 94, 96],
+                        borderColor: 'rgb(245, 158, 11)',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Sales',
+                        data: [88, 91, 89, 93, 95, 97],
+                        borderColor: 'rgb(168, 85, 247)',
+                        backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Department Efficiency Scores (%)'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 70,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        // Simulate real-time updates
+        setInterval(() => {
+            // Update random KPI
+            const kpiElements = document.querySelectorAll('.text-2xl.font-bold');
+            const randomKpi = kpiElements[Math.floor(Math.random() * 4)];
+            const currentValue = parseInt(randomKpi.textContent.replace(/[^0-9]/g, ''));
+            const change = Math.floor(Math.random() * 10) - 5;
+            const newValue = currentValue + change;
+            
+            if (randomKpi.textContent.includes('$')) {
+                randomKpi.textContent = '$' + newValue.toLocaleString();
+            } else if (randomKpi.textContent.includes('%')) {
+                randomKpi.textContent = newValue.toFixed(1) + '%';
+            } else {
+                randomKpi.textContent = newValue;
+            }
+        }, 5000);
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Module card interactions
+        document.querySelectorAll('.module-card button').forEach(button => {
+            button.addEventListener('click', function() {
+                const moduleName = this.closest('.module-card').querySelector('h3').textContent;
+                alert(`Opening ${moduleName} module...`);
+            });
+        });
+    </script>
+</body>
+</html>
+                                                    
+                                                            

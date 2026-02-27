@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOES System Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .architecture-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 2px solid #4c51bf;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .architecture-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .layer-connector {
+            width: 2px;
+            background: linear-gradient(to bottom, #4c51bf, #667eea);
+            position: relative;
+        }
+        .layer-connector::before {
+            content: '▼';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #4c51bf;
+            font-size: 16px;
+        }
+        .layer-connector::after {
+            content: '▼';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #4c51bf;
+            font-size: 16px;
+        }
+        .api-connector {
+            width: 2px;
+            background: linear-gradient(to bottom, #10b981, #059669);
+        }
+        .integration-connector {
+            width: 2px;
+            background: linear-gradient(to bottom, #f59e0b, #d97706);
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .status-online { background-color: #10b981; }
+        .status-processing { background-color: #f59e0b; }
+        .status-offline { background-color: #ef4444; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-sitemap text-3xl"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold">OOES System Architecture</h1>
+                        <p class="text-sm opacity-90">Enterprise Office Operations Efficiency Solution</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <div class="flex items-center space-x-2">
+                        <span class="status-indicator status-online pulse-animation"></span>
+                        <span class="text-sm">All Systems Operational</span>
+                    </div>
+                    <button class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition">
+                        <i class="fas fa-cog mr-2"></i>System Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Architecture Title -->
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">OOES Full System Architecture</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Complete enterprise-grade architecture designed for scalability, security, and performance
+            </p>
+        </div>
+
+        <!-- Architecture Visualization -->
+        <div class="max-w-6xl mx-auto">
+            <!-- User Layer -->
+            <div class="mb-8">
+                <div class="architecture-box rounded-lg p-6 text-white">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <i class="fas fa-users text-3xl"></i>
+                            <div>
+                                <h3 class="text-xl font-bold">USER LAYER</h3>
+                                <p class="text-sm opacity-90">Web / Mobile / Admin Interfaces</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="text-right">
+                                <p class="text-sm opacity-75">Active Users</p>
+                                <p class="text-2xl font-bold">1,247</p>
+                            </div>
+                            <div class="bg-white bg-opacity-20 p-3 rounded-lg">
+                                <i class="fas fa-laptop text-2xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 mt-4">
+                        <div class="bg-white bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-globe mb-2"></i>
+                            <p class="text-sm font-semibold">Web Dashboard</p>
+                            <p class="text-xs opacity-75">Responsive web interface</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-mobile-alt mb-2"></i>
+                            <p class="text-sm font-semibold">Mobile Apps</p>
+                            <p class="text-xs opacity-75">iOS & Android applications</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-user-shield mb-2"></i>
+                            <p class="text-sm font-semibold">Admin Portal</p>
+                            <p class="text-xs opacity-75">System administration</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connector -->
+            <div class="layer-connector h-8 mx-auto max-w-4xl"></div>
+
+            <!-- Frontend Layer -->
+            <div class="mb-8">
+                <div class="architecture-box rounded-lg p-6 text-white">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <i class="fas fa-palette text-3xl"></i>
+                            <div>
+                                <h3 class="text-xl font-bold">FRONTEND LAYER</h3>
+                                <p class="text-sm opacity-90">Dashboard / UI / Forms</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="text-right">
+                                <p class="text-sm opacity-75">Components</p>
+                                <p class="text-2xl font-bold">247</p>
+                            </div>
+                            <div class="bg-white bg-opacity-20 p-3 rounded-lg">
+                                <i class="fas fa-code text-2xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 mt-4">
+                        <div class="bg-white bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-chart-line mb-2"></i>
+                            <p class="text-sm font-semibold">Dashboard</p>
+                            <p class="text-xs opacity-75">Real-time analytics</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-desktop mb-2"></i>
+                            <p class="text-sm font-semibold">UI Components</p>
+                            <p class="text-xs opacity-75">Reusable elements</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-wpforms mb-2"></i>
+                            <p class="text-sm font-semibold">Forms System</p>
+                            <p class="text-xs opacity-75">Dynamic forms</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Calls Label -->
+            <div class="text-center mb-4">
+                <span class="bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-semibold">
+                    <i class="fas fa-exchange-alt mr-2"></i>API Calls
+                </span>
+            </div>
+
+            <!-- API Gateway Layer -->
+            <div class="mb-8">
+                <div class="architecture-box rounded-lg p-6 text-white">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <i class="fas fa-shield-alt text-3xl"></i>
+                            <div>
+                                <h3 class="text-xl font-bold">API GATEWAY LAYER</h3>
+                                <p class="text-sm opacity-90">Authentication / Routing / Rate Limiting</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="text-right">
+                                <p class="text-sm opacity-75">Requests/sec</p>
+                                <p class="text-2xl font-bold">15.2K</p>
+                            </div>
+                            <div class="bg-white bg-opacity-20 p-3 rounded-lg">
+                                <i class="fas fa-server text-2xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 mt-4">
+                        <div class="bg-white bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-key mb-2"></i>
+                            <p class="text-sm font-semibold">Authentication</p>
+                            <p class="text-xs opacity-75">OAuth 2.0 / JWT</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-route mb-2"></i>
+                            <p class="text-sm font-semibold">Routing</p>
+                            <p class="text-xs opacity-75">Load balancing</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-tachometer-alt mb-2"></i>
+                            <p class="text-sm font-semibold">Rate Limiting</p>
+                            <p class="text-xs opacity-75">DDoS protection</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Split Connectors -->
+            <div class="flex justify-center space-x-8 mb-8">
+                <div class="api-connector h-8 w-1"></div>
+                <div class="integration-connector h-8 w-1"></div>
+            </div>
+
+            <!-- Core Services & Integration Layers -->
+            <div class="grid grid-cols-2 gap-8 mb-8">
+                <!-- Core Services -->
+                <div class="architecture-box rounded-lg p-6 text-white">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-cogs text-2xl"></i>
+                            <div>
+                                <h3 class="text-lg font-bold">CORE SERVICES</h3>
+                                <p class="text-xs opacity-90">Business Logic</p>
+                            </div>
+                        </div>
+                        <div class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">Active</div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="bg-white bg-opacity-10 p-2 rounded text-sm">
+                            <i class="fas fa-chart-line mr-2"></i>Finance Service
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-2 rounded text-sm">
+                            <i class="fas fa-users mr-2"></i>HR Service
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-2 rounded text-sm">
+                            <i class="fas fa-boxes mr-2"></i>Operations Service
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-2 rounded text-sm">
+                            <i class="fas fa-handshake mr-2"></i>CRM Service
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Integration Layer -->
+                <div class="architecture-box rounded-lg p-6 text-white">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-plug text-2xl"></i>
+                            <div>
+                                <h3 class="text-lg font-bold">INTEGRATION LAYER</h3>
+                                <p class="text-xs opacity-90">External Systems API</p>
+                            </div>
+                        </div>
+                        <div class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">Connected</div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="bg-white bg-opacity-10 p-2 rounded text-sm">
+                            <i class="fas fa-credit-card mr-2"></i>Payment Gateways
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-2 rounded text-sm">
+                            <i class="fas fa-envelope mr-2"></i>Email Services
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-2 rounded text-sm">
+                            <i class="fas fa-cloud mr-2"></i>Cloud Storage
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-2 rounded text-sm">
+                            <i class="fas fa-file-alt mr-2"></i>Document Systems
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connector -->
+            <div class="layer-connector h-8 mx-auto max-w-4xl"></div>
+
+            <!-- Automation & AI Engine -->
+            <div class="mb-8">
+                <div class="architecture-box rounded-lg p-6 text-white">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <i class="fas fa-brain text-3xl"></i>
+                            <div>
+                                <h3 class="text-xl font-bold">AUTOMATION & AI ENGINE</h3>
+                                <p class="text-sm opacity-90">Workflow Builder / AI Insights / Alerts</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="text-right">
+                                <p class="text-sm opacity-75">AI Processes</p>
+                                <p class="text-2xl font-bold">847</p>
+                            </div>
+                            <div class="bg-white bg-opacity-20 p-3 rounded-lg">
+                                <i class="fas fa-robot text-2xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 mt-4">
+                        <div class="bg-white bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-project-diagram mb-2"></i>
+                            <p class="text-sm font-semibold">Workflow Builder</p>
+                            <p class="text-xs opacity-75">Drag & drop interface</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-lightbulb mb-2"></i>
+                            <p class="text-sm font-semibold">AI Insights</p>
+                            <p class="text-xs opacity-75">Machine learning</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-bell mb-2"></i>
+                            <p class="text-sm font-semibold">Smart Alerts</p>
+                            <p class="text-xs opacity-75">Real-time notifications</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connector -->
+            <div class="layer-connector h-8 mx-auto max-w-4xl"></div>
+
+            <!-- Data Layer -->
+            <div class="mb-8">
+                <div class="architecture-box rounded-lg p-6 text-white">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <i class="fas fa-database text-3xl"></i>
+                            <div>
+                                <h3 class="text-xl font-bold">DATA LAYER</h3>
+                                <p class="text-sm opacity-90">SQL DB / NoSQL DB / Logs / Analytics DB</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="text-right">
+                                <p class="text-sm opacity-75">Data Size</p>
+                                <p class="text-2xl font-bold">2.4TB</p>
+                            </div>
+                            <div class="bg-white bg-opacity-20 p-3 rounded-lg">
+                                <i class="fas fa-hdd text-2xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-4 gap-4 mt-4">
+                        <div class="bg-white bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-table mb-2"></i>
+                            <p class="text-sm font-semibold">SQL Database</p>
+                            <p class="text-xs opacity-75">PostgreSQL</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-leaf mb-2"></i>
+                            <p class="text-sm font-semibold">NoSQL Database</p>
+                            <p class="text-xs opacity-75">MongoDB</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-file-alt mb-2"></i>
+                            <p class="text-sm font-semibold">Logs</p>
+                            <p class="text-xs opacity-75">Elasticsearch</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-3 rounded">
+                            <i class="fas fa-chart-bar mb-2"></i>
+                            <p class="text-sm font-semibold">Analytics DB</p>
+                            <p class="text-xs opacity-75">Redis Cache</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Status Dashboard -->
+        <div class="mt-16 bg-white rounded-lg shadow-lg p-8">
+            <h3 class="text-2xl font-bold mb-6">System Performance Metrics</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="bg-green-100 p-4 rounded-lg mb-3">
+                        <i class="fas fa-check-circle text-green-600 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold mb-2">System Uptime</h4>
+                    <p class="text-3xl font-bold text-green-600">99.9%</p>
+                    <p class="text-sm text-gray-600">Last 30 days</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-blue-100 p-4 rounded-lg mb-3">
+                        <i class="fas fa-tachometer-alt text-blue-600 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold mb-2">Response Time</h4>
+                    <p class="text-3xl font-bold text-blue-600">124ms</p>
+                    <p class="text-sm text-gray-600">Average latency</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-purple-100 p-4 rounded-lg mb-3">
+                        <i class="fas fa-exchange-alt text-purple-600 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold mb-2">API Requests</h4>
+                    <p class="text-3xl font-bold text-purple-600">1.2M</p>
+                    <p class="text-sm text-gray-600">Daily average</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-yellow-100 p-4 rounded-lg mb-3">
+                        <i class="fas fa-shield-alt text-yellow-600 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold mb-2">Security Score</h4>
+                    <p class="text-3xl font-bold text-yellow-600">A+</p>
+                    <p class="text-sm text-gray-600">Security rating</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technology Stack -->
+        <div class="mt-16 bg-white rounded-lg shadow-lg p-8">
+            <h3 class="text-2xl font-bold mb-6">Technology Stack</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div>
+                    <h4 class="font-semibold mb-3 text-purple-600">Frontend</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><i class="fab fa-react mr-2"></i>React.js</li>
+                        <li><i class="fas fa-paint-brush mr-2"></i>TailwindCSS</li>
+                        <li><i class="fas fa-chart-line mr-2"></i>Chart.js</li>
+                        <li><i class="fas fa-mobile-alt mr-2"></i>React Native</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-3 text-green-600">Backend</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><i class="fab fa-node-js mr-2"></i>Node.js</li>
+                        <li><i class="fas fa-server mr-2"></i>Express.js</li>
+                        <li><i class="fab fa-python mr-2"></i>Python</li>
+                        <li><i class="fas fa-robot mr-2"></i>TensorFlow</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-3 text-blue-600">Database</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><i class="fas fa-database mr-2"></i>PostgreSQL</li>
+                        <li><i class="fas fa-leaf mr-2"></i>MongoDB</li>
+                        <li><i class="fas fa-bolt mr-2"></i>Redis</li>
+                        <li><i class="fas fa-search mr-2"></i>Elasticsearch</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-3 text-orange-600">Infrastructure</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><i class="fab fa-aws mr-2"></i>AWS</li>
+                        <li><i class="fab fa-docker mr-2"></i>Docker</li>
+                        <li><i class="fas fa-dharmachakra mr-2"></i>Kubernetes</li>
+                        <li><i class="fas fa-cloud mr-2"></i>Cloudflare</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Add interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate architecture boxes on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '0';
+                        entry.target.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            entry.target.style.transition = 'all 0.6s ease-out';
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, 100);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.architecture-box').forEach(box => {
+                observer.observe(box);
+            });
+
+            // Simulate real-time updates
+            setInterval(() => {
+                const metrics = document.querySelectorAll('.text-3xl');
+                metrics.forEach(metric => {
+                    if (Math.random() > 0.7) {
+                        const currentValue = parseFloat(metric.textContent.replace(/[^0-9.]/g, ''));
+                        const change = (Math.random() - 0.5) * currentValue * 0.01;
+                        const newValue = currentValue + change;
+                        
+                        if (metric.textContent.includes('%')) {
+                            metric.textContent = newValue.toFixed(1) + '%';
+                        } else if (metric.textContent.includes('ms')) {
+                            metric.textContent = Math.round(newValue) + 'ms';
+                        } else if (metric.textContent.includes('K')) {
+                            metric.textContent = newValue.toFixed(1) + 'K';
+                        } else if (metric.textContent.includes('M')) {
+                            metric.textContent = newValue.toFixed(1) + 'M';
+                        } else if (metric.textContent.includes('TB')) {
+                            metric.textContent = newValue.toFixed(1) + 'TB';
+                        } else {
+                            metric.textContent = Math.round(newValue).toLocaleString();
+                        }
+                    }
+                });
+            }, 3000);
+
+            // Add click interactions to architecture boxes
+            document.querySelectorAll('.architecture-box').forEach(box => {
+                box.addEventListener('click', function() {
+                    const title = this.querySelector('h3').textContent;
+                    console.log(`Clicked on ${title}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

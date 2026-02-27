@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OOES Professional Logo</title>
+    <style>
+        body { 
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+            font-family: Arial, sans-serif;
+        }
+        .logo { 
+            background: white; 
+            padding: 50px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .tower { 
+            width: 100px; 
+            height: 150px; 
+            background: linear-gradient(180deg, #f59e0b, #fbbf24); 
+            margin: 20px auto; 
+            border-radius: 10px;
+            position: relative;
+        }
+        .tower::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: 20px;
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 30px solid #1e293b;
+        }
+        .title { 
+            color: #1e3a8a; 
+            font-size: 32px; 
+            font-weight: bold; 
+            margin: 0;
+        }
+        .subtitle { 
+            color: #f59e0b; 
+            font-size: 12px; 
+            margin: 5px 0 20px 0;
+        }
+        .modules {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .module {
+            background: #1e293b;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <div class="title">OOES</div>
+        <div class="subtitle">Office Operations Efficiency Solution</div>
+        <div class="tower"></div>
+        <div class="modules">
+            <div class="module">HR</div>
+            <div class="module">FINANCE</div>
+            <div class="module">DATA</div>
+        </div>
+    </div>
+</body>
+</html>
