@@ -8839,7 +8839,7 @@ function openITCompliance() {
         // Check if Accountant Portal is running
         async function checkAccountantPortalStatus() {
             try {
-                const response = await fetch('http://localhost:3003', { 
+                const response = await fetch('/accountant-portal/index.html', { 
                     method: 'HEAD',
                     mode: 'no-cors',
                     cache: 'no-cache'
@@ -8880,7 +8880,7 @@ function openITCompliance() {
         // Function to open Accountant Portal in new window
         function openAccountantPortal() {
             // Open Accountant Portal in new tab/window
-            window.open('http://localhost:3003', '_blank');
+            window.open('/accountant-portal/index.html', '_blank');
             
             // Show notification
             showNotification('Opening Accountant Portal...', 'success');
@@ -8889,7 +8889,7 @@ function openITCompliance() {
         // Function to open SQL System in new window
         function openSQLSystem() {
             // Open SQL System in new tab/window
-            window.open('http://localhost:3004', '_blank');
+            window.open('/sql-system/index.html', '_blank');
             
             // Show notification
             showNotification('Opening SQL Management System...', 'info');
