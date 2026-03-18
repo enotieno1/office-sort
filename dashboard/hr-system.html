@@ -1948,9 +1948,37 @@
         </div>
     </div>
 
-</body>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/db.js"></script>
+<script>
+async function loadEmployees() {
+  const employees = await getEmployees();
+  const total = employees.length;
+  const active = employees.filter(e => e.status === 'Active').length;
+  const totalPayroll = employees.reduce((sum, e) => sum + (e.salary || 0), 0);
+  
+  document.querySelectorAll('.total-employees').forEach(el => el.textContent = total);
+  document.querySelectorAll('.total-payroll').forEach(el => el.textContent = 'KSh ' + totalPayroll.toLocaleString());
+  
+  const tbody = document.getElementById('employeeTableBody');
+  if (tbody) {
+    tbody.innerHTML = employees.map(e => `
+      <tr class="border-b hover:bg-gray-50">
+        <td class="py-3 px-4">${e.name}</td>
+        <td class="py-3 px-4">${e.department}</td>
+        <td class="py-3 px-4">${e.position}</td>
+        <td class="py-3 px-4"><span class="px-2 py-1 rounded text-xs ${e.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">${e.status}</span></td>
+        <td class="py-3 px-4">KSh ${(e.salary||0).toLocaleString()}</td>
+      </tr>
+    `).join('');
+  }
+}
+document.addEventListener('DOMContentLoaded', loadEmployees);
+</script></body>
 </html>
 
 
 
 <!-- mobile fix -->
+
