@@ -1,3 +1,131 @@
+Skip to content
+enotieno1
+office-sort
+Repository navigation
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+Files
+Go to file
+t
+accountant-portal
+automation
+compliance
+dashboard
+accounting-tools-new.html
+accounting-tools.html
+ai-features.html
+auth.html
+automation.html
+calendar-system.html
+communication-department.html
+cross-module-links.js
+data-entry-automation.html
+data-management.html
+database-management.html
+deep-page-templates.html
+department-dashboard.html
+document-management.html
+documents-management.html
+email-system-updated.html
+email-system.html
+excel-system.html
+financial-management.html
+gmail-system.html
+google-drive.html
+hr-system-fixed.html
+hr-system.html
+implementation.html
+index-fixed.html
+index-light.html
+index.html
+it-compliance.html
+navigation-core.js
+navigation-demo.html
+navigation-diagnostic.html
+navigation-enhancement.js
+navigation-fix-report.json
+navigation-integration.js
+navigation-layout.html
+office-activities.html
+operations-department.html
+package-selection.html
+packages.html
+sales-department.html
+scaling.html
+security-center.html
+systems.html
+tasks-management.html
+tools.html
+trello-management.html
+database
+error-pages
+excel-system
+financial
+implementation
+packages
+sales
+scaling
+sql-system
+systems
+templates
+tools
+workflows
+ACCOUNTANT-PORTAL-README.md
+AI_INTEGRATION_PROPOSAL.md
+AI_TECHNICAL_IMPLEMENTATION.md
+BRAND_STRATEGY.md
+CTA_PHRASES_CONSULTATION.md
+DARK_THEME_CONVERSION_OPTIMIZATION.md
+EXCEL-SYSTEM-README.md
+HOMEPAGE_CONVERSION_SECTIONS.md
+HOMEPAGE_COPY_PERSUASIVE.md
+INNOVATIVE_SERVICES_FUTURE.md
+OOES-Desktop-Shortcut.url
+OOES_Logo_Basic.html
+OOES_Logo_Simple.html
+OOES_Professional_Logo.svg
+OOES_Strategic_Corporate_Logo.html
+OOES_Web_Logo.html
+PAIN_POINTS_ANALYSIS.md
+README.md
+SERVICES_COPY_PROFESSIONAL.md
+SITEMAP_UX_DESIGN.md
+SQL-SYSTEM-README.md
+UI_UX_DESIGN_IMPROVEMENTS.md
+architecture.html
+demo.html
+enhanced-server.js
+fix-navigation.py
+ocr-processor.html
+quick-fix.py
+server.js
+simple-server.py
+simple.html
+start-all-servers.bat
+start-server.bat
+test-connection.py
+test-portal.html
+test.html
+office-sort/dashboard
+/index.html
+author
+OOES Team
+Add professional OOES logo designs and enhanced web interface
+fb34228
+ -+ 
+3 weeks ago
+
+Code
+
+Blame
+9096 lines (8136 loc) -+ 427 KB
 <!DOCTYPE html>
 <html lang="en">
 <head><script>(function(){if(!localStorage.getItem("ooesUser")){window.location.href="/dashboard/auth.html";}})();</script>
@@ -1022,16 +1150,78 @@
             }
         }
         body {
-            background: #FAFAFA;
+            background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: #1F2937;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
         }
         
-        .ooes-dashboard {
+        /* Professional Layout Structure */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
             max-width: 1400px;
             margin: 0 auto;
             padding: 1.5rem;
+            min-height: 100vh;
+        }
+        
+        /* Fixed Layout for Original Structure */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .dashboard-section {
+            background: #FFFFFF;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #E5E7EB;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .dashboard-section:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            z-index: 10;
+        }
+        
+        /* Prevent Overlapping */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+        
+        @media (max-width: 1024px) {
+            .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-cols-3 { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (max-width: 768px) {
+            .grid-cols-4,
+            .grid-cols-3,
+            .grid-cols-2 { grid-template-columns: 1fr; }
         }
         
         .dashboard-hero {
@@ -1202,7 +1392,7 @@
         }
         
         .module-features li::before {
-            content: 'âœ“';
+            content: 'G£ô';
             color: #16A34A;
             font-weight: 600;
             margin-right: 0.75rem;
@@ -1914,7 +2104,7 @@
         }
         
         .system-features li::before {
-            content: 'âœ“';
+            content: 'G£ô';
             color: #16A34A;
             font-weight: bold;
             margin-right: 0.75rem;
@@ -2865,6 +3055,100 @@
         .security-card:hover::before {
             left: 100%;
         }
+
+        /* FIX OVERLAPPING ISSUES */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .space-y-8 > * + * {
+            margin-top: 2rem;
+        }
+        
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+        
+        @media (max-width: 1024px) {
+            .grid-cols-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-cols-3 { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (max-width: 768px) {
+            .grid-cols-4,
+            .grid-cols-3,
+            .grid-cols-2 { grid-template-columns: 1fr; }
+        }
+        
+        /* Prevent content overflow */
+        .bg-gray-800 {
+            overflow: hidden;
+        }
+        
+        .bg-gradient-to-r {
+            overflow: hidden;
+        }
+        
+        /* Ensure proper spacing */
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        
+        /* Fix card positioning */
+        .rounded-lg {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .rounded-xl {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Prevent text overflow */
+        .text-3xl {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* Fix flex layouts */
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .flex-1 {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        /* Responsive fixes */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .bg-gradient-to-r {
+                padding: 1.5rem;
+            }
+            
+            .rounded-xl {
+                border-radius: 0.75rem;
+            }
+            
+            .rounded-lg {
+                border-radius: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body class="gradient-bg">
@@ -3243,7 +3527,8 @@
 
         <!-- Main Content Area -->
         <main class="flex-1" style="background: #F9FAFB;">
-            <div class="container mx-auto px-6 py-8">
+            <div class="container mx-auto px-6 py-8 max-w-7xl">
+                <div class="space-y-8">
                 
                 <!-- Breadcrumb Navigation -->
                 <nav id="breadcrumb" class="breadcrumb mb-6">
@@ -3287,7 +3572,7 @@
                                     <h3 class="text-lg font-semibold text-blue-400">Total Revenue</h3>
                                     <i class="fas fa-dollar-sign text-blue-400"></i>
                                 </div>
-                                <div class="text-3xl font-bold text-white">$2.4M</div>
+                                <div class="text-3xl font-bold text-white">KSh 312M</div>
                                 <div class="text-sm text-green-400">+12.5%</div>
                             </div>
                             
@@ -3934,7 +4219,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                     </div>
                                 </div>
-                                <div class="kpi-value">$2.4M</div>
+                                <div class="kpi-value">KSh 312M</div>
                                 <div class="kpi-change positive">
                                     <i class="fas fa-arrow-up mr-1"></i>
                                     <span>12.5% vs last month</span>
@@ -4019,7 +4304,7 @@
                                         <i class="fas fa-chart-line"></i>
                                     </div>
                                 </div>
-                                <div class="kpi-value">$847K</div>
+                                <div class="kpi-value">KSh 110M</div>
                                 <div class="kpi-change positive">
                                     <i class="fas fa-arrow-up mr-1"></i>
                                     <span>18.3% saved this year</span>
@@ -4086,7 +4371,7 @@
                                         Achievement
                                     </div>
                                     <div class="insight-description">
-                                        Operational efficiency has improved by 5.7%, resulting in $847K cost savings this year.
+                                        Operational efficiency has improved by 5.7%, resulting in KSh 110M cost savings this year.
                                     </div>
                                 </div>
                                 
@@ -4290,7 +4575,7 @@
                                         </div>
                                         <div>
                                             <p class="font-medium text-gray-800">Payment Received - ABC Corp</p>
-                                            <p class="text-sm text-gray-500">QuickBooks â€¢ 2 hours ago</p>
+                                            <p class="text-sm text-gray-500">QuickBooks GÇó 2 hours ago</p>
                                         </div>
                                     </div>
                                     <span class="font-bold text-green-600">+KSh 45,000</span>
@@ -4302,7 +4587,7 @@
                                         </div>
                                         <div>
                                             <p class="font-medium text-gray-800">Office Supplies</p>
-                                            <p class="text-sm text-gray-500">Xero â€¢ 5 hours ago</p>
+                                            <p class="text-sm text-gray-500">Xero GÇó 5 hours ago</p>
                                         </div>
                                     </div>
                                     <span class="font-bold text-red-600">-KSh 12,500</span>
@@ -4314,7 +4599,7 @@
                                         </div>
                                         <div>
                                             <p class="font-medium text-gray-800">Client Payment - XYZ Ltd</p>
-                                            <p class="text-sm text-gray-500">QuickBooks â€¢ 1 day ago</p>
+                                            <p class="text-sm text-gray-500">QuickBooks GÇó 1 day ago</p>
                                         </div>
                                     </div>
                                     <span class="font-bold text-green-600">+KSh 28,000</span>
@@ -4480,9 +4765,9 @@
                                 <h3 class="text-xl font-bold text-white mb-2">Target Market</h3>
                                 <p class="text-green-400 font-semibold mb-2">SMEs & Enterprises</p>
                                 <ul class="text-sm text-gray-400 space-y-1">
-                                    <li>â€¢ SMEs (1-50 employees)</li>
-                                    <li>â€¢ NGOs and Schools</li>
-                                    <li>â€¢ Professional Services</li>
+                                    <li>GÇó SMEs (1-50 employees)</li>
+                                    <li>GÇó NGOs and Schools</li>
+                                    <li>GÇó Professional Services</li>
                                 </ul>
                             </div>
                             <div class="storage-card bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl border border-gray-700 hover:shadow-lg transition-all">
@@ -4511,7 +4796,7 @@
                                     <i class="fas fa-bullseye mr-2"></i>Value Proposition
                                 </h3>
                                 <p class="text-gray-300">"We save offices up to 50% of admin time so they can focus on growth."</p>
-                                <p class="text-sm text-indigo-400 mt-2 font-semibold">Click to learn more â†’</p>
+                                <p class="text-sm text-indigo-400 mt-2 font-semibold">Click to learn more GåÆ</p>
                             </div>
                             
                             <div class="card-hover clickable bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-lg border border-gray-700" onclick="showTargetMarket()">
@@ -4519,12 +4804,12 @@
                                     <i class="fas fa-users mr-2"></i>Target Market
                                 </h3>
                                 <ul class="text-gray-300 space-y-1">
-                                    <li>â€¢ SMEs (1-50 employees)</li>
-                                    <li>â€¢ NGOs and Schools</li>
-                                    <li>â€¢ Professional Services</li>
-                                    <li>â€¢ Growing Businesses</li>
+                                    <li>GÇó SMEs (1-50 employees)</li>
+                                    <li>GÇó NGOs and Schools</li>
+                                    <li>GÇó Professional Services</li>
+                                    <li>GÇó Growing Businesses</li>
                                 </ul>
-                                <p class="text-sm text-green-400 mt-2 font-semibold">View packages â†’</p>
+                                <p class="text-sm text-green-400 mt-2 font-semibold">View packages GåÆ</p>
                             </div>
                         </div>
 
@@ -5166,7 +5451,7 @@
                                 <div class="flex-1">
                                     <h3 class="font-semibold text-gray-800">Week 1: Research & Office Interviews</h3>
                                     <p class="text-gray-600 text-sm">Visit 5 offices, document pain points, measure time spent on admin tasks</p>
-                                    <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details â†’</p>
+                                    <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details GåÆ</p>
                                 </div>
                             </div>
 
@@ -5175,7 +5460,7 @@
                                 <div class="flex-1">
                                     <h3 class="font-semibold text-gray-800">Week 2: Build Starter Tools</h3>
                                     <p class="text-gray-600 text-sm">Create folder templates, document guides, invoice templates, email templates</p>
-                                    <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details â†’</p>
+                                    <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details GåÆ</p>
                                 </div>
                             </div>
 
@@ -5184,7 +5469,7 @@
                                 <div class="flex-1">
                                     <h3 class="font-semibold text-gray-800">Week 3: Build Service Packages</h3>
                                     <p class="text-gray-600 text-sm">Define Starter (KSh 15K), Business (KSh 40K), Premium (KSh 80K+) packages</p>
-                                    <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details â†’</p>
+                                    <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details GåÆ</p>
                                 </div>
                             </div>
 
@@ -5193,7 +5478,7 @@
                                 <div class="flex-1">
                                     <h3 class="font-semibold text-gray-800">Week 4: Pilot with 2 Offices</h3>
                                     <p class="text-gray-600 text-sm">Offer discounted trial, measure time saved, collect testimonials</p>
-                                    <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details â†’</p>
+                                    <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details GåÆ</p>
                                 </div>
                             </div>
 
@@ -5202,7 +5487,7 @@
                                 <div class="flex-1">
                                     <h3 class="font-semibold text-gray-800">Week 5: Improve & Standardize</h3>
                                     <p class="text-gray-600 text-sm">Write workflows, refine pricing, improve service delivery</p>
-                                    <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details â†’</p>
+                                    <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details GåÆ</p>
                                 </div>
                             </div>
 
@@ -5211,7 +5496,7 @@
                                 <div class="flex-1">
                                     <h3 class="font-semibold text-gray-800">Week 6: Launch Publicly</h3>
                                     <p class="text-gray-600 text-sm">Start marketing, reach SMEs, NGOs, schools, scale clients</p>
-                                    <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details â†’</p>
+                                    <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details GåÆ</p>
                                 </div>
                             </div>
                         </div>
@@ -5299,31 +5584,31 @@
                             <div class="stage-item border-l-4 border-indigo-500 pl-4" onclick="showStageDetails(1)">
                                 <h3 class="font-semibold text-gray-800">Stage 1: Service Business (Months 1-12)</h3>
                                 <p class="text-gray-600 text-sm">Establish market presence, 20+ clients, KSh 4M+ revenue</p>
-                                <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details â†’</p>
+                                <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details GåÆ</p>
                             </div>
 
                             <div class="stage-item border-l-4 border-purple-500 pl-4" onclick="showStageDetails(2)">
                                 <h3 class="font-semibold text-gray-800">Stage 2: Hire Assistants (Months 13-24)</h3>
                                 <p class="text-gray-600 text-sm">Scale to 15-20 employees, 50+ clients, multi-city presence</p>
-                                <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details â†’</p>
+                                <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details GåÆ</p>
                             </div>
 
                             <div class="stage-item border-l-4 border-pink-500 pl-4" onclick="showStageDetails(3)">
                                 <h3 class="font-semibold text-gray-800">Stage 3: Build Software Platform (Months 25-36)</h3>
                                 <p class="text-gray-600 text-sm">Transition to SaaS, 30% software revenue, 100+ clients</p>
-                                <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details â†’</p>
+                                <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details GåÆ</p>
                             </div>
 
                             <div class="stage-item border-l-4 border-orange-500 pl-4" onclick="showStageDetails(4)">
                                 <h3 class="font-semibold text-gray-800">Stage 4: National Network (Months 37-60)</h3>
                                 <p class="text-gray-600 text-sm">Market leadership, 500+ clients, KSh 50M+ revenue</p>
-                                <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details â†’</p>
+                                <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details GåÆ</p>
                             </div>
 
                             <div class="stage-item border-l-4 border-red-500 pl-4" onclick="showStageDetails(5)">
                                 <h3 class="font-semibold text-gray-800">Stage 5: East Africa Expansion (Months 61+)</h3>
                                 <p class="text-gray-600 text-sm">Regional expansion, 1,000+ clients, KSh 200M+ revenue</p>
-                                <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details â†’</p>
+                                <p class="text-indigo-600 text-sm font-semibold mt-1">Click for details GåÆ</p>
                             </div>
                         </div>
                     </div>
@@ -5758,7 +6043,7 @@
                                 </div>
                                 <p class="font-semibold text-sm">Google Drive</p>
                                 <p class="text-xs text-gray-600">File Storage</p>
-                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch â†’</p>
+                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch GåÆ</p>
                                 <div class="mt-2 pt-2 border-t border-gray-200">
                                     <button onclick="event.stopPropagation(); openDocumentManager()" class="w-full bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs hover:bg-blue-200 transition">
                                         <i class="fas fa-folder-open mr-1"></i>OOES Files
@@ -5772,7 +6057,7 @@
                                 </div>
                                 <p class="font-semibold text-sm">Gmail</p>
                                 <p class="text-xs text-gray-600">Email System</p>
-                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch â†’</p>
+                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch GåÆ</p>
                             </div>
                             <div class="tech-stack-card bg-white border-2 border-gray-200 rounded-lg p-4" onclick="launchIntegration('google-sheets')">
                                 <div class="flex items-center justify-between mb-2">
@@ -5781,7 +6066,7 @@
                                 </div>
                                 <p class="font-semibold text-sm">Google Sheets</p>
                                 <p class="text-xs text-gray-600">Data Management</p>
-                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch â†’</p>
+                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch GåÆ</p>
                             </div>
                             <div class="tech-stack-card bg-white border-2 border-gray-200 rounded-lg p-4" onclick="launchIntegration('trello')">
                                 <div class="flex items-center justify-between mb-2">
@@ -5790,7 +6075,7 @@
                                 </div>
                                 <p class="font-semibold text-sm">Trello</p>
                                 <p class="text-xs text-gray-600">Task Management</p>
-                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch â†’</p>
+                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch GåÆ</p>
                             </div>
                             <div class="tech-stack-card bg-white border-2 border-gray-200 rounded-lg p-4" onclick="launchIntegration('quickbooks')">
                                 <div class="flex items-center justify-between mb-2">
@@ -5799,7 +6084,7 @@
                                 </div>
                                 <p class="font-semibold text-sm">QuickBooks</p>
                                 <p class="text-xs text-gray-600">Accounting</p>
-                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch â†’</p>
+                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch GåÆ</p>
                             </div>
                             <div class="tech-stack-card bg-white border-2 border-gray-200 rounded-lg p-4" onclick="launchIntegration('whatsapp')">
                                 <div class="flex items-center justify-between mb-2">
@@ -5808,7 +6093,7 @@
                                 </div>
                                 <p class="font-semibold text-sm">WhatsApp Business</p>
                                 <p class="text-xs text-gray-600">Communication</p>
-                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch â†’</p>
+                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch GåÆ</p>
                             </div>
                             <div class="tech-stack-card bg-white border-2 border-gray-200 rounded-lg p-4" onclick="launchIntegration('zapier')">
                                 <div class="flex items-center justify-between mb-2">
@@ -5817,7 +6102,7 @@
                                 </div>
                                 <p class="font-semibold text-sm">Zapier</p>
                                 <p class="text-xs text-gray-600">Automation</p>
-                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch â†’</p>
+                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch GåÆ</p>
                             </div>
                             <div class="tech-stack-card bg-white border-2 border-gray-200 rounded-lg p-4" onclick="launchIntegration('hubspot')">
                                 <div class="flex items-center justify-between mb-2">
@@ -5826,7 +6111,7 @@
                                 </div>
                                 <p class="font-semibold text-sm">HubSpot</p>
                                 <p class="text-xs text-gray-600">CRM</p>
-                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch â†’</p>
+                                <p class="text-xs text-green-600 mt-2 font-semibold">Click to Launch GåÆ</p>
                             </div>
                         </div>
                     </div>
@@ -6103,7 +6388,7 @@
                         </div>
                         
                         <p class="text-center text-sm text-gray-500">
-                            <i class="fas fa-lock mr-1"></i>Secure payment â€¢ 30-day money-back guarantee â€¢ Setup within 48 hours
+                            <i class="fas fa-lock mr-1"></i>Secure payment GÇó 30-day money-back guarantee GÇó Setup within 48 hours
                         </p>
                     </div>
                 </div>
@@ -6113,16 +6398,16 @@
 
         function completePackagePurchase(packageType) {
             const messages = {
-                starter: 'ðŸŽ‰ Starter Package selected! Perfect for small businesses. Our team will contact you within 2 hours.',
-                business: 'ðŸŽ‰ Business Package selected! Excellent choice for growing businesses. Our team will contact you within 2 hours.',
-                premium: 'ðŸŽ‰ Premium Package selected! Maximum efficiency for large organizations. Our team will contact you within 2 hours.'
+                starter: '=ƒÄë Starter Package selected! Perfect for small businesses. Our team will contact you within 2 hours.',
+                business: '=ƒÄë Business Package selected! Excellent choice for growing businesses. Our team will contact you within 2 hours.',
+                premium: '=ƒÄë Premium Package selected! Maximum efficiency for large organizations. Our team will contact you within 2 hours.'
             };
             alert(messages[packageType] || 'Package selected! Our team will contact you soon.');
             closeModal(document.querySelector('.fa-times'));
         }
         
         function schedulePackageConsultation(packageType) {
-            alert(`ðŸ“… Consultation scheduled for ${packageType} package! Our team will call you within 24 hours to discuss your needs.`);
+            alert(`=ƒôà Consultation scheduled for ${packageType} package! Our team will call you within 24 hours to discuss your needs.`);
             closeModal(document.querySelector('.fa-times'));
         }
 
@@ -6324,7 +6609,7 @@
                     
                     <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded">
                         <h4 class="font-bold text-yellow-800 mb-2">Implementation Time</h4>
-                        <p class="text-yellow-700">Setup in under 24 hours â€¢ Full training included â€¢ Ongoing support</p>
+                        <p class="text-yellow-700">Setup in under 24 hours GÇó Full training included GÇó Ongoing support</p>
                     </div>
                 </div>
             `;
@@ -6364,19 +6649,19 @@
                             <div class="bg-white p-4 rounded">
                                 <h5 class="font-semibold text-blue-800 mb-2">Before OOES</h5>
                                 <ul class="space-y-1 text-sm text-gray-600">
-                                    <li>â€¢ 20+ hours/week on admin tasks</li>
-                                    <li>â€¢ Manual processes everywhere</li>
-                                    <li>â€¢ Constant firefighting</li>
-                                    <li>â€¢ Missed deadlines</li>
+                                    <li>GÇó 20+ hours/week on admin tasks</li>
+                                    <li>GÇó Manual processes everywhere</li>
+                                    <li>GÇó Constant firefighting</li>
+                                    <li>GÇó Missed deadlines</li>
                                 </ul>
                             </div>
                             <div class="bg-green-50 p-4 rounded">
                                 <h5 class="font-semibold text-green-800 mb-2">After OOES</h5>
                                 <ul class="space-y-1 text-sm text-green-700">
-                                    <li>â€¢ 10+ hours/week saved</li>
-                                    <li>â€¢ Automated workflows</li>
-                                    <li>â€¢ Proactive management</li>
-                                    <li>â€¢ On-time delivery</li>
+                                    <li>GÇó 10+ hours/week saved</li>
+                                    <li>GÇó Automated workflows</li>
+                                    <li>GÇó Proactive management</li>
+                                    <li>GÇó On-time delivery</li>
                                 </ul>
                             </div>
                         </div>
@@ -8839,7 +9124,7 @@ function openITCompliance() {
         // Check if Accountant Portal is running
         async function checkAccountantPortalStatus() {
             try {
-                const response = await fetch('/accountant-portal/index.html', { 
+                const response = await fetch('http://localhost:3003', { 
                     method: 'HEAD',
                     mode: 'no-cors',
                     cache: 'no-cache'
@@ -8880,7 +9165,7 @@ function openITCompliance() {
         // Function to open Accountant Portal in new window
         function openAccountantPortal() {
             // Open Accountant Portal in new tab/window
-            window.open('/accountant-portal/index.html', '_blank');
+            window.open('http://localhost:3003', '_blank');
             
             // Show notification
             showNotification('Opening Accountant Portal...', 'success');
@@ -8889,7 +9174,7 @@ function openITCompliance() {
         // Function to open SQL System in new window
         function openSQLSystem() {
             // Open SQL System in new tab/window
-            window.open('/sql-system/index.html', '_blank');
+            window.open('http://localhost:3004', '_blank');
             
             // Show notification
             showNotification('Opening SQL Management System...', 'info');
@@ -8937,5 +9222,6 @@ function openITCompliance() {
 </script>
 </body>
 </html>
+ 
 
 
