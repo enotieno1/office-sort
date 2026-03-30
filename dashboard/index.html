@@ -1,3 +1,81 @@
-
-                                
-                
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OOES Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+.gradient-bg{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);}
+.stat-card{transition:all 0.3s ease;}
+.stat-card:hover{transform:translateY(-4px);box-shadow:0 10px 25px rgba(0,0,0,0.1);}
+.sidebar-link{display:flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:14px;transition:all 0.2s;}
+.sidebar-link:hover{background:rgba(255,255,255,0.15);}
+</style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+<div class="fixed inset-y-0 left-0 w-64 gradient-bg text-white z-50 flex flex-col">
+<div class="p-6 border-b border-white border-opacity-20">
+<h1 class="text-2xl font-bold">OOES</h1>
+<p class="text-xs text-indigo-200 mt-1">Office Operations</p>
+</div>
+<nav class="flex-1 p-4 space-y-1">
+<a href="index.html" class="sidebar-link bg-white bg-opacity-20 text-white">Dashboard</a>
+<a href="hr-system.html" class="sidebar-link text-indigo-100 hover:text-white">HR</a>
+<a href="financial-management.html" class="sidebar-link text-indigo-100 hover:text-white">Finance</a>
+<a href="tasks-management.html" class="sidebar-link text-indigo-100 hover:text-white">Tasks</a>
+<a href="document-management.html" class="sidebar-link text-indigo-100 hover:text-white">Documents</a>
+<a href="email-system.html" class="sidebar-link text-indigo-100 hover:text-white">Email</a>
+<a href="calendar-system.html" class="sidebar-link text-indigo-100 hover:text-white">Calendar</a>
+<a href="packages.html" class="sidebar-link text-indigo-100 hover:text-white">Packages</a>
+<a href="security-center.html" class="sidebar-link text-indigo-100 hover:text-white">Security</a>
+</nav>
+<div class="p-4 border-t border-white border-opacity-20">
+<p class="text-sm font-medium" data-user-name>User</p>
+<p class="text-xs text-indigo-200" data-user-email></p>
+<button onclick="OOES_AUTH.logout()" class="mt-2 text-xs text-red-200 hover:text-white">Logout</button>
+</div>
+</div>
+<div class="ml-64 flex flex-col min-h-screen">
+<header class="bg-white shadow-sm px-6 py-4 flex items-center justify-between sticky top-0 z-40">
+<div><h2 class="text-xl font-semibold text-gray-800">Good morning, <span data-user-name>there</span></h2>
+<p class="text-sm text-gray-500" id="current-date"></p></div>
+<button onclick="loadDashboard()" class="text-gray-500 hover:text-indigo-600 text-sm">Refresh</button>
+</header>
+<main class="p-6 flex-1">
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+<div class="stat-card bg-white rounded-xl p-6 shadow-sm border-l-4 border-indigo-500"><p class="text-sm text-gray-500">Employees</p><p class="text-3xl font-bold text-gray-800 mt-1" id="stat-employees">--</p><p class="text-xs text-gray-400 mt-2" id="stat-employees-sub">Loading...</p></div>
+<div class="stat-card bg-white rounded-xl p-6 shadow-sm border-l-4 border-green-500"><p class="text-sm text-gray-500">Transactions</p><p class="text-3xl font-bold text-gray-800 mt-1" id="stat-transactions">--</p><p class="text-xs text-gray-400 mt-2" id="stat-transactions-sub">Loading...</p></div>
+<div class="stat-card bg-white rounded-xl p-6 shadow-sm border-l-4 border-yellow-500"><p class="text-sm text-gray-500">Pending Tasks</p><p class="text-3xl font-bold text-gray-800 mt-1" id="stat-tasks">--</p><p class="text-xs text-gray-400 mt-2" id="stat-tasks-sub">Loading...</p></div>
+<div class="stat-card bg-white rounded-xl p-6 shadow-sm border-l-4 border-purple-500"><p class="text-sm text-gray-500">Documents</p><p class="text-3xl font-bold text-gray-800 mt-1" id="stat-documents">--</p><p class="text-xs text-gray-400 mt-2" id="stat-docs-sub">Loading...</p></div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">
+<div class="bg-white rounded-xl shadow-sm p-6"><div class="flex items-center justify-between mb-4"><h3 class="text-lg font-semibold text-gray-800">Upcoming Tasks</h3><a href="tasks-management.html" class="text-sm text-indigo-600">View all</a></div><div id="tasks-list"><p class="text-center text-gray-400 py-8">Loading...</p></div></div>
+<div class="bg-white rounded-xl shadow-sm p-6"><div class="flex items-center justify-between mb-4"><h3 class="text-lg font-semibold text-gray-800">Recent Transactions</h3><a href="financial-management.html" class="text-sm text-indigo-600">View all</a></div><div id="transactions-list"><p class="text-center text-gray-400 py-8">Loading...</p></div></div>
+</div>
+<div class="bg-white rounded-xl shadow-sm p-6"><h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<a href="hr-system.html" class="flex flex-col items-center p-4 bg-indigo-50 rounded-xl hover:bg-indigo-100 transition"><p class="text-sm text-gray-700 mt-2">Add Employee</p></a>
+<a href="tasks-management.html" class="flex flex-col items-center p-4 bg-yellow-50 rounded-xl hover:bg-yellow-100 transition"><p class="text-sm text-gray-700 mt-2">New Task</p></a>
+<a href="document-management.html" class="flex flex-col items-center p-4 bg-purple-50 rounded-xl hover:bg-purple-100 transition"><p class="text-sm text-gray-700 mt-2">Upload Doc</p></a>
+<a href="financial-management.html" class="flex flex-col items-center p-4 bg-green-50 rounded-xl hover:bg-green-100 transition"><p class="text-sm text-gray-700 mt-2">New Invoice</p></a>
+</div></div>
+</main></div>
+<script src="/dashboard/js/config.js"></script>
+<script src="/dashboard/js/db.js"></script>
+<script src="/dashboard/js/ooes-auth.js"></script>
+<script src="/dashboard/js/ooes-core.js"></script>
+<script>
+document.getElementById("current-date").textContent = new Date().toLocaleDateString("en-KE",{weekday:"long",year:"numeric",month:"long",day:"numeric"});
+async function loadDashboard(){
+  try{var e=await getEmployees();document.getElementById("stat-employees").textContent=e.length;document.getElementById("stat-employees-sub").textContent="Active staff";}catch(e){document.getElementById("stat-employees").textContent="0";}
+  try{var t=await getTransactions();document.getElementById("stat-transactions").textContent=t.length;var tot=t.reduce(function(s,x){return s+(parseFloat(x.amount)||0);},0);document.getElementById("stat-transactions-sub").textContent="KES "+tot.toLocaleString();document.getElementById("transactions-list").innerHTML=t.slice(0,5).map(function(x){var a=parseFloat(x.amount)||0;return "<div class='py-3 border-b border-gray-100 flex justify-between'><span class='text-sm text-gray-700'>"+(x.description||"Transaction")+"</span><span class='text-sm font-semibold "+(a>=0?"text-green-600":"text-red-600")+"'>"+(a>=0?"+":"")+"KES "+Math.abs(a).toLocaleString()+"</span></div>";}).join("");}catch(e){document.getElementById("stat-transactions").textContent="0";}
+  try{var k=await getTasks();var p=k.filter(function(x){return x.status!="done"&&x.status!="completed";});document.getElementById("stat-tasks").textContent=p.length;document.getElementById("stat-tasks-sub").textContent=k.length+" total";document.getElementById("tasks-list").innerHTML=k.slice(0,5).map(function(x){var d=x.status=="done"||x.status=="completed";return "<div class='py-3 border-b border-gray-100 flex justify-between items-center'><span class='text-sm "+(d?"line-through text-gray-400":"text-gray-700")+"' >"+(x.title||x.name||"Task")+"</span><span class='text-xs px-2 py-1 bg-gray-100 rounded-full' >"+(x.priority||"normal")+"</span></div>";}).join("");}catch(e){document.getElementById("stat-tasks").textContent="0";}
+  try{var d=await getDocuments();document.getElementById("stat-documents").textContent=d.length;document.getElementById("stat-docs-sub").textContent="Stored files";}catch(e){document.getElementById("stat-documents").textContent="0";}
+}
+document.addEventListener("DOMContentLoaded",loadDashboard);
+</script>
+</body>
+</html>
