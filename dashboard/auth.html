@@ -471,7 +471,7 @@
                 var session = OOES_AUTH.login(email, password);
                 if (session) {
                     showNotification('Welcome Back!', 'Signed in as ' + session.name, 'success');
-                    setTimeout(function() { window.location.href = 'index.html'; }, 1000);
+                    setTimeout(function() { window.location.href = '/dashboard/index.html'; }, 1000);
                 } else {
                     showNotification('Login Failed', 'Invalid email or password. Try demo@ooes.co.ke / Demo@2024', 'error');
                 }
@@ -491,7 +491,7 @@
             var result = OOES_AUTH.register(fn, ln, email, pw);
             if (result.error) { showNotification('Error', result.error, 'error'); return; }
             showNotification('Account Created!', 'Welcome ' + result.name, 'success');
-            setTimeout(function() { window.location.href = 'index.html'; }, 1000);
+            setTimeout(function() { window.location.href = '/dashboard/index.html'; }, 1000);
         }
 
         // Social Sign In
@@ -509,7 +509,7 @@
                 showNotification('Welcome!', `Successfully signed in with ${provider}`, 'success');
                 
                 setTimeout(() => {
-                    window.location.href = 'index.html';
+                    window.location.href = '/dashboard/index.html';
                 }, 1500);
             }, 1500);
         }
@@ -531,7 +531,7 @@
                 showNotification('Account Created!', `Your ${provider} account has been created`, 'success');
                 
                 setTimeout(() => {
-                    window.location.href = 'index.html';
+                    window.location.href = '/dashboard/index.html';
                 }, 1500);
             }, 1500);
         }
@@ -541,7 +541,7 @@
             const user = localStorage.getItem('ooesUser');
             if (user) {
                 // User is already logged in, redirect to dashboard
-                window.location.href = 'index.html';
+                window.location.href = '/dashboard/index.html';
             }
         }
 
@@ -586,7 +586,7 @@
         document.head.appendChild(style);
     
         function goBack() {
-            window.location.href = 'index.html';
+            window.location.href = '/dashboard/index.html';
         }
 
         function closeModal(element) {
