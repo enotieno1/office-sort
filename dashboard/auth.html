@@ -470,7 +470,7 @@
             setTimeout(function() {
                 var session = OOES_AUTH.login(email, password);
                 if (session) {
-                    showNotification('Welcome back, ' + session.name + '!', 'success');
+                    showNotification('Welcome Back!', 'Signed in as ' + session.name, 'success');
                     setTimeout(function() { window.location.href = 'index.html'; }, 1000);
                 } else {
                     showNotification('Login Failed', 'Invalid email or password. Try demo@ooes.co.ke / Demo@2024', 'error');
@@ -489,8 +489,8 @@
             if (pw !== cp) { showNotification('Error', 'Passwords do not match.', 'error'); return; }
             if (pw.length < 8) { showNotification('Error', 'Password must be 8+ characters.', 'error'); return; }
             var result = OOES_AUTH.register(fn, ln, email, pw);
-            if (result.error) { showNotification(result.error, 'error'); return; }
-            showNotification('Welcome, ' + result.name + '!', 'success');
+            if (result.error) { showNotification('Error', result.error, 'error'); return; }
+            showNotification('Account Created!', 'Welcome ' + result.name, 'success');
             setTimeout(function() { window.location.href = 'index.html'; }, 1000);
         }
 
