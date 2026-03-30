@@ -1,4 +1,4 @@
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 async function getEmployees() {
   const { data, error } = await supabase.from('employees').select('*');
