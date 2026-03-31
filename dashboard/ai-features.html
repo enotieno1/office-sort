@@ -481,11 +481,116 @@
     </main>
 
     <script>
+        const aiFeatureConfig = {
+            'document-processing': {
+                title: 'Document Processing AI',
+                icon: 'fa-file-alt',
+                prompt: 'You are an office document processing assistant for OfficeFlow. Help the user process, summarize, or extract information from documents. Ask what document they need help with.',
+                placeholder: 'Paste document text or describe what you need...'
+            },
+            'workflow-automation': {
+                title: 'Workflow Automation',
+                icon: 'fa-cogs',
+                prompt: 'You are a workflow automation expert for OfficeFlow. Help the user identify bottlenecks, suggest automations, and optimize office processes.',
+                placeholder: 'Describe your current workflow or process...'
+            },
+            'virtual-assistant': {
+                title: 'Virtual Office Assistant',
+                icon: 'fa-robot',
+                prompt: 'You are a helpful virtual office assistant for OfficeFlow. Help with scheduling, emails, tasks, and general office management queries.',
+                placeholder: 'Ask me anything about your office operations...'
+            },
+            'financial-intelligence': {
+                title: 'Financial Intelligence',
+                icon: 'fa-chart-line',
+                prompt: 'You are a financial analysis assistant for OfficeFlow. Help analyze financial data, identify trends, and provide insights on business performance.',
+                placeholder: 'Describe your financial data or ask for analysis...'
+            },
+            'hr-analytics': {
+                title: 'HR Analytics',
+                icon: 'fa-users',
+                prompt: 'You are an HR analytics assistant for OfficeFlow. Help with employee management, performance analysis, and HR best practices.',
+                placeholder: 'Ask about employee management, payroll, or HR policies...'
+            },
+            'compliance-monitor': {
+                title: 'Compliance Monitor',
+                icon: 'fa-shield-alt',
+                prompt: 'You are a compliance and regulatory assistant for OfficeFlow. Help ensure the business meets legal and regulatory requirements in Kenya.',
+                placeholder: 'Ask about compliance requirements or regulations...'
+            }
+        };
+
+        let aiChatHistory = [];
+        let currentFeature = null;
+
         function openAIFeature(feature) {
-            // Placeholder for AI feature detail modal
-            console.log('Opening AI feature:', feature);
-            alert(`AI Feature: ${feature}\n\nDetailed configuration and analytics would open here.`);
+            currentFeature = feature;
+            aiChatHistory = [];
+            const config = aiFeatureConfig[feature];
+            if (!config) return;
+
+            document.getElementById('aiModalTitle').textContent = config.title;
+            document.getElementById('aiChatMessages').innerHTML = '<div class="flex justify-start mb-4"><div class="bg-gray-700 text-gray-100 px-4 py-3 rounded-xl max-w-xs text-sm">Hello! I am your ' + config.title + '. How can I help you today?</div></div>';
+            document.getElementById('aiUserInput').placeholder = config.placeholder;
+            document.getElementById('aiModal').classList.remove('hidden');
+            document.getElementById('aiModal').style.display = 'flex';
         }
+
+        function closeAIModal() {
+            document.getElementById('aiModal').classList.add('hidden');
+            document.getElementById('aiModal').style.display = 'none';
+            aiChatHistory = [];
+        }
+
+        async function sendAIMessage() {
+            var input = document.getElementById('aiUserInput');
+            var msg = input.value.trim();
+            if (!msg) return;
+
+            var config = aiFeatureConfig[currentFeature];
+            var messages = document.getElementById('aiChatMessages');
+
+            // Add user message
+            messages.innerHTML += '<div class="flex justify-end mb-4"><div class="px-4 py-3 rounded-xl max-w-xs text-sm text-white" style="background:linear-gradient(135deg,#667eea,#764ba2)">' + msg + '</div></div>';
+            input.value = '';
+
+            // Add loading
+            var loadingId = 'loading-' + Date.now();
+            messages.innerHTML += '<div id="' + loadingId + '" class="flex justify-start mb-4"><div class="bg-gray-700 text-gray-400 px-4 py-3 rounded-xl text-sm">Thinking...</div></div>';
+            messages.scrollTop = messages.scrollHeight;
+
+            // Build history
+            aiChatHistory.push({role: 'user', content: msg});
+
+            try {
+                var response = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 1000,
+                        system: config.prompt + ' Keep responses concise and practical for a Kenyan business context.',
+                        messages: aiChatHistory
+                    })
+                });
+
+                var data = await response.json();
+                var reply = data.content && data.content[0] ? data.content[0].text : 'Sorry, I could not process that. Please try again.';
+
+                aiChatHistory.push({role: 'assistant', content: reply});
+
+                document.getElementById(loadingId).outerHTML = '<div class="flex justify-start mb-4"><div class="bg-gray-700 text-gray-100 px-4 py-3 rounded-xl max-w-sm text-sm" style="white-space:pre-wrap">' + reply + '</div></div>';
+            } catch(err) {
+                document.getElementById(loadingId).outerHTML = '<div class="flex justify-start mb-4"><div class="bg-red-900 text-red-200 px-4 py-3 rounded-xl max-w-xs text-sm">Error connecting to AI. Please try again.</div></div>';
+            }
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey && document.getElementById('aiModal') && document.getElementById('aiModal').style.display !== 'none') {
+                sendAIMessage();
+            }
+        });
 
         // Simulate real-time updates
         setInterval(() => {
