@@ -585,26 +585,27 @@
             document.getElementById('employeeModal').classList.remove('active');
         }
 
-        function saveEmployee() {
-            const formData = {
-                id: employees.length + 1,
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                department: document.getElementById('department').value,
-                position: document.getElementById('position').value,
-                startDate: document.getElementById('startDate').value,
-                salary: parseFloat(document.getElementById('salary').value),
-                status: 'active',
-                avatar: `https://picsum.photos/seed/${Math.random() > 0.5 ? 'female' : 'male'}/1920/600/24.jpg`
-            };
-            
-            employees.push(formData);
+        async function saveEmployee() {
+            var fn = document.getElementById('firstName').value;
+            var ln = document.getElementById('lastName').value;
+            var email = document.getElementById('email').value;
+            var phone = document.getElementById('phone').value;
+            var dept = document.getElementById('department').value;
+            var pos = document.getElementById('position').value;
+            var salary = parseFloat(document.getElementById('salary').value) || 0;
+            var newEmp = { name: fn+' '+ln, email: email, phone: phone, department: dept, salary: salary, status: 'active' };
+            try {
+                var result = await supabase.from('employees').insert([newEmp]).select();
+                if (result.error) throw result.error;
+                showNotification('Success', fn+' '+ln+' added successfully!', 'success');
+            } catch(err) {
+                console.log('Supabase error, saving locally:', err);
+                showNotification('Saved', fn+' '+ln+' added locally.', 'info');
+            }
+            employees.push({id:employees.length+1, firstName:fn, lastName:ln, email:email, phone:phone, department:dept, salary:salary, status:'active', avatar:'https://ui-avatars.com/api/?name='+encodeURIComponent(fn+' '+ln)+'&background=3B82F6&color=fff'});
             renderEmployeeTable();
             updateHRStats();
             closeEmployeeModal();
-            alert('Employee saved successfully!');
         }
 
         function viewEmployee(id) {
@@ -1525,23 +1526,23 @@
                 showNotification('Employee data loaded', 'success');
             }, 1000);
         }
-
-        function saveEmployee() {
-            const form = document.getElementById('employeeForm');
-            if (form) {
-                const formData = new FormData(form);
-                showNotification('Saving employee data...', 'info');
-                
-                setTimeout(() => {
-                    showNotification('Employee saved successfully!', 'success');
-                    closeModal(document.querySelector('#employeeModal button[onclick*="closeModal"]'));
-                }, 1500);
-            }
+//
+//        function saveEmployee() {
+//            const form = document.getElementById('employeeForm');
+//            if (form) {
+//                const formData = new FormData(form);
+//                showNotification('Saving employee data...', 'info');
+//                
+//                setTimeout(() => {
+//                    showNotification('Employee saved successfully!', 'success');
+//                    closeModal(document.querySelector('#employeeModal button[onclick*="closeModal"]'));
+//                }, 1500);
+//            }
         }
 
-        function deleteEmployee(employeeId) {
+        async function deleteEmployee(employeeId) {
             if (confirm('Are you sure you want to delete this employee?')) {
-                showNotification('Deleting employee...', 'info');
+                
                 setTimeout(() => {
                     showNotification('Employee deleted successfully', 'success');
                 }, 1000);
