@@ -709,37 +709,76 @@
         }
 
         function calculatePayroll() {
-            const basicSalary = parseFloat(document.getElementById('basicSalary').value) || 0;
-            const allowances = parseFloat(document.getElementById('allowances').value) || 0;
-            const overtimeRate = parseFloat(document.getElementById('overtimeRate').value) || 0;
-            const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
-            
-            const grossSalary = basicSalary + allowances;
-            const overtimePay = overtimeRate * 40 * 4; // Assuming 40 hours/week, 4 weeks
-            const tax = grossSalary * (taxRate / 100);
-            const netSalary = grossSalary + overtimePay - tax;
-            
-            const result = document.getElementById('payrollResult');
-            result.innerHTML = `
-                <div class="space-y-4">
-                    <div class="flex justify-between">
-                        <span class="text-gray-600">Gross Salary:</span>
-                        <span class="font-bold text-green-600">KSh ${grossSalary.toLocaleString()}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-600">Overtime:</span>
-                        <span class="font-bold text-blue-600">KSh ${overtimePay.toLocaleString()}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-600">Tax:</span>
-                        <span class="font-bold text-red-600">KSh ${tax.toLocaleString()}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-600">Net Salary:</span>
-                        <span class="font-bold text-purple-600">KSh ${netSalary.toLocaleString()}</span>
-                    </div>
-                </div>
-            `;
+            var basicSalary = parseFloat(document.getElementById('basicSalary').value) || 0;
+            var allowances = parseFloat(document.getElementById('allowances').value) || 0;
+            var overtimeRate = parseFloat(document.getElementById('overtimeRate').value) || 0;
+
+            var grossSalary = basicSalary + allowances + (overtimeRate * 8 * 4);
+
+            // NHIF (Kenya) - 2024 rates
+            var nhif = 0;
+            if (grossSalary <= 5999) nhif = 150;
+            else if (grossSalary <= 7999) nhif = 300;
+            else if (grossSalary <= 11999) nhif = 400;
+            else if (grossSalary <= 14999) nhif = 500;
+            else if (grossSalary <= 19999) nhif = 600;
+            else if (grossSalary <= 24999) nhif = 750;
+            else if (grossSalary <= 29999) nhif = 850;
+            else if (grossSalary <= 34999) nhif = 900;
+            else if (grossSalary <= 39999) nhif = 950;
+            else if (grossSalary <= 44999) nhif = 1000;
+            else if (grossSalary <= 49999) nhif = 1100;
+            else if (grossSalary <= 59999) nhif = 1200;
+            else if (grossSalary <= 69999) nhif = 1300;
+            else if (grossSalary <= 79999) nhif = 1400;
+            else if (grossSalary <= 89999) nhif = 1500;
+            else if (grossSalary <= 99999) nhif = 1600;
+            else nhif = 1700;
+
+            // NSSF (Kenya) - Tier I & II
+            var nssfTier1 = Math.min(grossSalary, 7000) * 0.06;
+            var nssfTier2 = Math.min(Math.max(grossSalary - 7000, 0), 29000) * 0.06;
+            var nssf = nssfTier1 + nssfTier2;
+
+            // KRA PAYE - 2024 tax bands
+            var taxableIncome = grossSalary - nssf - nhif;
+            var paye = 0;
+            if (taxableIncome <= 24000) paye = taxableIncome * 0.10;
+            else if (taxableIncome <= 32333) paye = 2400 + (taxableIncome - 24000) * 0.25;
+            else if (taxableIncome <= 500000) paye = 4483 + (taxableIncome - 32333) * 0.30;
+            else if (taxableIncome <= 800000) paye = 144483 + (taxableIncome - 500000) * 0.325;
+            else paye = 241983 + (taxableIncome - 800000) * 0.35;
+
+            // Personal relief
+            var personalRelief = 2400;
+            paye = Math.max(paye - personalRelief, 0);
+
+            var totalDeductions = paye + nhif + nssf;
+            var netSalary = grossSalary - totalDeductions;
+
+            var result = document.getElementById('payrollResult');
+            result.innerHTML =
+                '<div style="font-size:14px;">' +
+                '<div style="background:#f0fdf4;padding:12px;border-radius:8px;margin-bottom:12px;">' +
+                '<p style="font-weight:700;color:#166534;margin:0 0 8px;">GROSS EARNINGS</p>' +
+                '<div style="display:flex;justify-content:space-between;margin:4px 0;"><span style="color:#374151;">Basic Salary</span><span style="font-weight:600;">KES ' + basicSalary.toLocaleString() + '</span></div>' +
+                '<div style="display:flex;justify-content:space-between;margin:4px 0;"><span style="color:#374151;">Allowances</span><span style="font-weight:600;">KES ' + allowances.toLocaleString() + '</span></div>' +
+                '<div style="display:flex;justify-content:space-between;margin:4px 0;"><span style="color:#374151;">Overtime</span><span style="font-weight:600;">KES ' + (overtimeRate*8*4).toLocaleString() + '</span></div>' +
+                '<div style="display:flex;justify-content:space-between;border-top:1px solid #86efac;margin-top:8px;padding-top:8px;"><span style="font-weight:700;color:#166534;">Gross Total</span><span style="font-weight:700;color:#166534;">KES ' + grossSalary.toLocaleString() + '</span></div>' +
+                '</div>' +
+                '<div style="background:#fef2f2;padding:12px;border-radius:8px;margin-bottom:12px;">' +
+                '<p style="font-weight:700;color:#991b1b;margin:0 0 8px;">STATUTORY DEDUCTIONS</p>' +
+                '<div style="display:flex;justify-content:space-between;margin:4px 0;"><span style="color:#374151;">PAYE (KRA)</span><span style="font-weight:600;color:#dc2626;">- KES ' + Math.round(paye).toLocaleString() + '</span></div>' +
+                '<div style="display:flex;justify-content:space-between;margin:4px 0;"><span style="color:#374151;">NHIF</span><span style="font-weight:600;color:#dc2626;">- KES ' + nhif.toLocaleString() + '</span></div>' +
+                '<div style="display:flex;justify-content:space-between;margin:4px 0;"><span style="color:#374151;">NSSF (Tier I + II)</span><span style="font-weight:600;color:#dc2626;">- KES ' + Math.round(nssf).toLocaleString() + '</span></div>' +
+                '<div style="display:flex;justify-content:space-between;border-top:1px solid #fca5a5;margin-top:8px;padding-top:8px;"><span style="font-weight:700;color:#991b1b;">Total Deductions</span><span style="font-weight:700;color:#991b1b;">- KES ' + Math.round(totalDeductions).toLocaleString() + '</span></div>' +
+                '</div>' +
+                '<div style="background:#eff6ff;padding:16px;border-radius:8px;display:flex;justify-content:space-between;align-items:center;">' +
+                '<span style="font-size:16px;font-weight:700;color:#1e40af;">NET PAY</span>' +
+                '<span style="font-size:22px;font-weight:800;color:#1e40af;">KES ' + Math.round(netSalary).toLocaleString() + '</span>' +
+                '</div>' +
+                '<p style="color:#9ca3af;font-size:11px;margin-top:8px;text-align:center;">Based on 2024 KRA PAYE bands · NHIF rates · NSSF Tier I & II</p>' +
+                '</div>';
         }
 
         function generateEmployeeReport() {
